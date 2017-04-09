@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="basic_permissions">
+        <item>android.permission.ACCESS_NETWORK_STATE</item>
+        <item>android.permission.READ_PHONE_STATE</item>
+        <item>android.permission.READ_EXTERNAL_STORAGE</item>
+        <item>android.permission.WRITE_EXTERNAL_STORAGE</item>
+    </string-array>
+
+</resources>
