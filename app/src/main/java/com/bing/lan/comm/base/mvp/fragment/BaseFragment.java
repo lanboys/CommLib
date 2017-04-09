@@ -45,10 +45,16 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
     private PagerLayout mPagerLayout;
     private Unbinder mViewBind;
 
+    /**
+     * 获取标题
+     */
     public String getTitle() {
         return mTitle;
     }
 
+    /**
+     * 设置标题
+     */
     public void setTitle(String title) {
         mTitle = title;
     }
