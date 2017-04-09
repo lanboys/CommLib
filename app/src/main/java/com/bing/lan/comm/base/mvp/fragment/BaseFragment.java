@@ -313,8 +313,14 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
         return layoutInflater.inflate(getLayoutResId(), container, false);
     }
 
+    /**
+     * @return 获取布局id
+     */
     protected abstract int getLayoutResId();
 
+    /**
+     * pagerLayout加载出错的处理方式
+     */
     @Override
     public void OnErrorButtonClick(View v) {
         readyStart();
@@ -346,11 +352,21 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
 
     }
 
+    /**
+     * 显示对话框
+     *
+     * @param msg 显示的消息
+     */
     @Override
     public void showDialog(String msg) {
         DialogUtil.showAlertDialog(getActivity(), msg);
     }
 
+    /**
+     * 显示 吐司
+     *
+     * @param msg 显示的消息
+     */
     @Override
     public void showToast(String msg) {
         ToastUtil.showToast(msg);
