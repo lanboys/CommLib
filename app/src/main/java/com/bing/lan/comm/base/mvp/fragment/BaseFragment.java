@@ -45,6 +45,85 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
     private PagerLayout mPagerLayout;
     private Unbinder mViewBind;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        //启动di,可能第二次执行生命周期,故需要做个非空判断
+        if (mPresenter == null) {
+            //必须在子类注入,因为要注入的类型是泛型,只有在实现类才能确定
+            startInject(getFragmentComponent());
+            // mPresenter.onAttachView(this);
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // //启动di,可能第二次执行生命周期,故需要做个非空判断
+        // if (mPresenter == null) {
+        //     //必须在子类注入,因为要注入的类型是泛型,只有在实现类才能确定
+        //     startInject(getFragmentComponent());
+        // }
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        initWindowUI(inflater, container, savedInstanceState);
+        return mContentView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        resetErrorCount();
+        readyStart();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        log.d("onStart(): ");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        log.d("onResume(): ");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        //停止更新
+        stopUpdate();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (mViewBind != null) {
+            mViewBind.unbind();
+            mViewBind = null;
+        }
+        // AppUtil.MemoryLeakCheck(this);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        //解绑
+        if (mPresenter != null) {
+            mPresenter.onDetachView();
+            mPresenter = null;
+        }
+
+        // AppUtil.MemoryLeakCheck(this);
+    }
+
     /**
      * 获取标题
      */
@@ -81,6 +160,7 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
 
     /**
      * 获取 全局的view
+     *
      * @return contentView
      */
     public View getContentView() {
@@ -89,39 +169,18 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
 
     /**
      * 获取PagerLayout
+     *
      * @return mPagerLayout
      */
     public PagerLayout getPagerLayout() {
         return mPagerLayout;
     }
 
+    /**
+     * 隐藏对话框
+     */
     @Override
     public void dismissDialog() {
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // //启动di,可能第二次执行生命周期,故需要做个非空判断
-        // if (mPresenter == null) {
-        //     //必须在子类注入,因为要注入的类型是泛型,只有在实现类才能确定
-        //     startInject(getFragmentComponent());
-        // }
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        initWindowUI(inflater, container, savedInstanceState);
-        return mContentView;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        resetErrorCount();
-        readyStart();
     }
 
     private void readyStart() {
@@ -136,60 +195,6 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
                 setState2PagerLayout(PagerLayout.LoadDataResult.LOAD_SUCCESS);
             }
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        log.d("onStart(): ");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        log.d("onResume(): ");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        //停止更新
-        stopUpdate();
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        //解绑
-        if (mPresenter != null) {
-            mPresenter.onDetachView();
-            mPresenter = null;
-        }
-
-        // AppUtil.MemoryLeakCheck(this);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        //启动di,可能第二次执行生命周期,故需要做个非空判断
-        if (mPresenter == null) {
-            //必须在子类注入,因为要注入的类型是泛型,只有在实现类才能确定
-            startInject(getFragmentComponent());
-            // mPresenter.onAttachView(this);
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        if (mViewBind != null) {
-            mViewBind.unbind();
-            mViewBind = null;
-        }
-        // AppUtil.MemoryLeakCheck(this);
     }
 
     /**
@@ -292,6 +297,9 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
         mPagerLayout.setPagerState(loadDataResult);
     }
 
+    /**
+     * 重置 错误计数
+     */
     @Override
     public void resetErrorCount() {
         if (mPagerLayout == null) {
