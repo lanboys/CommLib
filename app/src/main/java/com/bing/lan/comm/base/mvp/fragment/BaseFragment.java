@@ -79,11 +79,19 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
         mHaveData = haveData;
     }
 
+    /**
+     * 获取 全局的view
+     * @return contentView
+     */
     public View getContentView() {
         return mContentView;
     }
 
-    public PagerLayout getLoadPage() {
+    /**
+     * 获取PagerLayout
+     * @return mPagerLayout
+     */
+    public PagerLayout getPagerLayout() {
         return mPagerLayout;
     }
 
