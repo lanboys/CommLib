@@ -9,7 +9,7 @@ import com.bing.lan.bing.cons.Constants;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.fragment.BaseFragment;
 import com.bing.lan.comm.di.FragmentComponent;
-import com.bing.lan.comm.view.LoadPageView;
+import com.bing.lan.comm.view.PagerLayout;
 
 import java.lang.ref.WeakReference;
 
@@ -42,7 +42,7 @@ public class SplashFragment extends BaseFragment<ISplashContract.ISplashPresente
 
     @Override
     protected void readyStartPresenter() {
-        setViewState2LoadPage(LoadPageView.LoadDataResult.LOAD_SUCCESS);
+        setState2PagerLayout(PagerLayout.LoadDataResult.LOAD_SUCCESS);
         mPresenter.onStart();
     }
 

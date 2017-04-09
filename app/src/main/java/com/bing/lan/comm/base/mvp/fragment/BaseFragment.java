@@ -17,7 +17,7 @@ import com.bing.lan.comm.utils.AppUtil;
 import com.bing.lan.comm.utils.DialogUtil;
 import com.bing.lan.comm.utils.LogUtil;
 import com.bing.lan.comm.utils.ToastUtil;
-import com.bing.lan.comm.view.LoadPageView;
+import com.bing.lan.comm.view.PagerLayout;
 
 import javax.inject.Inject;
 
@@ -31,7 +31,7 @@ import butterknife.Unbinder;
 public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragmentPresenter>
         extends Fragment
         implements IBaseFragmentContract.IBaseFragmentView<T>,
-        LoadPageView.OnErrorButtonListener/*, BGARefreshLayout.BGARefreshLayoutDelegate*/ {
+        PagerLayout.OnErrorButtonListener/*, BGARefreshLayout.BGARefreshLayoutDelegate*/ {
 
     @Inject
     protected LogUtil log;
@@ -42,7 +42,7 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
     protected View mContentView;
     protected String mTitle;
     protected boolean mHaveData;
-    private LoadPageView mLoadPage;
+    private PagerLayout mPagerLayout;
     private Unbinder mViewBind;
 
     public String getTitle() {
@@ -67,16 +67,13 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
         return mContentView;
     }
 
-    public LoadPageView getLoadPage() {
-        return mLoadPage;
+    public PagerLayout getLoadPage() {
+        return mPagerLayout;
     }
 
-    public void updateUIDisplay() {
-    }
     @Override
     public void dismissDialog() {
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,14 +102,14 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
 
     private void readyStart() {
         if (!mHaveData) {
-            if (mLoadPage != null) {
-                setViewState2LoadPage(LoadPageView.LoadDataResult.LOAD_LOADING);
+            if (mPagerLayout != null) {
+                setState2PagerLayout(PagerLayout.LoadDataResult.LOAD_LOADING);
             }
             //页面没有数据才启动p层逻辑
             readyStartPresenter();
         } else {
-            if (mLoadPage != null) {
-                setViewState2LoadPage(LoadPageView.LoadDataResult.LOAD_SUCCESS);
+            if (mPagerLayout != null) {
+                setState2PagerLayout(PagerLayout.LoadDataResult.LOAD_SUCCESS);
             }
         }
     }
@@ -187,40 +184,6 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
 
     protected abstract void readyStartPresenter();
 
-    // protected void initRefreshLayout(BGARefreshLayout refreshLayout) {
-    //
-    //     // 为BGARefreshLayout 设置代理
-    //     refreshLayout.setDelegate(this);
-    //     // 设置下拉刷新和上拉加载更多的风格
-    //     BGAMoocStyleRefreshViewHolder moocStyleRefreshViewHolder = new BGAMoocStyleRefreshViewHolder(AppUtil.getAppContext(), true);
-    //     moocStyleRefreshViewHolder.setOriginalImage(R.mipmap.defult_refresh_img_style);
-    //     moocStyleRefreshViewHolder.setUltimateColor(R.color.colorPrimary);
-    //
-    //     moocStyleRefreshViewHolder.setLoadingMoreText("正在加载中...");
-    //     // 设置下拉刷新和上拉加载更多的风格
-    //     refreshLayout.setRefreshViewHolder(moocStyleRefreshViewHolder);
-    // }
-
-    // protected BGARefreshViewHolder getRefreshViewHolder(   ) {
-    //
-    //     // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
-    //     BGAMoocStyleRefreshViewHolder moocStyleRefreshViewHolder =
-    //             new BGAMoocStyleRefreshViewHolder(AppUtil.getAppContext(), true);
-    //     moocStyleRefreshViewHolder.setOriginalImage(R.mipmap.defult_refresh_img_style);
-    //     moocStyleRefreshViewHolder.setUltimateColor(R.color.default_refresh_color_style);
-    //
-    //     // 设置下拉刷新和上拉加载更多的风格
-    //     moocStyleRefreshViewHolder.setLoadingMoreText("正在加载中...");
-    //     return moocStyleRefreshViewHolder;
-    // }
-
-    // public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-    // }
-    //
-    // public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-    //     return true;
-    // }
-
     /**
      * 默认打开加载页面(空页面,错误页面,正在加载页面)
      */
@@ -228,13 +191,13 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
         return true;
     }
 
-    /**
-     * 默认关闭下拉刷新(内置了scrollview,容易发生滑动冲突)
-     */
-    private boolean isOpenRefresh() {
-        //没必要使用的地方尽量关闭,不然嵌套太多层了
-        return false;
-    }
+    // /**
+    //  * 默认关闭下拉刷新(内置了scrollview,容易发生滑动冲突)
+    //  */
+    // private boolean isOpenRefresh() {
+    //     //没必要使用的地方尽量关闭,不然嵌套太多层了
+    //     return false;
+    // }
 
     private void initWindowUI(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (mContentView == null) {
@@ -259,38 +222,30 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
         //判断是否打开加载页面
         if (isOpenLoadPager()) {
             initLoadPager();
-            mContentView = mLoadPage;
+            mContentView = mPagerLayout;
         } else {
-            mContentView = initSuccessView(inflater, container);
+            mContentView = initSuccessPager(inflater, container);
         }
     }
 
     private void initLoadPager() {
-        mLoadPage = new LoadPageView(AppUtil.getAppContext(), isOpenRefresh()) {
-            // @Override
-            // protected void initRefreshLayout(BGARefreshLayout refreshLayout) {
-            //     BaseFragment.this.initRefreshLayout(refreshLayout);
-            // }
+        mPagerLayout = new PagerLayout(AppUtil.getAppContext()) {
 
             @Override
-            protected View initSuccessView(LayoutInflater inflater, ViewGroup parent) {
-                return BaseFragment.this.initSuccessView(inflater, parent);
+            protected View initSuccessPager(LayoutInflater inflater, ViewGroup parent) {
+                return BaseFragment.this.initSuccessPager(inflater, parent);
             }
-
-            // @Override
-            // public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-            //     BaseFragment.this.onBGARefreshLayoutBeginRefreshing(refreshLayout);
-            // }
-            //
-            // @Override
-            // public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-            //     return BaseFragment.this.onBGARefreshLayoutBeginLoadingMore(refreshLayout);
-            // }
         };
         //点击错误页面的的加载按钮重新加载
-        mLoadPage.setErrorButtonListener(this);
+        mPagerLayout.setErrorButtonListener(this);
     }
 
+    /**
+     * 初始化数据 和 UI
+     *
+     * @param intent    activity 中的intent
+     * @param arguments fragment中的bundle
+     */
     protected abstract void initViewAndData(Intent intent, Bundle arguments);
 
     protected FragmentComponent getFragmentComponent() {
@@ -299,27 +254,30 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
                 .build();
     }
 
+    /**
+     * 启动注入
+     */
     protected abstract void startInject(FragmentComponent fragmentComponent);
 
     @Override
-    public void setViewState2LoadPage(LoadPageView.LoadDataResult loadDataResult) {
-        if (mLoadPage == null) {
-            log.w("setViewState2LoadPage(): mLoadPage == null");
+    public void setState2PagerLayout(PagerLayout.LoadDataResult loadDataResult) {
+        if (mPagerLayout == null) {
+            log.w("setState2PagerLayout(): mPagerLayout == null");
             return;
         }
-        mLoadPage.setPagerState(loadDataResult);
+        mPagerLayout.setPagerState(loadDataResult);
     }
 
     @Override
     public void resetErrorCount() {
-        if (mLoadPage == null) {
-            log.w("resetErrorCount(): mLoadPage == null");
+        if (mPagerLayout == null) {
+            log.w("resetErrorCount(): mPagerLayout == null");
             return;
         }
-        mLoadPage.resetErrorCount();
+        mPagerLayout.resetErrorCount();
     }
 
-    protected View initSuccessView(LayoutInflater layoutInflater, ViewGroup container) {
+    protected View initSuccessPager(LayoutInflater layoutInflater, ViewGroup container) {
         return layoutInflater.inflate(getLayoutResId(), container, false);
     }
 

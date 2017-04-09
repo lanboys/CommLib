@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import com.bing.lan.comm.base.mvp.IBaseContract.IBaseModule;
 import com.bing.lan.comm.base.mvp.IBaseContract.IBasePresenter;
 import com.bing.lan.comm.base.mvp.IBaseContract.IBaseView;
-import com.bing.lan.comm.view.LoadPageView;
+import com.bing.lan.comm.view.PagerLayout;
 
 public interface IBaseFragmentContract {
 
@@ -16,7 +16,7 @@ public interface IBaseFragmentContract {
 
         void reStartUpdate();
 
-        void setViewState2LoadPage(LoadPageView.LoadDataResult loadDataResult);
+        void setState2PagerLayout(PagerLayout.LoadDataResult loadDataResult);
 
         void resetErrorCount();
 

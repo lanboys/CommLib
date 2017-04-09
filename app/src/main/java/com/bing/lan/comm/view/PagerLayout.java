@@ -14,7 +14,7 @@ import com.bing.lan.comm.utils.LogUtil;
  * @author 蓝兵
  * @time 2017/1/10  18:42
  */
-public abstract class LoadPageView extends FrameLayout {
+public abstract class PagerLayout extends FrameLayout {
 
     private static final int STATE_EMPTY = 0;
     private static final int STATE_ERROR = 1;
@@ -25,7 +25,7 @@ public abstract class LoadPageView extends FrameLayout {
      */
     private static final int RELOAD_TIMES = 2;
     protected LogUtil log = LogUtil.getLogUtil(getClass(), 1);
-    private boolean mIsOpenRefresh;
+    // private boolean mIsOpenRefresh;
     private View mEmptyPager;
     private View mErrorPager;
     private View mLoadingPager;
@@ -34,29 +34,14 @@ public abstract class LoadPageView extends FrameLayout {
 
     private OnErrorButtonListener mErrorButtonListener;
     private int mErrorCount;
-    // private BGARefreshLayout mRefreshLayout;
 
-    public LoadPageView(Context context) {
-        this(context, true);
+    public PagerLayout(Context context) {
+        this(context, null);
     }
 
-    public LoadPageView(Context context, boolean openRefresh) {
-        this(context, null, openRefresh);
-    }
-
-    public LoadPageView(Context context, AttributeSet attrs, boolean openRefresh) {
+    public PagerLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.mIsOpenRefresh = openRefresh;
-        initCommonView(context);
-    }
-
-    /**
-     * 设置错误按钮的监听器
-     *
-     * @param errorButtonListener
-     */
-    public void setErrorButtonListener(OnErrorButtonListener errorButtonListener) {
-        mErrorButtonListener = errorButtonListener;
+        initView(context);
     }
 
     /**
@@ -81,15 +66,22 @@ public abstract class LoadPageView extends FrameLayout {
         return R.layout.pager_error;
     }
 
+    /**
+     * 初始化 空页面
+     */
     private void initEmptyPager() {
         mEmptyPager = View.inflate(getContext(), getPagerEmpty(), null);
         this.addView(mEmptyPager, 0);
     }
 
+    /**
+     * 初始化 错误页面
+     */
     private void initErrorPager() {
-        mErrorPager = View.inflate(getContext(), getPagerEmpty(), null);
+        mErrorPager = View.inflate(getContext(), getPagerError(), null);
         this.addView(mErrorPager, 0);
 
+        //错误页面设置点击事件
         mErrorPager.findViewById(R.id.error_btn_retry).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +97,16 @@ public abstract class LoadPageView extends FrameLayout {
         });
     }
 
-    private void initCommonView(Context context) {
+    /**
+     * 设置错误按钮的监听器
+     *
+     * @param errorButtonListener 监听器
+     */
+    public void setErrorButtonListener(OnErrorButtonListener errorButtonListener) {
+        mErrorButtonListener = errorButtonListener;
+    }
+
+    private void initView(Context context) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -121,15 +122,18 @@ public abstract class LoadPageView extends FrameLayout {
         mLoadingPager = View.inflate(context, getPagerLoading(), null);
         this.addView(mLoadingPager, 0);
 
-        mSuccessPager = initSuccessView(inflater, this);
+        mSuccessPager = initSuccessPager(inflater, this);
         if (mSuccessPager != null) {
             this.addView(mSuccessPager, 0);
         }
 
-
-
         refreshPagerByState();
     }
+
+    /**
+     * 初始化数据加载成功的页面,子类必须重写该方法
+     */
+    protected abstract View initSuccessPager(LayoutInflater inflater, ViewGroup parent);
 
     /**
      * 通过状态 更新页面显示
@@ -143,6 +147,7 @@ public abstract class LoadPageView extends FrameLayout {
             mErrorPager.setVisibility(GONE);
         }
 
+        //懒加载
         switch (mCurrentState) {
             case STATE_EMPTY:
                 if (mEmptyPager == null) {
@@ -168,16 +173,14 @@ public abstract class LoadPageView extends FrameLayout {
         }
     }
 
-    protected abstract View initSuccessView(LayoutInflater inflater, ViewGroup parent);
-
     /**
-     * 外界接口
+     * 外界设置页面状态的接口
      *
-     * @param viewState 加载数据的结果
+     * @param pagerState 加载数据的结果
      */
-    public void setPagerState(LoadDataResult viewState) {
+    public void setPagerState(LoadDataResult pagerState) {
 
-        mCurrentState = viewState.getState();
+        mCurrentState = pagerState.getState();
 
         //在此判断,防止在错误重试页面,用户不断点击重试按钮
         //记录显示错误页面的次数,次数大于RELOAD_TIMES将显示空白界面
