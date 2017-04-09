@@ -59,11 +59,21 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
         mTitle = title;
     }
 
+    /**
+     * 判断是否已经有数据
+     *
+     * @return 返回是否有数据状态
+     */
     @Override
     public boolean isHaveData() {
         return mHaveData;
     }
 
+    /**
+     * 设置是否有数据状态
+     *
+     * @param haveData true 有数据
+     */
     @Override
     public void setHaveData(boolean haveData) {
         mHaveData = haveData;
