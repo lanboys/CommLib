@@ -2,8 +2,6 @@ package com.bing.lan.comm.di;
 
 import android.app.Activity;
 
-import com.bing.lan.comm.api.ApiManager;
-import com.bing.lan.comm.api.ApiService;
 import com.bing.lan.comm.utils.LogUtil;
 
 import dagger.Module;
@@ -29,10 +27,10 @@ public class DiModule {
     //     this.clz = clz;
     // }
 
-    @Provides
-    public ApiService provideApiService() {
-        return ApiManager.getApiService();
-    }
+    // @Provides
+    // public ApiService provideApiService() {
+    //     return ApiManager.getInstance().getApiService();
+    // }
 
     @Provides
     public LogUtil provideLogCat() {

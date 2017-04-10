@@ -1,5 +1,7 @@
 package com.bing.lan.comm.api;
 
+import com.bing.lan.comm.api.service.UserApi;
+import com.bing.lan.comm.api.service.XimaApiService;
 import com.bing.lan.comm.config.AppConfig;
 import com.bing.lan.comm.utils.AppUtil;
 import com.bing.lan.comm.utils.LogUtil;
@@ -27,40 +29,81 @@ public class ApiManager {
     private static final int DEFAULT_CONN_TIMEOUT = 2;
     private static final int WRITE_TIMEOUT = 20;
     private static final int READ_TIMEOUT = 20;
-    private static ApiManager instance;
-    private static ApiService sApiService;
+
+    private static ApiManager instance = new ApiManager();
+    private static OkHttpClient sOkHttpClient;
+    private static Gson sGson;
+
     protected final LogUtil log = LogUtil.getLogUtil(getClass(), LogUtil.LOG_VERBOSE);
-    private Retrofit mRetrofit;
+
+    private Retrofit mApiRetrofit;
+    private XimaApiService mApiService;
+    private UserApi mUserApi;
+
+
+
+
+    public static ApiManager getInstance() {
+        return instance;
+    }
 
     private ApiManager() {
-        OkHttpClient httpClient = getClientBuilder().build();
-        Gson gson = getGsonBuilder().create();
+        if (sOkHttpClient == null) {
+            sOkHttpClient = getClientBuilder().build();
+        }
+        if (sGson == null) {
+            sGson = getGsonBuilder().create();
+        }
+    }
 
-        // create unique instance
-        mRetrofit = new Retrofit.Builder()
-                .baseUrl(ApiService.BASE_URL)
-                .client(httpClient)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+    private Retrofit getRetrofit(String baseUrl) {
+        return new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .client(sOkHttpClient)
+                .addConverterFactory(GsonConverterFactory.create(sGson))
                 // .addConverterFactory(ScalarsConverterFactory.create())
                 // .addConverterFactory(FastJsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
     }
 
-    private static ApiManager getInstance() {
-        if (instance == null) {
-            instance = new ApiManager();
+    //===================================================
+    //===================================================
+    public XimaApiService getApiService() {
+        if (mApiService == null) {
+            initApiService();
         }
-        return instance;
+        return mApiService;
     }
 
-    public static ApiService getApiService() {
-        if (sApiService == null) {
-            sApiService = getInstance().mRetrofit.create(ApiService.class);
+    private void initApiService() {
+        if (mApiRetrofit == null) {
+            mApiRetrofit = getRetrofit(ApiBaseUrl.XIMA_BASE_URL);
         }
-        // sApiService = getInstance().mRetrofit.create(ApiService.class);
-        return sApiService;
+        mApiService = mApiRetrofit.create(XimaApiService.class);
     }
+
+    //===================================================
+    //===================================================
+
+    //===================================================
+    //===================================================
+
+    public UserApi getUserApiService() {
+        if (mUserApi == null) {
+            initUserApiService();
+        }
+        return mUserApi;
+    }
+
+    private void initUserApiService() {
+        if (mApiRetrofit == null) {
+            mApiRetrofit = getRetrofit(ApiBaseUrl.XIMA_BASE_URL);
+        }
+        mUserApi = mApiRetrofit.create(UserApi.class);
+    }
+    //===================================================
+    //===================================================
 
     private OkHttpClient.Builder getClientBuilder() {
 

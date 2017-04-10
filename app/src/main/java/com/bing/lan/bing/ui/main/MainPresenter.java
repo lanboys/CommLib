@@ -22,6 +22,7 @@ public class MainPresenter extends BaseActivityPresenter<IMainContract.IMainView
 
     @Override
     public void onStart(Object... params) {
+      //  mModule.requestData(1,this);
         handleSplashUI();
     }
 

@@ -109,7 +109,6 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
             mViewBind.unbind();
             mViewBind = null;
         }
-        // AppUtil.MemoryLeakCheck(this);
     }
 
     @Override
@@ -120,8 +119,7 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
             mPresenter.onDetachView();
             mPresenter = null;
         }
-
-        // AppUtil.MemoryLeakCheck(this);
+        AppUtil.MemoryLeakCheck(this);
     }
 
     /**

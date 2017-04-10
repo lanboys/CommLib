@@ -1,6 +1,5 @@
 package com.bing.lan.comm.base.mvp;
 
-import com.bing.lan.comm.api.ApiService;
 import com.bing.lan.comm.api.BaseSubscriber;
 import com.bing.lan.comm.di.DaggerDiComponent;
 import com.bing.lan.comm.di.DiModule;
@@ -23,8 +22,8 @@ import rx.schedulers.Schedulers;
  */
 public abstract class BaseModule implements IBaseContract.IBaseModule {
 
-    @Inject
-    protected ApiService mApiService;
+    //@Inject
+    //protected ApiService mApiService;
 
     @Inject
     protected LogUtil log;

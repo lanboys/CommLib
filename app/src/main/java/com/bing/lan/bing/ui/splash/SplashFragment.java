@@ -22,6 +22,7 @@ public class SplashFragment extends BaseFragment<ISplashContract.ISplashPresente
     @BindView(R.id.splash_container)
     RelativeLayout mSplashContainer;
 
+
     public static SplashFragment newInstance(String title) {
         SplashFragment fragment = new SplashFragment();
         Bundle args = new Bundle();
@@ -48,13 +49,15 @@ public class SplashFragment extends BaseFragment<ISplashContract.ISplashPresente
 
     @Override
     protected void initViewAndData(Intent intent, Bundle arguments) {
-
+        mSplashContainer = (RelativeLayout) mContentView.findViewById(R.id.splash_container);
     }
 
+    @Override
     public void startAnimation() {
         mSplashContainer.animate().alpha(1.0f).setDuration(3000).setListener(new Listener(this));
     }
 
+    @Override
     public void animationFinished() {
         // startActivity(MainActivity.class, true, true);
         // mSplashContainer.animate().translationX(-800).setDuration(500);

@@ -88,7 +88,7 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
             mPresenter.onDetachView();
         }
 
-        // AppUtil.MemoryLeakCheck(this);
+        AppUtil.MemoryLeakCheck(this);
     }
 
     protected abstract int getLayoutResId();

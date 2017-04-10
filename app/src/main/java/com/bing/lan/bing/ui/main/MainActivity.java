@@ -44,6 +44,7 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
     @Override
     public void showSplashFragment() {
         if (mSplashFragment == null) {
+
             mSplashFragment = SplashFragment.newInstance("");
 
             // start transaction
