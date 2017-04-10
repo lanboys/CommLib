@@ -1,7 +1,8 @@
 package com.bing.lan.comm.utils;
 
+import android.util.Log;
+
 import com.bing.lan.comm.config.AppConfig;
-import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -140,41 +141,41 @@ public class LogUtil {
     }
 
     private void print(int level, String tag, String msg, Throwable throwable) {
-        // switch (level) {
-        //     case LOG_VERBOSE:
-        //         Log.v(tag, msg);
-        //         break;
-        //     case LOG_INFO:
-        //         Log.i(tag, msg);
-        //         break;
-        //     case LOG_DEBUG:
-        //         Log.d(tag, msg);
-        //         break;
-        //     case LOG_WARN:
-        //         Log.w(tag, msg, throwable);
-        //         break;
-        //     case LOG_ERROR:
-        //         Log.e(tag, msg, throwable);
-        //         break;
-        // }
-
         switch (level) {
             case LOG_VERBOSE:
-                Logger.t(tag).v(msg);
+                Log.v(tag, msg);
                 break;
             case LOG_INFO:
-                Logger.t(tag).i(msg);
+                Log.i(tag, msg);
                 break;
             case LOG_DEBUG:
-                Logger.t(tag).d(msg);
+                Log.d(tag, msg);
                 break;
             case LOG_WARN:
-                Logger.t(tag).w(msg, throwable);
+                Log.w(tag, msg, throwable);
                 break;
             case LOG_ERROR:
-                Logger.t(tag).e(throwable, msg);
+                Log.e(tag, msg, throwable);
                 break;
         }
+
+        // switch (level) {
+        //     case LOG_VERBOSE:
+        //         Logger.t(tag).v(msg);
+        //         break;
+        //     case LOG_INFO:
+        //         Logger.t(tag).i(msg);
+        //         break;
+        //     case LOG_DEBUG:
+        //         Logger.t(tag).d(msg);
+        //         break;
+        //     case LOG_WARN:
+        //         Logger.t(tag).w(msg, throwable);
+        //         break;
+        //     case LOG_ERROR:
+        //         Logger.t(tag).e(throwable, msg);
+        //         break;
+        // }
     }
 
     ////////////log verbose/////////////
