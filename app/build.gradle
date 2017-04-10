@@ -109,6 +109,9 @@ dependencies {
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakCanaryVersion"
     //testCompile "com.squareup.leakcanary:leakcanary‐android‐no‐op:$rootProject.leakCanaryVersion"
 
+    // log
+    compile "com.orhanobut:logger:$rootProject.loggerVersion"
+
     //api23抛弃了httpclient,继续使用httpclient
     compile 'org.apache.httpcomponents:httpcore:4.3.2'
     //api23抛弃了httpclient,继续使用httpclient

@@ -1,8 +1,7 @@
 package com.bing.lan.comm.utils;
 
-import android.util.Log;
-
 import com.bing.lan.comm.config.AppConfig;
+import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,12 +16,11 @@ public class LogUtil {
     public static final int LOG_ERROR = 5;
     public static final int LOG_NONE = 6;
 
-    /* date formatter */
+    /* 日期格式 */
     private static SimpleDateFormat formatter = new SimpleDateFormat("MM-dd HH:mm:ss", Locale.CHINA);
-
-    /* global log level and default value is LOG_ERROR */
+    /* 全局默认log打印等级 LOG_ERROR */
     private static int GLOBAL_LOG_LEVEL = LOG_ERROR;
-    /* default prefix of tag */
+    /* 默认的前缀 */
     private static String TAG_PREFIX = AppConfig.TAG_PREFIX;
     private static boolean IS_OPEN = true;
     /* current class log level */
@@ -41,6 +39,7 @@ public class LogUtil {
 
     /**
      * set global log level
+     * 更改全局log等级
      */
     public static void setGlobalLogLevel(int level) {
         GLOBAL_LOG_LEVEL = level;
@@ -50,8 +49,7 @@ public class LogUtil {
      * log tag equal clz name and log level equal logLevel
      *
      * @param clz      xx.getClass() or xx.class
-     * @param logLevel
-     * @return
+     * @param logLevel 设置打印log的等级
      */
     public static LogUtil getLogUtil(Class clz, int logLevel) {
         return new LogUtil(clz, logLevel);
@@ -87,16 +85,18 @@ public class LogUtil {
     }
 
     /**
-     * @param level
-     * @return
+     * @param level 根据log等级 确定是否打印
+     * @return true 打印
      */
     private boolean ensureLevel(int level) {
         //日志总开关
         if (!IS_OPEN) {
             return false;
         }
-        //确定打印级别,true,则打印
-        return (GLOBAL_LOG_LEVEL <= level || mLogLevel < level);
+        //GLOBAL_LOG_LEVEL 以上等级一定打印
+        //e.g.: mLogLevel = 1; level = 1; 2; 3; 4; 5; ... 打印
+        //e.g.: mLogLevel = 2; level = 2; 3; 4; 5; ... 打印
+        return (GLOBAL_LOG_LEVEL <= level || mLogLevel <= level);
     }
 
     private void verbose(String tag, String msg, boolean format) {
@@ -104,7 +104,7 @@ public class LogUtil {
             return;
         if (format)
             msg = getFormat(msg, LOG_VERBOSE);
-        Log.v(tag, msg);
+        print(LOG_VERBOSE, tag, msg, null);
     }
 
     private void info(String tag, String msg, boolean format) {
@@ -112,7 +112,7 @@ public class LogUtil {
             return;
         if (format)
             msg = getFormat(msg, LOG_INFO);
-        Log.i(tag, msg);
+        print(LOG_INFO, tag, msg, null);
     }
 
     private void debug(String tag, String msg, boolean format) {
@@ -120,7 +120,7 @@ public class LogUtil {
             return;
         if (format)
             msg = getFormat(msg, LOG_DEBUG);
-        Log.d(tag, msg);
+        print(LOG_DEBUG, tag, msg, null);
     }
 
     private void warn(String tag, String msg, Throwable tr, boolean format) {
@@ -128,7 +128,7 @@ public class LogUtil {
             return;
         if (format)
             msg = getFormat(msg, LOG_WARN);
-        Log.w(tag, msg, tr);
+        print(LOG_WARN, tag, msg, tr);
     }
 
     private void error(String tag, String msg, Throwable tr, boolean format) {
@@ -136,7 +136,45 @@ public class LogUtil {
             return;
         if (format)
             msg = getFormat(msg, LOG_ERROR);
-        Log.e(tag, msg, tr);
+        print(LOG_ERROR, tag, msg, tr);
+    }
+
+    private void print(int level, String tag, String msg, Throwable throwable) {
+        // switch (level) {
+        //     case LOG_VERBOSE:
+        //         Log.v(tag, msg);
+        //         break;
+        //     case LOG_INFO:
+        //         Log.i(tag, msg);
+        //         break;
+        //     case LOG_DEBUG:
+        //         Log.d(tag, msg);
+        //         break;
+        //     case LOG_WARN:
+        //         Log.w(tag, msg, throwable);
+        //         break;
+        //     case LOG_ERROR:
+        //         Log.e(tag, msg, throwable);
+        //         break;
+        // }
+
+        switch (level) {
+            case LOG_VERBOSE:
+                Logger.t(tag).v(msg);
+                break;
+            case LOG_INFO:
+                Logger.t(tag).i(msg);
+                break;
+            case LOG_DEBUG:
+                Logger.t(tag).d(msg);
+                break;
+            case LOG_WARN:
+                Logger.t(tag).w(msg, throwable);
+                break;
+            case LOG_ERROR:
+                Logger.t(tag).e(throwable, msg);
+                break;
+        }
     }
 
     ////////////log verbose/////////////
@@ -148,6 +186,7 @@ public class LogUtil {
         verbose(tag, msg, false);
     }
 
+    ////////////log verbose/////////////
     public void vfmat(String msg) {
         vfmat(tag, msg);
     }
@@ -165,6 +204,7 @@ public class LogUtil {
         info(tag, msg, false);
     }
 
+    ////////////log info/////////////
     public void ifmat(String msg) {
         ifmat(tag, msg);
     }
@@ -182,6 +222,7 @@ public class LogUtil {
         debug(tag, msg, false);
     }
 
+    ////////////log debug/////////////
     public void dfmat(String msg) {
         dfmat(tag, msg);
     }
@@ -195,24 +236,25 @@ public class LogUtil {
         w(tag, msg);
     }
 
-    private void w(String tag, String msg) {
-        w(tag, msg, null);
-    }
-
     public void w(String msg, Throwable tr) {
         w(tag, msg, tr);
+    }
+
+    private void w(String tag, String msg) {
+        w(tag, msg, null);
     }
 
     private void w(String tag, String msg, Throwable tr) {
         warn(tag, msg, tr, false);
     }
 
-    public void wfmat(String msg) {
-        wfmat(tag, msg);
-    }
-
+    ////////////log warn/////////////
     private void wfmat(String tag, String msg) {
         wfmat(tag, msg, null);
+    }
+
+    public void wfmat(String msg) {
+        wfmat(tag, msg);
     }
 
     public void wfmat(String msg, Throwable tr) {
@@ -228,28 +270,29 @@ public class LogUtil {
         e(tag, msg, null);
     }
 
-    private void e(String tag, String msg) {
-        e(tag, msg, null);
-    }
-
     public void e(String msg, Throwable tr) {
         e(tag, msg, tr);
+    }
+
+    private void e(String tag, String msg) {
+        e(tag, msg, null);
     }
 
     private void e(String tag, String msg, Throwable tr) {
         error(tag, msg, tr, false);
     }
 
+    ////////////log error/////////////
     public void efmat(String msg) {
-        efmat(tag, msg, null);
-    }
-
-    private void efmat(String tag, String msg) {
         efmat(tag, msg, null);
     }
 
     public void efmat(String msg, Throwable tr) {
         efmat(tag, msg, tr);
+    }
+
+    private void efmat(String tag, String msg) {
+        efmat(tag, msg, null);
     }
 
     private void efmat(String tag, String msg, Throwable tr) {
