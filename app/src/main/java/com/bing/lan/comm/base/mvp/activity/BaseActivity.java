@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.IBaseActivityContract.IBaseActivityPresenter;
@@ -27,7 +28,6 @@ import com.bing.lan.comm.utils.DialogUtil;
 import com.bing.lan.comm.utils.ImmersionUtil;
 import com.bing.lan.comm.utils.LogUtil;
 import com.bing.lan.comm.utils.SPUtil;
-import com.bing.lan.comm.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -205,8 +205,8 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
 
     @Override
     public void showToast(String msg) {
-        ToastUtil.showToast(msg);
-        // Toast.makeText(AppUtil.getAppContext(), msg, Toast.LENGTH_SHORT).show();
+        //ToastUtil.showToast(msg);
+         Toast.makeText(AppUtil.getAppContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override

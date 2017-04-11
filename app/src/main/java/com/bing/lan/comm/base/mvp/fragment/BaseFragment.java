@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.DaggerFragmentComponent;
@@ -16,7 +17,6 @@ import com.bing.lan.comm.di.FragmentModule;
 import com.bing.lan.comm.utils.AppUtil;
 import com.bing.lan.comm.utils.DialogUtil;
 import com.bing.lan.comm.utils.LogUtil;
-import com.bing.lan.comm.utils.ToastUtil;
 import com.bing.lan.comm.view.PagerLayout;
 
 import javax.inject.Inject;
@@ -367,7 +367,9 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
      */
     @Override
     public void showToast(String msg) {
-        ToastUtil.showToast(msg);
+       // ToastUtil.showToast(msg);
+        Toast.makeText(AppUtil.getAppContext(), msg, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

@@ -23,7 +23,9 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.bing.lan.comm.app.AppBlockCanaryContext;
 import com.bing.lan.comm.utils.load.ImageLoader;
+import com.github.moduth.blockcanary.BlockCanary;
 import com.google.gson.Gson;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -66,19 +68,31 @@ public class AppUtil {
         sThreadId = Process.myTid();
         sCacheMap = new HashMap<>();
         sResources = sContext.getResources();
-        // add leak canary
-        initLeakCanary(sApplication);
+        // add canary
+        initCanary(sApplication);
         // realm init
         RealmManager.initRealm(sContext);
         //ImageLoader init
         ImageLoader.init(application);
     }
 
+    // 初始化 LeakCanary 和 BlockCanary
+    private static void initCanary(Application application) {
+        initLeakCanary(application);
+        initBlockCanary(application);
+    }
+
+    // 内存泄露检测
     private static void initLeakCanary(Application application) {
         if (LeakCanary.isInAnalyzerProcess(application)) {
             return;
         }
         sWatcher = LeakCanary.install(application);
+    }
+
+    // 卡顿检测
+    private static void initBlockCanary(Application application) {
+        BlockCanary.install(application, new AppBlockCanaryContext()).start();
     }
 
     public static void putGlobal(String key, Object value) {
@@ -616,7 +630,7 @@ public class AppUtil {
         } catch (PackageManager.NameNotFoundException e) {
             log.e("getVersionName: ", e);
         }
-        return null;
+        return "";
     }
 
     public static boolean isInstalled(String packageName) {

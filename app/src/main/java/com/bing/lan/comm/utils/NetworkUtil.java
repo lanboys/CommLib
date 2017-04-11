@@ -17,17 +17,24 @@ import java.util.Enumeration;
 
 public class NetworkUtil {
 
-    public static int NET_CNNT_BAIDU_OK = 1; // NetworkAvailable
-    public static int NET_CNNT_BAIDU_TIMEOUT = 2; // no NetworkAvailable
-    public static int NET_NOT_PREPARE = 3; // Net no ready
-    public static int NET_ERROR = 4; //net error
-    private static int TIMEOUT = 3000; // TIMEOUT
+    private static final int NET_CNNT_BAIDU_OK = 1; // NetworkAvailable
+    private static final int NET_CNNT_BAIDU_TIMEOUT = 2; // no NetworkAvailable
+    private static final int NET_NOT_PREPARE = 3; // Net no ready
+    private static final int NET_ERROR = 4; //net error
+    private static final int TIMEOUT = 3000; // TIMEOUT
 
+    //没有网络连接
+    private static final int NETWORK_NONE = 10;
+    //wifi连接
+    private static final int NETWORK_WIFI = 11;
+    //手机网络数据连接类型
+    private static final int NETWORK_2G = 12;
+    private static final int NETWORK_3G = 13;
+    private static final int NETWORK_4G = 14;
+    private static final int NETWORK_MOBILE = 15;
 
     /**
      * check NetworkAvailable
-     * @param context
-     * @return
      */
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager manager = (ConnectivityManager) context.getApplicationContext().getSystemService(
@@ -44,14 +51,13 @@ public class NetworkUtil {
 
     /**
      * getLocalIpAddress
-     * @return
      */
     public static String getLocalIpAddress() {
         String ret = "";
         try {
-            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
                 NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
                     InetAddress inetAddress = enumIpAddr.nextElement();
                     if (!inetAddress.isLoopbackAddress()) {
                         ret = inetAddress.getHostAddress().toString();
@@ -66,11 +72,8 @@ public class NetworkUtil {
 
     /**
      * 返回当前网络状态
-     *
-     * @param context
-     * @return
      */
-    public static int getNetState(Context context) {
+    private static int getNetworkStateInt(Context context) {
         try {
             ConnectivityManager connectivity = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -79,11 +82,11 @@ public class NetworkUtil {
                 if (networkinfo != null) {
                     if (networkinfo.isAvailable() && networkinfo.isConnected()) {
                         if (!connectionNetwork())
-                            return NET_CNNT_BAIDU_TIMEOUT;
+                            return NET_CNNT_BAIDU_TIMEOUT;//超时
                         else
-                            return NET_CNNT_BAIDU_OK;
+                            return NET_CNNT_BAIDU_OK;//可用
                     } else {
-                        return NET_NOT_PREPARE;
+                        return NET_NOT_PREPARE;//未准备好
                     }
                 }
             }
@@ -93,8 +96,120 @@ public class NetworkUtil {
         return NET_ERROR;
     }
 
+    public static String getNetworkState(Context context) {
+
+        int networkStateInt = getNetworkStateInt(context);
+        switch (networkStateInt) {
+            case NET_CNNT_BAIDU_TIMEOUT:
+                return "网络状态: 网络超时(百度测试)";
+            case NET_CNNT_BAIDU_OK:
+                return "网络状态: 网络可用(百度测试)";
+            case NET_NOT_PREPARE:
+                return "网络状态: 网络未准备好(百度测试)";
+            case NET_ERROR:
+                return "网络状态: 网络错误(百度测试)";
+            default:
+                return "网络状态: 未知状态";
+        }
+    }
+
     /**
-     *ping "http://www.baidu.com"
+     * 获取当前网络连接类型
+     *
+     * @param context
+     * @return
+     */
+    private static int getNetworkTypeInt(Context context) {
+        //获取系统的网络服务
+        ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        //如果当前没有网络
+        if (null == connManager)
+            return NETWORK_NONE;
+
+        //获取当前网络类型，如果为空，返回无网络
+        NetworkInfo activeNetInfo = connManager.getActiveNetworkInfo();
+        if (activeNetInfo == null || !activeNetInfo.isAvailable()) {
+            return NETWORK_NONE;
+        }
+
+        // 判断是不是连接的是不是wifi
+        NetworkInfo wifiInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (null != wifiInfo) {
+            NetworkInfo.State state = wifiInfo.getState();
+            if (null != state)
+                if (state == NetworkInfo.State.CONNECTED || state == NetworkInfo.State.CONNECTING) {
+                    return NETWORK_WIFI;
+                }
+        }
+
+        // 如果不是wifi，则判断当前连接的是运营商的哪种网络2g、3g、4g等
+        NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        if (null != networkInfo) {
+            NetworkInfo.State state = networkInfo.getState();
+            String strSubTypeName = networkInfo.getSubtypeName();
+            if (null != state)
+                if (state == NetworkInfo.State.CONNECTED || state == NetworkInfo.State.CONNECTING) {
+                    switch (activeNetInfo.getSubtype()) {
+                        //如果是2g类型
+                        case TelephonyManager.NETWORK_TYPE_GPRS: // 联通2g
+                        case TelephonyManager.NETWORK_TYPE_CDMA: // 电信2g
+                        case TelephonyManager.NETWORK_TYPE_EDGE: // 移动2g
+                        case TelephonyManager.NETWORK_TYPE_1xRTT:
+                        case TelephonyManager.NETWORK_TYPE_IDEN:
+                            return NETWORK_2G;
+                        //如果是3g类型
+                        case TelephonyManager.NETWORK_TYPE_EVDO_A: // 电信3g
+                        case TelephonyManager.NETWORK_TYPE_UMTS:
+                        case TelephonyManager.NETWORK_TYPE_EVDO_0:
+                        case TelephonyManager.NETWORK_TYPE_HSDPA:
+                        case TelephonyManager.NETWORK_TYPE_HSUPA:
+                        case TelephonyManager.NETWORK_TYPE_HSPA:
+                        case TelephonyManager.NETWORK_TYPE_EVDO_B:
+                        case TelephonyManager.NETWORK_TYPE_EHRPD:
+                        case TelephonyManager.NETWORK_TYPE_HSPAP:
+                            return NETWORK_3G;
+                        //如果是4g类型
+                        case TelephonyManager.NETWORK_TYPE_LTE:
+                            return NETWORK_4G;
+                        default:
+                            //中国移动 联通 电信 三种3G制式
+                            if (strSubTypeName.equalsIgnoreCase("TD-SCDMA") || strSubTypeName.equalsIgnoreCase("WCDMA") || strSubTypeName.equalsIgnoreCase("CDMA2000")) {
+                                return NETWORK_3G;
+                            } else {
+                                return NETWORK_MOBILE;
+                            }
+                    }
+                }
+        }
+        return NETWORK_NONE;
+    }
+
+    public static String getNetworkType(Context context) {
+
+        int networkTypeInt = getNetworkTypeInt(context);
+        switch (networkTypeInt) {
+            case NETWORK_NONE:
+                return "网络类型: 无网络";
+            case NETWORK_WIFI:
+                return "网络类型: wifi";
+            case NETWORK_2G:
+                return "网络类型: 2G";
+            case NETWORK_3G:
+                return "网络类型: 3G";
+            case NETWORK_4G:
+                return "网络类型: 4G";
+            case NETWORK_MOBILE:
+                return "网络类型: 未知网络";
+            default:
+                return "网络类型: 未知网络";
+        }
+    }
+
+    /**
+     * ping "http://www.baidu.com"
+     *
      * @return
      */
     static private boolean connectionNetwork() {
@@ -118,6 +233,7 @@ public class NetworkUtil {
 
     /**
      * check is3G
+     *
      * @param context
      * @return boolean
      */
@@ -134,6 +250,7 @@ public class NetworkUtil {
 
     /**
      * isWifi
+     *
      * @param context
      * @return boolean
      */
@@ -150,6 +267,7 @@ public class NetworkUtil {
 
     /**
      * is2G
+     *
      * @param context
      * @return boolean
      */
@@ -167,7 +285,7 @@ public class NetworkUtil {
     }
 
     /**
-     *  is wifi on
+     * is wifi on
      */
     public static boolean isWifiEnabled(Context context) {
         ConnectivityManager mgrConn = (ConnectivityManager) context
@@ -178,5 +296,4 @@ public class NetworkUtil {
                 .getActiveNetworkInfo().getState() == NetworkInfo.State.CONNECTED) || mgrTel
                 .getNetworkType() == TelephonyManager.NETWORK_TYPE_UMTS);
     }
-
 }

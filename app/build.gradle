@@ -109,6 +109,13 @@ dependencies {
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakCanaryVersion"
     //testCompile "com.squareup.leakcanary:leakcanary‐android‐no‐op:$rootProject.leakCanaryVersion"
 
+    //block canary
+    //仅在debug包启用BlockCanary进行卡顿监控和提示的话
+    debugCompile "com.github.markzhai:blockcanary-android:$rootProject.blockCanaryVersion"
+    releaseCompile "com.github.markzhai:blockcanary-no-op:$rootProject.blockCanaryVersion"
+    //在release包也开启监控可以直接用compile
+    //compile "com.github.markzhai:blockcanary-android:$rootProject.blockCanaryVersion"
+
     // log
     compile "com.orhanobut:logger:$rootProject.loggerVersion"
 

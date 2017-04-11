@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.2.2'
 
         //依赖注入  ButterKnife 8.0.1 ----------- 与lambda不能一起用
         // classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
@@ -92,6 +92,9 @@ ext {
 
     //leakCanary
     leakCanaryVersion = '1.5'
+
+    //blockCanary
+    blockCanaryVersion = '1.5.0'
 
     //logger
     loggerVersion = '1.15'
