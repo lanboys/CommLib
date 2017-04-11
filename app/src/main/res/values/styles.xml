@@ -14,11 +14,8 @@
         <!-- 修改默认的溢出菜单 -->
         <!--<item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>-->
     </style>
-
-
-
-
-
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 
 </resources>

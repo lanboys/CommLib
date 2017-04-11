@@ -21,21 +21,29 @@
         tools:replace="android:icon">
         <activity
             android:name="com.bing.lan.bing.ui.login.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-        >
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.bing.lan.bing.ui.main.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-        >
-
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.register.RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.forgetpassword.ForgetPasswordActivity"
+            android:label="@string/title_activity_forget_password"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
     </application>
 
 </manifest>
