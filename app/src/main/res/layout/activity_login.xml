@@ -2,15 +2,15 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <ViewStub
-        android:id="@+id/main_content"
+        android:id="@+id/login_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout="@layout/main_content"/>
+        android:layout="@layout/login_content"/>
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.bing.lan.bing.ui.main;
+package com.bing.lan.bing.ui.login;
 
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
 
@@ -14,8 +14,8 @@ import rx.subscriptions.CompositeSubscription;
  * @author 蓝兵
  * @time 2017/2/6  19:11
  */
-public class MainPresenter extends BaseActivityPresenter<IMainContract.IMainView, IMainContract.IMainModule>
-        implements IMainContract.IMainPresenter {
+public class LoginPresenter extends BaseActivityPresenter<ILoginContract.ILoginView, ILoginContract.ILoginModule>
+        implements ILoginContract.ILoginPresenter {
 
     private static final int REMOVE_SPLASH_FRAGMENT_TIME = 4000;
     private CompositeSubscription mCompositeSubscription;

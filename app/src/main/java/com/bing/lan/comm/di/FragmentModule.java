@@ -36,4 +36,13 @@ public class FragmentModule {
         homePresenter.onAttachView((SplashFragment) mFragment);
         return homePresenter;
     }
+
+    @Provides
+    public com.bing.lan.bing.ui.splash1.ISplashContract.ISplashPresenter provideSplash1Presenter() {
+        com.bing.lan.bing.ui.splash1.SplashPresenter homePresenter = new com.bing.lan.bing.ui.splash1.SplashPresenter();
+        homePresenter.setParams(initParams);
+        homePresenter.setModule(new com.bing.lan.bing.ui.splash1.SplashModule());
+        homePresenter.onAttachView((com.bing.lan.bing.ui.splash1.SplashFragment) mFragment);
+        return homePresenter;
+    }
 }

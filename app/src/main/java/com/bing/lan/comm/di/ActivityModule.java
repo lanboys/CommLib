@@ -3,6 +3,10 @@ package com.bing.lan.comm.di;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.bing.lan.bing.ui.login.ILoginContract;
+import com.bing.lan.bing.ui.login.LoginActivity;
+import com.bing.lan.bing.ui.login.LoginModule;
+import com.bing.lan.bing.ui.login.LoginPresenter;
 import com.bing.lan.bing.ui.main.IMainContract;
 import com.bing.lan.bing.ui.main.MainActivity;
 import com.bing.lan.bing.ui.main.MainModule;
@@ -37,6 +41,14 @@ public class ActivityModule {
         MainPresenter splashPresenter = new MainPresenter();
         splashPresenter.setModule(new MainModule());
         splashPresenter.onAttachView((MainActivity) mActivity);
+        return splashPresenter;
+    }
+
+    @Provides
+    public ILoginContract.ILoginPresenter provideLoginPresenter() {
+        LoginPresenter splashPresenter = new LoginPresenter();
+        splashPresenter.setModule(new LoginModule());
+        splashPresenter.onAttachView((LoginActivity) mActivity);
         return splashPresenter;
     }
 

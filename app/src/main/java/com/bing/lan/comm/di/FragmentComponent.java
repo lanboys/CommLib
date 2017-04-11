@@ -9,6 +9,8 @@ public interface FragmentComponent {
 
     void inject(SplashFragment splashFragment);
 
+    void inject(com.bing.lan.bing.ui.splash1.SplashFragment splashFragment);
+
     // void inject(MineFragment mineFragment);
     //
     // void inject(HomeFragment homeFragment);

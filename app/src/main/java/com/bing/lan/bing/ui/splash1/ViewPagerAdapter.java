@@ -1,4 +1,4 @@
-package com.bing.lan.bing.ui.splash;
+package com.bing.lan.bing.ui.splash1;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
-
-
 
 public class ViewPagerAdapter extends PagerAdapter {
 

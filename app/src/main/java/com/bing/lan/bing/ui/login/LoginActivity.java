@@ -1,4 +1,4 @@
-package com.bing.lan.bing.ui.main;
+package com.bing.lan.bing.ui.login;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
@@ -12,11 +12,11 @@ import com.bing.lan.comm.di.ActivityComponent;
 
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
-        implements IMainContract.IMainView {
+public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
+        implements ILoginContract.ILoginView {
 
     private ViewStub mViewStub;
-    private com.bing.lan.bing.ui.splash1.SplashFragment mSplashFragment;
+    private com.bing.lan.bing.ui.splash.SplashFragment mSplashFragment;
     private FragmentManager mFragmentManager;
 
     // @BindView(R.id.button)
@@ -26,7 +26,7 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.activity_main;
+        return R.layout.activity_login;
     }
 
     @Override
@@ -49,12 +49,12 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
     public void showSplashFragment() {
         if (mSplashFragment == null) {
 
-            mSplashFragment = com.bing.lan.bing.ui.splash1.SplashFragment.newInstance("");
+            mSplashFragment = com.bing.lan.bing.ui.splash.SplashFragment.newInstance("");
 
             // start transaction
             FragmentTransaction transaction = mFragmentManager.beginTransaction();
 
-            transaction.add(R.id.activity_main, mSplashFragment);
+            transaction.add(R.id.activity_login, mSplashFragment);
             transaction.commitAllowingStateLoss();
         }
     }
@@ -79,11 +79,11 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
 
         getWindow().getDecorView().post(() -> {
 
-            mViewStub = (ViewStub) findViewById(R.id.main_content);
+            mViewStub = (ViewStub) findViewById(R.id.login_content);
             mViewStub.inflate();
             mViewStub.setVisibility(View.GONE);// INVISIBLE  会导致HomeFragment 不显示最上面内容????
 
-            mViewBind = ButterKnife.bind(MainActivity.this);
+            mViewBind = ButterKnife.bind(LoginActivity.this);
 
             // mButton.setOnClickListener(new View.OnClickListener() {
             //     @Override

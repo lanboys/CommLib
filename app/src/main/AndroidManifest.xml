@@ -20,7 +20,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
         <activity
-            android:name="com.bing.lan.bing.ui.main.MainActivity"
+            android:name="com.bing.lan.bing.ui.login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
         >
             <intent-filter>
@@ -28,6 +28,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.bing.lan.bing.ui.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+        >
+
         </activity>
     </application>
 
