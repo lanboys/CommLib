@@ -1,5 +1,6 @@
 package com.bing.lan.comm.app;
 
+import com.bing.lan.comm.utils.AppUtil;
 import com.bing.lan.comm.utils.NetworkUtil;
 import com.github.moduth.blockcanary.BlockCanaryContext;
 
@@ -21,6 +22,11 @@ public class AppBlockCanaryContext extends BlockCanaryContext {
 
     @Override
     public int provideBlockThreshold() {
-        return 500;
+        return 3000;
+    }
+
+
+    public String providePath() {
+        return "/blockcanary/blockcanary-"+ AppUtil.getPackageName();
     }
 }

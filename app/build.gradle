@@ -119,6 +119,9 @@ dependencies {
     // log
     compile "com.orhanobut:logger:$rootProject.loggerVersion"
 
+    // ViewPagerIndicator
+    compile "fr.avianey.com.viewpagerindicator:library:$rootProject.viewpagerIndicatorVersion"
+
     //api23抛弃了httpclient,继续使用httpclient
     compile 'org.apache.httpcomponents:httpcore:4.3.2'
     //api23抛弃了httpclient,继续使用httpclient

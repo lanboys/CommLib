@@ -367,9 +367,8 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
      */
     @Override
     public void showToast(String msg) {
-       // ToastUtil.showToast(msg);
+        // ToastUtil.showToast(msg);
         Toast.makeText(AppUtil.getAppContext(), msg, Toast.LENGTH_SHORT).show();
-
     }
 
     @Override

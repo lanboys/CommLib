@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.2.3'
 
         //依赖注入  ButterKnife 8.0.1 ----------- 与lambda不能一起用
         // classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
@@ -99,6 +99,9 @@ ext {
     //logger
     loggerVersion = '1.15'
 
+    //indicator
+    viewpagerIndicatorVersion = '2.4.1.1@aar'
+
     glideVersion = '3.7.0'
     glideTransformationsVersion = '2.0.1'
     easypermissionsVersion = '0.2.1'
@@ -106,7 +109,6 @@ ext {
 
 
     imageCropVersion = '1.0.1@aar'
-    viewpagerVersion = '2.4.1.1@aar'
     collapsingtoolbarVersion = '1.3.0'
     scrollToRefreshVersion = '1.0.11'
 

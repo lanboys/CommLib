@@ -40,9 +40,6 @@ public class ApiManager {
     private XimaApiService mApiService;
     private UserApi mUserApi;
 
-
-
-
     public static ApiManager getInstance() {
         return instance;
     }

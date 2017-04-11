@@ -38,7 +38,7 @@ public class MainPresenter extends BaseActivityPresenter<IMainContract.IMainView
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {
-                    mView.removeSplashFragment();
+                    //mView.removeSplashFragment();
                 });
 
         mCompositeSubscription.add(subscription);
