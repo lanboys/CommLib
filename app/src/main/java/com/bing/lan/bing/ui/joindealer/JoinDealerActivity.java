@@ -20,7 +20,12 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
 
     @Override
     protected void startInject(ActivityComponent activityComponent) {
-         activityComponent.inject(this);
+        activityComponent.inject(this);
+    }
+
+    @Override
+    protected boolean isTranslucentStatus() {
+        return false;
     }
 
     @Override

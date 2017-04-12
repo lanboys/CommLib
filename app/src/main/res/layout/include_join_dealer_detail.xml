@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/join_item_comm_style">
+        <TextView
+            style="@style/join_item_comm_textView_style"
+            android:text="证件号码: "/>
+
+        <EditText
+            android:id="@+id/et_id_number"
+            style="@style/join_item_comm_editText_style"
+            android:hint="输入真实号码"
+            android:inputType="number"
+        />
+    </LinearLayout>
+
+    <include layout="@layout/include_line_join"/>
+
+    <LinearLayout
+        style="@style/join_item_img_style">
+        <TextView
+            style="@style/join_item_comm_textView_style"
+            android:text="正面证件照: "/>
+
+        <ImageView
+            style="@style/join_item_img_pic_style"
+            android:src="@drawable/iv_about_logo"/>
+    </LinearLayout>
+
+    <include layout="@layout/include_line_join"/>
+
+    <LinearLayout
+        style="@style/join_item_img_style">
+        <TextView
+            style="@style/join_item_comm_textView_style"
+            android:text="反面证件照: "/>
+
+        <ImageView
+            style="@style/join_item_img_pic_style"
+            android:src="@drawable/iv_about_logo"/>
+    </LinearLayout>
+
+
+</LinearLayout>

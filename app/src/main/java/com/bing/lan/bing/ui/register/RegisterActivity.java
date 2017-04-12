@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bing.lan.bing.ui.join.JoinUsActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -95,7 +96,7 @@ public class RegisterActivity extends BaseActivity<IRegisterContract.IRegisterPr
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_register:
-                showToast("注册");
+                startActivity(JoinUsActivity.class,true,true);
                 break;
             case R.id.tv_contract:
                 showToast("加盟协议");

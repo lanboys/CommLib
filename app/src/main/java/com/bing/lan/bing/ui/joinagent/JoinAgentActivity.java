@@ -20,7 +20,12 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
 
     @Override
     protected void startInject(ActivityComponent activityComponent) {
-         activityComponent.inject(this);
+        activityComponent.inject(this);
+    }
+
+    @Override
+    protected boolean isTranslucentStatus() {
+        return false;
     }
 
     @Override
