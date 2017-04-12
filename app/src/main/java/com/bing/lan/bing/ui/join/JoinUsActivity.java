@@ -10,7 +10,7 @@ import com.bing.lan.comm.di.ActivityComponent;
  * @time 2017/4/6  19:12
  */
 public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresenter>
-        implements IJoinUsContract.IJoinUsView { 
+        implements IJoinUsContract.IJoinUsView {
     @Override
     protected int getLayoutResId() {
         return 0;

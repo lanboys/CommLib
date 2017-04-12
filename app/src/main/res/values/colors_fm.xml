@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- 妹纸recyclerView 背景色-->
+    <color name="girl_gank_background">#f9f9f9</color>
+    <!-- 主要背景色 -->
+    <!--<color name="main_background">#fff86442</color>-->
+    <color name="main_orange_background">#fff86442</color>
+    <!-- 灰白 -->
+    <color name="main_gray_white_background">#dadada</color>
+    <!-- 白色 -->
+    <color name="main_white_background_10">#fffefe</color>
+    <color name="main_white_background_50">#fffafafa</color>
+
+    <color name="category_item_color">#f4efef</color>
+
+
+
+    <!-- 灰色分割线 -->
+
+
+    <!-- hot -->
+
+    <!--  item 背景 -->
+    <color name="hot_item_background_white">#ffffffff</color>
+    <!--  猜你喜欢 -->
+    <color name="hot_item_title_text_color">#0e0e0e</color>
+    <!-- item内部大标题 -->
+    <color name="big_title_color">#101010</color>
+    <!-- item内部小标题 -->
+    <color name="little_title_color">#b3b0b0</color>
+    <!-- item内部note -->
+    <color name="foot_note_color">#ff949494</color>
+    <!-- 经典必听 -->
+
+
+    <color name="titleColorSelected">#535353</color>
+
+
+    <!-- 文字选择器的两种颜色 -->
+    <color name="text_color_gray_select">#ffc6c6c6</color>
+    <color name="text_color_gray_unSelect">#fff86442</color>
+
+    <!-- tab 文字的两种颜色 -->
+    <color name="tab_text_color_pressed">#fff86442</color>
+
+
+    <!-- home页面tab颜色 -->
+    <color name="tab_text_color_white">#ffffffff</color>
+
+
+    <!-- 播放器 -->
+    <color name="white_translucent">#c8ffffff</color>
+    <!-- 播放器 -->
+
+
+    <color name="orange">#fff86442</color>
+</resources>
