@@ -14,9 +14,10 @@ import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.DaggerFragmentComponent;
 import com.bing.lan.comm.di.FragmentComponent;
 import com.bing.lan.comm.di.FragmentModule;
+import com.bing.lan.comm.utils.AlertDialogUtil;
 import com.bing.lan.comm.utils.AppUtil;
-import com.bing.lan.comm.utils.DialogUtil;
 import com.bing.lan.comm.utils.LogUtil;
+import com.bing.lan.comm.utils.ProgressDialogUtil;
 import com.bing.lan.comm.view.PagerLayout;
 
 import javax.inject.Inject;
@@ -174,13 +175,6 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
         return mPagerLayout;
     }
 
-    /**
-     * 隐藏对话框
-     */
-    @Override
-    public void dismissDialog() {
-    }
-
     private void readyStart() {
         if (!mHaveData) {
             if (mPagerLayout != null) {
@@ -263,9 +257,32 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
                 return BaseFragment.this.initSuccessPager(inflater, parent);
             }
         };
+
+        // mPagerLayout = new FragmentPagerLayout(AppUtil.getAppContext(), this);
+
         //点击错误页面的的加载按钮重新加载
         mPagerLayout.setErrorButtonListener(this);
     }
+
+    // static class FragmentPagerLayout extends PagerLayout {
+    //
+    //     WeakReference<BaseFragment> mWeakReference;
+    //
+    //     public FragmentPagerLayout(Context context, BaseFragment baseFragment) {
+    //         super(context);
+    //         mWeakReference = new WeakReference<>(baseFragment);
+    //     }
+    //
+    //     @Override
+    //     protected View initSuccessPager(LayoutInflater inflater, ViewGroup parent) {
+    //
+    //         if (mWeakReference != null && mWeakReference.get() != null) {
+    //             return mWeakReference.get().initSuccessPager(inflater, parent);
+    //         }
+    //
+    //         return null;
+    //     }
+    // }
 
     /**
      * 初始化数据 和 UI
@@ -356,8 +373,33 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
      * @param msg 显示的消息
      */
     @Override
-    public void showDialog(String msg) {
-        DialogUtil.showAlertDialog(getActivity(), msg);
+    public void showAlertDialog(String msg) {
+        AlertDialogUtil.showAlertDialog(getActivity(), msg);
+    }
+
+    /**
+     * 隐藏对话框
+     */
+    @Override
+    public void dismissAlertDialog() {
+    }
+
+    private ProgressDialogUtil mProgressDialog;
+
+    @Override
+    public void showProgressDialog(String msg) {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialogUtil(getActivity());
+            mProgressDialog.setMessage("加载中...");
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+        }
+    }
+
+    @Override
+    public void dismissProgressDialog() {
+        mProgressDialog.dismiss();
+        mProgressDialog = null;
     }
 
     /**

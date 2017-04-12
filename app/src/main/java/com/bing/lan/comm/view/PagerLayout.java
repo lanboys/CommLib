@@ -39,6 +39,8 @@ public abstract class PagerLayout extends FrameLayout {
         this(context, null);
     }
 
+
+
     public PagerLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context);

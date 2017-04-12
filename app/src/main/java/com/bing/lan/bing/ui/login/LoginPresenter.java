@@ -2,12 +2,6 @@ package com.bing.lan.bing.ui.login;
 
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
 
-import java.util.concurrent.TimeUnit;
-
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -17,33 +11,12 @@ import rx.subscriptions.CompositeSubscription;
 public class LoginPresenter extends BaseActivityPresenter<ILoginContract.ILoginView, ILoginContract.ILoginModule>
         implements ILoginContract.ILoginPresenter {
 
-    private static final int REMOVE_SPLASH_FRAGMENT_TIME = 4000;
+    private static final int REMOVE_SPLASH_FRAGMENT_TIME = 3500;
     private CompositeSubscription mCompositeSubscription;
 
     @Override
     public void onStart(Object... params) {
-      //  mModule.requestData(1,this);
-        handleSplashUI();
-    }
-
-    @Override
-    public void handleSplashUI() {
-        mView.showSplashFragment();
-
-        if (mCompositeSubscription == null) {
-            mCompositeSubscription = new CompositeSubscription();
-        }
-
-        Subscription subscription = Observable.timer(REMOVE_SPLASH_FRAGMENT_TIME, TimeUnit.MILLISECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> {
-                    mView.removeSplashFragment();
-                });
-
-        mCompositeSubscription.add(subscription);
-
-        mView.initViewStub();
+        //  mModule.requestData(1,this);
     }
 
     @Override

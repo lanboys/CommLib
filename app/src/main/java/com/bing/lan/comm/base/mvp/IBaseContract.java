@@ -13,9 +13,13 @@ public interface IBaseContract {
 
         void showToast(String msg);
 
-        void showDialog(String msg);
+        void showAlertDialog(String msg);
 
-        void dismissDialog() ;
+        void dismissAlertDialog();
+
+        void showProgressDialog(String msg);
+
+        void dismissProgressDialog();
 
         T getPresenter();
 

@@ -23,10 +23,11 @@ import com.bing.lan.comm.config.AppConfig;
 import com.bing.lan.comm.di.ActivityComponent;
 import com.bing.lan.comm.di.ActivityModule;
 import com.bing.lan.comm.di.DaggerActivityComponent;
+import com.bing.lan.comm.utils.AlertDialogUtil;
 import com.bing.lan.comm.utils.AppUtil;
-import com.bing.lan.comm.utils.DialogUtil;
 import com.bing.lan.comm.utils.ImmersionUtil;
 import com.bing.lan.comm.utils.LogUtil;
+import com.bing.lan.comm.utils.ProgressDialogUtil;
 import com.bing.lan.comm.utils.SPUtil;
 
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     protected LogUtil log;
     @Inject
     protected T mPresenter;
+    private ProgressDialogUtil mProgress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -206,16 +208,34 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     @Override
     public void showToast(String msg) {
         //ToastUtil.showToast(msg);
-         Toast.makeText(AppUtil.getAppContext(), msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(AppUtil.getAppContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showDialog(String msg) {
-        DialogUtil.showAlertDialog(this, msg);
+    public void showAlertDialog(String msg) {
+        AlertDialogUtil.showAlertDialog(this, msg);
     }
 
     @Override
-    public void dismissDialog() {
+    public void dismissAlertDialog() {
+    }
+
+    private ProgressDialogUtil mProgressDialog;
+
+    @Override
+    public void showProgressDialog(String msg) {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialogUtil(this);
+            mProgressDialog.setMessage("加载中...");
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+        }
+    }
+
+    @Override
+    public void dismissProgressDialog() {
+        mProgressDialog.dismiss();
+        mProgressDialog = null;
     }
 
     @Override
@@ -242,7 +262,15 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
         return 0;
     }
 
-    protected void setToolBar(Toolbar toolBar, String title, boolean finishActivity) {
+    /**
+     * 设置页面的toolbar
+     *
+     * @param toolBar        toolBar
+     * @param title          标题
+     * @param finishActivity 是否设置结束activity事件
+     * @param resId          返回箭头图标
+     */
+    protected void setToolBar(Toolbar toolBar, String title, boolean finishActivity, int resId) {
         if (title != null) {
             toolBar.setTitle(title);
         }
@@ -254,6 +282,10 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
             if (actionBar != null) {
                 //将默认的 返回箭头 显示出来
                 actionBar.setDisplayHomeAsUpEnabled(true);
+                // 返回箭头的图标
+                if (resId > 0) {
+                    actionBar.setHomeAsUpIndicator(resId);
+                }
             }
             //给箭头添加监听器
             toolBar.setNavigationOnClickListener(new View.OnClickListener() {

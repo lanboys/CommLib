@@ -19,9 +19,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
+
+        <!-- 登录页面 -->
         <activity
             android:name="com.bing.lan.bing.ui.login.LoginActivity"
             android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!-- 主页面 -->
+        <activity
+            android:name="com.bing.lan.bing.ui.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!-- 欢迎页面 -->
+        <activity
+            android:name="com.bing.lan.bing.ui.splash2.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -29,21 +43,39 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.bing.lan.bing.ui.main.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+
+        <!-- 注册页面 -->
         <activity
             android:name="com.bing.lan.bing.ui.register.RegisterActivity"
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <!-- 忘记密码页面 -->
         <activity
             android:name="com.bing.lan.bing.ui.forgetpassword.ForgetPasswordActivity"
             android:label="@string/title_activity_forget_password"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <!-- 代理商登记页面 -->
+        <activity
+            android:name="com.bing.lan.bing.ui.joinagent.JoinAgentActivity"
+            android:label="@string/title_activity_join_agent"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!-- 经销商登记页面 -->
+        <activity
+            android:name="com.bing.lan.bing.ui.joindealer.JoinDealerActivity"
+            android:label="@string/title_activity_join_dealer"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.join.JoinUsActivity"
+            android:label="@string/title_activity_join_us"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

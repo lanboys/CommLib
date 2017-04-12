@@ -7,17 +7,11 @@ public interface ILoginContract {
     interface ILoginView
             extends IBaseActivityContract.IBaseActivityView<ILoginPresenter> {
 
-        void removeSplashFragment();
-
-        void showSplashFragment();
-
-        void initViewStub();
     }
 
     interface ILoginPresenter
             extends IBaseActivityContract.IBaseActivityPresenter<ILoginView, ILoginModule> {
 
-        void handleSplashUI();
     }
 
     interface ILoginModule

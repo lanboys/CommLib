@@ -1,12 +1,10 @@
 package com.bing.lan.bing.ui.login;
 
 import android.content.Intent;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -14,46 +12,40 @@ import android.widget.TextView;
 
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordActivity;
 import com.bing.lan.bing.ui.register.RegisterActivity;
-import com.bing.lan.bing.ui.splash.SplashFragment;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
 import com.bing.lan.comm.view.EditTextInputView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
         implements ILoginContract.ILoginView {
 
-    @BindView(R.id.btn_not_employee)
-    Button mBtnNotEmployee;
-    @BindView(R.id.btn_employee)
-    Button mBtnEmployee;
-    @BindView(R.id.ll_top)
-    LinearLayout mLlTop;
-    @BindView(R.id.tv_error_msg)
-    TextView mTvErrorMsg;
+    // @BindView(R.id.tv_error_msg)
+    // TextView mTvErrorMsg;
     @BindView(R.id.et_input_phone_number)
     EditTextInputView mEtInputPhoneNumber;
     @BindView(R.id.et_input_password)
     EditTextInputView mEtInputPassword;
     @BindView(R.id.btn_login)
     Button mBtnLogin;
-    @BindView(R.id.rl_login)
-    LinearLayout mRlLogin;
     @BindView(R.id.tv_new_user_register)
     TextView mTvNewUserRegister;
     @BindView(R.id.tv_forget_password)
     TextView mTvForgetPassword;
-    @BindView(R.id.ll_login)
-    LinearLayout mLlLogin;
-    @BindView(R.id.activity_login)
-    CoordinatorLayout mActivityLogin;
-    private ViewStub mViewStub;
-    private SplashFragment mSplashFragment;
-    private FragmentManager mFragmentManager;
+    @BindView(R.id.tv_not_employee)
+    TextView mTvNotEmployee;
+    @BindView(R.id.ll_not_employee)
+    LinearLayout mLlNotEmployee;
+    @BindView(R.id.tv_employee)
+    TextView mTvEmployee;
+    @BindView(R.id.ll_employee)
+    LinearLayout mLlEmployee;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
     private EditText et_phone_number;
     private EditText et_password;
 
@@ -63,70 +55,18 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
     }
 
     @Override
+    protected boolean isTranslucentStatus() {
+        return false;
+    }
+
+    @Override
     protected void startInject(ActivityComponent activityComponent) {
         activityComponent.inject(this);
     }
 
     @Override
     protected void initViewAndData(Intent intent) {
-        // 获得Fragment管理器
-        mFragmentManager = getSupportFragmentManager();
-    }
-
-    @Override
-    protected boolean isTranslucentStatus() {
-        return false;
-    }
-
-    @Override
-    protected void readyStartPresenter() {
-        mPresenter.onStart();
-    }
-
-    @Override
-    public void showSplashFragment() {
-        if (mSplashFragment == null) {
-
-            mSplashFragment = SplashFragment.newInstance("");
-
-            // start transaction
-            FragmentTransaction transaction = mFragmentManager.beginTransaction();
-
-            transaction.add(R.id.activity_login, mSplashFragment);
-            transaction.commitAllowingStateLoss();
-        }
-    }
-
-    @Override
-    public void removeSplashFragment() {
-
-        if (mViewStub != null) {
-            mViewStub.setVisibility(View.VISIBLE);
-        }
-
-        // start transaction
-        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.remove(mSplashFragment);
-        // transaction.commit();
-        transaction.commitAllowingStateLoss();
-        mSplashFragment = null;
-    }
-
-    @Override
-    public void initViewStub() {
-
-        getWindow().getDecorView().post(() -> {
-
-            mViewStub = (ViewStub) findViewById(R.id.content_login);
-            mViewStub.inflate();
-            mViewStub.setVisibility(View.GONE);// INVISIBLE  会导致HomeFragment 不显示最上面内容????
-
-            mViewBind = ButterKnife.bind(LoginActivity.this);
-            initView();
-        });
-    }
-
-    private void initView() {
+        setToolBar(mToolbar, "", false, 0);
 
         mEtInputPhoneNumber.getImageView().setImageDrawable(ContextCompat.getDrawable(this, R.drawable.iv_phone));
         et_phone_number = mEtInputPhoneNumber.getEditTextView();
@@ -140,31 +80,59 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
     }
 
     @Override
-    protected void initWindowUI() {
-        //重写了父类方法
-        setContentView(getLayoutResId());
-        // mViewBind = ButterKnife.bind(this);
+    protected void readyStartPresenter() {
+        mPresenter.onStart();
     }
 
-    @OnClick({R.id.btn_not_employee, R.id.btn_employee, R.id.btn_login, R.id.tv_new_user_register, R.id.tv_forget_password, R.id.ll_login})
+    @OnClick({R.id.btn_login, R.id.tv_new_user_register, R.id.tv_forget_password, R.id.ll_login
+             ,R.id.ll_not_employee, R.id.ll_employee })
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_not_employee:
-                break;
-            case R.id.btn_employee:
-                break;
+
             case R.id.btn_login:
+                showToast("立即登录");
+                log.d("onClick(): 立即登录");
                 break;
             case R.id.tv_new_user_register:
-
                 startActivity(RegisterActivity.class, false, true);
-
                 break;
             case R.id.tv_forget_password:
                 startActivity(ForgetPasswordActivity.class, false, true);
                 break;
-            case R.id.ll_login:
+            case R.id.tv_not_employee:
+                break;
+            case R.id.ll_not_employee:
+
+                showToast("非公司员工");
+                log.d("onClick(): 非公司员工");
+                reset();
+                mTvNotEmployee.setSelected(false);
+                Log.d("fmapp", "2222222");
+                Log.e("fmapp", "22222333333333322");
+                System.out.print("11111111111111111");
+
+                break;
+            case R.id.tv_employee:
+                break;
+            case R.id.ll_employee:
+                log.e("onClick(): 公司员工");
+                showToast("公司员工");
+                reset();
+                mTvEmployee.setSelected(false);
+
                 break;
         }
     }
+
+    public void reset() {
+        mTvEmployee.setSelected(true);
+        mTvNotEmployee.setSelected(true);
+    }
+
+
+
+
+
+
+
 }

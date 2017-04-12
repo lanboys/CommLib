@@ -1,56 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.bing.lan.bing.ui.login.LoginActivity"
     tools:showIn="@layout/activity_login">
-    <LinearLayout
-        android:id="@+id/ll_top"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_not_employee"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="非公司员工"/>
-        <Button
-
-            android:id="@+id/btn_employee"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="公司员工"/>
-
-    </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/tv_error_msg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll_top"
-        android:layout_gravity="top"
-        android:background="@color/transparent_20"
-        android:gravity="center"
-        android:paddingBottom="14dp"
-        android:paddingTop="14dp"
-        android:textColor="@color/tv_error_color"
-        android:textSize="13sp"
-    />
 
     <LinearLayout
         android:id="@+id/rl_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll_top"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
@@ -93,7 +58,6 @@
         android:id="@+id/ll_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rl_login"
         android:orientation="horizontal">
 
         <TextView
@@ -124,4 +88,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

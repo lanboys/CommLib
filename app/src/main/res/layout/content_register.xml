@@ -10,4 +10,100 @@
     tools:context="com.bing.lan.bing.ui.register.RegisterActivity"
     tools:showIn="@layout/activity_register">
 
+    <RelativeLayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="6dp"
+            android:padding="10dp"
+            android:src="@drawable/iv_close"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_error_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_top"
+        android:layout_gravity="top"
+        android:background="@color/transparent_20"
+        android:gravity="center"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp"
+        android:textColor="@color/tv_error_color"
+        android:textSize="13sp"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/rl_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_top"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="36dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/iv_login_logo"/>
+
+        <com.bing.lan.comm.view.EditTextInputView
+            android:id="@+id/et_input_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="60dp">
+        </com.bing.lan.comm.view.EditTextInputView>
+        <com.bing.lan.comm.view.EditTextInputView
+            android:id="@+id/et_input_verification_code"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="28dp">
+        </com.bing.lan.comm.view.EditTextInputView>
+
+        <com.bing.lan.comm.view.EditTextInputView
+
+            android:id="@+id/et_input_password"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="28dp">
+        </com.bing.lan.comm.view.EditTextInputView>
+
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/btn_login_selector"
+            android:text="同意协议并注册"
+            android:textColor="@color/tv_white_color"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_contract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_register"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:drawableLeft="@drawable/iv_agree"
+        android:drawablePadding="6dp"
+        android:padding="6dp"
+        android:text="加盟协议"
+        android:textColor="@drawable/main_color_to_shallow_selector"
+        android:textSize="13sp"/>
+
+
 </RelativeLayout>

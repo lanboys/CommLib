@@ -3,4 +3,7 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_forget_password">ForgetPasswordActivity</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_join_agent">JoinAgentActivity</string>
+    <string name="title_activity_join_dealer">JoinDealerActivity</string>
+    <string name="title_activity_join_us">JoinUsActivity</string>
 </resources>
