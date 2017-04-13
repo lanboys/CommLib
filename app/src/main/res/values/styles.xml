@@ -22,14 +22,14 @@
         parent="ThemeOverlay.AppCompat.Light"/>
 
     <!--<style-->
-        <!--name="Base.Widget.Design.TabLayout"-->
-        <!--parent="android:Widget"-->
-        <!--tools:override="true">-->
+    <!--name="Base.Widget.Design.TabLayout"-->
+    <!--parent="android:Widget"-->
+    <!--tools:override="true">-->
 
-        <!--<item name="tabBackground">@drawable/tab_background_selector</item>-->
-        <!--&lt;!&ndash;<item name="tabIndicatorColor">#ff00ff</item>&ndash;&gt;-->
-        <!--&lt;!&ndash;<item name="tabIndicatorHeight">2dp</item>&ndash;&gt;-->
-        <!--&lt;!&ndash;<item name="tabTextSize">24sp</item>&ndash;&gt;-->
+    <!--<item name="tabBackground">@drawable/tab_background_selector</item>-->
+    <!--&lt;!&ndash;<item name="tabIndicatorColor">#ff00ff</item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<item name="tabIndicatorHeight">2dp</item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<item name="tabTextSize">24sp</item>&ndash;&gt;-->
     <!--</style>-->
 
     <!-- tabLayout 字体大小 -->

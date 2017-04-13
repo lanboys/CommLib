@@ -43,11 +43,6 @@ public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
         setToolBar(mToolbar, "我的店铺", true, 0);
 
         initTabLayout();
-
-
-
-
-
     }
 
     private void initTabLayout() {
@@ -71,5 +66,4 @@ public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
         adapter.setDataAndRefresh(shopBeen);
         adapter.notifyDataSetChanged();
     }
-
 }

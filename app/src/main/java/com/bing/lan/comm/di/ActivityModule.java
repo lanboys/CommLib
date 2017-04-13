@@ -15,6 +15,14 @@ import com.bing.lan.bing.ui.dealer.DealerActivity;
 import com.bing.lan.bing.ui.dealer.DealerModule;
 import com.bing.lan.bing.ui.dealer.DealerPresenter;
 import com.bing.lan.bing.ui.dealer.IDealerContract;
+import com.bing.lan.bing.ui.dealerCreate.DealerCreateActivity;
+import com.bing.lan.bing.ui.dealerCreate.DealerCreateModule;
+import com.bing.lan.bing.ui.dealerCreate.DealerCreatePresenter;
+import com.bing.lan.bing.ui.dealerCreate.IDealerCreateContract;
+import com.bing.lan.bing.ui.dealerauthenticate.DealerAuthenticateActivity;
+import com.bing.lan.bing.ui.dealerauthenticate.DealerAuthenticateModule;
+import com.bing.lan.bing.ui.dealerauthenticate.DealerAuthenticatePresenter;
+import com.bing.lan.bing.ui.dealerauthenticate.IDealerAuthenticateContract;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordActivity;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordModule;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordPresenter;
@@ -47,6 +55,14 @@ import com.bing.lan.bing.ui.shop.IShopContract;
 import com.bing.lan.bing.ui.shop.ShopActivity;
 import com.bing.lan.bing.ui.shop.ShopModule;
 import com.bing.lan.bing.ui.shop.ShopPresenter;
+import com.bing.lan.bing.ui.shopauthenticate.IShopAuthenticateContract;
+import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;
+import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateModule;
+import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticatePresenter;
+import com.bing.lan.bing.ui.shopcreate.IShopCreateContract;
+import com.bing.lan.bing.ui.shopcreate.ShopCreateActivity;
+import com.bing.lan.bing.ui.shopcreate.ShopCreateModule;
+import com.bing.lan.bing.ui.shopcreate.ShopCreatePresenter;
 import com.bing.lan.bing.ui.splash.ISplashContract;
 import com.bing.lan.bing.ui.splash.SplashActivity;
 import com.bing.lan.bing.ui.splash.SplashModule;
@@ -169,11 +185,43 @@ public class ActivityModule {
         return splashPresenter;
     }
 
+
+
     @Provides
     public IAgentContract.IAgentPresenter provideAgentPresenter() {
         AgentPresenter splashPresenter = new AgentPresenter();
         splashPresenter.setModule(new AgentModule());
         splashPresenter.onAttachView((AgentActivity) mActivity);
+        return splashPresenter;
+    }
+
+    @Provides
+    public IShopCreateContract.IShopCreatePresenter provideShopCreatePresenter() {
+        ShopCreatePresenter splashPresenter = new ShopCreatePresenter();
+        splashPresenter.setModule(new ShopCreateModule());
+        splashPresenter.onAttachView((ShopCreateActivity) mActivity);
+        return splashPresenter;
+    }
+
+    @Provides
+    public IShopAuthenticateContract.IShopAuthenticatePresenter provideShopAuthenticatePresenter() {
+        ShopAuthenticatePresenter splashPresenter = new ShopAuthenticatePresenter();
+        splashPresenter.setModule(new ShopAuthenticateModule());
+        splashPresenter.onAttachView((ShopAuthenticateActivity) mActivity);
+        return splashPresenter;
+    }
+    @Provides
+    public IDealerCreateContract.IDealerCreatePresenter provideDealerCreatePresenter() {
+        DealerCreatePresenter splashPresenter = new DealerCreatePresenter();
+        splashPresenter.setModule(new DealerCreateModule());
+        splashPresenter.onAttachView((DealerCreateActivity) mActivity);
+        return splashPresenter;
+    }
+    @Provides
+    public IDealerAuthenticateContract.IDealerAuthenticatePresenter provideDealerAuthenticatePresenter() {
+        DealerAuthenticatePresenter splashPresenter = new DealerAuthenticatePresenter();
+        splashPresenter.setModule(new DealerAuthenticateModule());
+        splashPresenter.onAttachView((DealerAuthenticateActivity) mActivity);
         return splashPresenter;
     }
 

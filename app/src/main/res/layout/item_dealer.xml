@@ -10,11 +10,11 @@
 
     <!--android:background="@color/main_color_white"-->
 
+
     <TextView
         android:id="@+id/tv_shop_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_marginBottom="10dp"
         android:text="店铺名称"
         android:textColor="@color/main_color_text"
@@ -28,12 +28,23 @@
         android:textColor="@color/shop_color_text_time"
         android:textSize="10sp"/>
 
+    <TextView
+        android:id="@+id/tv_dealer_payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_shop_time"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="登记缴费"
+        android:textColor="@color/main_color_blue"
+        android:textSize="15sp"/>
+
+
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
         android:src="@drawable/shop_phone"/>
-
-
 </RelativeLayout>

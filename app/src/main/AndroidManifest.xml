@@ -107,6 +107,26 @@
             android:label="@string/title_activity_shop"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.shopcreate.ShopCreateActivity"
+            android:label="@string/title_activity_shop_create"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity"
+            android:label="@string/title_activity_shop_authenticate"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.dealerCreate.DealerCreateActivity"
+            android:label="@string/title_activity_dealer_create"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.dealerauthenticate.DealerAuthenticateActivity"
+            android:label="@string/title_activity_dealer_authenticate"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

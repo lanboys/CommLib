@@ -11,4 +11,8 @@
     <string name="title_activity_asset">AssetActivity</string>
     <string name="title_activity_dealer">DealerActivity</string>
     <string name="title_activity_shop">ShopActivity</string>
+    <string name="title_activity_shop_create">ShopCreateActivity</string>
+    <string name="title_activity_shop_authenticate">ShopAuthenticateActivity</string>
+    <string name="title_activity_dealer_create">DealerCreateActivity</string>
+    <string name="title_activity_dealer_authenticate">DealerAuthenticateActivity</string>
 </resources>
