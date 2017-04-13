@@ -72,9 +72,39 @@
             android:label="@string/title_activity_join_dealer"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <!-- 加盟/登记页面 -->
         <activity
             android:name="com.bing.lan.bing.ui.join.JoinUsActivity"
             android:label="@string/title_activity_join_us"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!-- 代理商页面 -->
+        <activity
+            android:name="com.bing.lan.bing.ui.agent.AgentActivity"
+            android:label="@string/title_activity_agent"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!-- 资产页面 -->
+        <activity
+            android:name="com.bing.lan.bing.ui.asset.AssetActivity"
+            android:label="@string/title_activity_asset"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!-- 经销商页面 -->
+        <activity
+            android:name="com.bing.lan.bing.ui.dealer.DealerActivity"
+            android:label="@string/title_activity_dealer"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!-- 店铺页面 -->
+        <activity
+            android:name="com.bing.lan.bing.ui.shop.ShopActivity"
+            android:label="@string/title_activity_shop"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

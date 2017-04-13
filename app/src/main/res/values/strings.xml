@@ -7,4 +7,8 @@
     <string name="title_activity_join_dealer">JoinDealerActivity</string>
     <string name="title_activity_join_us">JoinUsActivity</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_agent">AgentActivity</string>
+    <string name="title_activity_asset">AssetActivity</string>
+    <string name="title_activity_dealer">DealerActivity</string>
+    <string name="title_activity_shop">ShopActivity</string>
 </resources>

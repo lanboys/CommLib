@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="156dp"
+    android:layout_centerVertical="true"
+
+    android:orientation="vertical"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+
+>
+
+    android:background="@color/main_color_white"
+
+    <TextView
+        android:id="@+id/tv_shop_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="店铺名称"
+        android:textColor="@color/main_color_text"
+        android:textSize="30sp"/>
+    <TextView
+        android:id="@+id/tv_shop_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_shop_name"
+        android:text="店铺名称"
+        android:textColor="@color/shop_color_text_time"
+        android:textSize="20sp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/shop_phone"/>
+
+    <!--<View-->
+        <!--android:id="@+id/view_line"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:background="@color/gray_line"/>-->
+
+
+</RelativeLayout>

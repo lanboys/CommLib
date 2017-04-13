@@ -17,6 +17,18 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <!--<style name="Base.Widget.Design.TabLayout" parent="android:Widget">-->
+        <!--<item name="tabBackground">@drawable/tab_background_selector</item>-->
+        <!--&lt;!&ndash;<item name="tabIndicatorColor">#ff00ff</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="tabIndicatorHeight">2dp</item>&ndash;&gt;-->
+    <!--</style>-->
+
+
+
+
+
+
+
     <!-- 进度条对话框主题 -->
     <style name="ProgressDialogTheme" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -59,7 +71,6 @@
     </style>
 
     <!-- 经销商/代理商页面 上传图片item 主题 -->
-    <!--<item name="android:layout_marginRight">@dimen/join_right_left_margin</item>-->
     <style name="join_item_img_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/join_item_id_img_height</item>
@@ -73,7 +84,7 @@
     </style>
 
 
-
+    <!-- 主页面 item 主题 -->
     <style name="main_item_style">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -82,11 +93,15 @@
         <item name="android:layout_margin">10sp</item>
         <item name="android:orientation">vertical</item>
     </style>
+
+    <!-- 主页面 item 图片主题 -->
     <style name="main_item_img_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <!-- 主页面 item 字体主题 -->
     <style name="main_item_text_style">
         <item name="android:maxLines">1</item>
         <item name="android:layout_width">match_parent</item>
@@ -94,7 +109,6 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/main_item_textSize</item>
     </style>
-
 
 
 </resources>

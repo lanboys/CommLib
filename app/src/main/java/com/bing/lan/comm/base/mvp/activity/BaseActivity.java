@@ -134,7 +134,7 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
      * 请求状态栏透明
      */
     protected boolean isTranslucentStatus() {
-        return true;
+        return false;
     }
 
     /**
@@ -196,7 +196,7 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     public void startActivity(Class<? extends BaseActivity> clazz, boolean isFinish, boolean isAnim) {
         AppUtil.startActivity(this, clazz, isFinish, false);
         if (isAnim) {
-            overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+           // overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
         }
     }
 

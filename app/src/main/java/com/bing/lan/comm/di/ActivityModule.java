@@ -3,6 +3,18 @@ package com.bing.lan.comm.di;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.bing.lan.bing.ui.agent.AgentActivity;
+import com.bing.lan.bing.ui.agent.AgentModule;
+import com.bing.lan.bing.ui.agent.AgentPresenter;
+import com.bing.lan.bing.ui.agent.IAgentContract;
+import com.bing.lan.bing.ui.asset.AssetActivity;
+import com.bing.lan.bing.ui.asset.AssetModule;
+import com.bing.lan.bing.ui.asset.AssetPresenter;
+import com.bing.lan.bing.ui.asset.IAssetContract;
+import com.bing.lan.bing.ui.dealer.DealerActivity;
+import com.bing.lan.bing.ui.dealer.DealerModule;
+import com.bing.lan.bing.ui.dealer.DealerPresenter;
+import com.bing.lan.bing.ui.dealer.IDealerContract;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordActivity;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordModule;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordPresenter;
@@ -31,6 +43,10 @@ import com.bing.lan.bing.ui.register.IRegisterContract;
 import com.bing.lan.bing.ui.register.RegisterActivity;
 import com.bing.lan.bing.ui.register.RegisterModule;
 import com.bing.lan.bing.ui.register.RegisterPresenter;
+import com.bing.lan.bing.ui.shop.IShopContract;
+import com.bing.lan.bing.ui.shop.ShopActivity;
+import com.bing.lan.bing.ui.shop.ShopModule;
+import com.bing.lan.bing.ui.shop.ShopPresenter;
 import com.bing.lan.bing.ui.splash.ISplashContract;
 import com.bing.lan.bing.ui.splash.SplashActivity;
 import com.bing.lan.bing.ui.splash.SplashModule;
@@ -55,6 +71,11 @@ public class ActivityModule {
     public ActivityModule(Activity activity, Intent intent) {
         this.mActivity = activity;
         this.mIntent = intent;
+    }
+
+    @Provides
+    public LogUtil provideLogCat() {
+        return LogUtil.getLogUtil(mActivity.getClass(), 1);
     }
 
     /**
@@ -125,7 +146,36 @@ public class ActivityModule {
     }
 
     @Provides
-    public LogUtil provideLogCat() {
-        return LogUtil.getLogUtil(mActivity.getClass(), 1);
+    public IShopContract.IShopPresenter provideShopPresenter() {
+        ShopPresenter splashPresenter = new ShopPresenter();
+        splashPresenter.setModule(new ShopModule());
+        splashPresenter.onAttachView((ShopActivity) mActivity);
+        return splashPresenter;
     }
+
+    @Provides
+    public IDealerContract.IDealerPresenter provideDealerPresenter() {
+        DealerPresenter splashPresenter = new DealerPresenter();
+        splashPresenter.setModule(new DealerModule());
+        splashPresenter.onAttachView((DealerActivity) mActivity);
+        return splashPresenter;
+    }
+
+    @Provides
+    public IAssetContract.IAssetPresenter provideAssetPresenter() {
+        AssetPresenter splashPresenter = new AssetPresenter();
+        splashPresenter.setModule(new AssetModule());
+        splashPresenter.onAttachView((AssetActivity) mActivity);
+        return splashPresenter;
+    }
+
+    @Provides
+    public IAgentContract.IAgentPresenter provideAgentPresenter() {
+        AgentPresenter splashPresenter = new AgentPresenter();
+        splashPresenter.setModule(new AgentModule());
+        splashPresenter.onAttachView((AgentActivity) mActivity);
+        return splashPresenter;
+    }
+
+
 }

@@ -1,5 +1,8 @@
 package com.bing.lan.comm.di;
 
+import com.bing.lan.bing.ui.agent.AgentActivity;
+import com.bing.lan.bing.ui.asset.AssetActivity;
+import com.bing.lan.bing.ui.dealer.DealerActivity;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordActivity;
 import com.bing.lan.bing.ui.join.JoinUsActivity;
 import com.bing.lan.bing.ui.joinagent.JoinAgentActivity;
@@ -7,6 +10,7 @@ import com.bing.lan.bing.ui.joindealer.JoinDealerActivity;
 import com.bing.lan.bing.ui.login.LoginActivity;
 import com.bing.lan.bing.ui.main.MainActivity;
 import com.bing.lan.bing.ui.register.RegisterActivity;
+import com.bing.lan.bing.ui.shop.ShopActivity;
 import com.bing.lan.bing.ui.splash.SplashActivity;
 
 import dagger.Component;
@@ -33,6 +37,14 @@ public interface ActivityComponent {
     void inject(JoinAgentActivity joinAgentActivity);
 
     void inject(JoinDealerActivity joinDealerActivity);
+
+    void inject(ShopActivity shopActivity);
+
+    void inject(DealerActivity dealerActivity);
+
+    void inject(AssetActivity assetActivity);
+
+    void inject(AgentActivity agentActivity);
 
     // void inject(SplashActivity splashActivity);
 

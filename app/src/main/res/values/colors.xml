@@ -1,61 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="colorPrimary">#3F51B5</color>
-	<color name="colorPrimaryDark">#303F9F</color>
-	<color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
 
-	<color name="main_color">#59B2FD</color>
-	<color name="main_color_shallow">#B8DFFF</color>
+    <color name="main_color">#59B2FD</color>
+    <color name="main_color_shallow">#B8DFFF</color>
 
-	<color name="gray_line">#CCCCCC</color>
+    <color name="gray_line">#CCCCCC</color>
 
+    <!--*******************************************-->
+    <!--*******************************************-->
+    <!-- 主要背景色 -->
+    <color name="main_color_background">#eff0f2</color>
+    <!-- 主要文字色 -->
+    <color name="main_color_text">#3a424d</color>
+    <!-- 主要文字色 -->
+    <color name="main_color_white">#fdfdfe</color>
 
-	<!--登录注册 -->
-	<color name="tv_login_error_color">#FDCE84</color>
-	<color name="tv_white_color">#FFFFFF</color>
-	<color name="et_hint_color">#999999</color>
-	<color name="et_text_color">#003</color>
-	<color name="tv_title_black_color">#666666</color>
-	<color name="tv_79_color">#797979</color>
-
-	<color name="transparent_20">#33000000</color>
-
-	<color name="main_bg_color">#F3F4F6</color>
-	<color name="bg_white_color">#FFFFFF</color>
-
-	<color name="black">#000000</color>
-	<color name="black_alph02">#33000000</color>
-	<color name="black_alph04">#66000000</color>
-	<color name="black_alph30">#4d000000</color>
-	<color name="black_alph50">#80000000</color>
-	<color name="black_alph60">#7f000000</color>
-	<color name="black_alph70">#b3000000</color>
-	<color name="black_alph80">#cc000000</color>
-	<color name="white">#ffffffff</color>
-
-	<color name="tv_error_color">#E5B76C</color>
-
-	<color name="color_333">#333333</color>
-	<color name="color_666">#666666</color>
-	<color name="color_aaa">#AAAAAA</color>
-	<color name="color_bbb">#BBBBBB</color>
-	<color name="color_2b2b">#2B2B2B</color>
-	<color name="color_999">#999999</color>
-	<color name="color_ccc">#CCCCCC</color>
-	
-	<color name="bg_mine_new">#FF4C4C</color>
-
-	<color name="item_pressed">#f5f5f5</color>
-
-	<color name="tv_password_error_color">#FB0707</color>
-	<color name="color_efefef">#EFEFEF</color>
-
-	<!-- 加载页面颜色 -->
-	<color name="load_pager_background">#f3f3f3</color>
+    <!-- 我的店铺 认证 颜色 -->
+    <color name="shop_color_background_select">#0195ff</color>
+    <color name="shop_color_background_unSelect">#bc28cf</color>
+    <!--<color name="shop_color_background_unSelect">#fdfdfe</color>-->
+    <color name="shop_color_text_select">#fdfdfe</color>
+    <color name="shop_color_text_unSelect">#3a424d</color>
+    <!-- 入驻时间 -->
+    <color name="shop_color_text_time">#69717e</color>
 
 
-	<!-- 首页轮播图 -->
-	<color name="view_pager_indicator_fill">#F7ECC8</color>
-	<color name="view_pager_indicator_stroke">#E1E1E1</color>
+    <!--*******************************************-->
+    <!--*******************************************-->
+
+
+    <!--登录注册 -->
+    <color name="tv_login_error_color">#FDCE84</color>
+    <color name="tv_white_color">#FFFFFF</color>
+    <color name="et_hint_color">#999999</color>
+    <color name="et_text_color">#003</color>
+    <color name="tv_title_black_color">#666666</color>
+    <color name="tv_79_color">#797979</color>
+
+    <color name="transparent_20">#33000000</color>
+
+    <color name="main_bg_color">#F3F4F6</color>
+    <color name="bg_white_color">#FFFFFF</color>
+
+    <color name="black">#000000</color>
+    <color name="black_alph02">#33000000</color>
+    <color name="black_alph04">#66000000</color>
+    <color name="black_alph30">#4d000000</color>
+    <color name="black_alph50">#80000000</color>
+    <color name="black_alph60">#7f000000</color>
+    <color name="black_alph70">#b3000000</color>
+    <color name="black_alph80">#cc000000</color>
+    <color name="white">#ffffffff</color>
+
+    <color name="tv_error_color">#E5B76C</color>
+
+    <color name="color_333">#333333</color>
+    <color name="color_666">#666666</color>
+    <color name="color_aaa">#AAAAAA</color>
+    <color name="color_bbb">#BBBBBB</color>
+    <color name="color_2b2b">#2B2B2B</color>
+    <color name="color_999">#999999</color>
+    <color name="color_ccc">#CCCCCC</color>
+
+    <color name="bg_mine_new">#FF4C4C</color>
+
+    <color name="item_pressed">#f5f5f5</color>
+
+    <color name="tv_password_error_color">#FB0707</color>
+    <color name="color_efefef">#EFEFEF</color>
+
+    <!-- 加载页面颜色 -->
+    <color name="load_pager_background">#f3f3f3</color>
+
+
+    <!-- 首页轮播图 -->
+    <color name="view_pager_indicator_fill">#F7ECC8</color>
+    <color name="view_pager_indicator_stroke">#E1E1E1</color>
 
 </resources>
