@@ -39,7 +39,7 @@
 
 
     <!-- 文字选择器的两种颜色 -->
-    <color name="text_color_gray_select">#ffc6c6c6</color>
+    <color name="text_color_gray_select">#fa08c2</color>
     <color name="text_color_gray_unSelect">#fff86442</color>
 
     <!-- tab 文字的两种颜色 -->

@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--android:drawable="@drawable/tab_background_selected"-->
     <item
-        android:drawable="@drawable/tab_background_selected"
-        android:state_selected="true"/>
+        android:state_selected="true">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <!--<solid android:color="@color/shop_color_background_unSelect" />-->
+            <solid android:color="@color/shop_color_background_select"/>
+
+            <!--<corners android:radius="5dp"/>-->
+
+            <!--<padding-->
+            <!--android:bottom="5dp" -->
+            <!--android:left="15dp" -->
+            <!--android:right="15dp"-->
+            <!--android:top="5dp"/>-->
+        </shape>
+    </item>
+    <!--android:drawable="@drawable/tab_background_unselected"-->
     <item
-        android:drawable="@drawable/tab_background_unselected"
         android:state_focused="false"
         android:state_pressed="false"
-        android:state_selected="false"/>
+        android:state_selected="false">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <!--<solid android:color="@color/shop_color_background_select" />-->
+            <solid android:color="@color/shop_color_background_unSelect"/>
+
+            <!--<corners android:radius="5dp"-->
+            <!---->
+            <!--/>-->
+
+            <!--<padding-->
+                <!--android:bottom="5dp"-->
+                <!--android:left="15dp"-->
+                <!--android:right="15dp"-->
+                <!--android:top="5dp"/>-->
+        </shape>
+    </item>
 </selector>

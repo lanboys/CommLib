@@ -3,9 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#8b7b7979"
-
->
+    android:background="@color/popup_color_shadow">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -39,7 +39,7 @@ public class PhotoSelectPopupWindow extends PopupWindow implements View.OnClickL
 
     private void initView() {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.photo_selecte_popup, null);
+        View view = inflater.inflate(R.layout.popup_photo_selecte, null);
 
         btn_take_photo = (Button) view.findViewById(R.id.btn_take_photo);
         btn_photo_album = (Button) view.findViewById(R.id.btn_photo_album);

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -14,19 +14,28 @@
         <!-- 修改默认的溢出菜单 -->
         <!--<item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>-->
     </style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style
+        name="AppTheme.AppBarOverlay"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style
+        name="AppTheme.PopupOverlay"
+        parent="ThemeOverlay.AppCompat.Light"/>
 
-    <!--<style name="Base.Widget.Design.TabLayout" parent="android:Widget">-->
+    <!--<style-->
+        <!--name="Base.Widget.Design.TabLayout"-->
+        <!--parent="android:Widget"-->
+        <!--tools:override="true">-->
+
         <!--<item name="tabBackground">@drawable/tab_background_selector</item>-->
         <!--&lt;!&ndash;<item name="tabIndicatorColor">#ff00ff</item>&ndash;&gt;-->
         <!--&lt;!&ndash;<item name="tabIndicatorHeight">2dp</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="tabTextSize">24sp</item>&ndash;&gt;-->
     <!--</style>-->
 
-
-
-
-
+    <!-- tabLayout 字体大小 -->
+    <style name="ShopTabLayoutTextStyle">
+        <item name="android:textSize">15sp</item>
+    </style>
 
 
     <!-- 进度条对话框主题 -->

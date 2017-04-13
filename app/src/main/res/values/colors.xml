@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#0195ff</color>
+    <color name="colorPrimaryDark">#0195ff</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="main_color">#59B2FD</color>
@@ -15,13 +15,19 @@
     <color name="main_color_background">#eff0f2</color>
     <!-- 主要文字色 -->
     <color name="main_color_text">#3a424d</color>
-    <!-- 主要文字色 -->
+    <!-- 主要白色 -->
     <color name="main_color_white">#fdfdfe</color>
+    <!-- 主要蓝色 -->
+    <color name="main_color_blue">#0195ff</color>
+
+    <!-- popup 阴影 -->
+    <color name="popup_color_shadow">#8b7b7979</color>
+
 
     <!-- 我的店铺 认证 颜色 -->
     <color name="shop_color_background_select">#0195ff</color>
-    <color name="shop_color_background_unSelect">#bc28cf</color>
-    <!--<color name="shop_color_background_unSelect">#fdfdfe</color>-->
+    <!--<color name="shop_color_background_unSelect">#bc28cf</color>-->
+    <color name="shop_color_background_unSelect">#fdfdfe</color>
     <color name="shop_color_text_select">#fdfdfe</color>
     <color name="shop_color_text_unSelect">#3a424d</color>
     <!-- 入驻时间 -->

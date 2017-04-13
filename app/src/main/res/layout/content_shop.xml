@@ -15,15 +15,22 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout_shop"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="10dp"
         app:tabBackground="@drawable/tab_background_selector"
         app:tabIndicatorHeight="0dp"
-        app:tabSelectedTextColor="@color/shop_color_text_select"
+        app:tabSelectedTextColor="@color/main_color_white"
+        app:tabTextAppearance="@style/ShopTabLayoutTextStyle"
+        app:tabTextColor="@color/main_color_text"
     />
-    <!--app:tabBackground="@drawable/tab_background_selector"-->
+
+    <!-- tabTextColor 设置未选中文字的颜色 设置选择器无效  -->
+    <!-- tabSelectedTextColor 设置选中文字的颜色 设置选择器无效  -->
+
     <!--android:background="@drawable/btn_login_selector"-->
-    <!--app:tabTextColor="@color/grgray"-->
     <!--app:tabIndicatorColor="@color/tab_text_color_white"-->
 
 
