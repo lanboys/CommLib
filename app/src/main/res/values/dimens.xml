@@ -5,9 +5,6 @@
     <dimen name="fab_margin">16dp</dimen>
 
 
-
-
-
     <!-- 经销商/代理商 登记页面 -->
     <dimen name="join_right_left_margin">16dp</dimen>
     <dimen name="join_item_height">76dp</dimen>
@@ -15,19 +12,8 @@
     <dimen name="join_item_textSize">20sp</dimen>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- 主页tab字体大小 -->
+    <dimen name="main_item_textSize">15sp</dimen>
 
 
 </resources>

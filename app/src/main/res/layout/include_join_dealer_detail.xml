@@ -28,6 +28,7 @@
             android:text="正面证件照: "/>
 
         <ImageView
+            android:id="@+id/iv_id_card_img_front"
             style="@style/join_item_img_pic_style"
             android:src="@drawable/iv_about_logo"/>
     </LinearLayout>
@@ -41,6 +42,7 @@
             android:text="反面证件照: "/>
 
         <ImageView
+            android:id="@+id/iv_id_card_img_back"
             style="@style/join_item_img_pic_style"
             android:src="@drawable/iv_about_logo"/>
     </LinearLayout>

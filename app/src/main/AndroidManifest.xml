@@ -30,12 +30,13 @@
         <!-- 主页面 -->
         <activity
             android:name="com.bing.lan.bing.ui.main.MainActivity"
+            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <!-- 欢迎页面 -->
         <activity
-            android:name="com.bing.lan.bing.ui.splash2.SplashActivity"
+            android:name="com.bing.lan.bing.ui.splash.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

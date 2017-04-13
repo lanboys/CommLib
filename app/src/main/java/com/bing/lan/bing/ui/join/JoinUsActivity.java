@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 
 import com.bing.lan.bing.ui.joinagent.JoinAgentActivity;
 import com.bing.lan.bing.ui.joindealer.JoinDealerActivity;
-import com.bing.lan.bing.ui.splash1.ViewPagerAdapter;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;

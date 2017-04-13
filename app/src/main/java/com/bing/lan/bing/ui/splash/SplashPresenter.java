@@ -1,14 +1,14 @@
-package com.bing.lan.bing.ui.splash;
+package com.bing.lan.bing.ui.splash ;
 
-import com.bing.lan.comm.base.mvp.fragment.BaseFragmentPresenter;
+import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
 
 /**
  * @author 蓝兵
- * @time 2017/2/8  10:27
+ * @time 2017/2/6  19:11
  */
-public class SplashPresenter extends
-        BaseFragmentPresenter<ISplashContract.ISplashView, ISplashContract.ISplashModule>
-        implements ISplashContract.ISplashPresenter {
+public class SplashPresenter
+        extends BaseActivityPresenter<ISplashContract.ISplashView, ISplashContract.ISplashModule>
+        implements ISplashContract.ISplashPresenter<ISplashContract.ISplashView, ISplashContract.ISplashModule> {
 
     @Override
     public void onStart(Object... params) {

@@ -63,6 +63,7 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
 
     @Override
     protected void initViewAndData(Intent intent) {
+        setToolBar(mToolbar,"代理商登记",true,0);
 
     }
 
@@ -144,5 +145,34 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
         }
         mCityPicker.show();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

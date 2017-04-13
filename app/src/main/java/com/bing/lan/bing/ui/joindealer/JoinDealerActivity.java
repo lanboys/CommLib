@@ -2,6 +2,7 @@ package com.bing.lan.bing.ui.joindealer;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import com.bing.lan.comm.di.ActivityComponent;
 import com.lljjcoder.citypickerview.widget.CityPicker;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -43,6 +45,10 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
     EditText mEtIdNumber;
     @BindView(R.id.btn_join_now)
     Button mBtnJoinNow;
+    @BindView(R.id.iv_id_card_img_front)
+    ImageView mIvIdCardImgFront;
+    @BindView(R.id.iv_id_card_img_back)
+    ImageView mIvIdCardImgBack;
     private CityPicker mCityPicker;
 
     @Override
@@ -62,7 +68,7 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
 
     @Override
     protected void initViewAndData(Intent intent) {
-
+        setToolBar(mToolbar, "经销商登记", true, 0);
     }
 
     @Override
@@ -72,7 +78,7 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
 
     @OnClick({R.id.toolbar, R.id.et_phone_number, R.id.et_join_name,
             R.id.tv_select_address, R.id.iv_select_address, R.id.ll_select_address,
-            R.id.et_address_detail, R.id.et_id_number, R.id.btn_join_now})
+            R.id.et_address_detail, R.id.et_id_number, R.id.btn_join_now,R.id.iv_id_card_img_front, R.id.iv_id_card_img_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar:
@@ -92,8 +98,19 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
                 break;
             case R.id.btn_join_now:
                 break;
+            case R.id.iv_id_card_img_front:
+                break;
+            case R.id.iv_id_card_img_back:
+                break;
         }
     }
+
+
+
+
+
+
+
 
     private String mProvince = "北京市";
     private String mCity = "北京市";
@@ -140,4 +157,13 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
         }
         mCityPicker.show();
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+
 }

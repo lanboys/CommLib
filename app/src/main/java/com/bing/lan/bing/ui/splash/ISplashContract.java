@@ -1,25 +1,24 @@
-package com.bing.lan.bing.ui.splash;
+package com.bing.lan.bing.ui.splash ;
 
-import com.bing.lan.comm.base.mvp.fragment.IBaseFragmentContract;
+import com.bing.lan.comm.base.mvp.activity.IBaseActivityContract;
 
-/**
- * @author 蓝兵
- * @time 2017/2/8  10:26
- */
 public interface ISplashContract {
 
-    interface ISplashView extends IBaseFragmentContract.IBaseFragmentView<ISplashPresenter> {
+    interface ISplashView<T extends ISplashPresenter> extends IBaseActivityContract.IBaseActivityView<T> {
+
         void startAnimation();
 
         void animationFinished();
     }
 
-    interface ISplashPresenter extends
-            IBaseFragmentContract.IBaseFragmentPresenter<ISplashView, ISplashModule> {
+    interface ISplashPresenter<T extends ISplashView, M extends ISplashModule>
+            extends IBaseActivityContract.IBaseActivityPresenter<T, M> {
 
         void animationFinished();
+
     }
 
-    interface ISplashModule extends IBaseFragmentContract.IBaseFragmentModule {
+    interface ISplashModule extends IBaseActivityContract.IBaseActivityModule {
+
     }
 }

@@ -7,7 +7,7 @@ import com.bing.lan.bing.ui.joindealer.JoinDealerActivity;
 import com.bing.lan.bing.ui.login.LoginActivity;
 import com.bing.lan.bing.ui.main.MainActivity;
 import com.bing.lan.bing.ui.register.RegisterActivity;
-import com.bing.lan.bing.ui.splash2.SplashActivity;
+import com.bing.lan.bing.ui.splash.SplashActivity;
 
 import dagger.Component;
 

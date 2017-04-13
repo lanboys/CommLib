@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordActivity;
+import com.bing.lan.bing.ui.main.MainActivity;
 import com.bing.lan.bing.ui.register.RegisterActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
@@ -85,13 +86,12 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
     }
 
     @OnClick({R.id.btn_login, R.id.tv_new_user_register, R.id.tv_forget_password, R.id.ll_login
-             ,R.id.ll_not_employee, R.id.ll_employee })
+            , R.id.ll_not_employee, R.id.ll_employee})
     public void onClick(View view) {
         switch (view.getId()) {
 
             case R.id.btn_login:
-                showToast("立即登录");
-                log.d("onClick(): 立即登录");
+                startActivity(MainActivity.class, true, true);
                 break;
             case R.id.tv_new_user_register:
                 startActivity(RegisterActivity.class, false, true);
@@ -128,11 +128,4 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
         mTvEmployee.setSelected(true);
         mTvNotEmployee.setSelected(true);
     }
-
-
-
-
-
-
-
 }

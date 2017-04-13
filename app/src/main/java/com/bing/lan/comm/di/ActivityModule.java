@@ -31,10 +31,10 @@ import com.bing.lan.bing.ui.register.IRegisterContract;
 import com.bing.lan.bing.ui.register.RegisterActivity;
 import com.bing.lan.bing.ui.register.RegisterModule;
 import com.bing.lan.bing.ui.register.RegisterPresenter;
-import com.bing.lan.bing.ui.splash2.ISplashContract;
-import com.bing.lan.bing.ui.splash2.SplashActivity;
-import com.bing.lan.bing.ui.splash2.SplashModule;
-import com.bing.lan.bing.ui.splash2.SplashPresenter;
+import com.bing.lan.bing.ui.splash.ISplashContract;
+import com.bing.lan.bing.ui.splash.SplashActivity;
+import com.bing.lan.bing.ui.splash.SplashModule;
+import com.bing.lan.bing.ui.splash.SplashPresenter;
 import com.bing.lan.comm.utils.LogUtil;
 
 import dagger.Module;

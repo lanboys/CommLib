@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.bing.lan.comm.view.FlexibleScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.bing.lan.bing.ui.main.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/ll_my_income"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今日收益金额(元):"
+                android:textSize="30sp"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20sp"
+                android:src="@drawable/iv_login_logo"/>
+
+
+        </LinearLayout>
+
+        <include
+            layout="@layout/include_line_join"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_my_asset"
+                style="@style/main_item_style">
+                <ImageView
+                    style="@style/main_item_img_style"
+                    android:src="@drawable/iv_login_logo"/>
+                <TextView
+                    style="@style/main_item_text_style"
+                    android:text="我的资产"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_my_shop"
+                style="@style/main_item_style">
+                <ImageView
+                    style="@style/main_item_img_style"
+                    android:src="@drawable/iv_login_logo"/>
+                <TextView
+                    style="@style/main_item_text_style"
+                    android:text="我的店铺"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_my_dealer"
+                style="@style/main_item_style">
+
+                <ImageView
+                    style="@style/main_item_img_style"
+                    android:src="@drawable/iv_login_logo"/>
+
+                <TextView
+                    style="@style/main_item_text_style"
+                    android:text="经销商"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_my_agent"
+                style="@style/main_item_style">
+                <ImageView
+                    style="@style/main_item_img_style"
+                    android:src="@drawable/iv_login_logo"/>
+
+                <TextView
+                    style="@style/main_item_text_style"
+                    android:text="代理商"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:src="@drawable/iv_login_logo"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="邀请码:AD48S4DS87EW"
+            android:textSize="20sp"/>
+
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:text="电话客服(10:00-18:00)"
+            android:textSize="15sp"/>
+
+
+    </LinearLayout>
+</com.bing.lan.comm.view.FlexibleScrollView>

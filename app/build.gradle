@@ -122,6 +122,10 @@ dependencies {
     // ViewPagerIndicator
     compile "fr.avianey.com.viewpagerindicator:library:$rootProject.viewpagerIndicatorVersion"
 
+    // 图片裁剪 crop
+    compile "com.soundcloud.android:android-crop:$rootProject.imageCropVersion"
+
+
     //api23抛弃了httpclient,继续使用httpclient
     compile 'org.apache.httpcomponents:httpcore:4.3.2'
     //api23抛弃了httpclient,继续使用httpclient

@@ -25,6 +25,13 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+
+    <!-- popupwindow 动画 -->
+    <style name="PopupWindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/popup_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/popup_out_anim</item>
+    </style>
+
     <!-- 经销商/代理商页面item 主题 -->
     <style name="join_item_comm_style">
         <item name="android:layout_width">match_parent</item>
@@ -47,7 +54,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@null</item>
-        <item name="android:maxLines">1</item>
+        <item name="android:maxLines">2</item>
         <item name="android:textSize">@dimen/join_item_textSize</item>
     </style>
 
@@ -64,6 +71,30 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">#232</item>
     </style>
+
+
+
+    <style name="main_item_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">10sp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="main_item_img_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="main_item_text_style">
+        <item name="android:maxLines">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/main_item_textSize</item>
+    </style>
+
 
 
 </resources>

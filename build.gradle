@@ -102,13 +102,15 @@ ext {
     //indicator
     viewpagerIndicatorVersion = '2.4.1.1@aar'
 
+    //图片裁剪
+    imageCropVersion = '1.0.1@aar'
+
     glideVersion = '3.7.0'
     glideTransformationsVersion = '2.0.1'
     easypermissionsVersion = '0.2.1'
 
 
 
-    imageCropVersion = '1.0.1@aar'
     collapsingtoolbarVersion = '1.3.0'
     scrollToRefreshVersion = '1.0.11'
 

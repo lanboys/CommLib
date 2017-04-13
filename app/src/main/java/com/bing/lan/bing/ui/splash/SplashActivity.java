@@ -1,4 +1,4 @@
-package com.bing.lan.bing.ui.splash2;
+package com.bing.lan.bing.ui.splash ;
 
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
