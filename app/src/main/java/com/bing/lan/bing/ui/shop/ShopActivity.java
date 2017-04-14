@@ -54,7 +54,7 @@ public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
         TabLayout.Tab tab = mTabLayoutShop.newTab().setText("未认证");
         mTabLayoutShop.addTab(tab);
         TabLayout.Tab tab1 = mTabLayoutShop.newTab().setText("已认证");
-        mTabLayoutShop.addTab(tab1); 
+        mTabLayoutShop.addTab(tab1);
     }
 
     @Override
