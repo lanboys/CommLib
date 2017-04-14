@@ -11,14 +11,13 @@
         style="@style/join_item_comm_style">
         <TextView
             style="@style/join_item_comm_textView_style"
-            android:text="联系电话: "/>
+            android:text="联系电话"/>
 
         <EditText
             android:id="@+id/et_phone_number"
             style="@style/join_item_comm_editText_style"
             android:hint="联系电话"
-            android:inputType="phone"
-        />
+            android:inputType="phone"/>
     </LinearLayout>
 
     <include layout="@layout/include_line_join"/>
@@ -27,7 +26,7 @@
         style="@style/join_item_comm_style">
         <TextView
             style="@style/join_item_comm_textView_style"
-            android:text="真实姓名: "/>
+            android:text="真实姓名"/>
 
         <EditText
             android:id="@+id/et_join_name"
@@ -42,7 +41,7 @@
         style="@style/join_item_comm_style">
         <TextView
             style="@style/join_item_comm_textView_style"
-            android:text="所在地区: "/>
+            android:text="所在地区"/>
 
         <TextView
             android:id="@+id/tv_select_address"
@@ -66,7 +65,7 @@
         style="@style/join_item_comm_style">
         <TextView
             style="@style/join_item_comm_textView_style"
-            android:text="详细地址: "/>
+            android:text="详细地址"/>
 
         <EditText
             android:id="@+id/et_address_detail"

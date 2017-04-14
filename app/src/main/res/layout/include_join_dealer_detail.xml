@@ -9,7 +9,8 @@
         style="@style/join_item_comm_style">
         <TextView
             style="@style/join_item_comm_textView_style"
-            android:text="证件号码: "/>
+            android:text="证件号码"/>
+
 
         <EditText
             android:id="@+id/et_id_number"
@@ -25,26 +26,26 @@
         style="@style/join_item_img_style">
         <TextView
             style="@style/join_item_comm_textView_style"
-            android:text="正面证件照: "/>
+            android:text="正面证件照"/>
 
         <ImageView
             android:id="@+id/iv_id_card_img_front"
             style="@style/join_item_img_pic_style"
-            android:src="@drawable/iv_about_logo"/>
+            android:src="@drawable/id_card_pic"/>
     </LinearLayout>
 
-    <include layout="@layout/include_line_join"/>
+    <!--<include layout="@layout/include_line_join"/>-->
 
     <LinearLayout
         style="@style/join_item_img_style">
         <TextView
             style="@style/join_item_comm_textView_style"
-            android:text="反面证件照: "/>
+            android:text="反面证件照"/>
 
         <ImageView
             android:id="@+id/iv_id_card_img_back"
             style="@style/join_item_img_pic_style"
-            android:src="@drawable/iv_about_logo"/>
+            android:src="@drawable/id_card_pic"/>
     </LinearLayout>
 
 

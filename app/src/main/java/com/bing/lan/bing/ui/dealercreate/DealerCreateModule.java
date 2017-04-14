@@ -1,4 +1,4 @@
-package com.bing.lan.bing.ui.dealerCreate;
+package com.bing.lan.bing.ui.dealercreate;
 
 import com.bing.lan.comm.base.mvp.IBaseContract;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityModule;

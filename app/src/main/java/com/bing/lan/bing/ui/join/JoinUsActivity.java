@@ -126,10 +126,10 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_in_main:
-                startActivity(JoinDealerActivity.class, false, true);
+                startActivity(JoinDealerActivity.class, false, false);
                 break;
             case R.id.iv_skip:
-                startActivity(JoinAgentActivity.class, false, true);
+                startActivity(JoinAgentActivity.class, false, false);
                 break;
         }
     }

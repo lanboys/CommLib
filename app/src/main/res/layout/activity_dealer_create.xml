@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.bing.lan.bing.ui.dealerCreate.DealerCreateActivity">
+    tools:context="com.bing.lan.bing.ui.dealercreate.DealerCreateActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

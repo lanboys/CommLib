@@ -36,16 +36,11 @@
         </LinearLayout>
 
 
+
         <Button
             android:id="@+id/btn_join_now"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="35dp"
-            android:textSize="20sp"
-            android:background="@drawable/btn_login_selector"
             android:text="立即登记"
-            android:textColor="@color/tv_white_color"/>
+            style="@style/btn_blue_style"/>
 
     </LinearLayout>
 </com.bing.lan.comm.view.FlexibleScrollView>

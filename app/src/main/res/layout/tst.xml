@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+        style="@style/join_item_comm_style">
+        <TextView
+            style="@style/join_item_comm_textView_style"
+            android:text="联系电话"/>
+
+        <EditText
+            android:id="@+id/et_phone_number"
+            style="@style/join_item_comm_editText_style"
+            android:hint="联系电话"
+            android:inputType="phone"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

@@ -1,21 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.bing.lan.comm.view.FlexibleScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_shop_create"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/main_color_background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.bing.lan.bing.ui.shopcreate.ShopCreateActivity"
     tools:showIn="@layout/activity_shop_create">
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="heilllo"/>
+        android:orientation="vertical">
 
-</RelativeLayout>
+        <LinearLayout
+            style="@style/join_item_comm_style"
+        >
+            <TextView
+                style="@style/join_item_comm_textView_style"
+                android:text="联系电话"/>
+
+            <EditText
+                android:id="@+id/et_phone_number"
+                style="@style/join_item_comm_editText_style"
+                android:hint="店主手机号"
+                android:inputType="phone"/>
+        </LinearLayout>
+
+        <include layout="@layout/include_line_join"/>
+        <LinearLayout
+            style="@style/join_item_comm_style">
+            <TextView
+                style="@style/join_item_comm_textView_style"
+                android:text="真实姓名"/>
+
+            <EditText
+                android:id="@+id/et_phone_number1"
+                style="@style/join_item_comm_editText_style"
+                android:hint="店主姓名"
+                android:inputType="phone"/>
+        </LinearLayout>
+
+        <include layout="@layout/include_line_join"/>
+        <LinearLayout
+            style="@style/join_item_comm_style">
+            <TextView
+                style="@style/join_item_comm_textView_style"
+                android:text="店铺姓名"/>
+
+            <EditText
+                android:id="@+id/et_phone_number11"
+                style="@style/join_item_comm_editText_style"
+                android:hint="商客名称"
+                android:inputType="phone"/>
+        </LinearLayout>
+
+        <include layout="@layout/include_line_join"/>
+
+        <LinearLayout
+            android:id="@+id/ll_select_address11"
+            style="@style/join_item_comm_style">
+            <TextView
+                style="@style/join_item_comm_textView_style"
+                android:text="主营类目"/>
+
+            <TextView
+                android:id="@+id/tv_select_address11"
+                style="@style/join_item_comm_editText_style"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:hint="主营类型"/>
+
+            <ImageView
+                android:id="@+id/iv_select_address11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/iv_mine_into"/>
+        </LinearLayout>
+
+        <include layout="@layout/include_line_join"/>
+
+        <LinearLayout
+            android:id="@+id/ll_select_address1"
+            style="@style/join_item_comm_style">
+            <TextView
+                style="@style/join_item_comm_textView_style"
+                android:text="选择地址"/>
+
+            <TextView
+                android:id="@+id/tv_select_address1"
+                style="@style/join_item_comm_editText_style"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:hint="点击选择省市区"/>
+
+            <ImageView
+                android:id="@+id/iv_select_address1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/shop_address"/>
+        </LinearLayout>
+
+        <include layout="@layout/include_line_join"/>
+
+        <LinearLayout
+            style="@style/join_item_img_style">
+            <TextView
+                style="@style/join_item_img_textView_style"
+                android:text="门店门头照"/>
+
+            <ImageView
+                android:id="@+id/iv_id_card_img_front"
+                style="@style/join_item_img_pic_style"
+                android:src="@drawable/id_card_pic"/>
+        </LinearLayout>
+
+        <!--<include layout="@layout/include_line_join"/>-->
+
+        <LinearLayout
+            style="@style/join_item_img_style">
+            <TextView
+                style="@style/join_item_img_textView_style"
+                android:text="门店内部照"/>
+
+            <ImageView
+                android:id="@+id/iv_id_card_img_back"
+                style="@style/join_item_img_pic_style"
+                android:src="@drawable/id_card_pic"/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/join_item_img_style">
+            <TextView
+                style="@style/join_item_img_textView_style"
+                android:maxWidth="75dp"
+                android:text="门店收银台照"/>
+
+            <ImageView
+                android:id="@+id/iv_id_card_img_front1"
+                style="@style/join_item_img_pic_style"
+                android:src="@drawable/id_card_pic"/>
+        </LinearLayout>
+
+        <!--<include layout="@layout/include_line_join"/>-->
+
+        <LinearLayout
+            style="@style/join_item_img_style">
+            <TextView
+                style="@style/join_item_img_textView_style"
+                android:maxWidth="75dp"
+                android:text="食品经营许可证"/>
+
+            <ImageView
+                android:id="@+id/iv_id_card_img_front3"
+                style="@style/join_item_img_pic_style"
+                android:src="@drawable/id_card_pic"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_color_white"
+            android:gravity="end"
+            android:paddingBottom="27dp"
+            android:paddingRight="@dimen/join_right_left_margin"
+            android:paddingTop="7dp"
+            android:text="可上传食品流通许可证、食品生产许可证、餐饮许可证。"
+            android:textColor="@color/main_color_text_gray"
+            android:textSize="10sp"/>
+        <!--android:textColor="#9199a6"-->
+
+        <LinearLayout
+            android:id="@+id/ll_select_address111"
+            style="@style/join_item_comm_style"
+            android:layout_marginTop="10dp">
+            <TextView
+                style="@style/join_item_comm_textView_style"
+                android:text="POS机"/>
+
+            <TextView
+                android:id="@+id/tv_select_addre1ss11"
+                style="@style/join_item_comm_editText_style"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:hint="已选择0台"/>
+
+            <ImageView
+                android:id="@+id/iv_select_addr1ess11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/iv_mine_into"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_create_shop"
+            style="@style/btn_blue_style"
+            android:text="创建店铺"/>
+    </LinearLayout>
+</com.bing.lan.comm.view.FlexibleScrollView>

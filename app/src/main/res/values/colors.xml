@@ -7,19 +7,21 @@
     <color name="main_color">#59B2FD</color>
     <color name="main_color_shallow">#B8DFFF</color>
 
-    <color name="gray_line">#CCCCCC</color>
 
     <!--*******************************************-->
     <!--*******************************************-->
     <!-- 主要背景色 -->
     <color name="main_color_background">#eff0f2</color>
-    <!-- 主要文字色 -->
-    <color name="main_color_text">#3a424d</color>
+    <!-- 主要文字黑色 -->
+    <color name="main_color_text_black">#3a424d</color>
+    <!-- 主要文字灰色 -->
+    <color name="main_color_text_gray">#7e8693</color>
     <!-- 主要白色 -->
     <color name="main_color_white">#fdfdfe</color>
     <!-- 主要蓝色 -->
     <color name="main_color_blue">#0195ff</color>
-
+    <!-- 主要 分割线 颜色 -->
+    <color name="main_color_gray_line">#CCCCCC</color>
     <!-- popup 阴影 -->
     <color name="popup_color_shadow">#8b7b7979</color>
 

@@ -2,7 +2,6 @@ package com.bing.lan.bing.ui.joindealer;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +16,6 @@ import com.bing.lan.comm.di.ActivityComponent;
 import com.lljjcoder.citypickerview.widget.CityPicker;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -158,12 +156,7 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
         mCityPicker.show();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 
 
 }

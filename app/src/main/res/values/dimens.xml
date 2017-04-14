@@ -6,14 +6,21 @@
 
 
     <!-- 经销商/代理商 登记页面 -->
-    <dimen name="join_right_left_margin">16dp</dimen>
-    <dimen name="join_item_height">76dp</dimen>
-    <dimen name="join_item_id_img_height">150dp</dimen>
-    <dimen name="join_item_textSize">20sp</dimen>
+    <dimen name="join_right_left_margin">13dp</dimen>
+    <dimen name="join_item_height">60dp</dimen>
+    <dimen name="join_item_textView_textSize">15sp</dimen>
+    <dimen name="join_item_editText_textSize">14sp</dimen>
+    <dimen name="join_item_idCard_img_height">140dp</dimen>
+    <dimen name="join_item_idCard_img_width">247dp</dimen>
+
+    <dimen name="main_height_gray_line">10dp</dimen>
 
 
     <!-- 主页tab字体大小 -->
     <dimen name="main_item_textSize">15sp</dimen>
+
+
+    <dimen name="main_textSize_15sp">15sp</dimen>
 
 
 </resources>

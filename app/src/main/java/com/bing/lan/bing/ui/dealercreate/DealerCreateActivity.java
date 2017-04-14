@@ -1,4 +1,4 @@
-package com.bing.lan.bing.ui.dealerCreate;
+package com.bing.lan.bing.ui.dealercreate;
 
 import android.content.Intent;
 
@@ -11,17 +11,16 @@ import com.bing.lan.comm.di.ActivityComponent;
  * @time 2017/4/6  19:12
  */
 public class DealerCreateActivity extends BaseActivity<IDealerCreateContract.IDealerCreatePresenter>
-        implements IDealerCreateContract.IDealerCreateView {
+        implements  IDealerCreateContract.IDealerCreateView {
 
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_dealer_create;
-
     }
 
     @Override
     protected void startInject(ActivityComponent activityComponent) {
-       activityComponent.inject(this);
+        activityComponent.inject(this);
     }
 
     @Override

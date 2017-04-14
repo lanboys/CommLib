@@ -26,16 +26,12 @@
 
         <include layout="@layout/include_join_dealer_detail"/>
 
+
+
         <Button
             android:id="@+id/btn_join_now"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="35dp"
-            android:background="@drawable/btn_login_selector"
             android:text="立即登记"
-            android:textColor="@color/tv_white_color"
-            android:textSize="20sp"/>
+            style="@style/btn_blue_style"/>
 
     </LinearLayout>
 </com.bing.lan.comm.view.FlexibleScrollView>

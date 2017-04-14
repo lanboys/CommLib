@@ -23,7 +23,7 @@
         app:tabIndicatorHeight="0dp"
         app:tabSelectedTextColor="@color/main_color_white"
         app:tabTextAppearance="@style/ShopTabLayoutTextStyle"
-        app:tabTextColor="@color/main_color_text"
+        app:tabTextColor="@color/main_color_text_black"
     />
 
     <!-- tabTextColor 设置未选中文字的颜色 设置选择器无效  -->
@@ -43,19 +43,12 @@
     </ListView>
 
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="28dp"
 
-        android:layout_marginLeft="28dp"
-        android:layout_marginRight="28dp"
-        android:background="@drawable/btn_login_selector"
+
+    <Button
+        android:id="@+id/btn_create_dealer"
         android:text="登记经销商"
-        android:textColor="@color/tv_white_color"/>
+        style="@style/btn_blue_style"/>
 
 
 </RelativeLayout>

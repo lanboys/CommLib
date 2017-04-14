@@ -3,7 +3,7 @@ package com.bing.lan.comm.di;
 import com.bing.lan.bing.ui.agent.AgentActivity;
 import com.bing.lan.bing.ui.asset.AssetActivity;
 import com.bing.lan.bing.ui.dealer.DealerActivity;
-import com.bing.lan.bing.ui.dealerCreate.DealerCreateActivity;
+import com.bing.lan.bing.ui.dealercreate.DealerCreateActivity;
 import com.bing.lan.bing.ui.dealerauthenticate.DealerAuthenticateActivity;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordActivity;
 import com.bing.lan.bing.ui.join.JoinUsActivity;
