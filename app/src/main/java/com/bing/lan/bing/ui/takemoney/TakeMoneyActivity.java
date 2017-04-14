@@ -2,10 +2,13 @@ package com.bing.lan.bing.ui.takemoney;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.widget.ListView;
 
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 
@@ -18,6 +21,8 @@ public class TakeMoneyActivity extends BaseActivity<ITakeMoneyContract.ITakeMone
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.lv_take_money)
+    ListView mLvTakeMoney;
 
     @Override
     protected int getLayoutResId() {
@@ -37,5 +42,16 @@ public class TakeMoneyActivity extends BaseActivity<ITakeMoneyContract.ITakeMone
     @Override
     protected void readyStartPresenter() {
 
+        ArrayList<TakeMoneyInfoBean> shopBeen = new ArrayList<>();
+
+        for (int i = 0; i < 14; i++) {
+            shopBeen.add(new TakeMoneyInfoBean( "+ ￥2222.00","2017-01-25 04:00:22","微信收款" ));
+        }
+
+        TakeMoneyListAdapter adapter = new TakeMoneyListAdapter(this);
+        mLvTakeMoney.setAdapter(adapter);
+
+        adapter.setDataAndRefresh(shopBeen);
+        adapter.notifyDataSetChanged();
     }
 }
