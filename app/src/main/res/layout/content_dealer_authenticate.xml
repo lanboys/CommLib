@@ -1,24 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.bing.lan.comm.view.FlexibleScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_dealer_authenticate"
+    android:id="@+id/content_shop_create"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/main_color_background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.bing.lan.bing.ui.dealerauthenticate.DealerAuthenticateActivity"
     tools:showIn="@layout/activity_dealer_authenticate">
 
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="heilllo"/>
+        android:orientation="vertical">
+        <include layout="@layout/include_line_join"/>
 
+        <LinearLayout
+            style="@style/join_item_img_style">
+            <TextView
+                android:id="@+id/tv_authenticate_idCard_photo1"
+                style="@style/join_item_img_textView_style"
+                android:text="缴费凭证"/>
 
-</RelativeLayout>
+            <ImageView
+                android:id="@+id/iv_authenticate_idCard_photo1"
+                style="@style/join_item_img_pic_style"
+                android:src="@drawable/id_card_pic"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_color_white"
+            android:gravity="end"
+            android:paddingBottom="10dp"
+            android:paddingRight="@dimen/join_right_left_margin"
+            android:paddingTop="10dp"
+            android:text="缴费凭证需要客户签字                                                     "
+            android:textColor="#fd172a"
+            android:textSize="10sp"/>
+
+        <include layout="@layout/include_line_join"/>
+
+        <LinearLayout
+            style="@style/join_item_comm_style">
+            <TextView
+
+                android:id="@+id/tv_authenticate_name"
+                style="@style/join_item_comm_textView_style"
+                android:text="缴费金额"/>
+
+            <EditText
+                android:id="@+id/et_authenticate_name"
+                style="@style/join_item_comm_editText_style"
+                android:hint="物料押金金额"
+                android:inputType="phone"/>
+        </LinearLayout>
+
+        <include layout="@layout/include_line_join"/>
+        <LinearLayout
+            style="@style/join_item_comm_style">
+            <TextView
+                android:id="@+id/tv_authenticate_id"
+                style="@style/join_item_comm_textView_style"
+                android:text="缴费时间"/>
+
+            <EditText
+                android:id="@+id/et_authenticate_id"
+                style="@style/join_item_comm_editText_style"
+                android:hint="2017-04-14 14:15:45"
+                android:inputType="phone"/>
+        </LinearLayout>
+
+        <include layout="@layout/include_line_join"/>
+
+        <LinearLayout
+            style="@style/join_item_comm_style">
+            <TextView
+                android:id="@+id/tv_authenticate_id1"
+                style="@style/join_item_comm_textView_style"
+                android:text="缴费卡号"/>
+
+            <EditText
+                android:id="@+id/et_authenticate_id1"
+                style="@style/join_item_comm_editText_style"
+                android:hint="缴费人卡号"
+                android:inputType="phone"/>
+        </LinearLayout>
+
+        <include layout="@layout/include_line_2"/>
+
+        <LinearLayout
+            style="@style/join_item_img_style"
+            android:paddingBottom="23dp">
+            <TextView
+                android:id="@+id/tv_authenticate_idCard_photo3"
+                style="@style/join_item_img_textView_style"
+                android:text="签约协议"/>
+
+            <ImageView
+                android:id="@+id/iv_authenticate_idCard_photo3"
+                style="@style/join_item_img_pic_style"
+                android:src="@drawable/id_card_pic"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_apply_authenticate"
+            style="@style/btn_blue_style"
+            android:background="@drawable/shape_btn_gray"
+            android:text="立即登记"/>
+    </LinearLayout>
+</com.bing.lan.comm.view.FlexibleScrollView>

@@ -3,8 +3,10 @@ package com.bing.lan.bing.ui.dealer;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 import android.widget.ListView;
 
+import com.bing.lan.bing.ui.joindealer.JoinDealerActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -12,6 +14,7 @@ import com.bing.lan.comm.di.ActivityComponent;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @author 蓝兵
@@ -26,6 +29,8 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
     TabLayout mTabLayoutShop;
     @BindView(R.id.lv_dealer)
     ListView mLvDealer;
+    @BindView(R.id.btn_create_dealer)
+    Button mBtnCreateDealer;
 
     @Override
     protected int getLayoutResId() {
@@ -67,5 +72,10 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
 
         adapter.setDataAndRefresh(shopBeen);
         adapter.notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.btn_create_dealer)
+    public void onViewClicked() {
+        startActivity(JoinDealerActivity.class, false, true);
     }
 }

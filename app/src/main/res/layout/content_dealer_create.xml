@@ -6,13 +6,13 @@
     android:id="@+id/content_dealer_create"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.bing.lan.bing.ui.dealerCreate.DealerCreateActivity"
+    tools:context="com.bing.lan.bing.ui.dealercreate.DealerCreateActivity"
     tools:showIn="@layout/activity_dealer_create">
+
+
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

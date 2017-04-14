@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bing.lan.bing.ui.dealerauthenticate.DealerAuthenticateActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -76,7 +77,8 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
 
     @OnClick({R.id.toolbar, R.id.et_phone_number, R.id.et_join_name,
             R.id.tv_select_address, R.id.iv_select_address, R.id.ll_select_address,
-            R.id.et_address_detail, R.id.et_id_number, R.id.btn_join_now,R.id.iv_id_card_img_front, R.id.iv_id_card_img_back})
+            R.id.et_address_detail, R.id.et_id_number, R.id.btn_join_now,
+            R.id.iv_id_card_img_front, R.id.iv_id_card_img_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar:
@@ -95,6 +97,7 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
             case R.id.et_id_number:
                 break;
             case R.id.btn_join_now:
+                startActivity(DealerAuthenticateActivity.class, false, true);
                 break;
             case R.id.iv_id_card_img_front:
                 break;
@@ -102,13 +105,6 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
                 break;
         }
     }
-
-
-
-
-
-
-
 
     private String mProvince = "北京市";
     private String mCity = "北京市";
@@ -155,8 +151,4 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
         }
         mCityPicker.show();
     }
-
-
-
-
 }

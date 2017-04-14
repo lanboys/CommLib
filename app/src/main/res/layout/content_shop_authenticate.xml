@@ -48,10 +48,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="企业"/>
-
-
             </RadioGroup>
-
 
         </LinearLayout>
 
@@ -131,7 +128,7 @@
             />
         </LinearLayout>
 
- 
+
         <LinearLayout
             style="@style/join_item_img_style"
             android:paddingBottom="23dp">

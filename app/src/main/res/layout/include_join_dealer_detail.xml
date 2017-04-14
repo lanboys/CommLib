@@ -37,6 +37,7 @@
     <!--<include layout="@layout/include_line_join"/>-->
 
     <LinearLayout
+        android:paddingBottom="20dp"
         style="@style/join_item_img_style">
         <TextView
             style="@style/join_item_comm_textView_style"
