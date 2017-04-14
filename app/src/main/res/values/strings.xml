@@ -19,4 +19,5 @@
     <string name="title_activity_not_settlement">NotSettlementActivity</string>
     <string name="title_activity_not_available">NotAvailableActivity</string>
     <string name="title_activity_apply_money">ApplyMoneyActivity</string>
+    <string name="title_activity_income_detail">IncomeDetailActivity</string>
 </resources>

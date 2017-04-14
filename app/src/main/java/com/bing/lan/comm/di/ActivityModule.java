@@ -31,6 +31,10 @@ import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordActivity;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordModule;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordPresenter;
 import com.bing.lan.bing.ui.forgetpassword.IForgetPasswordContract;
+import com.bing.lan.bing.ui.incomedetail.IIncomeDetailContract;
+import com.bing.lan.bing.ui.incomedetail.IncomeDetailActivity;
+import com.bing.lan.bing.ui.incomedetail.IncomeDetailModule;
+import com.bing.lan.bing.ui.incomedetail.IncomeDetailPresenter;
 import com.bing.lan.bing.ui.join.IJoinUsContract;
 import com.bing.lan.bing.ui.join.JoinUsActivity;
 import com.bing.lan.bing.ui.join.JoinUsModule;
@@ -233,13 +237,6 @@ public class ActivityModule {
         return splashPresenter;
     }
 
-    // void inject(TakeMoneyActivity takeMoneyActivity);
-    //
-    // void inject(NotSettlementActivity notSettlementActivity);
-    //
-    // void inject(NotAvailableActivity notAvailableActivity);
-    //
-    // void inject(ApplyMoneyActivity applyMoneyActivity);
 
     @Provides
     public IDealerAuthenticateContract.IDealerAuthenticatePresenter provideDealerAuthenticatePresenter() {
@@ -278,6 +275,13 @@ public class ActivityModule {
         ApplyMoneyPresenter splashPresenter = new ApplyMoneyPresenter();
         splashPresenter.setModule(new ApplyMoneyModule());
         splashPresenter.onAttachView((ApplyMoneyActivity) mActivity);
+        return splashPresenter;
+    }
+    @Provides
+    public IIncomeDetailContract.IIncomeDetailPresenter provideIncomeDetailPresenter() {
+        IncomeDetailPresenter splashPresenter = new IncomeDetailPresenter();
+        splashPresenter.setModule(new IncomeDetailModule());
+        splashPresenter.onAttachView((IncomeDetailActivity) mActivity);
         return splashPresenter;
     }
 }

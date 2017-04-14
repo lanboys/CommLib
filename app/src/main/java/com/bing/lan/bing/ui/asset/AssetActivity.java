@@ -8,9 +8,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bing.lan.bing.ui.applymoney.ApplyMoneyActivity;
+import com.bing.lan.bing.ui.incomedetail.IncomeDetailActivity;
 import com.bing.lan.bing.ui.notavailable.NotAvailableActivity;
 import com.bing.lan.bing.ui.notsettlement.NotSettlementActivity;
-import com.bing.lan.bing.ui.takemoney.TakeMoneyActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -96,7 +96,7 @@ public class AssetActivity extends BaseActivity<IAssetContract.IAssetPresenter>
 
         switch (item.getItemId()) {
             case R.id.action_money_detail:
-                startActivity(TakeMoneyActivity.class, false, true);
+                startActivity(IncomeDetailActivity.class, false, true);
                 break;
         }
         return super.onOptionsItemSelected(item);

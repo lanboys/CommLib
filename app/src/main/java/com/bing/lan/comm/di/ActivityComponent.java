@@ -7,6 +7,7 @@ import com.bing.lan.bing.ui.dealer.DealerActivity;
 import com.bing.lan.bing.ui.dealercreate.DealerCreateActivity;
 import com.bing.lan.bing.ui.dealerauthenticate.DealerAuthenticateActivity;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordActivity;
+import com.bing.lan.bing.ui.incomedetail.IncomeDetailActivity;
 import com.bing.lan.bing.ui.join.JoinUsActivity;
 import com.bing.lan.bing.ui.joinagent.JoinAgentActivity;
 import com.bing.lan.bing.ui.joindealer.JoinDealerActivity;
@@ -69,6 +70,8 @@ public interface ActivityComponent {
     void inject(NotAvailableActivity notAvailableActivity);
 
     void inject(ApplyMoneyActivity applyMoneyActivity);
+
+    void inject(IncomeDetailActivity incomeDetailActivity);
 
     // void inject(SplashActivity splashActivity);
 

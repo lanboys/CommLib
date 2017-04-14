@@ -147,6 +147,11 @@
             android:label="@string/title_activity_apply_money"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.incomedetail.IncomeDetailActivity"
+            android:label="@string/title_activity_income_detail"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
