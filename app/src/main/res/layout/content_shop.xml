@@ -11,6 +11,7 @@
     tools:context="com.bing.lan.bing.ui.shop.ShopActivity"
     tools:showIn="@layout/activity_shop">
 
+    <!--android:background="@color/main_color_test"-->
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout_shop"
@@ -24,7 +25,7 @@
         app:tabIndicatorHeight="0dp"
         app:tabSelectedTextColor="@color/main_color_white"
         app:tabTextAppearance="@style/ShopTabLayoutTextStyle"
-        app:tabTextColor="@color/main_color_text_black"    />
+        app:tabTextColor="@color/main_color_text_black"/>
 
     <!-- tabTextColor 设置未选中文字的颜色 设置选择器无效  -->
     <!-- tabSelectedTextColor 设置选中文字的颜色 设置选择器无效  -->
@@ -34,15 +35,16 @@
 
     <Button
         android:id="@+id/btn_register_shop"
-        android:text="登记店铺"
-        style="@style/btn_blue_style"/>
+        style="@style/btn_blue_style"
+        android:text="登记店铺"/>
 
     <ListView
         android:id="@+id/lv_shop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/btn_register_shop"
-        android:layout_below="@id/tabLayout_shop">
+        android:layout_below="@id/tabLayout_shop"
+        android:background="@color/main_color_white">
     </ListView>
 
 </RelativeLayout>

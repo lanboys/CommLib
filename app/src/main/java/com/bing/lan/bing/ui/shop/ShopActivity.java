@@ -61,7 +61,7 @@ public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
     protected void readyStartPresenter() {
         ArrayList<ShopBean> shopBeen = new ArrayList<>();
 
-        for (int i = 0; i < 14; i++) {
+        for (int i = 0; i < 13; i++) {
             shopBeen.add(new ShopBean("店铺名称", "入驻时间"));
         }
 
@@ -72,10 +72,8 @@ public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
         adapter.notifyDataSetChanged();
     }
 
-
-
     @OnClick(R.id.btn_register_shop)
     public void onViewClicked() {
-        startActivity(ShopCreateActivity.class,false,true);
+        startActivity(ShopCreateActivity.class, false, true);
     }
 }

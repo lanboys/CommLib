@@ -11,6 +11,9 @@
     <!--*******************************************-->
     <!--*******************************************-->
     <!-- 主要背景色 -->
+    <color name="main_color_test">#e56bf2</color>
+
+    <!-- 主要背景色 -->
     <color name="main_color_background">#eff0f2</color>
     <!-- 主要文字黑色 -->
     <color name="main_color_text_black">#3a424d</color>
@@ -24,6 +27,9 @@
     <color name="main_color_gray_line">#CCCCCC</color>
     <!-- popup 阴影 -->
     <color name="popup_color_shadow">#8b7b7979</color>
+
+    <!-- 按钮  灰色  -->
+    <color name="btn_color_gray">#9199a6</color>
 
 
     <!-- 我的店铺 认证 颜色 -->
