@@ -15,4 +15,8 @@
     <string name="title_activity_shop_authenticate">ShopAuthenticateActivity</string>
     <string name="title_activity_dealer_create">DealerCreateActivity</string>
     <string name="title_activity_dealer_authenticate">DealerAuthenticateActivity</string>
+    <string name="title_activity_take_money">TakeMoneyActivity</string>
+    <string name="title_activity_not_settlement">NotSettlementActivity</string>
+    <string name="title_activity_not_available">NotAvailableActivity</string>
+    <string name="title_activity_apply_money">ApplyMoneyActivity</string>
 </resources>

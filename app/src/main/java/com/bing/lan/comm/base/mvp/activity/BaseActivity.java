@@ -60,6 +60,7 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     @Inject
     protected T mPresenter;
     private ProgressDialogUtil mProgress;
+    private ProgressDialogUtil mProgressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -196,7 +197,7 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     public void startActivity(Class<? extends BaseActivity> clazz, boolean isFinish, boolean isAnim) {
         AppUtil.startActivity(this, clazz, isFinish, false);
         if (isAnim) {
-           // overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+            // overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
         }
     }
 
@@ -220,8 +221,6 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     public void dismissAlertDialog() {
     }
 
-    private ProgressDialogUtil mProgressDialog;
-
     @Override
     public void showProgressDialog(String msg) {
         if (mProgressDialog == null) {
@@ -243,9 +242,15 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
         return mPresenter;
     }
 
+    /**
+     * 要设置了toolbar(调用setToolBar()) 才能显示出来菜单项
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (getMenuId() == 0) {
+        if (getMenuId() <= 0) {
             return super.onCreateOptionsMenu(menu);
         }
         getMenuInflater().inflate(getMenuId(), menu);

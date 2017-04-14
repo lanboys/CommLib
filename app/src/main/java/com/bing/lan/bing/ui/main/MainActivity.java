@@ -49,6 +49,8 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
     @Override
     protected void initViewAndData(Intent intent) {
 
+        setToolBar(mToolbar,"1897***2323",false,0);
+
     }
 
     @Override

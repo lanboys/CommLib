@@ -127,6 +127,26 @@
             android:label="@string/title_activity_dealer_authenticate"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.takemoney.TakeMoneyActivity"
+            android:label="@string/title_activity_take_money"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.notsettlement.NotSettlementActivity"
+            android:label="@string/title_activity_not_settlement"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.notavailable.NotAvailableActivity"
+            android:label="@string/title_activity_not_available"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.applymoney.ApplyMoneyActivity"
+            android:label="@string/title_activity_apply_money"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

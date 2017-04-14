@@ -7,6 +7,10 @@ import com.bing.lan.bing.ui.agent.AgentActivity;
 import com.bing.lan.bing.ui.agent.AgentModule;
 import com.bing.lan.bing.ui.agent.AgentPresenter;
 import com.bing.lan.bing.ui.agent.IAgentContract;
+import com.bing.lan.bing.ui.applymoney.ApplyMoneyActivity;
+import com.bing.lan.bing.ui.applymoney.ApplyMoneyModule;
+import com.bing.lan.bing.ui.applymoney.ApplyMoneyPresenter;
+import com.bing.lan.bing.ui.applymoney.IApplyMoneyContract;
 import com.bing.lan.bing.ui.asset.AssetActivity;
 import com.bing.lan.bing.ui.asset.AssetModule;
 import com.bing.lan.bing.ui.asset.AssetPresenter;
@@ -47,6 +51,14 @@ import com.bing.lan.bing.ui.main.IMainContract;
 import com.bing.lan.bing.ui.main.MainActivity;
 import com.bing.lan.bing.ui.main.MainModule;
 import com.bing.lan.bing.ui.main.MainPresenter;
+import com.bing.lan.bing.ui.notavailable.INotAvailableContract;
+import com.bing.lan.bing.ui.notavailable.NotAvailableActivity;
+import com.bing.lan.bing.ui.notavailable.NotAvailableModule;
+import com.bing.lan.bing.ui.notavailable.NotAvailablePresenter;
+import com.bing.lan.bing.ui.notsettlement.INotSettlementContract;
+import com.bing.lan.bing.ui.notsettlement.NotSettlementActivity;
+import com.bing.lan.bing.ui.notsettlement.NotSettlementModule;
+import com.bing.lan.bing.ui.notsettlement.NotSettlementPresenter;
 import com.bing.lan.bing.ui.register.IRegisterContract;
 import com.bing.lan.bing.ui.register.RegisterActivity;
 import com.bing.lan.bing.ui.register.RegisterModule;
@@ -67,6 +79,10 @@ import com.bing.lan.bing.ui.splash.ISplashContract;
 import com.bing.lan.bing.ui.splash.SplashActivity;
 import com.bing.lan.bing.ui.splash.SplashModule;
 import com.bing.lan.bing.ui.splash.SplashPresenter;
+import com.bing.lan.bing.ui.takemoney.ITakeMoneyContract;
+import com.bing.lan.bing.ui.takemoney.TakeMoneyActivity;
+import com.bing.lan.bing.ui.takemoney.TakeMoneyModule;
+import com.bing.lan.bing.ui.takemoney.TakeMoneyPresenter;
 import com.bing.lan.comm.utils.LogUtil;
 
 import dagger.Module;
@@ -185,8 +201,6 @@ public class ActivityModule {
         return splashPresenter;
     }
 
-
-
     @Provides
     public IAgentContract.IAgentPresenter provideAgentPresenter() {
         AgentPresenter splashPresenter = new AgentPresenter();
@@ -210,6 +224,7 @@ public class ActivityModule {
         splashPresenter.onAttachView((ShopAuthenticateActivity) mActivity);
         return splashPresenter;
     }
+
     @Provides
     public IDealerCreateContract.IDealerCreatePresenter provideDealerCreatePresenter() {
         DealerCreatePresenter splashPresenter = new DealerCreatePresenter();
@@ -217,6 +232,15 @@ public class ActivityModule {
         splashPresenter.onAttachView((DealerCreateActivity) mActivity);
         return splashPresenter;
     }
+
+    // void inject(TakeMoneyActivity takeMoneyActivity);
+    //
+    // void inject(NotSettlementActivity notSettlementActivity);
+    //
+    // void inject(NotAvailableActivity notAvailableActivity);
+    //
+    // void inject(ApplyMoneyActivity applyMoneyActivity);
+
     @Provides
     public IDealerAuthenticateContract.IDealerAuthenticatePresenter provideDealerAuthenticatePresenter() {
         DealerAuthenticatePresenter splashPresenter = new DealerAuthenticatePresenter();
@@ -225,5 +249,35 @@ public class ActivityModule {
         return splashPresenter;
     }
 
+    @Provides
+    public ITakeMoneyContract.ITakeMoneyPresenter provideTakeMoneyPresenter() {
+        TakeMoneyPresenter splashPresenter = new TakeMoneyPresenter();
+        splashPresenter.setModule(new TakeMoneyModule());
+        splashPresenter.onAttachView((TakeMoneyActivity) mActivity);
+        return splashPresenter;
+    }
 
+    @Provides
+    public INotSettlementContract.INotSettlementPresenter provideNotSettlementPresenter() {
+        NotSettlementPresenter splashPresenter = new NotSettlementPresenter();
+        splashPresenter.setModule(new NotSettlementModule());
+        splashPresenter.onAttachView((NotSettlementActivity) mActivity);
+        return splashPresenter;
+    }
+
+    @Provides
+    public INotAvailableContract.INotAvailablePresenter provideNotAvailablePresenter() {
+        NotAvailablePresenter splashPresenter = new NotAvailablePresenter();
+        splashPresenter.setModule(new NotAvailableModule());
+        splashPresenter.onAttachView((NotAvailableActivity) mActivity);
+        return splashPresenter;
+    }
+
+    @Provides
+    public IApplyMoneyContract.IApplyMoneyPresenter provideApplyMoneyPresenter() {
+        ApplyMoneyPresenter splashPresenter = new ApplyMoneyPresenter();
+        splashPresenter.setModule(new ApplyMoneyModule());
+        splashPresenter.onAttachView((ApplyMoneyActivity) mActivity);
+        return splashPresenter;
+    }
 }

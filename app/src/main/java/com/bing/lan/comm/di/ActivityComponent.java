@@ -1,6 +1,7 @@
 package com.bing.lan.comm.di;
 
 import com.bing.lan.bing.ui.agent.AgentActivity;
+import com.bing.lan.bing.ui.applymoney.ApplyMoneyActivity;
 import com.bing.lan.bing.ui.asset.AssetActivity;
 import com.bing.lan.bing.ui.dealer.DealerActivity;
 import com.bing.lan.bing.ui.dealercreate.DealerCreateActivity;
@@ -11,11 +12,14 @@ import com.bing.lan.bing.ui.joinagent.JoinAgentActivity;
 import com.bing.lan.bing.ui.joindealer.JoinDealerActivity;
 import com.bing.lan.bing.ui.login.LoginActivity;
 import com.bing.lan.bing.ui.main.MainActivity;
+import com.bing.lan.bing.ui.notavailable.NotAvailableActivity;
+import com.bing.lan.bing.ui.notsettlement.NotSettlementActivity;
 import com.bing.lan.bing.ui.register.RegisterActivity;
 import com.bing.lan.bing.ui.shop.ShopActivity;
 import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;
 import com.bing.lan.bing.ui.shopcreate.ShopCreateActivity;
 import com.bing.lan.bing.ui.splash.SplashActivity;
+import com.bing.lan.bing.ui.takemoney.TakeMoneyActivity;
 
 import dagger.Component;
 
@@ -57,6 +61,14 @@ public interface ActivityComponent {
     void inject(ShopAuthenticateActivity shopAuthenticateActivity);
 
     void inject(ShopCreateActivity shopCreateActivity);
+
+    void inject(TakeMoneyActivity takeMoneyActivity);
+
+    void inject(NotSettlementActivity notSettlementActivity);
+
+    void inject(NotAvailableActivity notAvailableActivity);
+
+    void inject(ApplyMoneyActivity applyMoneyActivity);
 
     // void inject(SplashActivity splashActivity);
 
