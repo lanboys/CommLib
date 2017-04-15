@@ -3,6 +3,10 @@ package com.bing.lan.comm.di;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.bing.lan.bing.ui.addcard.AddBankCardActivity;
+import com.bing.lan.bing.ui.addcard.AddBankCardModule;
+import com.bing.lan.bing.ui.addcard.AddBankCardPresenter;
+import com.bing.lan.bing.ui.addcard.IAddBankCardContract;
 import com.bing.lan.bing.ui.agent.AgentActivity;
 import com.bing.lan.bing.ui.agent.AgentModule;
 import com.bing.lan.bing.ui.agent.AgentPresenter;
@@ -55,6 +59,10 @@ import com.bing.lan.bing.ui.main.IMainContract;
 import com.bing.lan.bing.ui.main.MainActivity;
 import com.bing.lan.bing.ui.main.MainModule;
 import com.bing.lan.bing.ui.main.MainPresenter;
+import com.bing.lan.bing.ui.managecard.IManageCardContract;
+import com.bing.lan.bing.ui.managecard.ManageCardActivity;
+import com.bing.lan.bing.ui.managecard.ManageCardModule;
+import com.bing.lan.bing.ui.managecard.ManageCardPresenter;
 import com.bing.lan.bing.ui.notavailable.INotAvailableContract;
 import com.bing.lan.bing.ui.notavailable.NotAvailableActivity;
 import com.bing.lan.bing.ui.notavailable.NotAvailableModule;
@@ -237,7 +245,6 @@ public class ActivityModule {
         return splashPresenter;
     }
 
-
     @Provides
     public IDealerAuthenticateContract.IDealerAuthenticatePresenter provideDealerAuthenticatePresenter() {
         DealerAuthenticatePresenter splashPresenter = new DealerAuthenticatePresenter();
@@ -277,11 +284,28 @@ public class ActivityModule {
         splashPresenter.onAttachView((ApplyMoneyActivity) mActivity);
         return splashPresenter;
     }
+
     @Provides
     public IIncomeDetailContract.IIncomeDetailPresenter provideIncomeDetailPresenter() {
         IncomeDetailPresenter splashPresenter = new IncomeDetailPresenter();
         splashPresenter.setModule(new IncomeDetailModule());
         splashPresenter.onAttachView((IncomeDetailActivity) mActivity);
+        return splashPresenter;
+    }
+
+    @Provides
+    public IManageCardContract.IManageCardPresenter provideManageCardPresenter() {
+        ManageCardPresenter splashPresenter = new ManageCardPresenter();
+        splashPresenter.setModule(new ManageCardModule());
+        splashPresenter.onAttachView((ManageCardActivity) mActivity);
+        return splashPresenter;
+    }
+
+    @Provides
+    public IAddBankCardContract.IAddBankCardPresenter provideAddBankCardPresenter() {
+        AddBankCardPresenter splashPresenter = new AddBankCardPresenter();
+        splashPresenter.setModule(new AddBankCardModule());
+        splashPresenter.onAttachView((AddBankCardActivity) mActivity);
         return splashPresenter;
     }
 }

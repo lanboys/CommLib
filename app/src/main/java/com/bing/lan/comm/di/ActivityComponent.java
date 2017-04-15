@@ -1,5 +1,6 @@
 package com.bing.lan.comm.di;
 
+import com.bing.lan.bing.ui.addcard.AddBankCardActivity;
 import com.bing.lan.bing.ui.agent.AgentActivity;
 import com.bing.lan.bing.ui.applymoney.ApplyMoneyActivity;
 import com.bing.lan.bing.ui.asset.AssetActivity;
@@ -13,6 +14,7 @@ import com.bing.lan.bing.ui.joinagent.JoinAgentActivity;
 import com.bing.lan.bing.ui.joindealer.JoinDealerActivity;
 import com.bing.lan.bing.ui.login.LoginActivity;
 import com.bing.lan.bing.ui.main.MainActivity;
+import com.bing.lan.bing.ui.managecard.ManageCardActivity;
 import com.bing.lan.bing.ui.notavailable.NotAvailableActivity;
 import com.bing.lan.bing.ui.notsettlement.NotSettlementActivity;
 import com.bing.lan.bing.ui.register.RegisterActivity;
@@ -72,6 +74,10 @@ public interface ActivityComponent {
     void inject(ApplyMoneyActivity applyMoneyActivity);
 
     void inject(IncomeDetailActivity incomeDetailActivity);
+
+    void inject(ManageCardActivity manageCardActivity);
+
+    void inject(AddBankCardActivity addBankCardActivity);
 
     // void inject(SplashActivity splashActivity);
 

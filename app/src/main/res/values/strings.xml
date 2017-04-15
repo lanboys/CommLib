@@ -20,4 +20,6 @@
     <string name="title_activity_not_available">NotAvailableActivity</string>
     <string name="title_activity_apply_money">ApplyMoneyActivity</string>
     <string name="title_activity_income_detail">IncomeDetailActivity</string>
+    <string name="title_activity_manage_card">ManageCardActivity</string>
+    <string name="title_activity_add_bank_card">AddBankCardActivity</string>
 </resources>

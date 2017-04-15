@@ -152,6 +152,16 @@
             android:label="@string/title_activity_income_detail"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.managecard.ManageCardActivity"
+            android:label="@string/title_activity_manage_card"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.addcard.AddBankCardActivity"
+            android:label="@string/title_activity_add_bank_card"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
