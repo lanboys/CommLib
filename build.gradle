@@ -5,10 +5,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.1.0'
 
         //依赖注入  ButterKnife 8.0.1 ----------- 与lambda不能一起用
-        // classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+          classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         //依赖注入  ButterKnife 8.0.1
 
         //开启lambda
@@ -16,7 +16,7 @@ buildscript {
         //开启lambda
 
         //realm
-        classpath "io.realm:realm-gradle-plugin:2.1.1"
+         classpath "io.realm:realm-gradle-plugin:2.1.1"
         //realm
 
         //方法数统计
