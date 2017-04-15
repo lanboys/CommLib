@@ -3,6 +3,7 @@ package com.bing.lan.comm.base.mvp.activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bing.lan.comm.R;
@@ -29,6 +31,7 @@ import com.bing.lan.comm.utils.ImmersionUtil;
 import com.bing.lan.comm.utils.LogUtil;
 import com.bing.lan.comm.utils.ProgressDialogUtil;
 import com.bing.lan.comm.utils.SPUtil;
+import com.bing.lan.comm.utils.photoselect.PhotoSelectUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,7 +53,7 @@ import static android.support.v7.app.AppCompatDelegate.setDefaultNightMode;
  */
 public abstract class BaseActivity<T extends IBaseActivityPresenter>
         extends AppCompatActivity
-        implements IBaseActivityView<T> {
+        implements IBaseActivityView<T>, PhotoSelectUtil.UploadListener {
 
     private static final int BASE_PERMISSION_REQUEST_CODE = 0;
     // protected LogUtil log = LogUtil.getLogUtil(getClass(), 1);
@@ -432,8 +435,21 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
         // MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         //友盟
 
+        //选择照片
+
+        if (isHaveSelectPhoto()) {
+            mSelectPhotoUtil = new PhotoSelectUtil(this);
+            mSelectPhotoUtil.setUploadListener(this);
+        }
+
         readyStartPresenter();
     }
+
+    protected boolean isHaveSelectPhoto() {
+        return true;
+    }
+
+    protected PhotoSelectUtil mSelectPhotoUtil;
 
     // @Override
     // public void onResume() {
@@ -482,5 +498,25 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
      */
     protected int getPermissionArrId() {
         return R.array.basic_permissions;
+    }
+
+    // 拍照返回
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (mSelectPhotoUtil != null) {
+            mSelectPhotoUtil.onSelectActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    protected void selectPhoto(ImageView imageView) {
+        if (mSelectPhotoUtil != null) {
+            mSelectPhotoUtil.showSelectAvatarPopup(imageView);
+        }
+    }
+
+    @Override
+    public void uploadAvatar(ImageView imageView, Uri source) {
+        Toast.makeText(this, "上传图片", Toast.LENGTH_SHORT).show();
     }
 }

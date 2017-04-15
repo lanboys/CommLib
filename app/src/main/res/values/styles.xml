@@ -109,19 +109,20 @@
     </style>
 
 
+        <!--<item name="android:layout_margin">10sp</item>-->
     <!-- 主页面 item 主题 -->
     <style name="main_item_style">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_margin">10sp</item>
         <item name="android:orientation">vertical</item>
     </style>
 
     <!-- 主页面 item 图片主题 -->
     <style name="main_item_img_style">
         <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginBottom">8dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
     </style>

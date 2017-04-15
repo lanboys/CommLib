@@ -1,6 +1,7 @@
 package com.bing.lan.bing.ui.shopcreate;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;
 import com.bing.lan.comm.R;
@@ -103,12 +105,20 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
             case R.id.ll_shop_select_address:
                 break;
             case R.id.iv_shop_outer_photo:
+                //门店门头照
+                selectPhoto(mIvShopOuterPhoto);
                 break;
             case R.id.iv_shop_inner_photo:
+                //门店内部照
+                selectPhoto(mIvShopInnerPhoto);
                 break;
             case R.id.iv_shop_payTable_photo:
+                //门店收银台照
+                selectPhoto(mIvShopPayTablePhoto);
                 break;
             case R.id.iv_shop_certificate_photo:
+                //食品经营许可证
+                selectPhoto(mIvShopCertificatePhoto);
                 break;
             case R.id.tv_shop_select_pos:
                 break;
@@ -123,4 +133,13 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
                 break;
         }
     }
+
+
+    @Override
+    public void uploadAvatar(ImageView imageView, Uri source) {
+
+        log.e("uploadAvatar():  " +source.toString());
+        Toast.makeText(this, "上传图片", Toast.LENGTH_SHORT).show();
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.bing.lan.comm.utils.photoselect;
+package com.bing.lan.comm.utils.popup;
 
 /**
  * Author: 蓝兵
@@ -11,8 +11,8 @@ import android.support.annotation.IntDef;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.bing.lan.comm.R;
 
@@ -20,14 +20,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * 头像选择
+ * 分享选择
  */
-public class PhotoSelectPopupWindow extends PopupWindow implements View.OnClickListener {
+public class SharePopupWindow extends PopupWindow implements View.OnClickListener {
 
     private Context mContext;
-    private Button btn_take_photo;
-    private Button btn_photo_album;
-    private Button btn_cancel;
+    private TextView tv_share_wx;
+    private TextView tv_share_fr;
+    private TextView tv_share_sina;
 
     private OnItemClickListener mItemClickListener;
 
@@ -35,7 +35,7 @@ public class PhotoSelectPopupWindow extends PopupWindow implements View.OnClickL
         mItemClickListener = listener;
     }
 
-    public PhotoSelectPopupWindow(Context context) {
+    public SharePopupWindow(Context context) {
         mContext = context;
 
         initView();
@@ -43,36 +43,36 @@ public class PhotoSelectPopupWindow extends PopupWindow implements View.OnClickL
 
     private void initView() {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.popup_photo_selecte, null);
+        View view = inflater.inflate(R.layout.popup_share, null);
 
-        btn_take_photo = (Button) view.findViewById(R.id.btn_take_photo);
-        btn_photo_album = (Button) view.findViewById(R.id.btn_photo_album);
-        btn_cancel = (Button) view.findViewById(R.id.btn_cancel);
+        tv_share_wx = (TextView) view.findViewById(R.id.tv_share_wx);
+        tv_share_fr = (TextView) view.findViewById(R.id.tv_share_fr);
+        tv_share_sina = (TextView) view.findViewById(R.id.tv_share_sina);
 
         this.setContentView(view);
         this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         this.setFocusable(true);
-        this.setAnimationStyle(R.style.PopupWindowAnimation);
+        //this.setAnimationStyle(R.style.PopupWindowAnimation);
         // ColorDrawable dw = new ColorDrawable(0xb0000000);
         // this.setBackgroundDrawable(dw);
 
-        btn_take_photo.setOnClickListener(this);
-        btn_photo_album.setOnClickListener(this);
-        btn_cancel.setOnClickListener(this);
+        tv_share_wx.setOnClickListener(this);
+        tv_share_fr.setOnClickListener(this);
+        tv_share_sina.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_take_photo:
-                itemCallBack(PopupItemType.TAKE_PHOTO);
+            case R.id.tv_share_wx:
+                itemCallBack(PopupItemType.SHARE_WX);
                 break;
-            case R.id.btn_photo_album:
-                itemCallBack(PopupItemType.SELECT_ALBUM);
+            case R.id.tv_share_fr:
+                itemCallBack(PopupItemType.SHARE_FR);
                 break;
-            case R.id.btn_cancel:
-                itemCallBack(PopupItemType.TAKE_PHOTO);
+            case R.id.tv_share_sina:
+                itemCallBack(PopupItemType.SHARE_SINA);
                 break;
             default:
                 break;
@@ -93,18 +93,18 @@ public class PhotoSelectPopupWindow extends PopupWindow implements View.OnClickL
     }
 
     /**
-     * 选择头像来源的类型
+     * 选择 分享的类型
      */
-    public static class  PopupItemType {
+    public static class PopupItemType {
 
-        @IntDef({TAKE_PHOTO, SELECT_ALBUM, CANCEL})
+        @IntDef({SHARE_WX, SHARE_FR, SHARE_SINA})
         @Retention(RetentionPolicy.SOURCE)
         public @interface Type {
 
         }
 
-        public static final int TAKE_PHOTO = 0;         // 拍照
-        public static final int SELECT_ALBUM = 1;      // 相册
-        public static final int CANCEL = 2;             // 取消
+        public static final int SHARE_WX = 0;         // 微信
+        public static final int SHARE_FR = 1;      // 朋友圈
+        public static final int SHARE_SINA = 2;             // 新浪
     }
 }

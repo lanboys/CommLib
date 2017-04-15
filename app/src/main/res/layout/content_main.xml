@@ -6,6 +6,7 @@
     android:id="@+id/content_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_color_background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.bing.lan.bing.ui.main.MainActivity"
     tools:showIn="@layout/activity_main">
@@ -18,53 +19,80 @@
             android:id="@+id/ll_my_income"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/main_pager_padding"
+            android:background="@color/main_color_white"
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="今日收益金额(元):"
-                android:textSize="30sp"/>
-
-            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="20sp"
-                android:src="@drawable/iv_login_logo"/>
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColor="@color/main_color_text_black"
+                android:text="今日收益金额(元)"
+                android:textSize="@dimen/main_textSize_15sp"/>
 
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:layout_marginLeft="13dp"
+                    android:src="@drawable/my_income"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="1.611万"
+                    android:textColor="@color/main_color_white"
+                    android:textSize="20sp"/>
+
+            </FrameLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="含待结算"
+                android:textSize="@dimen/main_textSize_15sp"/>
 
         </LinearLayout>
 
-        <include
-            layout="@layout/include_line_join"
-            android:layout_width="match_parent"
-            android:layout_height="12dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_marginLeft="@dimen/main_pager_padding"
+            android:layout_marginRight="@dimen/main_pager_padding"
+            android:background="@color/main_color_white"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="30dp">
 
-            <LinearLayout
-                android:id="@+id/ll_my_asset"
-                style="@style/main_item_style">
-                <ImageView
-                    style="@style/main_item_img_style"
-                    android:src="@drawable/iv_login_logo"/>
-                <TextView
-                    style="@style/main_item_text_style"
-                    android:text="我的资产"/>
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_my_shop"
                 style="@style/main_item_style">
                 <ImageView
                     style="@style/main_item_img_style"
-                    android:src="@drawable/iv_login_logo"/>
+                    android:src="@drawable/my_shop"/>
                 <TextView
                     style="@style/main_item_text_style"
                     android:text="我的店铺"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_my_asset"
+                style="@style/main_item_style">
+                <ImageView
+                    style="@style/main_item_img_style"
+                    android:src="@drawable/my_asset"/>
+                <TextView
+                    style="@style/main_item_text_style"
+                    android:text="我的资产"/>
             </LinearLayout>
 
             <LinearLayout
@@ -73,7 +101,7 @@
 
                 <ImageView
                     style="@style/main_item_img_style"
-                    android:src="@drawable/iv_login_logo"/>
+                    android:src="@drawable/my_dealer"/>
 
                 <TextView
                     style="@style/main_item_text_style"
@@ -86,7 +114,7 @@
                 style="@style/main_item_style">
                 <ImageView
                     style="@style/main_item_img_style"
-                    android:src="@drawable/iv_login_logo"/>
+                    android:src="@drawable/my_agent"/>
 
                 <TextView
                     style="@style/main_item_text_style"
@@ -97,28 +125,39 @@
         </LinearLayout>
 
 
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:src="@drawable/iv_login_logo"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/main_pager_padding"
+            android:layout_marginRight="@dimen/main_pager_padding"
+            android:background="@color/main_color_white"
             android:gravity="center"
-            android:text="邀请码:AD48S4DS87EW"
-            android:textSize="20sp"/>
+            android:orientation="vertical"
+            android:paddingTop="22dp">
 
+            <ImageView
+                android:layout_width="145dp"
+                android:layout_height="145dp"
+                android:src="@drawable/qcode"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:text="邀请码:AD48S4DS87EW"
+                android:textColor="#3a424d"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
         <TextView
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="16dp"
             android:gravity="center"
             android:text="电话客服(10:00-18:00)"
-            android:textSize="15sp"/>
+            android:textSize="14sp"/>
 
 
     </LinearLayout>

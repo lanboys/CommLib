@@ -30,6 +30,9 @@
 
     <!-- 按钮  灰色  -->
     <color name="btn_color_gray">#9199a6</color>
+    <color name="btn_color_blue">#42b0ff</color>
+    <color name="btn_color_shallow">#b8dfff</color>
+
 
 
     <!-- 我的店铺 认证 颜色 -->

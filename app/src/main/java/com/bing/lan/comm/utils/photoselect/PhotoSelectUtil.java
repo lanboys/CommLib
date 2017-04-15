@@ -23,6 +23,16 @@ import static android.app.Activity.RESULT_OK;
  * Email: lan_bing2013@163.com
  * Time: 2017/4/13  12:19
  */
+
+/**
+ * 注意注册activity
+ * <p>
+ * <activity
+ * android:name="com.soundcloud.android.crop.CropImageActivity"
+ * android:screenOrientation="portrait">
+ * </activity>
+ */
+
 public class PhotoSelectUtil {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -50,10 +60,10 @@ public class PhotoSelectUtil {
         PhotoSelectPopupWindow popupWindow = new PhotoSelectPopupWindow(mContext);
         popupWindow.setOnItemClickListener(new PhotoSelectPopupWindow.OnItemClickListener() {
             @Override
-            public void onItemClickListener(@PhotoSelectPopupItemType.Type int type) {
-                if (type == PhotoSelectPopupItemType.TAKE_PHOTO) {
+            public void onItemClickListener(@PhotoSelectPopupWindow.PopupItemType.Type int type) {
+                if (type == PhotoSelectPopupWindow.PopupItemType.TAKE_PHOTO) {
                     dispatchTakePictureIntent();
-                } else if (type == PhotoSelectPopupItemType.SELECT_ALBUM) {
+                } else if (type == PhotoSelectPopupWindow.PopupItemType.SELECT_ALBUM) {
                     selectAvatarFromAlbum();
                 }
             }
@@ -98,7 +108,6 @@ public class PhotoSelectUtil {
         }
 
         if (requestCode == Crop.REQUEST_CROP) {
-
             handleCrop(resultCode, data);
         }
     }
@@ -117,6 +126,7 @@ public class PhotoSelectUtil {
         if (resultCode == RESULT_OK) {
             mImageView.setImageDrawable(null);
             mImageView.setImageURI(Crop.getOutput(result));
+
             if (mUploadListener != null) {
                 mUploadListener.uploadAvatar(mImageView, Crop.getOutput(result));
             }

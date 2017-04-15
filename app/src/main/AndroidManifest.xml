@@ -11,6 +11,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
     <application
         android:name=".app.BaseApplication"
         android:allowBackup="true"
@@ -117,8 +120,14 @@
             android:label="@string/title_activity_shop_authenticate"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
         <activity
-            android:name="com.bing.lan.bing.ui.dealerCreate.DealerCreateActivity"
+            android:name="com.soundcloud.android.crop.CropImageActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="com.bing.lan.bing.ui.dealercreate.DealerCreateActivity"
             android:label="@string/title_activity_dealer_create"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
