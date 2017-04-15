@@ -2,7 +2,9 @@ package com.bing.lan.bing.ui.managecard;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
+import com.bing.lan.bing.ui.addcard.AddBankCardActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -25,17 +27,33 @@ public class ManageCardActivity extends BaseActivity<IManageCardContract.IManage
     }
 
     @Override
+    protected int getMenuId() {
+        return R.menu.menu_manage_card;
+    }
+
+    @Override
     protected void startInject(ActivityComponent activityComponent) {
-         activityComponent.inject(this);
+        activityComponent.inject(this);
     }
 
     @Override
     protected void initViewAndData(Intent intent) {
-         setToolBar(mToolbar, "绑定银行卡", true, 0);
+        setToolBar(mToolbar, "绑定银行卡", true, 0);
     }
 
     @Override
     protected void readyStartPresenter() {
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_manage_card:
+                startActivity(AddBankCardActivity.class, false, true);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

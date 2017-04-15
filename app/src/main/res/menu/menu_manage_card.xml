@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.bing.lan.fm.ui.main.MainActivity">
+
+    <item
+        android:id="@+id/action_manage_card"
+        android:orderInCategory="100"
+        android:title="添加银行卡"
+        app:showAsAction="always|withText"
+    />
+        <!--android:icon="@drawable/ic_action_action_search"-->
+        <!--app:actionLayout="@layout/menu_action_detail"-->
+    <!--app:showAsAction="always|withText"-->
+
+
+</menu>
