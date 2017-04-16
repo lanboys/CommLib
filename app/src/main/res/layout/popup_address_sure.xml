@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/popup_color_shadow"
+    android:gravity="bottom">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color_white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:background="#3a424d"
+        >
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#3a424d"
+                android:gravity="center"
+                android:text="店铺位置"
+                android:textColor="@color/main_color_white"
+                android:textSize="@dimen/main_textSize_15sp"/>
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="17dp"
+                android:src="@drawable/xx"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/join_item_comm_style">
+            <TextView
+                style="@style/join_item_comm_textView_style"
+                android:text="所在区域"
+                android:textColor="#69717e"/>
+
+            <TextView
+                android:id="@+id/tv_address_loc"
+                style="@style/join_item_comm_editText_style"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:hint="湖南省 长沙区 天心区"
+                android:textColor="#3a424d"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+        <include layout="@layout/include_line_join"/>
+        <LinearLayout
+            style="@style/join_item_comm_style">
+            <TextView
+                style="@style/join_item_comm_textView_style"
+                android:text="详细地址"
+                android:textColor="#69717e"/>
+
+            <TextView
+                android:id="@+id/tv_address_detail"
+                style="@style/join_item_comm_editText_style"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:hint="湖南省 长沙区 天心区 书院134路"
+                android:textColor="#3a424d"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+        <include layout="@layout/include_line_join"/>
+
+
+        <Button
+            android:id="@+id/btn_ok"
+            style="@style/btn_blue_style"
+            android:layout_marginBottom="46dp"
+            android:layout_marginTop="46dp"
+            android:text="确定"/>
+
+
+    </LinearLayout>
+</RelativeLayout>
