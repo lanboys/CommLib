@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bing.lan.bing.ui.map.MapActivity;
 import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
@@ -27,6 +28,8 @@ import butterknife.OnClick;
 public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCreatePresenter>
         implements IShopCreateContract.IShopCreateView {
 
+    public static final int REQUEST_CODE_GET_ADDRESS_FORM_MAP = 1;
+    public static final String ADDRESS_INFO = "address_form_map";
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.et_shop_phone_number)
@@ -99,10 +102,10 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
                 break;
 
             case R.id.tv_shop_select_address:
-                break;
             case R.id.iv_shop_select_address:
-                break;
             case R.id.ll_shop_select_address:
+                startActivityForResult(new Intent(ShopCreateActivity.this, MapActivity.class), REQUEST_CODE_GET_ADDRESS_FORM_MAP);
+
                 break;
             case R.id.iv_shop_outer_photo:
                 //门店门头照
@@ -134,12 +137,22 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
         }
     }
 
-
     @Override
     public void uploadAvatar(ImageView imageView, Uri source) {
 
-        log.e("uploadAvatar():  " +source.toString());
+        log.e("uploadAvatar():  " + source.toString());
         Toast.makeText(this, "上传图片", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_GET_ADDRESS_FORM_MAP && data != null) {
+
+            String stringExtra = data.getStringExtra(ADDRESS_INFO);
+
+            if (stringExtra != null) {
+                mTvShopSelectAddress.setText(stringExtra);
+            }
+        }
+    }
 }

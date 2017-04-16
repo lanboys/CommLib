@@ -14,6 +14,13 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
 
+    <!-- 高德地图权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+
     <application
         android:name=".app.BaseApplication"
         android:allowBackup="true"
@@ -22,6 +29,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
+
+        <!-- 高德地图 -->
+        <!-- 设置key -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="055c48c8003d90c979b44f920d2227d4"/>
+        <!-- 声明定位service -->
+        <service android:name="com.amap.api.location.APSService"/>
+
+        <!-- 高德地图 -->
+
+
 
         <!-- 登录页面 -->
         <activity
@@ -171,6 +190,8 @@
             android:label="@string/title_activity_add_bank_card"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name="com.bing.lan.bing.ui.map.MapSearchActivity"/>
+        <activity android:name="com.bing.lan.bing.ui.map.MapActivity"/>
     </application>
 
 </manifest>
