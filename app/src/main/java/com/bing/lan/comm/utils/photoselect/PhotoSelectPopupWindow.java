@@ -61,7 +61,7 @@ public class PhotoSelectPopupWindow extends PopupWindow implements View.OnClickL
         btn_photo_album.setOnClickListener(this);
         btn_cancel.setOnClickListener(this);
 
-        setOutsideTouchable(true);
+       // setOutsideTouchable(true);
     }
 
     @Override
