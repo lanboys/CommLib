@@ -28,6 +28,7 @@
         <attr name="title" format="string"/>
         <attr name="image" format="reference"/>
         <attr name="edit_enable" format="boolean"/>
+        <attr name="show_line" format="boolean"/>
 
         <!--public static final int VISIBLE = 0;-->
         <!--public static final int INVISIBLE = 4;-->

@@ -13,29 +13,29 @@
     tools:showIn="@layout/activity_modify_psw">
 
     <com.bing.lan.comm.view.EditTextInputLayout
-        android:id="@+id/eti_verification_cod1e"
+        android:id="@+id/eti_password1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:edit_hint="新密码,8-20位数字字符下划线"
         app:image="@drawable/eyes1"
         app:image_visibility="visible"
         app:title_visibility="gone"
-        app:title="校验码:"/>
+    />
 
     <include layout="@layout/include_line_join"/>
     <com.bing.lan.comm.view.EditTextInputLayout
-        android:id="@+id/eti_verification_code"
+        android:id="@+id/eti_password2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:edit_hint="聚众客短信验证码"
-        app:title="校验码:"/>
+        app:edit_hint="再次输入密码"
+        app:title_visibility="gone"/>
     <Button
-        android:id="@+id/btn_next"
+        android:id="@+id/btn_finish"
         style="@style/btn_blue_style"
         android:layout_width="match_parent"
         android:layout_marginTop="30dp"
         android:background="@color/main_color_white"
-        android:text="下一步"
+        android:text="完成"
         android:textColor="@color/main_color_text_black"/>
 
 

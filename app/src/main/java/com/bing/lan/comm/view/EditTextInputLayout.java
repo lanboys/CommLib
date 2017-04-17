@@ -3,7 +3,9 @@ package com.bing.lan.comm.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
@@ -16,9 +18,12 @@ import com.bing.lan.comm.utils.LogUtil;
 
 public class EditTextInputLayout extends LinearLayout {
 
+    protected final LogUtil log = LogUtil.getLogUtil(getClass(), LogUtil.LOG_VERBOSE);
+    Validator mValidator;
     private EditText mEdContent;
     private TextView mTvTitle;
     private ImageView mIvImage;
+    private View mLineContainer;
 
     public EditTextInputLayout(Context context) {
         super(context);
@@ -30,8 +35,6 @@ public class EditTextInputLayout extends LinearLayout {
         initView(context, attrs);
     }
 
-    protected final LogUtil log = LogUtil.getLogUtil(getClass(), LogUtil.LOG_VERBOSE);
-
     private void initView(Context context, AttributeSet attrs) {
 
         //  mContext = context;
@@ -40,6 +43,7 @@ public class EditTextInputLayout extends LinearLayout {
         mEdContent = (EditText) findViewById(R.id.et_content);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
         mIvImage = (ImageView) findViewById(R.id.iv_image);
+        mLineContainer = findViewById(R.id.fl_line_container);
 
         if (attrs != null) {
 
@@ -49,13 +53,17 @@ public class EditTextInputLayout extends LinearLayout {
             String title = a.getString(R.styleable.EditTextInputLayout_title);
             Drawable drawable = a.getDrawable(R.styleable.EditTextInputLayout_image);
             boolean enable = a.getBoolean(R.styleable.EditTextInputLayout_edit_enable, true);
+            boolean showLine = a.getBoolean(R.styleable.EditTextInputLayout_show_line, true);
             int inputType = a.getInt(R.styleable.EditTextInputLayout_edit_inputType, -1);
-            int visible = a.getInt(R.styleable.EditTextInputLayout_image_visibility, -1);
+            int imageVisible = a.getInt(R.styleable.EditTextInputLayout_image_visibility, -1);
+            int titleVisible = a.getInt(R.styleable.EditTextInputLayout_title_visibility, -1);
 
             mEdContent.setEnabled(enable);
 
-            if (visible != -1) {
-                switch (visible) {
+            mLineContainer.setVisibility(showLine ? VISIBLE : GONE);
+
+            if (imageVisible != -1) {
+                switch (imageVisible) {
                     case View.GONE:
                         mIvImage.setVisibility(GONE);
                         break;
@@ -64,6 +72,19 @@ public class EditTextInputLayout extends LinearLayout {
                         break;
                     case View.VISIBLE:
                         mIvImage.setVisibility(VISIBLE);
+                        break;
+                }
+            }
+            if (titleVisible != -1) {
+                switch (titleVisible) {
+                    case View.GONE:
+                        mTvTitle.setVisibility(GONE);
+                        break;
+                    case View.INVISIBLE:
+                        mTvTitle.setVisibility(INVISIBLE);
+                        break;
+                    case View.VISIBLE:
+                        mTvTitle.setVisibility(VISIBLE);
                         break;
                 }
             }
@@ -95,6 +116,20 @@ public class EditTextInputLayout extends LinearLayout {
         }
     }
 
+    public void setImageResource(@DrawableRes int resId) {
+
+        if (mIvImage != null) {
+            mIvImage.setImageResource(resId);
+        }
+    }
+
+    public void setTitleVisibility(int visibility) {
+
+        if (mTvTitle != null) {
+            mTvTitle.setVisibility(visibility);
+        }
+    }
+
     public void setEditEnabled(boolean enabled) {
         mEdContent.setEnabled(false);
     }
@@ -103,13 +138,6 @@ public class EditTextInputLayout extends LinearLayout {
 
         if (mTvTitle != null) {
             mTvTitle.setText(s);
-        }
-    }
-
-    public void setEditContent(@NonNull String s) {
-
-        if (mEdContent != null) {
-            mEdContent.setText(s);
         }
     }
 
@@ -124,11 +152,16 @@ public class EditTextInputLayout extends LinearLayout {
         return mEdContent.getText().toString().trim();
     }
 
+    public void setEditContent(@NonNull String s) {
+
+        if (mEdContent != null) {
+            mEdContent.setText(s);
+        }
+    }
+
     public CharSequence getTitle() {
         return mTvTitle.getText();
     }
-
-    Validator mValidator;
 
     public void setValidator(Validator validator) {
         mValidator = validator;
@@ -137,14 +170,20 @@ public class EditTextInputLayout extends LinearLayout {
     public boolean validate() {
 
         if (mValidator != null) {
-            return mValidator.validate(getId(),getEditContent());
+            return mValidator.validate(getId(), getEditContent());
         } else {
             throw new RuntimeException("请先设置校验器");
         }
     }
 
+    public void setImageOnClickListener(@Nullable OnClickListener l) {
+        if (mIvImage != null) {
+            mIvImage.setOnClickListener(l);
+        }
+    }
+
     public interface Validator {
 
-        boolean validate(int id,String str);
+        boolean validate(int id, String str);
     }
 }

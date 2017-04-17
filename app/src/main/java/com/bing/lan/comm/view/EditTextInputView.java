@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
@@ -116,6 +117,20 @@ public class EditTextInputView extends LinearLayout {
 
         if (mTextView != null) {
             mTextView.setText(s);
+        }
+    }
+
+    public void setTextViewClickable(boolean clickable) {
+
+        if (mTextView != null) {
+            mTextView.setClickable(clickable);
+        }
+    }
+
+
+    public void setTextViewOnClickListener(@Nullable OnClickListener l) {
+        if (mTextView != null) {
+            mTextView.setOnClickListener(l);
         }
     }
 

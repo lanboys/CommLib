@@ -6,11 +6,13 @@ public interface IRegisterContract {
 
     interface IRegisterView
             extends IBaseActivityContract.IBaseActivityView<IRegisterPresenter> {
+        void updateWaitingVerificationCodeTime(int time);
 
     }
 
     interface IRegisterPresenter
             extends IBaseActivityContract.IBaseActivityPresenter<IRegisterView, IRegisterModule> {
+        void updateWaitingVerificationCodeTime();
 
     }
 

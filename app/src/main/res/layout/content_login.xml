@@ -25,7 +25,7 @@
             android:layout_width="97dp"
             android:layout_height="97dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/iv_login_logo"/>
+            android:src="@drawable/iv_logo"/>
 
         <com.bing.lan.comm.view.EditTextInputView
             android:id="@+id/et_input_phone_number"

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bing.lan.bing.ui.modifypassword.ModifyPswActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -60,7 +61,7 @@ public class VerificationActivity extends BaseActivity<IVerificationContract.IVe
                 mPresenter.updateWaitingVerificationCodeTime();
                 break;
             case R.id.btn_next:
-                // startActivity();
+                startActivity(ModifyPswActivity.class, false, true);
                 break;
         }
     }
