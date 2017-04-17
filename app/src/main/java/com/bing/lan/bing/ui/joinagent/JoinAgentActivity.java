@@ -9,10 +9,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bing.lan.bing.ui.main.MainActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
+import com.bing.lan.comm.utils.AppUtil;
+import com.bing.lan.comm.view.EditTextInputLayout;
 import com.lljjcoder.citypickerview.widget.CityPicker;
 
 import butterknife.BindView;
@@ -23,24 +27,27 @@ import butterknife.OnClick;
  * @time 2017/4/6  19:12
  */
 public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgentPresenter>
-        implements IJoinAgentContract.IJoinAgentView {
+        implements IJoinAgentContract.IJoinAgentView, EditTextInputLayout.Validator {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.et_invite_code)
-    EditText mEtInviteCode;
-    @BindView(R.id.et_join_name)
-    EditText mEtJoinName;
+
+    @BindView(R.id.eti_phone_number)
+    EditTextInputLayout mEtiPhoneNumber;
+    @BindView(R.id.eti_join_name)
+    EditTextInputLayout mEtiJoinName;
+    @BindView(R.id.eti_address_detail)
+    EditTextInputLayout mEtiAddressDetail;
+
     @BindView(R.id.tv_select_address)
     TextView mTvSelectAddress;
     @BindView(R.id.iv_select_address)
     ImageView mIvSelectAddress;
     @BindView(R.id.ll_select_address)
     LinearLayout mLlSelectAddress;
-    @BindView(R.id.et_address_detail)
-    EditText mEtAddressDetail;
-    @BindView(R.id.et_phone_number)
-    EditText mEtPhoneNumber;
+
+    @BindView(R.id.et_invite_code)
+    EditText mEtInviteCode;
     @BindView(R.id.btn_join_now)
     Button mBtnJoinNow;
     @BindView(R.id.content_join_dealer)
@@ -63,8 +70,11 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
 
     @Override
     protected void initViewAndData(Intent intent) {
-        setToolBar(mToolbar,"代理商登记",true,0);
+        setToolBar(mToolbar, "代理商登记", true, 0);
 
+        mEtiPhoneNumber.setValidator(this);
+        mEtiJoinName.setValidator(this);
+        mEtiAddressDetail.setValidator(this);
     }
 
     @Override
@@ -72,28 +82,18 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
 
     }
 
-
-
-    @OnClick({R.id.et_invite_code, R.id.et_join_name, R.id.tv_select_address,
-            R.id.iv_select_address, R.id.ll_select_address, R.id.et_address_detail,
-            R.id.et_phone_number, R.id.btn_join_now})
+    @OnClick({R.id.tv_select_address, R.id.iv_select_address,
+            R.id.ll_select_address, R.id.btn_join_now})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.et_invite_code:
-                break;
-            case R.id.et_join_name:
-                break;
             case R.id.tv_select_address:
             case R.id.iv_select_address:
             case R.id.ll_select_address:
 
                 selectCity();
                 break;
-            case R.id.et_address_detail:
-                break;
-            case R.id.et_phone_number:
-                break;
             case R.id.btn_join_now:
+                startActivity(MainActivity.class, false, true);
                 break;
         }
     }
@@ -102,7 +102,6 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
     private String mCity = "北京市";
     private String mDistrict = "昌平区";
     private CityPicker mCityPicker;
-
 
     public void selectCity() {
 
@@ -146,33 +145,11 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
         mCityPicker.show();
     }
 
+    @Override
+    public boolean validate(int id) {
 
+        Toast.makeText(AppUtil.getAppContext(), "校验通过", Toast.LENGTH_SHORT).show();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return false;
+    }
 }

@@ -2,9 +2,9 @@
 <selector
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:color="@color/text_color_gray_select" android:state_selected="true"/>
-    <item android:color="@color/text_color_gray_select" android:state_pressed="true"/>
-    <item android:color="@color/text_color_gray_select" android:state_checked="true"/>
-    <item android:color="@color/text_color_gray_select" android:state_enabled="false"/>
-    <item android:color="@color/text_color_gray_unSelect"/>
+    <item android:color="@color/main_color_blue" android:state_selected="true"/>
+    <item android:color="@color/main_color_blue" android:state_pressed="true"/>
+    <item android:color="@color/main_color_blue" android:state_checked="true"/>
+    <item android:color="@color/main_color_blue" android:state_enabled="false"/>
+    <item android:color="@color/main_color_text_gray"/>
 </selector>

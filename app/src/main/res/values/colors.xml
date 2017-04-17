@@ -23,6 +23,8 @@
     <color name="main_color_white">#fdfdfe</color>
     <!-- 主要蓝色 -->
     <color name="main_color_blue">#0195ff</color>
+    <!-- 主要蓝色 -->
+    <color name="main_color_gray">#dfe4ed</color>
     <!-- 主要 分割线 颜色 -->
     <color name="main_color_gray_line">#CCCCCC</color>
     <!-- popup 阴影 -->

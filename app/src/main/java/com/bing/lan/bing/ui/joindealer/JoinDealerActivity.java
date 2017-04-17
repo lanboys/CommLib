@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,7 +13,10 @@ import com.bing.lan.bing.ui.dealerauthenticate.DealerAuthenticateActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
+import com.bing.lan.comm.view.EditTextInputLayout;
 import com.lljjcoder.citypickerview.widget.CityPicker;
+
+import org.apache.http.util.TextUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -24,30 +26,33 @@ import butterknife.OnClick;
  * @time 2017/4/6  19:12
  */
 public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDealerPresenter>
-        implements IJoinDealerContract.IJoinDealerView {
+        implements IJoinDealerContract.IJoinDealerView, EditTextInputLayout.Validator {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.et_phone_number)
-    EditText mEtPhoneNumber;
-    @BindView(R.id.et_join_name)
-    EditText mEtJoinName;
+
+    @BindView(R.id.eti_phone_number)
+    EditTextInputLayout mEtiPhoneNumber;
+    @BindView(R.id.eti_join_name)
+    EditTextInputLayout mEtiJoinName;
+    @BindView(R.id.eti_address_detail)
+    EditTextInputLayout mEtiAddressDetail;
     @BindView(R.id.tv_select_address)
     TextView mTvSelectAddress;
     @BindView(R.id.iv_select_address)
     ImageView mIvSelectAddress;
     @BindView(R.id.ll_select_address)
     LinearLayout mLlSelectAddress;
-    @BindView(R.id.et_address_detail)
-    EditText mEtAddressDetail;
-    @BindView(R.id.et_id_number)
-    EditText mEtIdNumber;
-    @BindView(R.id.btn_join_now)
-    Button mBtnJoinNow;
+
     @BindView(R.id.iv_id_card_img_front)
     ImageView mIvIdCardImgFront;
     @BindView(R.id.iv_id_card_img_back)
     ImageView mIvIdCardImgBack;
+    @BindView(R.id.btn_join_now)
+    Button mBtnJoinNow;
+    @BindView(R.id.content_join_dealer)
+    LinearLayout mContentJoinDealer;
+
     private CityPicker mCityPicker;
 
     @Override
@@ -68,6 +73,10 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
     @Override
     protected void initViewAndData(Intent intent) {
         setToolBar(mToolbar, "经销商登记", true, 0);
+
+        mEtiPhoneNumber.setValidator(this);
+        mEtiJoinName.setValidator(this);
+        mEtiAddressDetail.setValidator(this);
     }
 
     @Override
@@ -75,29 +84,27 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
 
     }
 
-    @OnClick({R.id.toolbar, R.id.et_phone_number, R.id.et_join_name,
-            R.id.tv_select_address, R.id.iv_select_address, R.id.ll_select_address,
-            R.id.et_address_detail, R.id.et_id_number, R.id.btn_join_now,
-            R.id.iv_id_card_img_front, R.id.iv_id_card_img_back})
+    @OnClick({R.id.toolbar, R.id.tv_select_address, R.id.iv_select_address, R.id.ll_select_address,
+            R.id.btn_join_now, R.id.iv_id_card_img_front, R.id.iv_id_card_img_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar:
                 break;
-            case R.id.et_phone_number:
-                break;
-            case R.id.et_join_name:
-                break;
+
             case R.id.iv_select_address:
             case R.id.tv_select_address:
             case R.id.ll_select_address:
                 selectCity();
                 break;
-            case R.id.et_address_detail:
-                break;
-            case R.id.et_id_number:
-                break;
+
             case R.id.btn_join_now:
-                startActivity(DealerAuthenticateActivity.class, false, true);
+                if (mEtiPhoneNumber.validate()) {
+                    if (mEtiJoinName.validate()) {
+                        if (mEtiAddressDetail.validate()) {
+                            startActivity(DealerAuthenticateActivity.class, false, true);
+                        }
+                    }
+                }
                 break;
             case R.id.iv_id_card_img_front:
                 break;
@@ -150,5 +157,36 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
             });
         }
         mCityPicker.show();
+    }
+
+    @Override
+    public boolean validate(int id) {
+
+        switch (id) {
+
+            case R.id.eti_phone_number:
+                return validateComm(mEtiPhoneNumber, "校验通过", "请输入正确的手机号码");
+            case R.id.eti_join_name:
+                return validateComm(mEtiJoinName, "校验通过", "请输入正确的名字");
+            case R.id.eti_address_detail:
+                return validateComm(mEtiAddressDetail, "校验通过", "请输入详细地址");
+            default:
+                return false;
+        }
+    }
+
+    public boolean validateComm(EditTextInputLayout inputLayout, String success, String fail) {
+
+        String content = inputLayout.getContent();
+        if (!TextUtils.isEmpty(content)) {
+            if (success != null) {
+               // showToast(success);
+            }
+            return true;
+        }
+        if (fail != null) {
+            showToast(fail);
+        }
+        return false;
     }
 }
