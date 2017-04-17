@@ -11,7 +11,7 @@
 
     <LinearLayout
 
-        android:id="@+id/content_join_dealer"
+        android:id="@+id/content_join_agent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -21,26 +21,17 @@
 
         <include layout="@layout/include_line_join"/>
 
-        <LinearLayout
-            style="@style/join_item_comm_style">
-            <TextView
-                style="@style/join_item_comm_textView_style"
-                android:text="邀请码: "/>
-
-            <EditText
-                android:id="@+id/et_invite_code"
-                style="@style/join_item_comm_editText_style"
-                android:hint="经销商邀请码"
-                android:inputType="phone"
-            />
-        </LinearLayout>
-
-
+        <com.bing.lan.comm.view.EditTextInputLayout
+            android:id="@+id/eti_invite_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:edit_hint="经销商邀请码"
+            app:title="邀请码: "/>
 
         <Button
             android:id="@+id/btn_join_now"
-            android:text="立即登记"
-            style="@style/btn_blue_style"/>
+            style="@style/btn_blue_style"
+            android:text="立即登记"/>
 
     </LinearLayout>
 </com.bing.lan.comm.view.FlexibleScrollView>

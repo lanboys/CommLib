@@ -2,23 +2,30 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <LinearLayout
-        style="@style/join_item_comm_style">
-        <TextView
-            style="@style/join_item_comm_textView_style"
-            android:text="证件号码"/>
+    <!--<LinearLayout-->
+        <!--style="@style/join_item_comm_style">-->
+        <!--<TextView-->
+            <!--style="@style/join_item_comm_textView_style"-->
+            <!--android:text="证件号码"/>-->
 
 
-        <EditText
-            android:id="@+id/et_id_number"
-            style="@style/join_item_comm_editText_style"
-            android:hint="输入真实号码"
-            android:inputType="number"
-        />
-    </LinearLayout>
+        <!--<EditText-->
+            <!--android:id="@+id/et_id_number"-->
+            <!--style="@style/join_item_comm_editText_style"-->
+            <!--android:hint=""-->
+            <!--android:inputType="number"-->
+        <!--/>-->
+    <!--</LinearLayout>-->
+
+    <com.bing.lan.comm.view.EditTextInputLayout
+        android:id="@+id/eti_id_card_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edit_hint="输入真实号码"
+        app:title="证件号码"/>
 
     <include layout="@layout/include_line_join"/>
 

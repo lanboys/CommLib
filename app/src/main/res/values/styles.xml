@@ -57,6 +57,11 @@
     <!--<item name="android:layout_marginLeft">@dimen/join_right_left_margin</item>-->
     <!--<item name="android:layout_marginRight">@dimen/join_right_left_margin</item>-->
     <style name="join_item_comm_style">
+
+        <!-- 获取焦点，防止 editText 获取焦点 -->
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+
         <item name="android:background">@color/main_color_white</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/join_item_height</item>
@@ -79,7 +84,7 @@
         <item name="android:layout_marginLeft">50dp</item>
         <item name="android:textColor">@color/main_color_text_gray</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:background">@null</item>
         <item name="android:maxLines">2</item>
         <item name="android:textSize">@dimen/join_item_editText_textSize</item>
@@ -152,6 +157,9 @@
     </style>
     <style name="join_item_img_textView_style" parent="join_item_comm_textView_style">
         <item name="android:layout_weight">1</item>
+    </style>
+    <style name="join_item_comm_style121" parent="join_item_comm_style">
+
     </style>
 
 

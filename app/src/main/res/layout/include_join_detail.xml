@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
 
@@ -11,25 +12,13 @@
         android:id="@+id/eti_phone_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:edit_enable="true"
         app:edit_hint="联系电话"
+        app:edit_inputType="phone"
+        app:image_visibility="gone"
         app:title="联系电话"/>
 
-
-    <!--<LinearLayout-->
-    <!--style="@style/join_item_comm_style">-->
-    <!--<TextView-->
-    <!--style="@style/join_item_comm_textView_style"-->
-    <!--android:text="联系电话"/>-->
-
-    <!--<EditText-->
-    <!--android:id="@+id/et_phone_number"-->
-    <!--style="@style/join_item_comm_editText_style"-->
-    <!--android:hint="联系电话"-->
-    <!--android:inputType="phone"/>-->
-    <!--</LinearLayout>-->
-
     <include layout="@layout/include_line_join"/>
-
 
     <com.bing.lan.comm.view.EditTextInputLayout
         android:id="@+id/eti_join_name"
@@ -38,63 +27,27 @@
         app:edit_hint="请输入真实姓名"
         app:title="真实姓名"/>
 
-
-    <!--<LinearLayout-->
-    <!--style="@style/join_item_comm_style">-->
-    <!--<TextView-->
-    <!--style="@style/join_item_comm_textView_style"-->
-    <!--android:text="真实姓名"/>-->
-
-    <!--<EditText-->
-    <!--android:id="@+id/et_join_name"-->
-    <!--style="@style/join_item_comm_editText_style"-->
-    <!--android:hint="请输入真实姓名"/>-->
-    <!--</LinearLayout>-->
-
     <include layout="@layout/include_line_join"/>
 
-    <LinearLayout
-        android:id="@+id/ll_select_address"
-        style="@style/join_item_comm_style">
-        <TextView
-            style="@style/join_item_comm_textView_style"
-            android:text="所在地区"/>
 
-        <TextView
-            android:id="@+id/tv_select_address"
-            style="@style/join_item_comm_editText_style"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:focusable="false"
-            android:hint="选择所在的区域"/>
-
-        <ImageView
-            android:id="@+id/iv_select_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/iv_mine_into"/>
-    </LinearLayout>
+    <com.bing.lan.comm.view.EditTextInputLayout
+        android:id="@+id/eti_select_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edit_enable="false"
+        app:edit_hint="选择所在的区域"
+        app:image="@drawable/iv_mine_into"
+        app:image_visibility="visible"
+        app:title="所在地区"/>
 
     <include layout="@layout/include_line_join"/>
-
-    <!--<LinearLayout-->
-    <!--style="@style/join_item_comm_style">-->
-    <!--<TextView-->
-    <!--style="@style/join_item_comm_textView_style"-->
-    <!--android:text="详细地址"/>-->
-
-    <!--<EditText-->
-    <!--android:id="@+id/et_address_detail"-->
-    <!--style="@style/join_item_comm_editText_style"-->
-    <!--android:hint="请填写详细地址"/>-->
-    <!--</LinearLayout>-->
 
     <com.bing.lan.comm.view.EditTextInputLayout
         android:id="@+id/eti_address_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:edit_hint="请填写详细地址"
+        app:edit_inputType="text"
         app:title="详细地址"/>
 
 

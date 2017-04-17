@@ -10,8 +10,9 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_container"
-    style="@style/join_item_comm_style"
+    style="@style/join_item_comm_style121"
 >
     <TextView
         android:id="@+id/tv_title"
@@ -21,6 +22,16 @@
     <EditText
         android:id="@+id/et_content"
         style="@style/join_item_comm_editText_style"
-        android:hint="联系电话"
-        android:inputType="phone"/>
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:hint="联系电话"/>
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:src="@drawable/iv_mine_into"/>
+
 </LinearLayout>

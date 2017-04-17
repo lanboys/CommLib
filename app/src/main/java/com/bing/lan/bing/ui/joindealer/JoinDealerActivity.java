@@ -6,17 +6,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.bing.lan.bing.ui.dealerauthenticate.DealerAuthenticateActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
+import com.bing.lan.comm.utils.RegExpUtil;
+import com.bing.lan.comm.utils.SoftInputUtil;
 import com.bing.lan.comm.view.EditTextInputLayout;
 import com.lljjcoder.citypickerview.widget.CityPicker;
 
 import org.apache.http.util.TextUtils;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -37,12 +40,10 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
     EditTextInputLayout mEtiJoinName;
     @BindView(R.id.eti_address_detail)
     EditTextInputLayout mEtiAddressDetail;
-    @BindView(R.id.tv_select_address)
-    TextView mTvSelectAddress;
-    @BindView(R.id.iv_select_address)
-    ImageView mIvSelectAddress;
-    @BindView(R.id.ll_select_address)
-    LinearLayout mLlSelectAddress;
+    @BindView(R.id.eti_select_address)
+    EditTextInputLayout mEtiSelectAddress;
+    @BindView(R.id.eti_id_card_number)
+    EditTextInputLayout mEtiIdCardNumber;
 
     @BindView(R.id.iv_id_card_img_front)
     ImageView mIvIdCardImgFront;
@@ -50,8 +51,6 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
     ImageView mIvIdCardImgBack;
     @BindView(R.id.btn_join_now)
     Button mBtnJoinNow;
-    @BindView(R.id.content_join_dealer)
-    LinearLayout mContentJoinDealer;
 
     private CityPicker mCityPicker;
 
@@ -77,6 +76,15 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
         mEtiPhoneNumber.setValidator(this);
         mEtiJoinName.setValidator(this);
         mEtiAddressDetail.setValidator(this);
+        mEtiIdCardNumber.setValidator(this);
+        mEtiSelectAddress.setValidator(this);
+
+        //test
+        mEtiPhoneNumber.setEditContent("13556004824");
+        mEtiJoinName.setEditContent("蓝兵");
+        mEtiAddressDetail.setEditContent("东田大厦");
+        mEtiIdCardNumber.setEditContent("440223199812253730");
+        //test
     }
 
     @Override
@@ -84,27 +92,34 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
 
     }
 
-    @OnClick({R.id.toolbar, R.id.tv_select_address, R.id.iv_select_address, R.id.ll_select_address,
+    @OnClick(R.id.eti_select_address)
+    public void onViewClicked() {
+    }
+
+    @OnClick({R.id.toolbar, R.id.eti_select_address,
             R.id.btn_join_now, R.id.iv_id_card_img_front, R.id.iv_id_card_img_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.toolbar:
-                break;
-
-            case R.id.iv_select_address:
-            case R.id.tv_select_address:
-            case R.id.ll_select_address:
+            case R.id.eti_select_address:
+                //关闭软键盘
+                SoftInputUtil.closeSoftInput(this);
+                //选择城市
                 selectCity();
                 break;
 
             case R.id.btn_join_now:
                 if (mEtiPhoneNumber.validate()) {
                     if (mEtiJoinName.validate()) {
-                        if (mEtiAddressDetail.validate()) {
-                            startActivity(DealerAuthenticateActivity.class, false, true);
+                        if (mEtiSelectAddress.validate()) {
+                            if (mEtiAddressDetail.validate()) {
+                                if (mEtiIdCardNumber.validate()) {
+                                    startActivity(DealerAuthenticateActivity.class, false, true);
+                                }
+                            }
                         }
                     }
                 }
+
                 break;
             case R.id.iv_id_card_img_front:
                 break;
@@ -145,7 +160,7 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
                     //         + mDistrict + "\n邮编：" + citySelected[3];
 
                     String text = mProvince + " " + mCity + " " + mDistrict;
-                    mTvSelectAddress.setText(text);
+                    mEtiSelectAddress.setEditContent(text);
                     log.d("onSelected(): 地区选择结果" + text);
                 }
 
@@ -165,28 +180,77 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
         switch (id) {
 
             case R.id.eti_phone_number:
-                return validateComm(mEtiPhoneNumber, "校验通过", "请输入正确的手机号码");
+                return validateComm(mEtiPhoneNumber, id, "校验通过", "请输入正确的手机号码");
             case R.id.eti_join_name:
-                return validateComm(mEtiJoinName, "校验通过", "请输入正确的名字");
+                return validateComm(mEtiJoinName, id, "校验通过", "请输入正确的名字");
             case R.id.eti_address_detail:
-                return validateComm(mEtiAddressDetail, "校验通过", "请输入详细地址");
+                return validateComm(mEtiAddressDetail, id, "校验通过", "请输入详细地址");
+            case R.id.eti_id_card_number:
+                return validateComm(mEtiIdCardNumber, id, "校验通过", "");
+            case R.id.eti_select_address:
+                return validateComm(mEtiSelectAddress, id, "校验通过", "请选择地区");
             default:
                 return false;
         }
     }
 
-    public boolean validateComm(EditTextInputLayout inputLayout, String success, String fail) {
+    public boolean validateComm(EditTextInputLayout inputLayout, int id, String success, String fail) {
 
         String content = inputLayout.getContent();
+        boolean result = false;
+
         if (!TextUtils.isEmpty(content)) {
-            if (success != null) {
-               // showToast(success);
+            switch (id) {
+
+                case R.id.eti_phone_number:
+                    result = RegExpUtil.checkPhoneNum(content);
+                    break;
+                case R.id.eti_join_name:
+                    result = RegExpUtil.checkChineseName(content);
+                    break;
+                case R.id.eti_address_detail:
+                    //不为null 就算可以了
+                    result = true;
+                    break;
+                case R.id.eti_select_address:
+                    //不为null 就算可以了
+                    result = true;
+                    break;
+                case R.id.eti_id_card_number:
+                    result = checkIdCard(content);
+                    break;
+                default:
+                    result = false;
+                    break;
             }
-            return true;
         }
-        if (fail != null) {
-            showToast(fail);
+
+        if (result) {
+            if (success != null) {
+                //showToast(success);
+            }
+        } else {
+            if (fail != null) {
+                showToast(fail);
+            }
         }
-        return false;
+        return result;
+    }
+
+    public boolean checkIdCard(String sfzhm) {
+        Pattern patternSfzhm1 = Pattern.compile("^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{4}$");
+        Pattern patternSfzhm2 = Pattern.compile("^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$");
+
+        Matcher matcherSfzhm1 = patternSfzhm1.matcher(sfzhm);
+        Matcher matcherSfzhm2 = patternSfzhm2.matcher(sfzhm);
+
+        if (sfzhm.equals("")) {
+            showToast("身份证号码不能为空！");
+            return false;
+        } else if (!(sfzhm.equals("")) && !matcherSfzhm1.find() && !matcherSfzhm2.find()) {
+            showToast("身份证号码格式不正确，请重新输入！");
+            return false;
+        }
+        return true;
     }
 }

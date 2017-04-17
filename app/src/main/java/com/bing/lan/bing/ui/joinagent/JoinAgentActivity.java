@@ -3,19 +3,16 @@ package com.bing.lan.bing.ui.joinagent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bing.lan.bing.ui.main.MainActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
-import com.bing.lan.comm.utils.AppUtil;
+import com.bing.lan.comm.utils.RegExpUtil;
+import com.bing.lan.comm.utils.SoftInputUtil;
 import com.bing.lan.comm.view.EditTextInputLayout;
 import com.lljjcoder.citypickerview.widget.CityPicker;
 
@@ -38,20 +35,13 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
     EditTextInputLayout mEtiJoinName;
     @BindView(R.id.eti_address_detail)
     EditTextInputLayout mEtiAddressDetail;
+    @BindView(R.id.eti_select_address)
+    EditTextInputLayout mEtiSelectAddress;
+    @BindView(R.id.eti_invite_code)
+    EditTextInputLayout mEtiInviteCode;
 
-    @BindView(R.id.tv_select_address)
-    TextView mTvSelectAddress;
-    @BindView(R.id.iv_select_address)
-    ImageView mIvSelectAddress;
-    @BindView(R.id.ll_select_address)
-    LinearLayout mLlSelectAddress;
-
-    @BindView(R.id.et_invite_code)
-    EditText mEtInviteCode;
     @BindView(R.id.btn_join_now)
     Button mBtnJoinNow;
-    @BindView(R.id.content_join_dealer)
-    LinearLayout mContentJoinDealer;
 
     @Override
     protected int getLayoutResId() {
@@ -74,7 +64,15 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
 
         mEtiPhoneNumber.setValidator(this);
         mEtiJoinName.setValidator(this);
+        mEtiSelectAddress.setValidator(this);
         mEtiAddressDetail.setValidator(this);
+        mEtiInviteCode.setValidator(this);
+
+        //test
+        mEtiPhoneNumber.setEditContent("13556004824");
+        mEtiJoinName.setEditContent("蓝兵");
+        mEtiAddressDetail.setEditContent("东田大厦");
+        //test
     }
 
     @Override
@@ -82,18 +80,29 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
 
     }
 
-    @OnClick({R.id.tv_select_address, R.id.iv_select_address,
-            R.id.ll_select_address, R.id.btn_join_now})
+    @OnClick({R.id.eti_select_address, R.id.btn_join_now})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_select_address:
-            case R.id.iv_select_address:
-            case R.id.ll_select_address:
+            case R.id.eti_select_address:
 
+                //关闭软键盘
+                SoftInputUtil.closeSoftInput(this);
                 selectCity();
                 break;
             case R.id.btn_join_now:
-                startActivity(MainActivity.class, false, true);
+
+                if (mEtiPhoneNumber.validate()) {
+                    if (mEtiJoinName.validate()) {
+                        if (mEtiSelectAddress.validate()) {
+                            if (mEtiAddressDetail.validate()) {
+                                if (mEtiInviteCode.validate()) {
+                                    startActivity(MainActivity.class, false, true);
+                                }
+                            }
+                        }
+                    }
+                }
+
                 break;
         }
     }
@@ -131,7 +140,7 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
                     //         + mDistrict + "\n邮编：" + citySelected[3];
 
                     String text = mProvince + " " + mCity + " " + mDistrict;
-                    mTvSelectAddress.setText(text);
+                    mEtiSelectAddress.setEditContent(text);
                     log.d("onSelected(): 地区选择结果" + text);
                 }
 
@@ -148,8 +157,63 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
     @Override
     public boolean validate(int id) {
 
-        Toast.makeText(AppUtil.getAppContext(), "校验通过", Toast.LENGTH_SHORT).show();
+        switch (id) {
+            case R.id.eti_phone_number:
+                return validateComm(mEtiPhoneNumber, id, "校验通过", "请输入正确的手机号码");
+            case R.id.eti_join_name:
+                return validateComm(mEtiJoinName, id, "校验通过", "请输入正确的名字");
+            case R.id.eti_address_detail:
+                return validateComm(mEtiAddressDetail, id, "校验通过", "请输入详细地址");
+            case R.id.eti_select_address:
+                return validateComm(mEtiSelectAddress, id, "校验通过", "请选择地区");
+            case R.id.eti_invite_code:
+                return validateComm(mEtiInviteCode, id, "校验通过", "请输入邀请码");
+            default:
+                return false;
+        }
+    }
 
-        return false;
+    public boolean validateComm(EditTextInputLayout inputLayout, int id, String success, String fail) {
+
+        String content = inputLayout.getContent();
+        boolean result = false;
+
+        if (!TextUtils.isEmpty(content)) {
+            switch (id) {
+
+                case R.id.eti_phone_number:
+                    result = RegExpUtil.checkPhoneNum(content);
+                    break;
+                case R.id.eti_join_name:
+                    result = RegExpUtil.checkChineseName(content);
+                    break;
+                case R.id.eti_address_detail:
+                    //不为null 就算可以了
+                    result = true;
+                    break;
+                case R.id.eti_select_address:
+                    //不为null 就算可以了
+                    result = true;
+                    break;
+                case R.id.eti_invite_code:
+                    //邀请码  不为null 就算可以了
+                    result = true;
+                    break;
+                default:
+                    result = false;
+                    break;
+            }
+        }
+
+        if (result) {
+            if (success != null) {
+                //showToast(success);
+            }
+        } else {
+            if (fail != null) {
+                showToast(fail);
+            }
+        }
+        return result;
     }
 }
