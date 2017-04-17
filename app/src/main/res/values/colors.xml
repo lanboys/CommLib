@@ -14,7 +14,8 @@
     <color name="main_color_test">#e56bf2</color>
 
     <!-- 主要背景色 -->
-    <color name="main_color_background">#eff0f2</color>
+    <!--<color name="main_color_background">#eff0f2</color>-->
+    <color name="main_color_background">#f0f1f3</color>
     <!-- 主要文字黑色 -->
     <color name="main_color_text_black">#3a424d</color>
     <!-- 主要文字灰色 -->

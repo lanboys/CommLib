@@ -22,4 +22,6 @@
     <string name="title_activity_income_detail">IncomeDetailActivity</string>
     <string name="title_activity_manage_card">ManageCardActivity</string>
     <string name="title_activity_add_bank_card">AddBankCardActivity</string>
+    <string name="title_activity_verification">VerificationActivity</string>
+    <string name="title_activity_modify_psw">ModifyPswActivity</string>
 </resources>

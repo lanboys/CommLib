@@ -15,6 +15,7 @@ import com.bing.lan.bing.ui.joindealer.JoinDealerActivity;
 import com.bing.lan.bing.ui.login.LoginActivity;
 import com.bing.lan.bing.ui.main.MainActivity;
 import com.bing.lan.bing.ui.managecard.ManageCardActivity;
+import com.bing.lan.bing.ui.modifypassword.ModifyPswActivity;
 import com.bing.lan.bing.ui.notavailable.NotAvailableActivity;
 import com.bing.lan.bing.ui.notsettlement.NotSettlementActivity;
 import com.bing.lan.bing.ui.register.RegisterActivity;
@@ -23,6 +24,7 @@ import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;
 import com.bing.lan.bing.ui.shopcreate.ShopCreateActivity;
 import com.bing.lan.bing.ui.splash.SplashActivity;
 import com.bing.lan.bing.ui.takemoney.TakeMoneyActivity;
+import com.bing.lan.bing.ui.verification.VerificationActivity;
 
 import dagger.Component;
 
@@ -78,6 +80,10 @@ public interface ActivityComponent {
     void inject(ManageCardActivity manageCardActivity);
 
     void inject(AddBankCardActivity addBankCardActivity);
+
+    void inject(VerificationActivity verificationActivity);
+
+    void inject(ModifyPswActivity modifyPswActivity);
 
     // void inject(SplashActivity splashActivity);
 

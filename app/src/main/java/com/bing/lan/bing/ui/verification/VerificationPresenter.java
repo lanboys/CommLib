@@ -1,4 +1,4 @@
-package com.bing.lan.bing.ui.forgetpassword;
+package com.bing.lan.bing.ui.verification;
 
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
 
@@ -13,11 +13,11 @@ import rx.subscriptions.CompositeSubscription;
 
 /**
  * @author 蓝兵
- * @time 2017/2/6  19:11
+ * @time 2017/4/6  19:12
  */
-public class ForgetPasswordPresenter
-        extends BaseActivityPresenter<IForgetPasswordContract.IForgetPasswordView, IForgetPasswordContract.IForgetPasswordModule>
-        implements IForgetPasswordContract.IForgetPasswordPresenter {
+public class VerificationPresenter
+        extends BaseActivityPresenter<IVerificationContract.IVerificationView, IVerificationContract.IVerificationModule>
+        implements IVerificationContract.IVerificationPresenter {
 
     private static final int TOTAL_WAITING_VERIFICATION_CODE_TIME = 120;
     private CompositeSubscription mSubscription;
@@ -55,10 +55,7 @@ public class ForgetPasswordPresenter
         super.onCompleted(action);
     }
 
-
-
     public void updateWaitingVerificationCodeTime() {
-
         Subscription subscribe = Observable.interval(0, 1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -67,10 +64,10 @@ public class ForgetPasswordPresenter
                     public void call(Long aLong) {
                         int countTime = TOTAL_WAITING_VERIFICATION_CODE_TIME - aLong.intValue();
                         if (countTime >= 0 && mView != null)
+
                             mView.updateWaitingVerificationCodeTime(countTime);
                     }
                 });
-
         mSubscription.add(subscribe);
     }
 

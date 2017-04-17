@@ -114,7 +114,7 @@
     </style>
 
 
-        <!--<item name="android:layout_margin">10sp</item>-->
+    <!--<item name="android:layout_margin">10sp</item>-->
     <!-- 主页面 item 主题 -->
     <style name="main_item_style">
         <item name="android:layout_width">0dp</item>
@@ -158,7 +158,6 @@
     <style name="join_item_img_textView_style" parent="join_item_comm_textView_style">
         <item name="android:layout_weight">1</item>
     </style>
-
 
 
 </resources>

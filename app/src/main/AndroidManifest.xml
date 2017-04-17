@@ -10,7 +10,6 @@
     <!-- 读写存储卡权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
 
@@ -39,7 +38,6 @@
         <service android:name="com.amap.api.location.APSService"/>
 
         <!-- 高德地图 -->
-
 
 
         <!-- 登录页面 -->
@@ -139,12 +137,10 @@
             android:label="@string/title_activity_shop_authenticate"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
         <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"
             android:screenOrientation="portrait">
         </activity>
-
         <activity
             android:name="com.bing.lan.bing.ui.dealercreate.DealerCreateActivity"
             android:label="@string/title_activity_dealer_create"
@@ -192,6 +188,16 @@
         </activity>
         <activity android:name="com.bing.lan.bing.ui.map.MapSearchActivity"/>
         <activity android:name="com.bing.lan.bing.ui.map.MapActivity"/>
+        <activity
+            android:name="com.bing.lan.bing.ui.verification.VerificationActivity"
+            android:label="@string/title_activity_verification"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.modifypassword.ModifyPswActivity"
+            android:label="@string/title_activity_modify_psw"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

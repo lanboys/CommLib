@@ -63,6 +63,10 @@ import com.bing.lan.bing.ui.managecard.IManageCardContract;
 import com.bing.lan.bing.ui.managecard.ManageCardActivity;
 import com.bing.lan.bing.ui.managecard.ManageCardModule;
 import com.bing.lan.bing.ui.managecard.ManageCardPresenter;
+import com.bing.lan.bing.ui.modifypassword.IModifyPswContract;
+import com.bing.lan.bing.ui.modifypassword.ModifyPswActivity;
+import com.bing.lan.bing.ui.modifypassword.ModifyPswModule;
+import com.bing.lan.bing.ui.modifypassword.ModifyPswPresenter;
 import com.bing.lan.bing.ui.notavailable.INotAvailableContract;
 import com.bing.lan.bing.ui.notavailable.NotAvailableActivity;
 import com.bing.lan.bing.ui.notavailable.NotAvailableModule;
@@ -95,6 +99,10 @@ import com.bing.lan.bing.ui.takemoney.ITakeMoneyContract;
 import com.bing.lan.bing.ui.takemoney.TakeMoneyActivity;
 import com.bing.lan.bing.ui.takemoney.TakeMoneyModule;
 import com.bing.lan.bing.ui.takemoney.TakeMoneyPresenter;
+import com.bing.lan.bing.ui.verification.IVerificationContract;
+import com.bing.lan.bing.ui.verification.VerificationActivity;
+import com.bing.lan.bing.ui.verification.VerificationModule;
+import com.bing.lan.bing.ui.verification.VerificationPresenter;
 import com.bing.lan.comm.utils.LogUtil;
 
 import dagger.Module;
@@ -306,6 +314,22 @@ public class ActivityModule {
         AddBankCardPresenter splashPresenter = new AddBankCardPresenter();
         splashPresenter.setModule(new AddBankCardModule());
         splashPresenter.onAttachView((AddBankCardActivity) mActivity);
+        return splashPresenter;
+    }
+
+    @Provides
+    public IVerificationContract.IVerificationPresenter provideVerificationPresenter() {
+        VerificationPresenter splashPresenter = new VerificationPresenter();
+        splashPresenter.setModule(new VerificationModule());
+        splashPresenter.onAttachView((VerificationActivity) mActivity);
+        return splashPresenter;
+    }
+
+    @Provides
+    public IModifyPswContract.IModifyPswPresenter provideModifyPswPresenter() {
+        ModifyPswPresenter splashPresenter = new ModifyPswPresenter();
+        splashPresenter.setModule(new ModifyPswModule());
+        splashPresenter.onAttachView((ModifyPswActivity) mActivity);
         return splashPresenter;
     }
 }

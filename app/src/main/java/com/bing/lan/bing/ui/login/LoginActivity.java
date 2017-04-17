@@ -1,10 +1,8 @@
 package com.bing.lan.bing.ui.login;
 
 import android.content.Intent;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,8 +36,10 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
     @BindView(R.id.tv_forget_password)
     TextView mTvForgetPassword;
     @BindView(R.id.tv_not_employee)
-
     TextView mTvNotEmployee;
+
+    @BindView(R.id.tv_register_tip)
+    TextView mTvRegisterTip;
     @BindView(R.id.ll_not_employee)
     LinearLayout mLlNotEmployee;
     @BindView(R.id.tv_employee)
@@ -54,15 +54,8 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
     EditTextInputView mEtInputPhoneNumber;
     @BindView(R.id.et_input_password)
     EditTextInputView mEtInputPassword;
-    @BindView(R.id.rl_login)
-    LinearLayout mRlLogin;
-    @BindView(R.id.ll_login)
-    LinearLayout mLlLogin;
-    @BindView(R.id.content_login)
-    LinearLayout mContentLogin;
-    @BindView(R.id.activity_login)
-    CoordinatorLayout mActivityLogin;
-
+    // 默认非公司员工
+    boolean mIsEmployee = true;
     private EditText et_phone_number;
     private EditText et_password;
 
@@ -97,6 +90,8 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
 
         mEtInputPhoneNumber.setValidator(this);
         mEtInputPassword.setValidator(this);
+
+        mTvNotEmployee.setSelected(true);
     }
 
     @Override
@@ -124,34 +119,25 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
             case R.id.tv_forget_password:
                 startActivity(ForgetPasswordActivity.class, false, true);
                 break;
-            case R.id.tv_not_employee:
-                break;
+
             case R.id.ll_not_employee:
-
-                showToast("非公司员工");
-                log.d("onClick(): 非公司员工");
+                mIsEmployee = false;
                 reset();
-                mTvNotEmployee.setSelected(false);
-                Log.d("fmapp", "2222222");
-                Log.e("fmapp", "22222333333333322");
-                System.out.print("11111111111111111");
-
-                break;
-            case R.id.tv_employee:
                 break;
             case R.id.ll_employee:
-                log.e("onClick(): 公司员工");
-                showToast("公司员工");
+                mIsEmployee = true;
                 reset();
-                mTvEmployee.setSelected(false);
-
+                break;
+            case R.id.tv_register_tip:
+                startActivity(RegisterActivity.class, false, true);
                 break;
         }
     }
 
     public void reset() {
-        mTvEmployee.setSelected(true);
-        mTvNotEmployee.setSelected(true);
+        showToast(mIsEmployee ? "公司员工" : "非公司员工");
+        mTvEmployee.setSelected(mIsEmployee);
+        mTvNotEmployee.setSelected(!mIsEmployee);
     }
 
     @Override

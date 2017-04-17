@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_login"
     android:layout_width="match_parent"
+    android:background="@color/main_color_white"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.bing.lan.bing.ui.login.LoginActivity"
     tools:showIn="@layout/activity_login">
@@ -51,6 +51,7 @@
 
 
         <TextView
+            android:id="@+id/tv_register_tip"
             android:layout_width="match_parent"
             android:layout_height="49dp"
             android:gravity="center"
@@ -64,40 +65,39 @@
             android:layout_marginBottom="17dp"
             android:layout_marginTop="0dp"
             android:text="立即登录"/>
-    </LinearLayout>
 
-
-    <LinearLayout
-        android:id="@+id/ll_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_new_user_register"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/ll_login"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rl_login"
-            android:layout_centerHorizontal="true"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="6dp"
-            android:text="注册新用户"
-            android:textColor="@drawable/main_color_to_shallow_selector"
-            android:textSize="13sp"/>
+            android:orientation="horizontal"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
 
-        <TextView
-            android:id="@+id/tv_forget_password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rl_login"
-            android:layout_centerHorizontal="true"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="6dp"
-            android:text="忘记密码?"
-            android:textColor="@drawable/main_color_to_shallow_selector"
-            android:textSize="13sp"/>
+            <TextView
+                android:id="@+id/tv_new_user_register"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_login"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:text="注册新用户"
+                android:textColor="#58606b"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/tv_forget_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_login"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="忘记密码?"
+                android:textColor="#0195ff"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -105,10 +105,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
-
         android:text="电话客服(10:00-18:00)"
         android:textColor="#58606b"
         android:textSize="14sp"/>
 
-</LinearLayout>
+</RelativeLayout>
