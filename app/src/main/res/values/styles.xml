@@ -158,9 +158,7 @@
     <style name="join_item_img_textView_style" parent="join_item_comm_textView_style">
         <item name="android:layout_weight">1</item>
     </style>
-    <style name="join_item_comm_style121" parent="join_item_comm_style">
 
-    </style>
 
 
 </resources>

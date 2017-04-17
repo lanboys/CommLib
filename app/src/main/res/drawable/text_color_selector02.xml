@@ -6,5 +6,5 @@
     <item android:color="@color/main_color_blue" android:state_pressed="true"/>
     <item android:color="@color/main_color_blue" android:state_checked="true"/>
     <item android:color="@color/main_color_blue" android:state_enabled="false"/>
-    <item android:color="@color/main_color_text_gray"/>
+    <item android:color="@color/main_color_text_black"/>
 </selector>

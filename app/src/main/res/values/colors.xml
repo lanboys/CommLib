@@ -36,6 +36,14 @@
     <color name="btn_color_shallow">#b8dfff</color>
 
 
+    <!-- 获取验证码 颜色 -->
+    <color name="btn_color_yellow_normal">#ffce4b</color>
+    <color name="btn_color_yellow_select">#b7e2e2</color>
+
+    <!-- 登陆注册 页面 edit 文字颜色 -->
+    <color name="edit_text_color">#9199a6</color>
+    <color name="edit_text_hint_color">#9199a6</color>
+
 
     <!-- 我的店铺 认证 颜色 -->
     <color name="shop_color_background_select">#0195ff</color>

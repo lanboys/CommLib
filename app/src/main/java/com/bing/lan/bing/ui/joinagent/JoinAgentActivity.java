@@ -155,27 +155,28 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
     }
 
     @Override
-    public boolean validate(int id) {
+    public boolean validate(int id, String s) {
 
         switch (id) {
             case R.id.eti_phone_number:
-                return validateComm(mEtiPhoneNumber, id, "校验通过", "请输入正确的手机号码");
+                return validateComm(s, id, "校验通过", "请输入正确的手机号码");
             case R.id.eti_join_name:
-                return validateComm(mEtiJoinName, id, "校验通过", "请输入正确的名字");
+                return validateComm(s, id, "校验通过", "请输入正确的名字");
             case R.id.eti_address_detail:
-                return validateComm(mEtiAddressDetail, id, "校验通过", "请输入详细地址");
+                return validateComm(s, id, "校验通过", "请输入详细地址");
             case R.id.eti_select_address:
-                return validateComm(mEtiSelectAddress, id, "校验通过", "请选择地区");
+                return validateComm(s, id, "校验通过", "请选择地区");
             case R.id.eti_invite_code:
-                return validateComm(mEtiInviteCode, id, "校验通过", "请输入邀请码");
+                return validateComm(s, id, "校验通过", "请输入邀请码");
             default:
                 return false;
         }
     }
 
-    public boolean validateComm(EditTextInputLayout inputLayout, int id, String success, String fail) {
+    public boolean validateComm(String content, int id, String success, String fail) {
 
-        String content = inputLayout.getContent();
+        //        public boolean validateComm(EditTextInputLayout inputLayout, int id, String success, String fail) {
+
         boolean result = false;
 
         if (!TextUtils.isEmpty(content)) {

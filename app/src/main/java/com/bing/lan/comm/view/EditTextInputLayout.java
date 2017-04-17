@@ -99,7 +99,7 @@ public class EditTextInputLayout extends LinearLayout {
         mEdContent.setEnabled(false);
     }
 
-    public void setTitle(@NonNull String s) {
+    public void setTextViewTitle(@NonNull String s) {
 
         if (mTvTitle != null) {
             mTvTitle.setText(s);
@@ -113,13 +113,13 @@ public class EditTextInputLayout extends LinearLayout {
         }
     }
 
-    public void setHint(@NonNull String s) {
+    public void setEditHint(@NonNull String s) {
         if (mEdContent != null) {
             mEdContent.setHint(s);
         }
     }
 
-    public String getContent() {
+    public String getEditContent() {
 
         return mEdContent.getText().toString().trim();
     }
@@ -137,7 +137,7 @@ public class EditTextInputLayout extends LinearLayout {
     public boolean validate() {
 
         if (mValidator != null) {
-            return mValidator.validate(getId());
+            return mValidator.validate(getId(),getEditContent());
         } else {
             throw new RuntimeException("请先设置校验器");
         }
@@ -145,6 +145,6 @@ public class EditTextInputLayout extends LinearLayout {
 
     public interface Validator {
 
-        boolean validate(int id);
+        boolean validate(int id,String str);
     }
 }

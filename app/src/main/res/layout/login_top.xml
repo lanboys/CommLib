@@ -8,15 +8,15 @@
     android:gravity="center"
     android:orientation="horizontal"
     android:paddingBottom="1dp"
-    android:paddingLeft="45dp"
-    android:paddingRight="45dp"
+    android:paddingLeft="22dp"
+    android:paddingRight="34dp"
     android:paddingTop="10dp">
 
     <LinearLayout
         android:id="@+id/ll_not_employee"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="25dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="42dp"
         android:layout_weight="1"
         android:background="@drawable/shape_gray"
         android:gravity="center"
@@ -28,13 +28,13 @@
             android:layout_height="wrap_content"
             android:text="非公司员工"
             android:textColor="@drawable/text_color_selector02"
-            android:textSize="15sp"/>
+            android:textSize="14sp"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/ll_employee"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="42dp"
         android:layout_weight="1"
         android:background="@drawable/shape_gray"
         android:gravity="center"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:text="公司员工"
             android:textColor="@drawable/text_color_selector02"
-            android:textSize="15sp"/>
+            android:textSize="14sp"/>
     </LinearLayout>
 
 

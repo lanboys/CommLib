@@ -19,34 +19,51 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="37dp"
         android:orientation="vertical">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="97dp"
+            android:layout_height="97dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/iv_login_logo"/>
 
         <com.bing.lan.comm.view.EditTextInputView
             android:id="@+id/et_input_phone_number"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="60dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="67dp"
+            app:edit_hint1="手机号码"
+            app:edit_inputType1="phone"
+            app:image1="@drawable/iv_phone"
+        >
+
         </com.bing.lan.comm.view.EditTextInputView>
 
         <com.bing.lan.comm.view.EditTextInputView
             android:id="@+id/et_input_password"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="28dp">
+            android:layout_height="wrap_content"
+
+            app:edit_hint1="登录密码"
+            app:image1="@drawable/iv_password"
+        >
         </com.bing.lan.comm.view.EditTextInputView>
 
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:gravity="center"
+            android:text="号码未注册，前往注册.."
+            android:textColor="#f24d5a"
+            android:textSize="14sp"/>
 
         <Button
             android:id="@+id/btn_login"
-            android:text="立即登录"
-            style="@style/btn_blue_style"/>
+            style="@style/btn_blue_style"
+            android:layout_marginBottom="17dp"
+            android:layout_marginTop="0dp"
+            android:text="立即登录"/>
     </LinearLayout>
 
 
@@ -83,5 +100,15 @@
             android:textSize="13sp"/>
 
     </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        android:text="电话客服(10:00-18:00)"
+        android:textColor="#58606b"
+        android:textSize="14sp"/>
 
 </LinearLayout>

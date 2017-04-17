@@ -2,52 +2,51 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_container"
+    style="@style/join_item_comm_style"
     android:layout_width="match_parent"
-    android:layout_height="40dp">
-
-
-    <!--&lt;!&ndash; 经销商/代理商页面 输入框 主题 &ndash;&gt;-->
-    <!--<style name="join_item_comm_editText_style">-->
-    <!--<item name="android:layout_marginLeft">50dp</item>-->
-    <!--<item name="android:textColor">@color/main_color_text_gray</item>-->
-    <!--<item name="android:layout_width">match_parent</item>-->
-    <!--<item name="android:layout_height">wrap_content</item>-->
-    <!--<item name="android:background">@null</item>-->
-    <!--<item name="android:maxLines">2</item>-->
-    <!--<item name="android:textSize">@dimen/join_item_editText_textSize</item>-->
-    <!--</style>-->
+>
 
 
     <ImageView
-        android:id="@+id/iv_edittext_input"
+        android:id="@+id/iv_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         tools:src="@drawable/iv_phone"/>
 
     <EditText
-        android:id="@+id/et_edittext_input"
+        android:id="@+id/et_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@id/iv_edittext_input"
+        android:layout_toRightOf="@id/iv_image"
         android:background="@null"
         android:maxLines="1"
-        android:paddingLeft="15dp"
-        android:textColor="@color/et_text_color"
-        android:textColorHint="@color/et_hint_color"
-        android:textSize="13sp"
+        android:paddingLeft="20dp"
+        android:textColor="@color/edit_text_color"
+        android:textColorHint="@color/edit_text_hint_color"
+        android:textSize="15sp"
         tools:text="13456456464"/>
     <TextView
-        android:id="@+id/tv_edittext_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/tv_content"
+        android:layout_width="90dp"
+        android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/btn_background_selector"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/text_background_selector"
+        android:gravity="center"
         android:textColor="@color/main_color_white"
-        android:textSize="13sp"
+        android:textSize="12sp"
         android:visibility="gone"
-        tools:text="输入验证码"
-    />
+        tools:text="获取验证码"/>
+
+    <include
+        layout="@layout/include_line_2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"/>
+
 
 </RelativeLayout>

@@ -175,28 +175,30 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
     }
 
     @Override
-    public boolean validate(int id) {
+    public boolean validate(int id, String s) {
 
         switch (id) {
 
             case R.id.eti_phone_number:
-                return validateComm(mEtiPhoneNumber, id, "校验通过", "请输入正确的手机号码");
+                return validateComm(s, id, "校验通过", "请输入正确的手机号码");
             case R.id.eti_join_name:
-                return validateComm(mEtiJoinName, id, "校验通过", "请输入正确的名字");
+                return validateComm(s, id, "校验通过", "请输入正确的名字");
             case R.id.eti_address_detail:
-                return validateComm(mEtiAddressDetail, id, "校验通过", "请输入详细地址");
+                return validateComm(s, id, "校验通过", "请输入详细地址");
             case R.id.eti_id_card_number:
-                return validateComm(mEtiIdCardNumber, id, "校验通过", "");
+                return validateComm(s, id, "校验通过", "");
             case R.id.eti_select_address:
-                return validateComm(mEtiSelectAddress, id, "校验通过", "请选择地区");
+                return validateComm(s, id, "校验通过", "请选择地区");
             default:
                 return false;
         }
     }
 
-    public boolean validateComm(EditTextInputLayout inputLayout, int id, String success, String fail) {
+    public boolean validateComm(String content, int id, String success, String fail) {
 
-        String content = inputLayout.getContent();
+        //        public boolean validateComm(EditTextInputLayout inputLayout, int id, String success, String fail) {
+
+        //   String content = inputLayout.getContent();
         boolean result = false;
 
         if (!TextUtils.isEmpty(content)) {
