@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/ll_alert_join"
+    android:layout_height="wrap_content"
+    android:background="@color/main_color_test"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+>
+
+    <Button
+        android:id="@+id/btn_join_dealer"
+        style="@style/btn_blue_style"
+        android:layout_width="150dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="0dp"
+        android:text="经销商"/>
+
+    <Button
+        android:id="@+id/btn_join_agent"
+        style="@style/btn_blue_style"
+        android:layout_width="150dp"
+        android:layout_height="49dp"
+        android:layout_below="@id/btn_join_dealer"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
+        android:text="代理商"/>
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="167dp"-->
+    <!--android:background="@color/main_color_white"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingBottom="41dp"-->
+    <!--android:paddingLeft="32dp"-->
+    <!--android:paddingRight="32dp"-->
+    <!--android:paddingTop="38dp"-->
+
+    <!--&gt;-->
+    <!--</LinearLayout>-->
+</LinearLayout>

@@ -65,6 +65,8 @@ public class PhotoSelectUtil {
                     dispatchTakePictureIntent();
                 } else if (type == PhotoSelectPopupWindow.PopupItemType.SELECT_ALBUM) {
                     selectAvatarFromAlbum();
+                }else if (type == PhotoSelectPopupWindow.PopupItemType.CANCEL) {
+                    popupWindow.dismiss();
                 }
             }
         });

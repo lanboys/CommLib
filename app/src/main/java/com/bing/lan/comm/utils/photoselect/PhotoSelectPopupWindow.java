@@ -31,14 +31,14 @@ public class PhotoSelectPopupWindow extends PopupWindow implements View.OnClickL
 
     private OnItemClickListener mItemClickListener;
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        mItemClickListener = listener;
-    }
-
     public PhotoSelectPopupWindow(Context context) {
         mContext = context;
 
         initView();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mItemClickListener = listener;
     }
 
     private void initView() {
@@ -60,6 +60,8 @@ public class PhotoSelectPopupWindow extends PopupWindow implements View.OnClickL
         btn_take_photo.setOnClickListener(this);
         btn_photo_album.setOnClickListener(this);
         btn_cancel.setOnClickListener(this);
+
+        setOutsideTouchable(true);
     }
 
     @Override
@@ -72,13 +74,15 @@ public class PhotoSelectPopupWindow extends PopupWindow implements View.OnClickL
                 itemCallBack(PopupItemType.SELECT_ALBUM);
                 break;
             case R.id.btn_cancel:
-                itemCallBack(PopupItemType.TAKE_PHOTO);
+                itemCallBack(PopupItemType.CANCEL);
                 break;
             default:
                 break;
         }
 
-        dismiss();
+        if (isShowing()) {
+            dismiss();
+        }
     }
 
     private void itemCallBack(int type) {
@@ -95,16 +99,15 @@ public class PhotoSelectPopupWindow extends PopupWindow implements View.OnClickL
     /**
      * 选择头像来源的类型
      */
-    public static class  PopupItemType {
+    public static class PopupItemType {
 
+        public static final int TAKE_PHOTO = 0;         // 拍照
+        public static final int SELECT_ALBUM = 1;      // 相册
+        public static final int CANCEL = 2;             // 取消
         @IntDef({TAKE_PHOTO, SELECT_ALBUM, CANCEL})
         @Retention(RetentionPolicy.SOURCE)
         public @interface Type {
 
         }
-
-        public static final int TAKE_PHOTO = 0;         // 拍照
-        public static final int SELECT_ALBUM = 1;      // 相册
-        public static final int CANCEL = 2;             // 取消
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -38,8 +39,7 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
     @BindView(R.id.circle_pager_indicator)
     CirclePageIndicator circle_pager_indicator;
 
-    int[] mImageResList = {R.drawable.guide_one, R.drawable.guide_two, R.drawable.guide_third,
-            R.drawable.guide_four, R.drawable.guide_five, R.drawable.guide_six};
+    int[] mImageResList = {R.drawable.join_us1, R.drawable.join_us2};
     List<View> mImageViewList = new ArrayList<>();
     ViewPagerAdapter mViewPagerAdapter;
     @BindView(R.id.toolbar)
@@ -76,13 +76,27 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(JoinUsActivity.this);
+                View inflate = View.inflate(JoinUsActivity.this, R.layout.alert_dialog, null);
+                inflate.findViewById(R.id.btn_join_agent).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showToast("-----");
+                    }
+                });
+                inflate.findViewById(R.id.btn_join_dealer).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showToast("-----");
+                    }
+                });
+
+                builder.setView(inflate);
+
+
             }
         });
-
-
-
-
-
 
         //  mSplashContainer = (RelativeLayout) mContentView.findViewById(R.id.splash_container);
 

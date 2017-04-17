@@ -18,7 +18,7 @@
         app:image_visibility="gone"
         app:title="联系电话"/>
 
-    <include layout="@layout/include_line_join"/>
+    <!--<include layout="@layout/include_line_join"/>-->
 
     <com.bing.lan.comm.view.EditTextInputLayout
         android:id="@+id/eti_join_name"
@@ -27,7 +27,7 @@
         app:edit_hint="请输入真实姓名"
         app:title="真实姓名"/>
 
-    <include layout="@layout/include_line_join"/>
+    <!--<include layout="@layout/include_line_join"/>-->
 
 
     <com.bing.lan.comm.view.EditTextInputLayout
@@ -40,7 +40,7 @@
         app:image_visibility="visible"
         app:title="所在地区"/>
 
-    <include layout="@layout/include_line_join"/>
+    <!--<include layout="@layout/include_line_join"/>-->
 
     <com.bing.lan.comm.view.EditTextInputLayout
         android:id="@+id/eti_address_detail"
