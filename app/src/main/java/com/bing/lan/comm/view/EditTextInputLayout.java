@@ -45,6 +45,8 @@ public class EditTextInputLayout extends LinearLayout {
         mIvImage = (ImageView) findViewById(R.id.iv_image);
         mLineContainer = findViewById(R.id.fl_line_container);
 
+        //mEdContent.setClickable(false);
+
         if (attrs != null) {
 
             TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.EditTextInputLayout);
