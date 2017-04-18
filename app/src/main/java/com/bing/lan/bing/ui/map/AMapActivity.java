@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,7 +34,10 @@ import com.bing.lan.bing.ui.mapsearch.MapSearchActivity;
 import com.bing.lan.bing.ui.mapsearch.MapUtil;
 import com.bing.lan.bing.ui.shopcreate.ShopCreateActivity;
 import com.bing.lan.comm.R;
+import com.bing.lan.comm.utils.ThreadPoolProxyUtil;
+import com.bing.lan.comm.utils.popup.AddressPopupWindow;
 
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -61,8 +65,11 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
 
     private boolean isShowInfoWindow = true;
     private ImageView mSearch;
-    private TextView mTextView;
+    private TextView mTextView;//点击定位按钮位置会改变是因为marker的原因
     private LatLng mCurrentLatLng;
+
+    public AddressBean mMarkerAddressBean = new AddressBean();
+    public AddressBean mCurrentAddressBean = new AddressBean();
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -74,9 +81,10 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
             LatLng latlng = new LatLng(addressInfo.getLatitude(), addressInfo.getLongitude());
             resetMarker(latlng);
 
-            Toast.makeText(this, addressInfo.toString(), Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, addressInfo.toString(), Toast.LENGTH_SHORT).show();
         }
     }
+
     protected void setToolBar(Toolbar toolBar, String title, boolean finishActivity, int resId) {
         if (title != null) {
             toolBar.setTitle(title);
@@ -206,32 +214,45 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
 
         if (amapLocation != null) {
             if (amapLocation.getErrorCode() == 0) {
+
                 //定位成功回调信息，设置相关消息
                 amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见官方定位类型表
-                amapLocation.getLatitude();//获取纬度
-                amapLocation.getLongitude();//获取经度
+                mCurrentAddressBean.latitude = amapLocation.getLatitude();//获取纬度
+                mCurrentAddressBean.longitude = amapLocation.getLongitude();//获取经度
                 amapLocation.getAccuracy();//获取精度信息
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date date = new Date(amapLocation.getTime());
                 df.format(date);//定位时间
                 amapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
-                amapLocation.getCountry();//国家信息
-                amapLocation.getProvince();//省信息
-                amapLocation.getCity();//城市信息
-                amapLocation.getDistrict();//城区信息
-                amapLocation.getStreet();//街道信息
-                amapLocation.getStreetNum();//街道门牌号信息
+                mCurrentAddressBean.country = amapLocation.getCountry();//国家信息
+                mCurrentAddressBean.province = amapLocation.getProvince();//省信息
+                mCurrentAddressBean.city = amapLocation.getCity();//城市信息
+                mCurrentAddressBean.district = amapLocation.getDistrict();//城区信息
+                mCurrentAddressBean.street = amapLocation.getStreet();//街道信息
+                mCurrentAddressBean.streetNum = amapLocation.getStreetNum();//街道门牌号信息
                 amapLocation.getCityCode();//城市编码
                 amapLocation.getAdCode();//地区编码
 
                 mCurrentLatLng = new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude());
 
                 StringBuffer buffer = new StringBuffer();
-                buffer.append(amapLocation.getCountry() + "" + amapLocation.getProvince() + "" + amapLocation.getCity() + "" + amapLocation.getProvince() + "" + amapLocation.getDistrict() + "" + amapLocation.getStreet() + "" + amapLocation.getStreetNum());
+                buffer.append(amapLocation.getCountry() + "" + amapLocation.getProvince() + "" + amapLocation.getCity() + ""
+                        + amapLocation.getProvince() + "" + amapLocation.getDistrict() + ""
+                        + amapLocation.getStreet() + "" + amapLocation.getStreetNum());
+
                 Log.e("amap", buffer.toString());
 
                 // 如果不设置标志位，此时再拖动地图时，它会不断将地图移动到当前的位置
                 if (isFirstLoc) {
+                    mMarkerAddressBean.latitude = amapLocation.getLatitude();//获取纬度
+                    mMarkerAddressBean.longitude = amapLocation.getLongitude();//获取经度
+                    mMarkerAddressBean.country = amapLocation.getCountry();//国家信息
+                    mMarkerAddressBean.province = amapLocation.getProvince();//省信息
+                    mMarkerAddressBean.city = amapLocation.getCity();//城市信息
+                    mMarkerAddressBean.district = amapLocation.getDistrict();//城区信息
+                    mMarkerAddressBean.street = amapLocation.getStreet();//街道信息
+                    mMarkerAddressBean.streetNum = amapLocation.getStreetNum();//街道门牌号信息
+
                     //设置缩放级别
                     aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
                     //将地图移动到定位点
@@ -247,7 +268,7 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
 
                     //获取定位信息
                     isFirstLoc = false;
-                    Toast.makeText(getApplicationContext(), buffer.toString(), Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getApplicationContext(), buffer.toString(), Toast.LENGTH_LONG).show();
                 }
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
@@ -351,7 +372,7 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         // TextView text_view = (TextView)findViewById(R.id.message_content);
         //         text_view.setText("你点击了我" + marker.getTitle());
 
-        Toast.makeText(this, "你点击了我", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "你点击了我", Toast.LENGTH_SHORT).show();
 
         // if (isShowInfoWindow) {
         //     marker.hideInfoWindow();
@@ -370,7 +391,7 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
     @Override
     public void onInfoWindowClick(Marker marker) {
 
-        Toast.makeText(this, marker.getTitle(), Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(this, marker.getTitle(), Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -389,18 +410,36 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         View infoWindow = getLayoutInflater().inflate(
                 R.layout.map_info_window, null);
         TextView titleUi = ((TextView) infoWindow.findViewById(R.id.title));
-        titleUi.setText("确认位置");
         titleUi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String trim = mTextView.getText().toString().trim();
-
-                finishMap(trim);
+                createPopupWindow(infoWindow);
             }
         });
 
         return infoWindow;
+    }
+
+    public void createPopupWindow(View view) {
+        AddressPopupWindow popupWindow = new AddressPopupWindow(this);
+        popupWindow.setOnItemClickListener(new AddressPopupWindow.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(@AddressPopupWindow.PopupItemType.Type int type) {
+                if (type == AddressPopupWindow.PopupItemType.BTN_OK) {
+                    popupWindow.dismiss();
+
+                    String trim = mTextView.getText().toString().trim();
+                    finishMap(trim);
+                } else if (type == AddressPopupWindow.PopupItemType.IV_CLOSE) {
+                    popupWindow.dismiss();
+                }
+            }
+        });
+
+        popupWindow.setAddressLoc(mMarkerAddressBean.getAddressLoc());
+        popupWindow.setAddressDetail(mMarkerAddressBean.getAddressDetail());
+
+        popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
     @Override
@@ -412,19 +451,7 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
     private void resetMarker(final LatLng latlng) {
         aMap.clear();
 
-        new Thread() {
-            @Override
-            public void run() {
-                final String lng = MapUtil.getAddressMessageByLatLng(AMapActivity.this, latlng);
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mTextView.setText(lng);
-                    }
-                });
-            }
-        }.start();
+        startGeocodeSearchTask(latlng);
 
         Marker marker = aMap.addMarker(getMarkerOptions(latlng));
         marker.showInfoWindow();
@@ -435,7 +462,63 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         //         .build();
         //aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 10));
 
+        //移动到 latlng 位置
         aMap.moveCamera(CameraUpdateFactory.changeLatLng(latlng));
+    }
+
+    private Task mTask;
+
+    /**
+     * 根据 经纬度 启动逆地理任务
+     *
+     * @param latlng
+     */
+    private void startGeocodeSearchTask(@NonNull LatLng latlng) {
+        if (mTask != null) {
+            ThreadPoolProxyUtil.removeNormalTask(mTask);
+        }
+
+        mTask = new Task(this, latlng);
+        ThreadPoolProxyUtil.executeNormalTask(mTask);
+    }
+
+    public void updateTextViewAddress() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mTextView.setText(getMarkerAddressMessage());
+            }
+        });
+    }
+
+    public String getMarkerAddressMessage() {
+        return mMarkerAddressBean.getAddressDetail();
+    }
+
+    public static class Task implements Runnable {
+
+        WeakReference<AMapActivity> mWeakReference;
+
+        LatLng latlng;
+
+        public Task(@NonNull AMapActivity mapSearchActivity, @NonNull LatLng latlng) {
+
+            mWeakReference = new WeakReference<>(mapSearchActivity);
+            this.latlng = latlng;
+        }
+
+        @Override
+        public void run() {
+
+            if (mWeakReference.get() != null && latlng != null) {
+
+                AMapActivity aMapActivity = mWeakReference.get();
+                //final String lng = MapUtil.getAddressMessageByLatLng(aMapActivity, latlng);
+                aMapActivity.mMarkerAddressBean = MapUtil.getAddressBeanByLatLng(aMapActivity, latlng);
+
+                aMapActivity.updateTextViewAddress();
+            }
+        }
     }
 
     @Override

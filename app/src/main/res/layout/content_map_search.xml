@@ -53,8 +53,8 @@
                 android:id="@+id/iv_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/cancel"/>
-            <!--android:visibility="gone"-->
+                android:src="@drawable/cancel"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
@@ -69,14 +69,31 @@
             android:textSize="15sp"/>
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/lv_search_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_color_white"
-        android:paddingLeft="13dp"
-        android:scrollbars="none"
-        android:paddingRight="13dp">
 
-    </ListView>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ListView
+            android:id="@+id/lv_search_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_color_white"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"
+            android:scrollbars="none"/>
+
+        <TextView
+            android:id="@+id/tv_search_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="没有搜索\n到任何结果"
+            android:textColor="@color/main_color_text_gray"
+            android:textSize="25sp"
+            android:visibility="gone"/>
+
+    </FrameLayout>
 </LinearLayout>

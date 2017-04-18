@@ -110,6 +110,7 @@
     <!-- 经销商/代理商页面 输入框 主题 -->
     <!--<item name="android:layout_marginLeft">50dp</item>-->
     <style name="join_item_comm_editText_style">
+        <item name="android:gravity">center_vertical</item>
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:textColor">@color/main_color_text_gray</item>
         <item name="android:layout_width">match_parent</item>
@@ -186,6 +187,9 @@
     </style>
     <style name="join_item_img_textView_style" parent="join_item_comm_textView_style">
         <item name="android:layout_weight">1</item>
+    </style>
+    <style name="join_item_comm_editText_styl1" parent="join_item_comm_editText_style">
+        <item name="android:gravity">center_vertical</item>
     </style>
 
 

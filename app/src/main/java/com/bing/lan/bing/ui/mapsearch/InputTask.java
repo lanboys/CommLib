@@ -1,7 +1,6 @@
 package com.bing.lan.bing.ui.mapsearch;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
@@ -9,6 +8,7 @@ import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 蓝兵
@@ -18,40 +18,33 @@ import java.util.ArrayList;
 public class InputTask implements PoiSearch.OnPoiSearchListener {
 
     private static InputTask mInstance;
-    private SearchAdapter mAdapter;
     private PoiSearch mSearch;
     private Context mContext;
 
-    private InputTask(Context context, SearchAdapter adapter) {
+    private InputTask(Context context, CallBack callBack) {
         this.mContext = context;
-        this.mAdapter = adapter;
+        this.mCallBack = callBack;
     }
 
     /**
      * 获取实例
      *
      * @param context 上下文
-     * @param adapter 数据适配器
      * @return
      */
-    public static InputTask getInstance(Context context, SearchAdapter adapter) {
+    public static InputTask getInstance(Context context, CallBack callBack) {
         if (mInstance == null) {
             synchronized (InputTask.class) {
                 if (mInstance == null) {
-                    mInstance = new InputTask(context, adapter);
+                    mInstance = new InputTask(context, callBack);
                 }
             }
         }
         return mInstance;
     }
 
-    /**
-     * 设置数据适配器
-     *
-     * @param adapter
-     */
-    public void setAdapter(SearchAdapter adapter) {
-        this.mAdapter = adapter;
+    public void setResultListener(CallBack callBack) {
+        this.mCallBack = callBack;
     }
 
     /**
@@ -83,33 +76,38 @@ public class InputTask implements PoiSearch.OnPoiSearchListener {
                 LatLonPoint llp = item.getLatLonPoint();
                 double lon = llp.getLongitude();
                 double lat = llp.getLatitude();
+
                 //获取标题
                 String title = item.getTitle();
                 //获取内容
                 String text = item.getSnippet();
-                data.add(new AddressBean(lon, lat, title, text));
+
+                AddressBean addressBean = new AddressBean(lon, lat, title, text);
+
+                addressBean.province = item.getProvinceName();
+                addressBean.city = item.getCityName();
+                //addressBean.street = item.get;
+                //addressBean.streetNum = item.getCityName();
+                //addressBean.district = item.getCityName();
+
+                data.add(addressBean);
             }
 
-            Log.e("amap", "搜索结果数量: " + data.size());
-            Log.e("amap--", Thread.currentThread().getName());
-
-            //((Activity) mContext).runOnUiThread(new Runnable() {
-            //    @Override
-            //    public void run() {
-            //
-            //        Log.e("amap", Thread.currentThread().getName());
-
-            mAdapter.setData(data);
-            mAdapter.notifyDataSetChanged();
-
-            //mAdapter.addAll(data);
-            //    }
-            //});
+            if (mCallBack != null) {
+                mCallBack.onSearchResult(data);
+            }
         }
     }
 
     @Override
     public void onPoiItemSearched(PoiItem poiItem, int i) {
 
+    }
+
+    CallBack mCallBack;
+
+    public interface CallBack {
+
+        void onSearchResult(List<AddressBean> list);
     }
 }

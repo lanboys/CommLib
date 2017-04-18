@@ -46,6 +46,7 @@ public class SearchAdapter extends BaseAdapter {
      */
     public void setData(List<AddressBean> data) {
         this.data = data;
+        notifyDataSetChanged();
     }
 
     @Override

@@ -15,9 +15,11 @@ import android.widget.TextView;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
+import com.bing.lan.comm.utils.SoftInputUtil;
 import com.bing.lan.comm.utils.ThreadPoolProxyUtil;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -27,7 +29,7 @@ import butterknife.OnClick;
  * @time 2017/4/6  19:12
  */
 public class MapSearchActivity extends BaseActivity<IMapSearchContract.IMapSearchPresenter>
-        implements IMapSearchContract.IMapSearchView, TextWatcher, AdapterView.OnItemClickListener {
+        implements IMapSearchContract.IMapSearchView, TextWatcher, AdapterView.OnItemClickListener, InputTask.CallBack {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -39,10 +41,12 @@ public class MapSearchActivity extends BaseActivity<IMapSearchContract.IMapSearc
     ImageView mIvCancel;
     @BindView(R.id.tv_cancel)
     TextView mTvCancel;
+    @BindView(R.id.tv_search_tip)
+    TextView mTvSearch;
     @BindView(R.id.lv_search_list)
     ListView mLvSearchList;
 
-    public SearchAdapter mAdapter;
+    private SearchAdapter mAdapter;
     private Task mTask;
 
     @Override
@@ -86,9 +90,8 @@ public class MapSearchActivity extends BaseActivity<IMapSearchContract.IMapSearc
     }
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count,
-            int after) {
-
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        mTvSearch.setVisibility(View.GONE);
     }
 
     @Override
@@ -97,19 +100,36 @@ public class MapSearchActivity extends BaseActivity<IMapSearchContract.IMapSearc
         String trim = s.toString().trim();
         //ThreadPoolProxyUtil.removeDownLoadTask();
 
+        startSearchTask(trim);
+
+        //InputTask.getInstance(MapSearchActivity.this, mAdapter).onSearch(trim.toString(), "");
+    }
+
+    private void startSearchTask(String trim) {
         if (mTask != null) {
             ThreadPoolProxyUtil.removeNormalTask(mTask);
         }
 
         mTask = new Task(this, trim);
         ThreadPoolProxyUtil.executeNormalTask(mTask);
-
-        //InputTask.getInstance(MapSearchActivity.this, mAdapter).onSearch(trim.toString(), "");
     }
 
     @Override
     public void afterTextChanged(Editable s) {
+        mIvCancel.setVisibility(getEtText().length() > 0 ? View.VISIBLE : View.GONE);
+    }
 
+    @NonNull
+    private String getEtText() {
+        return mEtSearchEdit.getText().toString().trim();
+    }
+
+    @Override
+    public void onSearchResult(List<AddressBean> list) {
+        mTvSearch.setVisibility(list.size() > 0 ? View.GONE : View.VISIBLE);
+        log.e("onSearchResult()搜索结果数量: " + list.size());
+        log.e("onSearchResult(): 当前线程：" + Thread.currentThread().getName());
+        mAdapter.setData(list);
     }
 
     public static class Task implements Runnable {
@@ -121,18 +141,15 @@ public class MapSearchActivity extends BaseActivity<IMapSearchContract.IMapSearc
         public Task(@NonNull MapSearchActivity mapSearchActivity, @NonNull String search) {
 
             mWeakReference = new WeakReference<>(mapSearchActivity);
-           this. search=search;
+            this.search = search;
         }
 
         @Override
         public void run() {
 
-            if (mWeakReference != null) {
+            if (mWeakReference != null && search != null) {
                 MapSearchActivity activity = mWeakReference.get();
-
-                if (activity.mAdapter != null && search != null) {
-                    InputTask.getInstance(activity, activity.mAdapter).onSearch(search, "");
-                }
+                InputTask.getInstance(activity, activity).onSearch(search, "");
             }
         }
     }
@@ -158,10 +175,17 @@ public class MapSearchActivity extends BaseActivity<IMapSearchContract.IMapSearc
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_search:
+                //启动搜索任务
+                startSearchTask(getEtText());
                 break;
             case R.id.iv_cancel:
+                mEtSearchEdit.setText("");
                 break;
             case R.id.tv_cancel:
+                if (mTask != null) {
+                    ThreadPoolProxyUtil.removeNormalTask(mTask);
+                }
+                SoftInputUtil.closeSoftInput(this);
                 break;
         }
     }

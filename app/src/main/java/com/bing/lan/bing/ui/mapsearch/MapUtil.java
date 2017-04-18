@@ -42,6 +42,7 @@ public class MapUtil {
         String loc = address.getCity();// 地级市或直辖市
         String subLoc = address.getDistrict();// 区或县或县级市
         String ts = address.getTownship();// 乡镇
+
         String thf = null;// 道路
         List<RegeocodeRoad> regeocodeRoads = address.getRoads();// 道路列表
         if (regeocodeRoads != null && regeocodeRoads.size() > 0) {
@@ -56,6 +57,7 @@ public class MapUtil {
             subthf = streetNumber.getNumber();
         }
         String fn = address.getBuilding();// 标志性建筑,当道路为null时显示
+
         if (area != null)
             stringBuffer.append(area);
         if (loc != null && !area.equals(loc))
@@ -71,6 +73,7 @@ public class MapUtil {
         if ((thf == null && subthf == null) && fn != null
                 && !subLoc.equals(fn))
             stringBuffer.append(fn + "附近");
+
         // locationMarker.setSnippet(stringBuffer.toString());
         // handler.post(new Runnable() {
         //
@@ -81,6 +84,71 @@ public class MapUtil {
         // });
 
         return stringBuffer.toString();
+    }
+
+    public static AddressBean getAddressBeanByLatLng(final Context context, final LatLng latLng) {
+
+        GeocodeSearch geocodeSearch = new GeocodeSearch(context);
+        LatLonPoint point = new LatLonPoint(latLng.latitude,
+                latLng.longitude);
+        RegeocodeQuery regeocodeQuery = new RegeocodeQuery(
+                point, 1000, GeocodeSearch.AMAP);
+
+        RegeocodeAddress address = null;
+        try {
+            address = geocodeSearch
+                    .getFromLocation(regeocodeQuery);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (null == address) {
+            return null;
+        }
+
+        StringBuffer stringBuffer = new StringBuffer();
+
+        String area = address.getProvince();// 省或直辖市
+        String loc = address.getCity();// 地级市或直辖市
+        String subLoc = address.getDistrict();// 区或县或县级市
+        String ts = address.getTownship();// 乡镇
+
+        String thf = null;// 道路
+        List<RegeocodeRoad> regeocodeRoads = address.getRoads();// 道路列表
+        if (regeocodeRoads != null && regeocodeRoads.size() > 0) {
+            RegeocodeRoad regeocodeRoad = regeocodeRoads.get(0);
+            if (regeocodeRoad != null) {
+                thf = regeocodeRoad.getName();
+            }
+        }
+        String subthf = null;// 门牌号
+        StreetNumber streetNumber = address.getStreetNumber();
+        if (streetNumber != null) {
+            subthf = streetNumber.getNumber();
+        }
+        String fn = address.getBuilding();// 标志性建筑,当道路为null时显示
+
+        AddressBean addressBean = new AddressBean();
+
+        //public String street;//街道信息
+        //public String streetNum;//街道门牌号信息
+
+        if (area != null)
+            addressBean.province = area;
+        if (loc != null && !area.equals(loc))
+            addressBean.city = loc;
+        if (subLoc != null)
+            addressBean.district = subLoc;
+        if (ts != null)
+            addressBean.street = ts;
+        if (thf != null)
+            stringBuffer.append(thf);//
+        if (subthf != null)
+            stringBuffer.append(subthf);//
+        if ((thf == null && subthf == null) && fn != null
+                && !subLoc.equals(fn))
+            stringBuffer.append(fn + "附近");//
+
+        return addressBean;
     }
 }
 
