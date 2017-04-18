@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.bing.lan.fm.ui.main.MainActivity">
+
+    <item
+        android:id="@+id/action_call"
+        android:icon="@drawable/icon_call"
+        android:orderInCategory="100"
+        android:title="拨打电话"
+        app:showAsAction="always|withText"
+    />
+    <!--android:icon="@drawable/ic_action_action_search"-->
+    <!--app:actionLayout="@layout/menu_action_detail"-->
+    <!--app:showAsAction="always|withText"-->
+
+
+</menu>

@@ -12,6 +12,7 @@ import com.bing.lan.bing.ui.incomedetail.IncomeDetailActivity;
 import com.bing.lan.bing.ui.join.JoinUsActivity;
 import com.bing.lan.bing.ui.joinagent.JoinAgentActivity;
 import com.bing.lan.bing.ui.joindealer.JoinDealerActivity;
+import com.bing.lan.bing.ui.joinsuccess.JoinSuccessActivity;
 import com.bing.lan.bing.ui.login.LoginActivity;
 import com.bing.lan.bing.ui.main.MainActivity;
 import com.bing.lan.bing.ui.managecard.ManageCardActivity;
@@ -84,6 +85,8 @@ public interface ActivityComponent {
     void inject(VerificationActivity verificationActivity);
 
     void inject(ModifyPswActivity modifyPswActivity);
+
+    void inject(JoinSuccessActivity joinSuccessActivity);
 
     // void inject(SplashActivity splashActivity);
 

@@ -198,6 +198,11 @@
             android:label="@string/title_activity_modify_psw"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.joinsuccess.JoinSuccessActivity"
+            android:label="@string/title_activity_join_success"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

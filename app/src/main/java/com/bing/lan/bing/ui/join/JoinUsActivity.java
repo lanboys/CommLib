@@ -1,14 +1,14 @@
 package com.bing.lan.bing.ui.join;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bing.lan.bing.ui.joinagent.JoinAgentActivity;
 import com.bing.lan.bing.ui.joindealer.JoinDealerActivity;
@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * @author 蓝兵
@@ -32,10 +31,6 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
 
     @BindView(R.id.view_pager)
     ViewPager view_pager;
-    @BindView(R.id.iv_in_main)
-    ImageView iv_in_main;
-    @BindView(R.id.iv_skip)
-    ImageView iv_skip;
     @BindView(R.id.circle_pager_indicator)
     CirclePageIndicator circle_pager_indicator;
 
@@ -44,10 +39,17 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
     ViewPagerAdapter mViewPagerAdapter;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.tv_show_dialog)
+    TextView mTvShowDialog;
 
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_join_us;
+    }
+
+    @Override
+    protected int getMenuId() {
+        return R.menu.menu_call;
     }
 
     @Override
@@ -70,35 +72,12 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
 
         setToolBar(mToolbar, "立即加盟", true, 0);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mTvShowDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(JoinUsActivity.this);
-                View inflate = View.inflate(JoinUsActivity.this, R.layout.alert_dialog, null);
-                inflate.findViewById(R.id.btn_join_agent).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showToast("-----");
-                    }
-                });
-                inflate.findViewById(R.id.btn_join_dealer).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showToast("-----");
-                    }
-                });
-
-                builder.setView(inflate);
-
-
+                showJoinAlertDialog();
             }
         });
-
-        //  mSplashContainer = (RelativeLayout) mContentView.findViewById(R.id.splash_container);
 
         final List<View> viewList = initImageView();
         mViewPagerAdapter = new ViewPagerAdapter(this, viewList);
@@ -107,29 +86,47 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
         circle_pager_indicator.setFillColor(getResources().getColor(R.color.view_pager_indicator_fill));
         circle_pager_indicator.setStrokeColor(getResources().getColor(R.color.view_pager_indicator_stroke));
         circle_pager_indicator.setViewPager(view_pager);
+    }
 
-        // view_pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-        //     @Override
-        //     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        //
-        //     }
-        //
-        //     @Override
-        //     public void onPageSelected(int position) {
-        //         if (position == mImageViewList.size() - 1) {
-        //             iv_in_main.setVisibility(View.VISIBLE);
-        //             iv_skip.setVisibility(View.GONE);
-        //         } else {
-        //             iv_in_main.setVisibility(View.GONE);
-        //             iv_skip.setVisibility(View.VISIBLE);
-        //         }
-        //     }
-        //
-        //     @Override
-        //     public void onPageScrollStateChanged(int state) {
-        //
-        //     }
-        // });
+    public void showJoinAlertDialog() {
+        AlertDialog alertDialog = createExitDialog();
+        //Window window = alertDialog.getWindow();
+        //WindowManager.LayoutParams lp = window.getAttributes();
+        //lp.alpha = 0.9f;
+        //window.setAttributes(lp);
+        //window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        alertDialog.show();
+    }
+
+    private AlertDialog createExitDialog() {
+
+        View inflate = View.inflate(JoinUsActivity.this, R.layout.alert_join, null);
+        inflate.findViewById(R.id.btn_join_agent).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(JoinAgentActivity.class, false, false);
+            }
+        });
+        inflate.findViewById(R.id.btn_join_dealer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(JoinDealerActivity.class, false, false);
+            }
+        });
+
+        //TextView view = new TextView(this);
+        //view.setText("挑剔标题");
+        //int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+        //        20, AppUtil.getDisplayMetrics());
+        //view.setPadding(padding, padding, padding, padding);
+        //// view.setTextColor(AppUtil.getColor(R.color.itemFontColor));
+        //view.setTextSize(16);
+
+        return new AlertDialog.Builder(this/*,R.style.join_alert_dialog*/)
+                //.setView(inflate)
+                .setView(inflate)
+                .create();
     }
 
     private List<View> initImageView() {
@@ -152,15 +149,20 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
         return mImageViewList;
     }
 
-    @OnClick({R.id.iv_in_main, R.id.iv_skip})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.iv_in_main:
-                startActivity(JoinDealerActivity.class, false, false);
-                break;
-            case R.id.iv_skip:
-                startActivity(JoinAgentActivity.class, false, false);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_call:
+
+                View inflate = View.inflate(JoinUsActivity.this, R.layout.popup_call, null);
+
+                new AlertDialog.Builder(this)
+                        .setView(inflate)
+                        .create().show();
+
                 break;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

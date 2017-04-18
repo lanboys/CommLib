@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.bing.lan.bing.ui.joinsuccess.JoinSuccessActivity"
+    tools:showIn="@layout/activity_join_success">
+
+
+    <ImageView
+        android:layout_width="163dp"
+        android:layout_height="118dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/smile"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加盟成功，一起缔造商业传奇"
+        android:textColor="@color/main_color_blue"
+        android:textSize="18sp"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/cir_1"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="1"
+                android:textColor="@color/main_color_white"
+                android:textSize="20dp"
+            />
+            <TextView
+                android:id="@+id/tv_text_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:text="客服会尽快和您取得联系"
+                android:textColor="#58606b"
+                android:textSize="15dp"
+            />
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="23dp"
+            android:src="@drawable/line_1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/cir_2"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="2"
+                android:textColor="@color/main_color_white"
+                android:textSize="20dp"
+            />
+            <TextView
+                android:id="@+id/tv_text_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:text="5万押金，领取10万元POS机"
+                android:textColor="#58606b"
+                android:textSize="15dp"
+            />
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="23dp"
+            android:src="@drawable/line_1"/>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/cir_3"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="3"
+                android:textColor="@color/main_color_white"
+                android:textSize="20dp"
+            />
+            <TextView
+                android:id="@+id/tv_text_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:text="获取培训，邀请商家入驻"
+                android:textColor="#58606b"
+                android:textSize="15dp"
+            />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_manual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="30dp"
+        android:text="经销商手册"
+        android:textColor="@color/main_color_blue"
+        android:textSize="15sp"/>
+
+</LinearLayout>

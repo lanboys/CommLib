@@ -1,43 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:id="@+id/ll_alert_join"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/main_color_test"
+    android:background="@null"
     android:gravity="center_horizontal"
     android:orientation="vertical"
 >
 
     <Button
         android:id="@+id/btn_join_dealer"
-        style="@style/btn_blue_style"
         android:layout_width="150dp"
         android:layout_height="49dp"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="0dp"
-        android:text="经销商"/>
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/btn_join"
+        android:text="经销商"
+        android:textColor="@color/main_color_white"/>
 
     <Button
         android:id="@+id/btn_join_agent"
-        style="@style/btn_blue_style"
         android:layout_width="150dp"
         android:layout_height="49dp"
-        android:layout_below="@id/btn_join_dealer"
-        android:layout_marginBottom="0dp"
-        android:layout_marginTop="0dp"
-        android:text="代理商"/>
+        android:background="@drawable/btn_join"
+        android:text="代理商"
+        android:textColor="@color/main_color_white"/>
 
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="167dp"-->
-    <!--android:background="@color/main_color_white"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:paddingBottom="41dp"-->
-    <!--android:paddingLeft="32dp"-->
-    <!--android:paddingRight="32dp"-->
-    <!--android:paddingTop="38dp"-->
-
-    <!--&gt;-->
-    <!--</LinearLayout>-->
+    <!--<item name="android:layout_width">285dp</item>-->
+    <!--<item name="android:layout_height">48dp</item>-->
+    <!--<item name="android:layout_alignParentBottom">true</item>-->
+    <!--<item name="android:layout_centerHorizontal">true</item>-->
+    <!--<item name="android:layout_gravity">center_horizontal</item>-->
+    <!--<item name="android:layout_marginBottom">48dp</item>-->
+    <!--<item name="android:layout_marginTop">20dp</item>-->
+    <!--<item name="android:background">@drawable/btn_background_selector</item>-->
+    <!--<item name="android:textColor">@color/main_color_white</item>-->
+    <!--<item name="android:textSize">@dimen/main_textSize_15sp</item>-->
 </LinearLayout>

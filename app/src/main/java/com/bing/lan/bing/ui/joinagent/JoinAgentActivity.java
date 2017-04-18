@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
-import com.bing.lan.bing.ui.main.MainActivity;
+import com.bing.lan.bing.ui.joinsuccess.JoinSuccessActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -96,7 +96,8 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
                         if (mEtiSelectAddress.validate()) {
                             if (mEtiAddressDetail.validate()) {
                                 if (mEtiInviteCode.validate()) {
-                                    startActivity(MainActivity.class, false, true);
+                                    //startActivity(MainActivity.class, false, true);
+                                    JoinSuccessActivity.start(this, JoinSuccessActivity.ENTER_TYPE_AGENT);
                                 }
                             }
                         }

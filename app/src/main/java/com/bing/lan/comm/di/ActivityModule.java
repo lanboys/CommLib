@@ -51,6 +51,10 @@ import com.bing.lan.bing.ui.joindealer.IJoinDealerContract;
 import com.bing.lan.bing.ui.joindealer.JoinDealerActivity;
 import com.bing.lan.bing.ui.joindealer.JoinDealerModule;
 import com.bing.lan.bing.ui.joindealer.JoinDealerPresenter;
+import com.bing.lan.bing.ui.joinsuccess.IJoinSuccessContract;
+import com.bing.lan.bing.ui.joinsuccess.JoinSuccessActivity;
+import com.bing.lan.bing.ui.joinsuccess.JoinSuccessModule;
+import com.bing.lan.bing.ui.joinsuccess.JoinSuccessPresenter;
 import com.bing.lan.bing.ui.login.ILoginContract;
 import com.bing.lan.bing.ui.login.LoginActivity;
 import com.bing.lan.bing.ui.login.LoginModule;
@@ -330,6 +334,13 @@ public class ActivityModule {
         ModifyPswPresenter splashPresenter = new ModifyPswPresenter();
         splashPresenter.setModule(new ModifyPswModule());
         splashPresenter.onAttachView((ModifyPswActivity) mActivity);
+        return splashPresenter;
+    }
+    @Provides
+    public IJoinSuccessContract.IJoinSuccessPresenter provideJoinSuccessPresenter() {
+        JoinSuccessPresenter splashPresenter = new JoinSuccessPresenter();
+        splashPresenter.setModule(new JoinSuccessModule());
+        splashPresenter.onAttachView((JoinSuccessActivity) mActivity);
         return splashPresenter;
     }
 }

@@ -23,14 +23,29 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_join_us"/>
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:background="@drawable/join_us_fab"
-        app:srcCompat="@android:drawable/ic_dialog_email"/>
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fab"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|end"-->
+    <!--android:layout_margin="@dimen/fab_margin"-->
+    <!--android:background="@drawable/join_us_fab"-->
+    <!--app:srcCompat="@android:drawable/ic_dialog_email"/>-->
+
+
+    <TextView
+        android:id="@+id/tv_show_dialog"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="130dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/circle_btn"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="立即加盟"
+        android:textColor="@color/main_color_white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 
 </android.support.design.widget.CoordinatorLayout>
