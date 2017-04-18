@@ -181,6 +181,7 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
                 showToast(fail);
             }
         }
-        return result;
+        return true;
+        //return result;
     }
 }

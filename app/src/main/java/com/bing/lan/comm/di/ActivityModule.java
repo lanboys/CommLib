@@ -31,6 +31,10 @@ import com.bing.lan.bing.ui.dealercreate.DealerCreateActivity;
 import com.bing.lan.bing.ui.dealercreate.DealerCreateModule;
 import com.bing.lan.bing.ui.dealercreate.DealerCreatePresenter;
 import com.bing.lan.bing.ui.dealercreate.IDealerCreateContract;
+import com.bing.lan.bing.ui.deviceselect.DeviceSelectActivity;
+import com.bing.lan.bing.ui.deviceselect.DeviceSelectModule;
+import com.bing.lan.bing.ui.deviceselect.DeviceSelectPresenter;
+import com.bing.lan.bing.ui.deviceselect.IDeviceSelectContract;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordActivity;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordModule;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordPresenter;
@@ -341,6 +345,12 @@ public class ActivityModule {
         JoinSuccessPresenter splashPresenter = new JoinSuccessPresenter();
         splashPresenter.setModule(new JoinSuccessModule());
         splashPresenter.onAttachView((JoinSuccessActivity) mActivity);
+        return splashPresenter;
+    }    @Provides
+    public IDeviceSelectContract.IDeviceSelectPresenter provideDeviceSelectPresenter() {
+        DeviceSelectPresenter splashPresenter = new DeviceSelectPresenter();
+        splashPresenter.setModule(new DeviceSelectModule());
+        splashPresenter.onAttachView((DeviceSelectActivity) mActivity);
         return splashPresenter;
     }
 }

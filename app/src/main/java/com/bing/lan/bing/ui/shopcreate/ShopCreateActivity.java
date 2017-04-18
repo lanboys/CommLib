@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bing.lan.bing.ui.deviceselect.DeviceSelectActivity;
 import com.bing.lan.bing.ui.map.MapActivity;
 import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;
 import com.bing.lan.comm.R;
@@ -128,6 +129,9 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
             case R.id.iv_shop_select_pos:
                 break;
             case R.id.ll_shop_select_pos:
+
+                startActivity(DeviceSelectActivity.class,false,true);
+
                 break;
             case R.id.btn_create_shop:
                 startActivity(ShopAuthenticateActivity.class, false, true);

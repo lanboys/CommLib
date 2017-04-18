@@ -25,4 +25,5 @@
     <string name="title_activity_verification">VerificationActivity</string>
     <string name="title_activity_modify_psw">ModifyPswActivity</string>
     <string name="title_activity_join_success">JoinSuccessActivity</string>
+    <string name="title_activity_device_select">DeviceSelectActivity</string>
 </resources>
