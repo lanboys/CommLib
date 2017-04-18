@@ -1,4 +1,4 @@
-package com.bing.lan.bing.ui.map;
+package com.bing.lan.bing.ui.mapsearch;
 
 import android.content.Context;
 

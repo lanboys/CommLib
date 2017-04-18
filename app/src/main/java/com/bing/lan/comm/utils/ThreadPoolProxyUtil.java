@@ -54,6 +54,10 @@ public class ThreadPoolProxyUtil {
         createNormalThreadPoolProxy().remove(task);
     }
 
+    //public static void removeAllNormalTask( ) {
+    //    createNormalThreadPoolProxy();
+    //}
+
     public static Future<?> submitDownLoadTask(Runnable task) {
         return createDownLoadThreadPoolProxy().submit(task);
     }
@@ -156,4 +160,6 @@ public class ThreadPoolProxyUtil {
         getThreadPoolExecutor();
         mExecutor.remove(task);
     }
+
+
 }

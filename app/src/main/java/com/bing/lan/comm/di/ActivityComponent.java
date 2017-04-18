@@ -17,6 +17,7 @@ import com.bing.lan.bing.ui.joinsuccess.JoinSuccessActivity;
 import com.bing.lan.bing.ui.login.LoginActivity;
 import com.bing.lan.bing.ui.main.MainActivity;
 import com.bing.lan.bing.ui.managecard.ManageCardActivity;
+import com.bing.lan.bing.ui.mapsearch.MapSearchActivity;
 import com.bing.lan.bing.ui.modifypassword.ModifyPswActivity;
 import com.bing.lan.bing.ui.notavailable.NotAvailableActivity;
 import com.bing.lan.bing.ui.notsettlement.NotSettlementActivity;
@@ -90,6 +91,8 @@ public interface ActivityComponent {
     void inject(JoinSuccessActivity joinSuccessActivity);
 
     void inject(DeviceSelectActivity deviceSelectActivity);
+
+    void inject(MapSearchActivity mapSearchActivity);
 
     // void inject(SplashActivity splashActivity);
 

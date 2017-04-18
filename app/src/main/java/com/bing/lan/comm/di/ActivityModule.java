@@ -71,6 +71,10 @@ import com.bing.lan.bing.ui.managecard.IManageCardContract;
 import com.bing.lan.bing.ui.managecard.ManageCardActivity;
 import com.bing.lan.bing.ui.managecard.ManageCardModule;
 import com.bing.lan.bing.ui.managecard.ManageCardPresenter;
+import com.bing.lan.bing.ui.mapsearch.IMapSearchContract;
+import com.bing.lan.bing.ui.mapsearch.MapSearchActivity;
+import com.bing.lan.bing.ui.mapsearch.MapSearchModule;
+import com.bing.lan.bing.ui.mapsearch.MapSearchPresenter;
 import com.bing.lan.bing.ui.modifypassword.IModifyPswContract;
 import com.bing.lan.bing.ui.modifypassword.ModifyPswActivity;
 import com.bing.lan.bing.ui.modifypassword.ModifyPswModule;
@@ -346,11 +350,21 @@ public class ActivityModule {
         splashPresenter.setModule(new JoinSuccessModule());
         splashPresenter.onAttachView((JoinSuccessActivity) mActivity);
         return splashPresenter;
-    }    @Provides
+    }
+
+    @Provides
     public IDeviceSelectContract.IDeviceSelectPresenter provideDeviceSelectPresenter() {
         DeviceSelectPresenter splashPresenter = new DeviceSelectPresenter();
         splashPresenter.setModule(new DeviceSelectModule());
         splashPresenter.onAttachView((DeviceSelectActivity) mActivity);
+        return splashPresenter;
+    }
+
+    @Provides
+    public IMapSearchContract.IMapSearchPresenter provideMapSearchPresenter() {
+        MapSearchPresenter splashPresenter = new MapSearchPresenter();
+        splashPresenter.setModule(new MapSearchModule());
+        splashPresenter.onAttachView((MapSearchActivity) mActivity);
         return splashPresenter;
     }
 }

@@ -1,6 +1,5 @@
-package com.bing.lan.bing.ui.map;
+package com.bing.lan.bing.ui.mapsearch;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -92,13 +91,20 @@ public class InputTask implements PoiSearch.OnPoiSearchListener {
             }
 
             Log.e("amap", "搜索结果数量: " + data.size());
-            ((Activity) mContext).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mAdapter.setData(data);
-                    mAdapter.notifyDataSetChanged();
-                }
-            });
+            Log.e("amap--", Thread.currentThread().getName());
+
+            //((Activity) mContext).runOnUiThread(new Runnable() {
+            //    @Override
+            //    public void run() {
+            //
+            //        Log.e("amap", Thread.currentThread().getName());
+
+            mAdapter.setData(data);
+            mAdapter.notifyDataSetChanged();
+
+            //mAdapter.addAll(data);
+            //    }
+            //});
         }
     }
 

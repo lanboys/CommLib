@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bing.lan.bing.ui.deviceselect.DeviceSelectActivity;
-import com.bing.lan.bing.ui.map.MapActivity;
+import com.bing.lan.bing.ui.map.AMapActivity;
 import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
@@ -105,7 +105,7 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
             case R.id.tv_shop_select_address:
             case R.id.iv_shop_select_address:
             case R.id.ll_shop_select_address:
-                startActivityForResult(new Intent(ShopCreateActivity.this, MapActivity.class), REQUEST_CODE_GET_ADDRESS_FORM_MAP);
+                startActivityForResult(new Intent(ShopCreateActivity.this, AMapActivity.class), REQUEST_CODE_GET_ADDRESS_FORM_MAP);
 
                 break;
             case R.id.iv_shop_outer_photo:

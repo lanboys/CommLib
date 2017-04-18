@@ -1,9 +1,12 @@
 package com.bing.lan.bing.ui.map;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,13 +28,16 @@ import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.maps2d.model.MyLocationStyle;
+import com.bing.lan.bing.ui.mapsearch.AddressBean;
+import com.bing.lan.bing.ui.mapsearch.MapSearchActivity;
+import com.bing.lan.bing.ui.mapsearch.MapUtil;
 import com.bing.lan.bing.ui.shopcreate.ShopCreateActivity;
 import com.bing.lan.comm.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MapActivity extends Activity implements LocationSource,
+public class AMapActivity extends AppCompatActivity implements LocationSource,
         AMapLocationListener, AMap.OnMarkerClickListener,
         AMap.OnInfoWindowClickListener, AMap.InfoWindowAdapter,
         AMap.OnCameraChangeListener {
@@ -71,19 +77,49 @@ public class MapActivity extends Activity implements LocationSource,
             Toast.makeText(this, addressInfo.toString(), Toast.LENGTH_SHORT).show();
         }
     }
+    protected void setToolBar(Toolbar toolBar, String title, boolean finishActivity, int resId) {
+        if (title != null) {
+            toolBar.setTitle(title);
+        }
+        setSupportActionBar(toolBar);
+        // toolBar.setIcon(R.mipmap.ic_launcher);// 设置应用图标
+        toolBar.setTitleTextColor(Color.WHITE);
+        if (finishActivity) {
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                //将默认的 返回箭头 显示出来
+                actionBar.setDisplayHomeAsUpEnabled(true);
+                // 返回箭头的图标
+                if (resId > 0) {
+                    actionBar.setHomeAsUpIndicator(resId);
+                }
+            }
+            //给箭头添加监听器
+            toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        }
+    }
+
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.activity_amap);
         //
         mTextView = (TextView) findViewById(R.id.mark_listenter_text);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setToolBar(mToolbar, "选择位置", true, R.drawable.iv_close);
 
         mSearch = (ImageView) findViewById(R.id.iv_search);
         mSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MapActivity.this, MapSearchActivity.class);
+                Intent intent = new Intent(AMapActivity.this, MapSearchActivity.class);
                 startActivityForResult(intent, 0);
             }
         });
@@ -379,7 +415,7 @@ public class MapActivity extends Activity implements LocationSource,
         new Thread() {
             @Override
             public void run() {
-                final String lng = MapUtil.getAddressMessageByLatLng(MapActivity.this, latlng);
+                final String lng = MapUtil.getAddressMessageByLatLng(AMapActivity.this, latlng);
 
                 runOnUiThread(new Runnable() {
                     @Override

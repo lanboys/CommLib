@@ -1,4 +1,4 @@
-package com.bing.lan.bing.ui.map;
+package com.bing.lan.bing.ui.mapsearch;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -23,6 +23,20 @@ public class SearchAdapter extends BaseAdapter {
 
     public SearchAdapter(Context context) {
         li = LayoutInflater.from(context);
+    }
+
+    public void clearData() {
+        if (data != null) {
+            data.clear();
+        }
+    }
+
+    public void addAll(List<AddressBean> data1) {
+        if (data != null) {
+            data.clear();
+            data.addAll(data1);
+            notifyDataSetChanged();
+        }
     }
 
     /**

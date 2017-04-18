@@ -186,8 +186,18 @@
             android:label="@string/title_activity_add_bank_card"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name="com.bing.lan.bing.ui.map.MapSearchActivity"/>
-        <activity android:name="com.bing.lan.bing.ui.map.MapActivity"/>
+        <activity
+            android:name="com.bing.lan.bing.ui.mapsearch.MapSearchActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--<activity-->
+            <!--android:name="com.bing.lan.bing.ui.map.MapActivity1"-->
+            <!--android:theme="@style/AppTheme.NoActionBar"/>-->
+        <activity
+            android:name="com.bing.lan.bing.ui.map.AMapActivity"
+            android:label="@string/title_activity_amap"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <activity
             android:name="com.bing.lan.bing.ui.verification.VerificationActivity"
             android:label="@string/title_activity_verification"
@@ -208,6 +218,7 @@
             android:label="@string/title_activity_device_select"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
     </application>
 
 </manifest>
