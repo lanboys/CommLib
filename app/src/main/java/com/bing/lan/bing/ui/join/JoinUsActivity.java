@@ -9,12 +9,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bing.lan.bing.ui.joinagent.JoinAgentActivity;
 import com.bing.lan.bing.ui.joindealer.JoinDealerActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
+import com.bing.lan.comm.utils.dialog.ContactDialogFragment;
+import com.bing.lan.comm.utils.dialog.SimpleCallbackListener;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.ArrayList;
@@ -75,7 +78,18 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
         mTvShowDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showJoinAlertDialog();
+                //showJoinAlertDialog();
+
+                ContactDialogFragment dialogFragment = ContactDialogFragment.newInstance("自动续费协议", "content");
+                dialogFragment.show(getSupportFragmentManager(), "club_member_contact");
+                dialogFragment.setCallbackListener(new SimpleCallbackListener() {
+                    @Override
+                    public void onCallbackListener(boolean callback) {
+                        if (callback){
+                            Toast.makeText(JoinUsActivity.this, "同意", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
 
@@ -155,7 +169,7 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
         switch (item.getItemId()) {
             case R.id.action_call:
 
-                View inflate = View.inflate(JoinUsActivity.this, R.layout.popup_call, null);
+                View inflate = View.inflate(JoinUsActivity.this, R.layout.alert_call, null);
 
                 new AlertDialog.Builder(this)
                         .setView(inflate)

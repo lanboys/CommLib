@@ -8,6 +8,7 @@ import com.bing.lan.bing.ui.dealer.DealerActivity;
 import com.bing.lan.bing.ui.dealercreate.DealerCreateActivity;
 import com.bing.lan.bing.ui.dealerauthenticate.DealerAuthenticateActivity;
 import com.bing.lan.bing.ui.deviceselect.DeviceSelectActivity;
+import com.bing.lan.bing.ui.dispatchdevice.DispatchDeviceActivity;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordActivity;
 import com.bing.lan.bing.ui.incomedetail.IncomeDetailActivity;
 import com.bing.lan.bing.ui.join.JoinUsActivity;
@@ -93,6 +94,8 @@ public interface ActivityComponent {
     void inject(DeviceSelectActivity deviceSelectActivity);
 
     void inject(MapSearchActivity mapSearchActivity);
+
+    void inject(DispatchDeviceActivity dispatchDeviceActivity);
 
     // void inject(SplashActivity splashActivity);
 

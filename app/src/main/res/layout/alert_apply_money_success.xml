@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/popup_color_shadow"
+    android:gravity="center">
+
+    <RelativeLayout
+        android:layout_width="315dp"
+        android:layout_height="106dp"
+        android:background="@drawable/shape_white"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+    >
+        <TextView
+            android:id="@+id/tv_apply_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:text="申请提现已提交成功, 您可在提现记"
+            android:textColor="@color/main_color_text_black"
+            android:textSize="14sp"
+        />
+        <TextView
+            android:id="@+id/tv_apply_msg1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_apply_msg"
+            android:text="录查看该笔金额提现进度"
+            android:textColor="@color/main_color_text_black"
+            android:textSize="14sp"
+        />
+        <TextView
+            android:id="@+id/tv_know"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_apply_msg1"
+            android:text="知道了"
+            android:textColor="@color/main_color_blue"
+            android:textSize="14sp"/>
+
+
+    </RelativeLayout>
+</RelativeLayout>

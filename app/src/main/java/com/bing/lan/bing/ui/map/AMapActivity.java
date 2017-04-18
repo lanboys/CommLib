@@ -426,10 +426,10 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
             @Override
             public void onItemClickListener(@AddressPopupWindow.PopupItemType.Type int type) {
                 if (type == AddressPopupWindow.PopupItemType.BTN_OK) {
-                    popupWindow.dismiss();
 
                     String trim = mTextView.getText().toString().trim();
                     finishMap(trim);
+                    popupWindow.dismiss();
                 } else if (type == AddressPopupWindow.PopupItemType.IV_CLOSE) {
                     popupWindow.dismiss();
                 }

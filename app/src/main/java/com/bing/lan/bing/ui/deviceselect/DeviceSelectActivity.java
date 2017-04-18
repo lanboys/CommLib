@@ -108,7 +108,7 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
 
     private AlertDialog createExitDialog() {
 
-        View inflate = View.inflate(DeviceSelectActivity.this, R.layout.popup_pos_ok, null);
+        View inflate = View.inflate(DeviceSelectActivity.this, R.layout.alert_pos_ok, null);
         inflate.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

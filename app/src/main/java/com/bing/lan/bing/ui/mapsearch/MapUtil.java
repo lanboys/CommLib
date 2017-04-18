@@ -59,19 +59,18 @@ public class MapUtil {
         String fn = address.getBuilding();// 标志性建筑,当道路为null时显示
 
         if (area != null)
-            stringBuffer.append(area);
+            stringBuffer.append(area);// 省或直辖市
         if (loc != null && !area.equals(loc))
-            stringBuffer.append(loc);
+            stringBuffer.append(loc);// 地级市或直辖市
         if (subLoc != null)
-            stringBuffer.append(subLoc);
+            stringBuffer.append(subLoc);// 区或县或县级市
         if (ts != null)
-            stringBuffer.append(ts);
+            stringBuffer.append(ts);// 乡镇
         if (thf != null)
-            stringBuffer.append(thf);
+            stringBuffer.append(thf);// 道路
         if (subthf != null)
-            stringBuffer.append(subthf);
-        if ((thf == null && subthf == null) && fn != null
-                && !subLoc.equals(fn))
+            stringBuffer.append(subthf);// 门牌号
+        if ((thf == null && subthf == null) && fn != null && subLoc != null && !subLoc.equals(fn))
             stringBuffer.append(fn + "附近");
 
         // locationMarker.setSnippet(stringBuffer.toString());
@@ -129,9 +128,6 @@ public class MapUtil {
 
         AddressBean addressBean = new AddressBean();
 
-        //public String street;//街道信息
-        //public String streetNum;//街道门牌号信息
-
         if (area != null)
             addressBean.province = area;
         if (loc != null && !area.equals(loc))
@@ -139,14 +135,13 @@ public class MapUtil {
         if (subLoc != null)
             addressBean.district = subLoc;
         if (ts != null)
-            addressBean.street = ts;
+            addressBean.township = ts;
         if (thf != null)
-            stringBuffer.append(thf);//
+            addressBean.street = thf;// 道路
         if (subthf != null)
-            stringBuffer.append(subthf);//
-        if ((thf == null && subthf == null) && fn != null
-                && !subLoc.equals(fn))
-            stringBuffer.append(fn + "附近");//
+            addressBean.streetNum = subthf;// 门牌号
+        if ((thf == null && subthf == null) && fn != null && subLoc != null && !subLoc.equals(fn))
+            addressBean.nearby = fn;
 
         return addressBean;
     }

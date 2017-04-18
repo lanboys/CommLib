@@ -35,6 +35,10 @@ import com.bing.lan.bing.ui.deviceselect.DeviceSelectActivity;
 import com.bing.lan.bing.ui.deviceselect.DeviceSelectModule;
 import com.bing.lan.bing.ui.deviceselect.DeviceSelectPresenter;
 import com.bing.lan.bing.ui.deviceselect.IDeviceSelectContract;
+import com.bing.lan.bing.ui.dispatchdevice.DispatchDeviceActivity;
+import com.bing.lan.bing.ui.dispatchdevice.DispatchDeviceModule;
+import com.bing.lan.bing.ui.dispatchdevice.DispatchDevicePresenter;
+import com.bing.lan.bing.ui.dispatchdevice.IDispatchDeviceContract;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordActivity;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordModule;
 import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordPresenter;
@@ -365,6 +369,13 @@ public class ActivityModule {
         MapSearchPresenter splashPresenter = new MapSearchPresenter();
         splashPresenter.setModule(new MapSearchModule());
         splashPresenter.onAttachView((MapSearchActivity) mActivity);
+        return splashPresenter;
+    }
+    @Provides
+    public IDispatchDeviceContract.IDispatchDevicePresenter provideDispatchDevicePresenter() {
+        DispatchDevicePresenter splashPresenter = new DispatchDevicePresenter();
+        splashPresenter.setModule(new DispatchDeviceModule());
+        splashPresenter.onAttachView((DispatchDeviceActivity) mActivity);
         return splashPresenter;
     }
 }

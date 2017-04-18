@@ -11,28 +11,31 @@
     <!--android:background="@color/main_color_white"-->
 
     <TextView
-        android:id="@+id/tv_shop_name"
+        android:id="@+id/tv_agent_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="店铺名称"
+        android:text="代理商名称"
         android:textColor="@color/main_color_text_black"
         android:textSize="15sp"/>
     <TextView
-        android:id="@+id/tv_shop_time"
+        android:id="@+id/tv_agent_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_shop_name"
-        android:text="店铺名称"
+        android:layout_below="@id/tv_agent_name"
+        android:text="2017-01-25 04:00:22"
         android:textColor="@color/shop_color_text_time"
         android:textSize="10sp"/>
 
-    <ImageView
+    <TextView
+        android:id="@+id/tv_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
-        android:src="@drawable/shop_phone"/>
+        android:text="货物登记"
+        android:textColor="@color/main_color_blue"
+        android:textSize="@dimen/main_textSize_15sp"/>
 
 
 </RelativeLayout>

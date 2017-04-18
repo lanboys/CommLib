@@ -22,7 +22,7 @@ public class AgentListAdapter extends BaseListAdapter<AgentInfoBean> {
 
     @Override
     protected int getItemLayoutId(int itemViewType) {
-        return R.layout.item_shop;
+        return R.layout.item_agent;
     }
 
     @Override
@@ -32,12 +32,12 @@ public class AgentListAdapter extends BaseListAdapter<AgentInfoBean> {
 
     class Holder extends BaseViewHolder {
 
-        @BindView(R.id.tv_shop_name)
-        TextView mTvShopName;
-        @BindView(R.id.tv_shop_time)
-        TextView mTvShopTime;
-        // @BindView(R.id.view_line)
-        // View mViewLine;
+        @BindView(R.id.tv_agent_name)
+        TextView mTvAgentName;
+        @BindView(R.id.tv_agent_time)
+        TextView mTvAgentTime;
+        @BindView(R.id.tv_register)
+        TextView mTvRegister;
 
         public Holder(View itemView) {
             super(itemView);
@@ -45,8 +45,14 @@ public class AgentListAdapter extends BaseListAdapter<AgentInfoBean> {
 
         @Override
         public void fillData(AgentInfoBean data, int position) {
-            mTvShopName.setText(data.name);
-            mTvShopTime.setText(data.time);
+            mTvAgentName.setText(data.name);
+            mTvAgentTime.setText(data.time);
         }
+
+
+
+
+
+
     }
 }

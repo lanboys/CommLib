@@ -53,7 +53,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
      *
      * @return Context of a activity
      */
-    Context getContext() {
+   protected Context getContext() {
         Context context = mContextRef.get();
         return context != null ? context : AppUtil.getAppContext();
     }

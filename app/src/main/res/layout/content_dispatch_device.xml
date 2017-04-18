@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_dispatch_device"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color_background"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.bing.lan.bing.ui.dispatchdevice.DispatchDeviceActivity"
+    tools:showIn="@layout/activity_dispatch_device">
+    <com.bing.lan.comm.view.EditTextInputLayout
+        android:id="@+id/eti_id_card_numb1er1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:edit_enable="false"
+        app:edit_hint=""
+        app:image="@drawable/iv_mine_into"
+        app:image_visibility="visible"
+        app:show_line="false"
+        app:title="设备列表"/>
+    <LinearLayout
+        style="@style/join_item_comm_style"
+    >
+        <TextView
+            style="@style/join_item_comm_textView_style"
+            android:text="收货方式"/>
+
+        <!--<EditText-->
+        <!--android:id="@+id/et_shop_phone_number"-->
+        <!--style="@style/join_item_comm_editText_style"-->
+        <!--android:hint="店主手机号"-->
+        <!--android:inputType="phone"/>-->
+
+        <RadioGroup
+            android:id="@+id/rg_authenticate_type"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_authenticate_type_person"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="自提"/>
+            <RadioButton
+                android:id="@+id/rb_authenticate_type_company"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="物流"/>
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <include layout="@layout/include_line_join"/>
+    <com.bing.lan.comm.view.EditTextInputLayout
+        android:id="@+id/eti_id_card_number1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edit_enable="false"
+        app:edit_hint=""
+        app:image="@drawable/iv_mine_into"
+        app:image_visibility="visible"
+        app:title="收货地区"/>
+    <com.bing.lan.comm.view.EditTextInputLayout
+        android:id="@+id/eti_id_card_nu1mber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edit_hint="填写详细地址"
+        app:title="详细地址"/>
+    <com.bing.lan.comm.view.EditTextInputLayout
+        android:id="@+id/eti_id_card_nu1mb1er"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edit_hint="物流名称"
+        app:show_line="false"
+        app:title="物流信息"/>
+    <com.bing.lan.comm.view.EditTextInputLayout
+        android:id="@+id/eti_id_card_numbe1r"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edit_hint="物流单号"
+        app:show_line="false"
+        app:title="                 "/>
+
+    <Button
+        android:id="@+id/btn_apply_authenticate"
+        style="@style/btn_blue_style"
+        android:background="@drawable/shape_btn_gray"
+        android:text="保存"/>
+</LinearLayout>

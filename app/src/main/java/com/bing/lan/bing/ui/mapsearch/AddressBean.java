@@ -18,45 +18,16 @@ public class AddressBean implements Serializable {
     public String text;//信息内容
 
     public String country;//国家信息
+
     public String province;//省信息
     public String city;//城市信息
     public String district;//城区信息
+
+    public String township;//乡镇
     public String street;//街道信息
     public String streetNum;//街道门牌号信息
 
-
-    public
-
-
-
-    /**
-     * 省市区
-     *
-     * @return
-     */
-    public String getAddressLoc() {
-
-        return province + city + district;
-    }
-
-    /**
-     * 街道信息 门牌号信息
-     *
-     * @return
-     */
-    public String getAddressLoc1() {
-
-        return street + streetNum;
-    }
-
-    /**
-     * 详细地址
-     *
-     * @return
-     */
-    public String getAddressDetail() {
-        return province + city + district + street + streetNum;
-    }
+    public String nearby;//附近
 
     public AddressBean() {
 
@@ -67,6 +38,70 @@ public class AddressBean implements Serializable {
         this.latitude = lat;
         this.title = title;
         this.text = text;
+    }
+
+    /**
+     * 省市区
+     *
+     * @return
+     */
+    public String getAddressLoc() {
+        StringBuffer stringBuffer = new StringBuffer();
+
+        if (province != null)
+            stringBuffer.append(province);// 省或直辖市
+        if (city != null && !province.equals(city))
+            stringBuffer.append(city);// 地级市或直辖市
+        if (district != null)
+            stringBuffer.append(district);// 区或县或县级市
+
+        return stringBuffer.toString();
+    }
+
+    /**
+     * 乡镇 街道信息 门牌号信息
+     *
+     * @return
+     */
+    public String getAddressLoc1() {
+        StringBuffer stringBuffer = new StringBuffer();
+
+        if (township != null)
+            stringBuffer.append(township);// 乡镇
+        if (street != null)
+            stringBuffer.append(street);// 道路
+        if (streetNum != null)
+            stringBuffer.append(streetNum);// 门牌号
+        if ((street == null && streetNum == null) && nearby != null && district != null && !district.equals(nearby))
+            stringBuffer.append(nearby + "附近");
+
+        return stringBuffer.toString();
+    }
+
+    /**
+     * 详细地址
+     *
+     * @return
+     */
+    public String getAddressDetail() {
+        StringBuffer stringBuffer = new StringBuffer();
+
+        if (province != null)
+            stringBuffer.append(province);// 省或直辖市
+        if (city != null && !province.equals(city))
+            stringBuffer.append(city);// 地级市或直辖市
+        if (district != null)
+            stringBuffer.append(district);// 区或县或县级市
+        if (township != null)
+            stringBuffer.append(township);// 乡镇
+        if (street != null)
+            stringBuffer.append(street);// 道路
+        if (streetNum != null)
+            stringBuffer.append(streetNum);// 门牌号
+        if ((street == null && streetNum == null) && nearby != null && district != null && !district.equals(nearby))
+            stringBuffer.append(nearby + "附近");
+
+        return stringBuffer.toString();
     }
 
     public double getLongitude() {

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/main_bg_color"
+	android:orientation="vertical">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="24dp">
+
+		<TextView
+			android:id="@+id/tv_dialog_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			android:text="11111"
+			android:textColor="@color/et_text_color"
+			android:textSize="13sp"/>
+
+		<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignBottom="@id/tv_dialog_title"
+			android:layout_alignTop="@id/tv_dialog_title"
+			android:layout_marginRight="22dp"
+			android:layout_toLeftOf="@id/tv_dialog_title"
+			android:src="@drawable/iv_edit_member_contact_dialog_left"/>
+
+		<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignBottom="@id/tv_dialog_title"
+			android:layout_alignTop="@id/tv_dialog_title"
+			android:layout_gravity="center_vertical"
+			android:layout_marginLeft="22dp"
+			android:layout_toRightOf="@id/tv_dialog_title"
+			android:src="@drawable/iv_edit_member_contact_dialog_right"/>
+	</RelativeLayout>
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="250dp">
+	<TextView
+		android:id="@+id/tv_dialog_content"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:padding="20dp"
+		android:textColor="@color/et_text_color"
+		android:textSize="13sp"/>
+
+	</ScrollView>
+
+	<Button
+		android:id="@+id/btn_agree"
+		android:layout_width="match_parent"
+		android:layout_height="52dp"
+		android:background="@drawable/btn_edit_member_contact_selector"
+		android:text="我已阅读"
+		android:textColor="@color/tv_white_color"
+		android:textSize="14sp"/>
+
+</LinearLayout>
