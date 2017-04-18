@@ -22,7 +22,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
     public static final int ITEM_TYPE_NORMAL = 0;       // Plain item flag
 
     private WeakReference<Context> mContextRef;
-    private List<T> data;
+    protected List<T> data;
 
     public BaseListAdapter(Context context) {
         this.mContextRef = new WeakReference<>(context);

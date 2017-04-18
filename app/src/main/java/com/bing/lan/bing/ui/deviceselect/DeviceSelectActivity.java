@@ -1,8 +1,11 @@
 package com.bing.lan.bing.ui.deviceselect;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -22,7 +25,7 @@ import butterknife.OnClick;
  * @time 2017/4/6  19:12
  */
 public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDeviceSelectPresenter>
-        implements IDeviceSelectContract.IDeviceSelectView {
+        implements IDeviceSelectContract.IDeviceSelectView, AdapterView.OnItemClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -34,6 +37,8 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
     Button mBtnOk;
     @BindView(R.id.lv_device_list)
     ListView mLvDeviceList;
+    private AlertDialog mAlertDialog;
+    private ShopAdapter mShopAdapter;
 
     @Override
     protected int getLayoutResId() {
@@ -58,11 +63,11 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
             shopBeen.add(new ShopBean("asdsdfsfjsfsfsfsfsfsfsfdsf sfsfs"));
         }
 
-        ShopAdapter adapter = new ShopAdapter(this);
-        mLvDeviceList.setAdapter(adapter);
-
-        adapter.setDataAndRefresh(shopBeen);
-        adapter.notifyDataSetChanged();
+        mShopAdapter = new ShopAdapter(this);
+        mLvDeviceList.setAdapter(mShopAdapter);
+        mLvDeviceList.setOnItemClickListener(this);
+        mShopAdapter.setDataAndRefresh(shopBeen);
+        mShopAdapter.notifyDataSetChanged();
     }
 
     @OnClick({R.id.tv_search, R.id.btn_ok})
@@ -72,8 +77,79 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
                 showToast("开始搜索");
                 break;
             case R.id.btn_ok:
-                showToast("弹出对话框");
+                showJoinAlertDialog();
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+        ShopAdapter adapter = (ShopAdapter) adapterView.getAdapter();
+        ShopBean item = (ShopBean) adapter.getItem(i);
+        item.isSelect = !item.isSelect;
+        adapter.notifyDataSetChanged();
+    }
+
+    public void showJoinAlertDialog() {
+        mAlertDialog = createExitDialog();
+        //Window window = alertDialog.getWindow();
+        //WindowManager.LayoutParams lp = window.getAttributes();
+        //lp.alpha = 0.9f;
+        //window.setAttributes(lp);
+        //window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        mAlertDialog.show();
+    }
+
+    public int getSelectNum() {
+        return 5;
+    }
+
+    private AlertDialog createExitDialog() {
+
+        View inflate = View.inflate(DeviceSelectActivity.this, R.layout.popup_pos_ok, null);
+        inflate.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAlertDialog.dismiss();
+            }
+        });
+        inflate.findViewById(R.id.tv_ok).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("绑定成功");
+                mAlertDialog.dismiss();
+            }
+        });
+
+        TextView viewById = (TextView) inflate.findViewById(R.id.tv_pos_msg);
+
+        viewById.setText("确定绑定已选的" + getSelectNum() + "个POS机设备");
+
+        return new AlertDialog.Builder(this)
+
+                .setView(inflate)
+                .create();
+    }
+
+    boolean isSelectAll;
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_select_all:
+
+                isSelectAll = !isSelectAll;
+                mShopAdapter.resetSelect(isSelectAll);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected int getMenuId() {
+        return R.menu.menu_device_select;
     }
 }

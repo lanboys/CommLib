@@ -9,6 +9,8 @@ public class ShopBean {
 
     public String name;
 
+    public boolean isSelect;
+
     public ShopBean(String name) {
         this.name = name;
     }

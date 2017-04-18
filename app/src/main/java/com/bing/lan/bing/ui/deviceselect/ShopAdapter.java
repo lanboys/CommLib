@@ -2,6 +2,7 @@ package com.bing.lan.bing.ui.deviceselect;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bing.lan.comm.R;
@@ -16,7 +17,6 @@ import butterknife.BindView;
  */
 public class ShopAdapter extends BaseListAdapter<ShopBean> {
 
-
     public ShopAdapter(Context context) {
         super(context);
     }
@@ -26,14 +26,24 @@ public class ShopAdapter extends BaseListAdapter<ShopBean> {
         return R.layout.item_device_select;
     }
 
+    public void resetSelect(boolean select) {
+        for (ShopBean shop : data) {
+            shop.isSelect = select;
+        }
+        notifyDataSetChanged();
+    }
+
     @Override
     protected BaseViewHolder createViewHolder(int itemViewType, View itemView) {
         return new Holder(itemView);
     }
 
     class Holder extends BaseViewHolder {
+
         @BindView(R.id.tv_en_code)
         TextView mTvEnCode;
+        @BindView(R.id.iv_select)
+        ImageView mIvSelect;
 
         public Holder(View itemView) {
             super(itemView);
@@ -42,6 +52,7 @@ public class ShopAdapter extends BaseListAdapter<ShopBean> {
         @Override
         public void fillData(ShopBean data, int position) {
             mTvEnCode.setText(data.name);
+            mIvSelect.setSelected(data.isSelect);
         }
     }
 }
