@@ -10,11 +10,14 @@ public interface IAddBankCardContract {
 
     interface IAddBankCardView
             extends IBaseActivityContract.IBaseActivityView<IAddBankCardPresenter> {
+        void updateWaitingVerificationCodeTime(int time);
 
     }
 
     interface IAddBankCardPresenter
             extends IBaseActivityContract.IBaseActivityPresenter<IAddBankCardView, IAddBankCardModule> {
+        void updateWaitingVerificationCodeTime();
+
 
     }
 

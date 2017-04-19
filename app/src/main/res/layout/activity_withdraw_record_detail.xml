@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.bing.lan.bing.ui.applymoney.ApplyMoneyActivity">
+    tools:context="com.bing.lan.bing.ui.withdrawrecorddetail.WithdrawRecordDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,7 +22,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_apply_money"/>
-
+    <include layout="@layout/content_withdraw_record_detail"/>
 
 </android.support.design.widget.CoordinatorLayout>

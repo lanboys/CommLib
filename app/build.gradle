@@ -219,4 +219,7 @@ dependencies {
 //  地区选择器
     compile 'liji.library.dev:citypickerview:1.0.0'
 
+    // RecyclerView 侧滑删除
+    compile 'com.yanzhenjie:recyclerview-swipe:1.0.4'
+
 }

@@ -54,6 +54,7 @@
     <Button
         android:id="@+id/btn_apply_money_now"
         style="@style/btn_blue_style"
+        android:background="@drawable/shape_btn_gray"
         android:text="提交申请"/>
 
 </LinearLayout>

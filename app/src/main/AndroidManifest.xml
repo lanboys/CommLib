@@ -222,6 +222,11 @@
             android:label="@string/title_activity_dispatch_device"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.withdrawrecorddetail.WithdrawRecordDetailActivity"
+            android:label="@string/title_activity_dispatch_device"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

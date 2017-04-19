@@ -48,6 +48,7 @@
         android:layout_height="wrap_content"
         app:edit_hint="请填写详细地址"
         app:edit_inputType="text"
+        app:show_line="false"
         app:title="详细地址"/>
 
 

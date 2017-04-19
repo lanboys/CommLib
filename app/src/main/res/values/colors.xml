@@ -7,11 +7,31 @@
     <color name="main_color">#59B2FD</color>
     <color name="main_color_shallow">#B8DFFF</color>
 
+    <color name="color_434A5A">#434A5A</color>
+    <color name="color_EE9700">#EE9700</color>
+    <color name="color_fff">#FFFFFF</color>
+    <color name="color_545966">#545966</color>
+    <color name="color_333">#333333</color>
+    <color name="color_eee">#EEEEEE</color>
+    <color name="color_666">#666666</color>
+    <color name="color_ffa401">#FFA401</color>
+    <color name="color_ccc">#CCC</color>
+    <color name="color_ff795e">#FF795E</color>
+    <color name="color_ee9900">#EE9900</color>
+    <color name="color_ffdb4e">#FFDB4E</color>
+    <color name="color_f5b040">#F5B040</color>
+    <color name="theme_positive">#ee9900</color>
+    <color name="color_b3d466">#B3D466</color>
 
+
+    <color name="red_normal">#FF0000</color>
+    <color name="red_pressed">#FF6666</color>
     <!--*******************************************-->
     <!--*******************************************-->
     <!-- 主要背景色 -->
     <color name="main_color_test">#e56bf2</color>
+    <color name="color_999">#69717e</color>
+
 
     <!-- 主要背景色 -->
     <!--<color name="main_color_background">#eff0f2</color>-->
@@ -85,13 +105,10 @@
 
     <color name="tv_error_color">#E5B76C</color>
 
-    <color name="color_333">#333333</color>
-    <color name="color_666">#666666</color>
     <color name="color_aaa">#AAAAAA</color>
     <color name="color_bbb">#BBBBBB</color>
     <color name="color_2b2b">#2B2B2B</color>
-    <color name="color_999">#999999</color>
-    <color name="color_ccc">#CCCCCC</color>
+    <color name="color_f99b15">#F99B15</color>
 
     <color name="bg_mine_new">#FF4C4C</color>
 
