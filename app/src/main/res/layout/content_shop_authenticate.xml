@@ -16,82 +16,70 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            style="@style/join_item_comm_style"
-        >
-            <TextView
-                style="@style/join_item_comm_textView_style"
-                android:text="     认证类型"/>
+        <!--<LinearLayout-->
+        <!--style="@style/join_item_comm_style"-->
+        <!--&gt;-->
+        <!--<TextView-->
+        <!--style="@style/join_item_comm_textView_style"-->
+        <!--android:text="     认证类型"/>-->
 
-            <!--<EditText-->
-            <!--android:id="@+id/et_shop_phone_number"-->
-            <!--style="@style/join_item_comm_editText_style"-->
-            <!--android:hint="店主手机号"-->
-            <!--android:inputType="phone"/>-->
+        <!--&lt;!&ndash;<EditText&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/et_shop_phone_number"&ndash;&gt;-->
+        <!--&lt;!&ndash;style="@style/join_item_comm_editText_style"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:hint="店主手机号"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:inputType="phone"/>&ndash;&gt;-->
 
-            <RadioGroup
-                android:id="@+id/rg_authenticate_type"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="50dp"
-                android:orientation="horizontal">
+        <!--<RadioGroup-->
+        <!--android:id="@+id/rg_authenticate_type"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginLeft="50dp"-->
+        <!--android:orientation="horizontal">-->
 
-                <RadioButton
-                    android:checked="true"
-                    android:id="@+id/rb_authenticate_type_person"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="个人"/>
-                <RadioButton
-                    android:id="@+id/rb_authenticate_type_company"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="企业"/>
-            </RadioGroup>
+        <!--<RadioButton-->
+        <!--android:id="@+id/rb_authenticate_type_person"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:checked="true"-->
+        <!--android:text="个人"/>-->
+        <!--<RadioButton-->
+        <!--android:id="@+id/rb_authenticate_type_company"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:text="企业"/>-->
+        <!--</RadioGroup>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-        <include layout="@layout/include_line_join"/>
-        <LinearLayout
-            style="@style/join_item_comm_style">
-            <TextView
+        <!--<include layout="@layout/include_line_1"/>-->
 
-                android:id="@+id/tv_authenticate_name"
-                style="@style/join_item_comm_textView_style"
-                android:text="            姓名"/>
 
-            <EditText
-                android:id="@+id/et_authenticate_name"
-                style="@style/join_item_comm_editText_style"
-                android:hint="真实姓名"
-                android:inputType="phone"/>
-        </LinearLayout>
-
-        <include layout="@layout/include_line_join"/>
-        <LinearLayout
-            style="@style/join_item_comm_style">
-            <TextView
-                android:id="@+id/tv_authenticate_id"
-                style="@style/join_item_comm_textView_style"
-                android:text="身份证号码"/>
-
-            <EditText
-                android:id="@+id/et_authenticate_id"
-                style="@style/join_item_comm_editText_style"
-                android:hint="身份证号码"
-                android:inputType="phone"/>
-        </LinearLayout>
-
-        <include layout="@layout/include_line_join"/>
+        <com.bing.lan.comm.view.EditTextInputLayout
+            android:id="@+id/eti_authenticate_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:edit_hint="企业名称营业执照一致"
+            app:title="企业/品牌名称"/>
+        <com.bing.lan.comm.view.EditTextInputLayout
+            android:id="@+id/eti_authenticate_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:edit_hint="法人真实姓名"
+            app:title="                 法人"/>
+        <com.bing.lan.comm.view.EditTextInputLayout
+            android:id="@+id/eti_authenticate_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:edit_hint="身份证号码"
+            app:title="     身份证号码"/>
 
         <LinearLayout
             style="@style/join_item_img_style">
             <TextView
-                android:id="@+id/tv_authenticate_idCard_photo1"
                 style="@style/join_item_img_textView_style"
-                android:text="手持身份证"/>
+                android:text="法人证件照(正面)"/>
 
             <ImageView
                 android:id="@+id/iv_authenticate_idCard_photo1"
@@ -104,47 +92,64 @@
         <LinearLayout
             style="@style/join_item_img_style">
             <TextView
-                android:id="@+id/tv_authenticate_idCard_photo2"
                 style="@style/join_item_img_textView_style"
-                android:text="身份证正面"/>
+                android:text="法人证件照(反面)"/>
 
             <ImageView
                 android:id="@+id/iv_authenticate_idCard_photo2"
                 style="@style/join_item_img_pic_style"
                 android:src="@drawable/id_card_pic"/>
         </LinearLayout>
-        <LinearLayout
-            android:visibility="gone"
-            android:id="@+id/ll_business_license_id"
-            style="@style/join_item_comm_style">
-            <TextView
 
-                style="@style/join_item_comm_textView_style"
-                android:text="营业执照号"/>
 
-            <EditText
-                android:id="@+id/et_business_license_id"
-                style="@style/join_item_comm_editText_style"
-                android:layout_marginLeft="14dp"
-                android:hint="营业执照号码"
-            />
-        </LinearLayout>
+        <com.bing.lan.comm.view.EditTextInputLayout
+            android:id="@+id/eti_business_license_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:edit_hint="营业执照号码"
+            app:show_line="false"
+            app:title="营业执照号"/>
 
 
         <LinearLayout
             style="@style/join_item_img_style"
+            android:paddingTop="0dp"
             android:paddingBottom="23dp">
             <TextView
-                android:id="@+id/tv_authenticate_idCard_photo3"
                 style="@style/join_item_img_textView_style"
-                android:text="手持证件照"/>
+                android:text="营业执照"/>
 
             <ImageView
                 android:id="@+id/iv_authenticate_idCard_photo3"
                 style="@style/join_item_img_pic_style"
                 android:src="@drawable/id_card_pic"/>
         </LinearLayout>
+        <include layout="@layout/include_line_2"/>
 
+        <LinearLayout
+            style="@style/join_item_img_style">
+            <TextView
+                style="@style/join_item_img_textView_style"
+                android:text="食品经营许可证"/>
+
+            <ImageView
+                android:id="@+id/iv_shop_certificate_photo"
+                style="@style/join_item_img_pic_style"
+                android:src="@drawable/id_card_pic"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_color_white"
+            android:gravity="end"
+            android:paddingBottom="7dp"
+            android:paddingRight="@dimen/join_right_left_margin"
+            android:paddingTop="7dp"
+            android:text="可上传食品流通许可证、食品生产许可证、餐饮许可证"
+            android:textColor="@color/main_color_text_gray"
+            android:textSize="10sp"/>
 
         <Button
             android:id="@+id/btn_apply_authenticate"
@@ -152,6 +157,8 @@
             android:background="@drawable/shape_btn_gray"
             android:text="申请认证"/>
     </LinearLayout>
+
+
 </com.bing.lan.comm.view.FlexibleScrollView>
 
 

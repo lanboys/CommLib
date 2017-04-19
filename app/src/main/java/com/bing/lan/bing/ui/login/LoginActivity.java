@@ -5,7 +5,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -56,8 +55,6 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
     EditTextInputView mEtInputPassword;
     // 默认非公司员工
     boolean mIsEmployee = true;
-    private EditText et_phone_number;
-    private EditText et_password;
 
     @Override
     protected int getLayoutResId() {
@@ -78,20 +75,19 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
     protected void initViewAndData(Intent intent) {
         setToolBar(mToolbar, "", false, 0);
 
-        //mEtInputPhoneNumber.getImageView().setImageDrawable(ContextCompat.getDrawable(this, R.drawable.iv_phone));
-        //et_phone_number = mEtInputPhoneNumber.getEditTextView();
-        //et_phone_number.setHint("请输入手机号码");
-        //et_phone_number.setTextColor(ContextCompat.getColor(this, R.color.et_hint_color));
-        //
-        //mEtInputPassword.getImageView().setImageDrawable(ContextCompat.getDrawable(this, R.drawable.iv_password));
-        //et_password = mEtInputPassword.getEditTextView();
-        //et_password.setHint("请输入密码");
-        //et_password.setTextColor(ContextCompat.getColor(this, R.color.et_hint_color));
-
         mEtInputPhoneNumber.setValidator(this);
         mEtInputPassword.setValidator(this);
 
+        //test
+        mEtInputPhoneNumber.setEditContent("13556004869");
+        mEtInputPassword.setEditContent("qw13556004869");
+
+        //test
+
         mTvNotEmployee.setSelected(true);
+
+
+
     }
 
     @Override
@@ -163,8 +159,7 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
                     result = RegExpUtil.checkPhoneNum(content);
                     break;
                 case R.id.et_input_password:
-                    //result = RegExpUtil.checkChineseName(content);
-                    result = true;
+                    result = RegExpUtil.checkPassword(content);
                     break;
                 default:
                     result = false;
@@ -173,15 +168,11 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
         }
 
         if (result) {
-            if (success != null) {
-                //showToast(success);
-            }
+            //showToast(success);
         } else {
-            if (fail != null) {
-                showToast(fail);
-            }
+            showToast(fail);
         }
-        return true;
-        //return result;
+
+        return result;
     }
 }

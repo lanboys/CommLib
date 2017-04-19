@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <include layout="@layout/include_line_join"/>
+        <include layout="@layout/include_line_1"/>
 
         <LinearLayout
             style="@style/join_item_img_style">
@@ -41,7 +41,7 @@
             android:textColor="#fd172a"
             android:textSize="10sp"/>
 
-        <include layout="@layout/include_line_join"/>
+        <include layout="@layout/include_line_1"/>
 
         <LinearLayout
             style="@style/join_item_comm_style">
@@ -58,7 +58,7 @@
                 android:inputType="phone"/>
         </LinearLayout>
 
-        <include layout="@layout/include_line_join"/>
+        <include layout="@layout/include_line_1"/>
         <LinearLayout
             style="@style/join_item_comm_style">
             <TextView
@@ -73,7 +73,7 @@
                 android:inputType="phone"/>
         </LinearLayout>
 
-        <include layout="@layout/include_line_join"/>
+        <include layout="@layout/include_line_1"/>
 
         <LinearLayout
             style="@style/join_item_comm_style">

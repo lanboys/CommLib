@@ -21,7 +21,7 @@ import butterknife.OnClick;
  * @time 2017/4/6  19:12
  */
 public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresenter>
-        implements IDealerContract.IDealerView {
+        implements IDealerContract.IDealerView, TabLayout.OnTabSelectedListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -31,6 +31,10 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
     ListView mLvDealer;
     @BindView(R.id.btn_create_dealer)
     Button mBtnCreateDealer;
+
+    private ArrayList<DealerInfoBean> mShopBeen = new ArrayList<>();
+    private ArrayList<DealerInfoBean> mShowShopBeen = new ArrayList<>();
+    private DealerListAdapter mAdapter;
 
     @Override
     protected int getLayoutResId() {
@@ -57,25 +61,59 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
         mTabLayoutShop.addTab(tab1);
         TabLayout.Tab tab2 = mTabLayoutShop.newTab().setText("已失效");
         mTabLayoutShop.addTab(tab2);
+
+        mTabLayoutShop.addOnTabSelectedListener(this);
     }
 
     @Override
     protected void readyStartPresenter() {
-        ArrayList<DealerInfoBean> shopBeen = new ArrayList<>();
+        mAdapter = new DealerListAdapter(this);
+        mLvDealer.setAdapter(mAdapter);
 
-        for (int i = 0; i < 14; i++) {
-            shopBeen.add(new DealerInfoBean("经销商名称", "入驻时间"));
+        initData();
+    }
+
+    private void initData() {
+
+        for (int i = 0; i < 13; i++) {
+            DealerInfoBean shopBean = new DealerInfoBean("经销商名称", "入驻时间", i % 2 == 0);
+            if (shopBean.isShowPos) {
+                mShowShopBeen.add(shopBean);
+            } else {
+                mShopBeen.add(shopBean);
+            }
         }
 
-        DealerListAdapter adapter = new DealerListAdapter(this);
-        mLvDealer.setAdapter(adapter);
-
-        adapter.setDataAndRefresh(shopBeen);
-        adapter.notifyDataSetChanged();
+        mAdapter.setDataAndRefresh(mShopBeen);
+        mAdapter.notifyDataSetChanged();
     }
 
     @OnClick(R.id.btn_create_dealer)
     public void onViewClicked() {
         startActivity(JoinDealerActivity.class, false, true);
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        switch (tab.getPosition()) {
+            case 0:
+                mAdapter.setDataAndRefresh(mShopBeen);
+                mAdapter.notifyDataSetChanged();
+                break;
+            case 1:
+                mAdapter.setDataAndRefresh(mShowShopBeen);
+                mAdapter.notifyDataSetChanged();
+                break;
+        }
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
     }
 }

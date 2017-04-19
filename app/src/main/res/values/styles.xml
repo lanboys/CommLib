@@ -80,9 +80,10 @@
         <item name="android:windowExitAnimation">@anim/popup_out_anim</item>
     </style>
 
-    <!-- 经销商/代理商页面item 主题 -->
-    <!--<item name="android:layout_marginLeft">@dimen/join_right_left_margin</item>-->
-    <!--<item name="android:layout_marginRight">@dimen/join_right_left_margin</item>-->
+
+    <!--********************************************************************************-->
+    <!--*****经销商/代理商页面item 主题**************************************************-->
+    <!--********************************************************************************-->
     <style name="join_item_comm_style">
 
         <!-- 获取焦点，防止 editText 获取焦点 -->
@@ -107,6 +108,7 @@
         <item name="android:textSize">@dimen/join_item_textView_textSize</item>
     </style>
 
+
     <!-- 经销商/代理商页面 输入框 主题 -->
     <!--<item name="android:layout_marginLeft">50dp</item>-->
     <style name="join_item_comm_editText_style">
@@ -119,10 +121,17 @@
         <item name="android:maxLines">2</item>
         <item name="android:textSize">@dimen/join_item_editText_textSize</item>
     </style>
+    <!--********************************************************************************-->
+    <!--*****经销商/代理商页面item 主题**************************************************-->
+    <!--********************************************************************************-->
 
-    <!-- 经销商/代理商页面 上传图片item 主题 -->
-    <!--<item name="android:layout_marginLeft">@dimen/join_right_left_margin</item>-->
-    <!--<item name="android:layout_marginRight">@dimen/join_right_left_margin</item>-->
+    <!--<style name="join_item_comm_editText_styl1" parent="join_item_comm_editText_style">-->
+    <!--<item name="android:gravity">center_vertical</item>-->
+    <!--</style>-->
+
+    <!--********************************************************************************-->
+    <!--*****经销商/代理商页面 上传图片item 主题 *****************************************-->
+    <!--********************************************************************************-->
     <style name="join_item_img_style">
         <item name="android:background">@color/main_color_white</item>
         <item name="android:layout_width">match_parent</item>
@@ -133,6 +142,13 @@
         <item name="android:paddingLeft">@dimen/join_right_left_margin</item>
     </style>
 
+    <!-- 经销商/代理商页面 标题 主题 -->
+    <style name="join_item_img_textView_style" parent="join_item_comm_textView_style">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginRight">0dp</item>
+    </style>
+
+
     <!-- 经销商/代理商页面 上传图片 主题 -->
     <style name="join_item_img_pic_style">
         <item name="android:scaleType">fitXY</item>
@@ -142,10 +158,13 @@
         <!--<item name="android:layout_width">match_parent</item>-->
         <!--<item name="android:background">#232</item>-->
     </style>
+    <!--********************************************************************************-->
+    <!--*****经销商/代理商页面 上传图片item 主题 *****************************************-->
+    <!--********************************************************************************-->
 
-
-    <!--<item name="android:layout_margin">10sp</item>-->
-    <!-- 主页面 item 主题 -->
+    <!--********************************************************************************-->
+    <!--*****主页面 item 主题 **********************************************************-->
+    <!--********************************************************************************-->
     <style name="main_item_style">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -170,9 +189,13 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/main_item_textSize</item>
     </style>
+    <!--********************************************************************************-->
+    <!--*****主页面 item 主题 **********************************************************-->
+    <!--********************************************************************************-->
 
-
-    <!-- 蓝色按钮 主题 -->
+    <!--********************************************************************************-->
+    <!--*****蓝色按钮 主题 **************************************************************-->
+    <!--********************************************************************************-->
     <style name="btn_blue_style">
         <item name="android:layout_width">285dp</item>
         <item name="android:layout_height">48dp</item>
@@ -185,12 +208,8 @@
         <item name="android:textColor">@color/main_color_white</item>
         <item name="android:textSize">@dimen/main_textSize_15sp</item>
     </style>
-    <style name="join_item_img_textView_style" parent="join_item_comm_textView_style">
-        <item name="android:layout_weight">1</item>
-    </style>
-    <style name="join_item_comm_editText_styl1" parent="join_item_comm_editText_style">
-        <item name="android:gravity">center_vertical</item>
-    </style>
-
+    <!--********************************************************************************-->
+    <!--*****蓝色按钮 主题 **************************************************************-->
+    <!--********************************************************************************-->
 
 </resources>

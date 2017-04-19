@@ -2,6 +2,7 @@ package com.bing.lan.bing.ui.shop;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bing.lan.comm.R;
@@ -36,8 +37,10 @@ public class ShopAdapter extends BaseListAdapter<ShopBean> {
         TextView mTvShopName;
         @BindView(R.id.tv_shop_time)
         TextView mTvShopTime;
-        // @BindView(R.id.view_line)
-        // View mViewLine;
+        @BindView(R.id.tv_pos)
+        TextView mTvPos;
+        @BindView(R.id.iv_call)
+        ImageView mIvCall;
 
         public Holder(View itemView) {
             super(itemView);
@@ -47,6 +50,8 @@ public class ShopAdapter extends BaseListAdapter<ShopBean> {
         public void fillData(ShopBean data, int position) {
             mTvShopName.setText(data.name);
             mTvShopTime.setText(data.time);
+
+            mTvPos.setVisibility(data.isShowPos ? View.VISIBLE : View.GONE);
         }
     }
 }

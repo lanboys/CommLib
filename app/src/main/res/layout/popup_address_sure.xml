@@ -60,7 +60,7 @@
                 android:textSize="15sp"/>
 
         </LinearLayout>
-        <include layout="@layout/include_line_join"/>
+        <include layout="@layout/include_line_1"/>
         <LinearLayout
             style="@style/join_item_comm_style">
             <TextView
@@ -81,7 +81,7 @@
                 android:textSize="15sp"/>
 
         </LinearLayout>
-        <include layout="@layout/include_line_join"/>
+        <include layout="@layout/include_line_1"/>
 
 
         <Button

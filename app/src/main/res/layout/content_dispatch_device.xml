@@ -59,7 +59,7 @@
 
     </LinearLayout>
 
-    <include layout="@layout/include_line_join"/>
+    <include layout="@layout/include_line_1"/>
     <com.bing.lan.comm.view.EditTextInputLayout
         android:id="@+id/eti_id_card_number1"
         android:layout_width="match_parent"

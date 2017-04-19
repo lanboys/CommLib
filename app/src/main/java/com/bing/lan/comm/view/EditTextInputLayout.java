@@ -7,6 +7,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bing.lan.comm.R;
+import com.bing.lan.comm.config.AppConfig;
 import com.bing.lan.comm.utils.LogUtil;
 
 public class EditTextInputLayout extends LinearLayout {
@@ -24,6 +26,7 @@ public class EditTextInputLayout extends LinearLayout {
     private TextView mTvTitle;
     private ImageView mIvImage;
     private View mLineContainer;
+    private boolean mIsEditEnable;
 
     public EditTextInputLayout(Context context) {
         super(context);
@@ -54,13 +57,13 @@ public class EditTextInputLayout extends LinearLayout {
             String hint = a.getString(R.styleable.EditTextInputLayout_edit_hint);
             String title = a.getString(R.styleable.EditTextInputLayout_title);
             Drawable drawable = a.getDrawable(R.styleable.EditTextInputLayout_image);
-            boolean enable = a.getBoolean(R.styleable.EditTextInputLayout_edit_enable, true);
+            mIsEditEnable = a.getBoolean(R.styleable.EditTextInputLayout_edit_enable, true);
             boolean showLine = a.getBoolean(R.styleable.EditTextInputLayout_show_line, true);
             int inputType = a.getInt(R.styleable.EditTextInputLayout_edit_inputType, -1);
             int imageVisible = a.getInt(R.styleable.EditTextInputLayout_image_visibility, -1);
             int titleVisible = a.getInt(R.styleable.EditTextInputLayout_title_visibility, -1);
 
-            mEdContent.setEnabled(enable);
+            mEdContent.setEnabled(mIsEditEnable);
 
             mLineContainer.setVisibility(showLine ? VISIBLE : GONE);
 
@@ -169,12 +172,36 @@ public class EditTextInputLayout extends LinearLayout {
         mValidator = validator;
     }
 
+    /**
+     * 如果 编辑框 设置为 不可点击 就拦截事件，交给父类处理
+     */
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        //  return mIsEditEnable || super.onInterceptTouchEvent(ev);
+
+        if (!mIsEditEnable) {
+            return true;
+        } else {
+            return super.onInterceptTouchEvent(ev);
+        }
+    }
+
+    /**
+     * 开启校验总开关
+     */
+    private boolean isOpenValidate = AppConfig.VALIDATE;
+
     public boolean validate() {
 
-        if (mValidator != null) {
-            return mValidator.validate(getId(), getEditContent());
+        if (isOpenValidate) {
+
+            if (mValidator != null) {
+                return mValidator.validate(getId(), getEditContent());
+            } else {
+                throw new RuntimeException("请先设置校验器");
+            }
         } else {
-            throw new RuntimeException("请先设置校验器");
+            return true;
         }
     }
 

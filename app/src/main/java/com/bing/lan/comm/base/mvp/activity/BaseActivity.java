@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -211,6 +212,9 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
 
     @Override
     public void showToast(String msg) {
+        if (TextUtils.isEmpty(msg)) {
+            return;
+        }
         //ToastUtil.showToast(msg);
         Toast.makeText(AppUtil.getAppContext(), msg, Toast.LENGTH_SHORT).show();
     }
@@ -293,6 +297,8 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
                 // 返回箭头的图标
                 if (resId > 0) {
                     actionBar.setHomeAsUpIndicator(resId);
+                } else {
+                    actionBar.setHomeAsUpIndicator(R.drawable.iv_back);
                 }
             }
             //给箭头添加监听器

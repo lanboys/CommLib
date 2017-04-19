@@ -38,14 +38,15 @@
         style="@style/btn_blue_style"
         android:text="登记经销商"/>
 
-    <ListView
+    <com.bing.lan.comm.view.FlexiListView
+        android:divider="@null"
         android:id="@+id/lv_dealer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/btn_create_dealer"
         android:layout_below="@id/tabLayout_shop"
         android:background="@color/main_color_white">
-    </ListView>
+    </com.bing.lan.comm.view.FlexiListView>
 
 
 </RelativeLayout>

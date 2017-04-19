@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="78dp"
+    android:layout_height="wrap_content"
     android:gravity="center"
     android:paddingLeft="13dp"
     android:paddingRight="13dp"
@@ -10,11 +10,13 @@
 
     <!--android:background="@color/main_color_white"-->
 
+
     <TextView
         android:id="@+id/tv_shop_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:text="店铺名称"
         android:textColor="@color/main_color_text_black"
         android:textSize="15sp"/>
@@ -27,12 +29,35 @@
         android:textColor="@color/shop_color_text_time"
         android:textSize="10sp"/>
 
+
+    <include
+
+        layout="@layout/include_line_2"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@id/tv_shop_time"
+        android:layout_marginTop="17dp"/>
+
+    <TextView
+        android:id="@+id/tv_pos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_shop_time"
+        android:layout_marginTop="19dp"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="20dp"
+        android:text="绑定POS"
+        android:textColor="@color/main_color_blue"
+        android:textSize="15sp"/>
+    android:visibility="gone"
+
     <ImageView
+        android:id="@+id/iv_call"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="14dp"
+        android:padding="10dp"
         android:src="@drawable/shop_phone"/>
-
-
 </RelativeLayout>

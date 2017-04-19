@@ -9,9 +9,11 @@ public class DealerInfoBean {
 
     public String name;
     public String time;
+    public boolean isShowPos;
 
-    public DealerInfoBean(String name, String time) {
+    public DealerInfoBean(String name, String time, boolean isShowPos) {
         this.name = name;
         this.time = time;
+        this.isShowPos = isShowPos;
     }
 }

@@ -38,13 +38,14 @@
         style="@style/btn_blue_style"
         android:text="登记店铺"/>
 
-    <ListView
+    <com.bing.lan.comm.view.FlexiListView
+        android:divider="@null"
         android:id="@+id/lv_shop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/btn_register_shop"
         android:layout_below="@id/tabLayout_shop"
         android:background="@color/main_color_white">
-    </ListView>
+    </com.bing.lan.comm.view.FlexiListView>
 
 </RelativeLayout>

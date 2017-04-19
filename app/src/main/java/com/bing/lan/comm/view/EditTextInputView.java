@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bing.lan.comm.R;
+import com.bing.lan.comm.config.AppConfig;
 
 public class EditTextInputView extends LinearLayout {
 
@@ -127,7 +128,6 @@ public class EditTextInputView extends LinearLayout {
         }
     }
 
-
     public void setTextViewOnClickListener(@Nullable OnClickListener l) {
         if (mTextView != null) {
             mTextView.setOnClickListener(l);
@@ -162,12 +162,22 @@ public class EditTextInputView extends LinearLayout {
         mValidator = validator;
     }
 
+    /**
+     * 开启校验总开关
+     */
+    private boolean isOpenValidate = AppConfig.VALIDATE;
+
     public boolean validate() {
 
-        if (mValidator != null) {
-            return mValidator.validate(getId(), getEditContent());
+        if (isOpenValidate) {
+
+            if (mValidator != null) {
+                return mValidator.validate(getId(), getEditContent());
+            } else {
+                throw new RuntimeException("请先设置校验器");
+            }
         } else {
-            throw new RuntimeException("请先设置校验器");
+            return true;
         }
     }
 

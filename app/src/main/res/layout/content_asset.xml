@@ -91,7 +91,7 @@
                 android:src="@drawable/iv_mine_into"/>
         </LinearLayout>
 
-        <include layout="@layout/include_line_join"/>
+        <include layout="@layout/include_line_1"/>
 
         <LinearLayout
             android:id="@+id/ll_no_use_money"

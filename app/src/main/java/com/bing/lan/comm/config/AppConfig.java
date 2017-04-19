@@ -21,16 +21,19 @@ public class AppConfig {
     public static final boolean DEBUG = true;
 
     /**
+     * 是否 开启 edit 验证
+     */
+    public static final boolean VALIDATE = false;
+
+    /**
      * 日间/夜间模式存储的键值
      */
     public static final String DAY_NIGHT_MODE = "day_night_mode";
-
 
     /**
      * 日志前缀
      */
     public static final String TAG_PREFIX = "fmapp-->";
-
 
     public static final String DB_NAME = "fm.db";
 }

@@ -9,9 +9,11 @@ public class ShopBean {
 
     public String name;
     public String time;
+    public boolean isShowPos;
 
-    public ShopBean(String name, String time) {
+    public ShopBean(String name, String time, boolean isShowPos) {
         this.name = name;
         this.time = time;
+        this.isShowPos = isShowPos;
     }
 }

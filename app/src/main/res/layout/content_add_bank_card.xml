@@ -36,7 +36,7 @@
             android:src="@drawable/iv_mine_into"/>
     </LinearLayout>
 
-    <include layout="@layout/include_line_join"/>
+    <include layout="@layout/include_line_1"/>
 
     <LinearLayout
         style="@style/join_item_comm_style">
@@ -49,7 +49,7 @@
             style="@style/join_item_comm_editText_style"
             android:hint="        卡号"/>
     </LinearLayout>
-    <include layout="@layout/include_line_join"/>
+    <include layout="@layout/include_line_1"/>
 
     <LinearLayout
         style="@style/join_item_comm_style"
