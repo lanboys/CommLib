@@ -61,7 +61,7 @@ public class AssetActivity extends BaseActivity<IAssetContract.IAssetPresenter>
 
     @Override
     protected void initViewAndData(Intent intent) {
-        setToolBar(mToolbar, "我的资产", true, 0);
+        setToolBar(mToolbar, "我的账户", true, 0);
     }
 
     @Override

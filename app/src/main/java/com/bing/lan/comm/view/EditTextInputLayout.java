@@ -136,7 +136,31 @@ public class EditTextInputLayout extends LinearLayout {
     }
 
     public void setEditEnabled(boolean enabled) {
-        mEdContent.setEnabled(false);
+        if (mEdContent != null) {
+            mEdContent.setEnabled(false);
+        }
+    }
+
+    public void setEditTextGravity(int gravity) {
+        if (mEdContent != null) {
+            mEdContent.setGravity(gravity);
+        }
+    }
+
+    public void setTextViewDrawableLeft(@DrawableRes int resId) {
+
+        if (mTvTitle != null) {
+            mTvTitle.setCompoundDrawables(getResources().getDrawable(resId), null, null, null);
+        }
+    }
+
+    public void setTextViewDrawablePadding(int dp) {
+
+        if (mTvTitle != null) {
+            float density = getResources().getDisplayMetrics().density;
+            int px = (int) (dp * density + .5f);
+            mTvTitle.setCompoundDrawablePadding(px);
+        }
     }
 
     public void setTextViewTitle(@NonNull String s) {

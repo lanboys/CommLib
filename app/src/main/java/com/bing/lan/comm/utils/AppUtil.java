@@ -255,14 +255,14 @@ public class AppUtil {
             getMainHandler().postDelayed(runnable, delayMillis);
     }
 
-    public static int dip2px(int dip) {
+    public static int dp2px(int dip) {
         // denstity*dip=px;
         float density = getAppRes().getDisplayMetrics().density;
         int px = (int) (dip * density + .5f);
         return px;
     }
 
-    public static int px2dip(int px) {
+    public static int px2dp(int px) {
         // denstity*dip=px;
         float density = getAppRes().getDisplayMetrics().density;
         int dip = (int) (px / density + .5f);
