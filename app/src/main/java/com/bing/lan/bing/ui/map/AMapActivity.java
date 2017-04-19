@@ -12,7 +12,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -49,27 +48,24 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
     //api 文档
     // http://a.amap.com/lbs/static/unzip/Android_Map_Doc/index.html
 
+    public AddressBean mMarkerAddressBean = new AddressBean();
+    public AddressBean mCurrentAddressBean = new AddressBean();
     MapView mMapView = null;//地图控件
-
+    Toolbar mToolbar;
     //显示地图需要的变量
     private MapView mapView;
     private AMap aMap;//地图对象
-
     //定位需要的声明
     private AMapLocationClient mLocationClient = null;//定位发起端
     private AMapLocationClientOption mLocationOption = null;//定位参数
     private LocationSource.OnLocationChangedListener mListener = null;//定位监听器
-
     //标识，用于判断是否只显示一次定位信息和用户重新定位
     private boolean isFirstLoc = true;
-
     private boolean isShowInfoWindow = true;
     private ImageView mSearch;
     private TextView mTextView;//点击定位按钮位置会改变是因为marker的原因
     private LatLng mCurrentLatLng;
-
-    public AddressBean mMarkerAddressBean = new AddressBean();
-    public AddressBean mCurrentAddressBean = new AddressBean();
+    private Task mTask;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -112,12 +108,13 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         }
     }
 
-    Toolbar mToolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_amap);
+
+        mMarkerAddressBean = new AddressBean();
+    mCurrentAddressBean = new AddressBean();
         //
         mTextView = (TextView) findViewById(R.id.mark_listenter_text);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -275,8 +272,10 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
                 Log.e("AmapError", "location Error, ErrCode:"
                         + amapLocation.getErrorCode() + ", errInfo:"
                         + amapLocation.getErrorInfo());
+                if (isFirstLoc) {
 
-                Toast.makeText(getApplicationContext(), "定位失败", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getApplicationContext(), "定位失败", Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
@@ -466,8 +465,6 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         aMap.moveCamera(CameraUpdateFactory.changeLatLng(latlng));
     }
 
-    private Task mTask;
-
     /**
      * 根据 经纬度 启动逆地理任务
      *
@@ -495,6 +492,20 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         return mMarkerAddressBean.getAddressDetail();
     }
 
+    @Override
+    public void onCameraChangeFinish(CameraPosition cameraPosition) {
+
+    }
+
+    public void finishMap(String address) {
+        if (address != null) {
+            Intent date = new Intent();
+            date.putExtra(ShopCreateActivity.ADDRESS_INFO, address);
+            setResult(ShopCreateActivity.REQUEST_CODE_GET_ADDRESS_FORM_MAP, date);
+        }
+        finish();
+    }
+
     public static class Task implements Runnable {
 
         WeakReference<AMapActivity> mWeakReference;
@@ -519,19 +530,5 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
                 aMapActivity.updateTextViewAddress();
             }
         }
-    }
-
-    @Override
-    public void onCameraChangeFinish(CameraPosition cameraPosition) {
-
-    }
-
-    public void finishMap(String address) {
-        if (address != null) {
-            Intent date = new Intent();
-            date.putExtra(ShopCreateActivity.ADDRESS_INFO, address);
-            setResult(ShopCreateActivity.REQUEST_CODE_GET_ADDRESS_FORM_MAP, date);
-        }
-        finish();
     }
 }

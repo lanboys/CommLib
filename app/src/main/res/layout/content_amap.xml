@@ -56,7 +56,7 @@
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="广东省广州市天河区广海路121号"
+                tools:text="广东省广州市天河区广海路121号"
                 android:textSize="15sp"/>
 
         </LinearLayout>

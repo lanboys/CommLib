@@ -85,9 +85,6 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
         //test
 
         mTvNotEmployee.setSelected(true);
-
-
-
     }
 
     @Override
@@ -95,8 +92,8 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
         mPresenter.onStart();
     }
 
-    @OnClick({R.id.btn_login, R.id.tv_new_user_register, R.id.tv_forget_password, R.id.ll_login
-            , R.id.ll_not_employee, R.id.ll_employee})
+    @OnClick({R.id.btn_login, R.id.tv_new_user_register, R.id.tv_forget_password,
+            R.id.ll_login, R.id.ll_not_employee, R.id.ll_employee})
     public void onClick(View view) {
         switch (view.getId()) {
 

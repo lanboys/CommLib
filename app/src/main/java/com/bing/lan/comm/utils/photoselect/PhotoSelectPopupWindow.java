@@ -7,6 +7,7 @@ package com.bing.lan.comm.utils.photoselect;
  */
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.IntDef;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,16 +53,16 @@ public class PhotoSelectPopupWindow extends PopupWindow implements View.OnClickL
         this.setContentView(view);
         this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        this.setFocusable(true);
+
         this.setAnimationStyle(R.style.PopupWindowAnimation);
-        // ColorDrawable dw = new ColorDrawable(0xb0000000);
-        // this.setBackgroundDrawable(dw);
+
+        this.setFocusable(true);//获取焦点
+        this.setOutsideTouchable(true);//点击pop外部关闭
+        this.setBackgroundDrawable(new ColorDrawable(0xb0000000));
 
         btn_take_photo.setOnClickListener(this);
         btn_photo_album.setOnClickListener(this);
         btn_cancel.setOnClickListener(this);
-
-       // setOutsideTouchable(true);
     }
 
     @Override
@@ -104,6 +105,7 @@ public class PhotoSelectPopupWindow extends PopupWindow implements View.OnClickL
         public static final int TAKE_PHOTO = 0;         // 拍照
         public static final int SELECT_ALBUM = 1;      // 相册
         public static final int CANCEL = 2;             // 取消
+
         @IntDef({TAKE_PHOTO, SELECT_ALBUM, CANCEL})
         @Retention(RetentionPolicy.SOURCE)
         public @interface Type {
