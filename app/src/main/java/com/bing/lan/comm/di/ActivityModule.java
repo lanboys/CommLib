@@ -95,6 +95,10 @@ import com.bing.lan.bing.ui.register.IRegisterContract;
 import com.bing.lan.bing.ui.register.RegisterActivity;
 import com.bing.lan.bing.ui.register.RegisterModule;
 import com.bing.lan.bing.ui.register.RegisterPresenter;
+import com.bing.lan.bing.ui.registerPos.IRegisterPosContract;
+import com.bing.lan.bing.ui.registerPos.RegisterPosActivity;
+import com.bing.lan.bing.ui.registerPos.RegisterPosModule;
+import com.bing.lan.bing.ui.registerPos.RegisterPosPresenter;
 import com.bing.lan.bing.ui.shop.IShopContract;
 import com.bing.lan.bing.ui.shop.ShopActivity;
 import com.bing.lan.bing.ui.shop.ShopModule;
@@ -376,6 +380,14 @@ public class ActivityModule {
         DispatchDevicePresenter splashPresenter = new DispatchDevicePresenter();
         splashPresenter.setModule(new DispatchDeviceModule());
         splashPresenter.onAttachView((DispatchDeviceActivity) mActivity);
+        return splashPresenter;
+    }
+
+    @Provides
+    public IRegisterPosContract.IRegisterPosPresenter provideRegisterPosPresenter() {
+        RegisterPosPresenter splashPresenter = new RegisterPosPresenter();
+        splashPresenter.setModule(new RegisterPosModule());
+        splashPresenter.onAttachView((RegisterPosActivity) mActivity);
         return splashPresenter;
     }
 }

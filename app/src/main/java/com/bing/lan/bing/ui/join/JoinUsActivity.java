@@ -78,18 +78,7 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
         mTvShowDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //showJoinAlertDialog();
-
-                ContactDialogFragment dialogFragment = ContactDialogFragment.newInstance("自动续费协议", "content");
-                dialogFragment.show(getSupportFragmentManager(), "club_member_contact");
-                dialogFragment.setCallbackListener(new SimpleCallbackListener() {
-                    @Override
-                    public void onCallbackListener(boolean callback) {
-                        if (callback){
-                            Toast.makeText(JoinUsActivity.this, "同意", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                showJoinAlertDialog();
             }
         });
 
@@ -103,6 +92,19 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
     }
 
     public void showJoinAlertDialog() {
+        ContactDialogFragment dialogFragment = ContactDialogFragment.newInstance("自动续费协议", "content");
+        dialogFragment.show(getSupportFragmentManager(), "club_member_contact");
+        dialogFragment.setCallbackListener(new SimpleCallbackListener() {
+            @Override
+            public void onCallbackListener(boolean callback) {
+                if (callback) {
+                    Toast.makeText(JoinUsActivity.this, "同意", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void showJoinAlertDialog111() {
         AlertDialog alertDialog = createExitDialog();
         //Window window = alertDialog.getWindow();
         //WindowManager.LayoutParams lp = window.getAttributes();

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.bing.lan.bing.ui.dealerauthenticate.DealerAuthenticateActivity;
+import com.bing.lan.bing.ui.joinsuccess.JoinSuccessActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -110,7 +110,7 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
                         if (mEtiSelectAddress.validate()) {
                             if (mEtiAddressDetail.validate()) {
                                 if (mEtiIdCardNumber.validate()) {
-                                    showToast("登记成功");
+                                    JoinSuccessActivity.start(this, JoinSuccessActivity.ENTER_TYPE_DEALER);
                                 }
                             }
                         }

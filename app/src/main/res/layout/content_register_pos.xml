@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_register_pos"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color_background"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.bing.lan.bing.ui.registerPos.RegisterPosActivity"
+    tools:showIn="@layout/activity_register_pos">
+
+
+    <com.bing.lan.comm.view.EditTextInputLayout
+        android:id="@+id/eti_select_pos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        app:edit_enable="false"
+        app:edit_hint="已选取0个POS机"
+        app:image="@drawable/iv_mine_into"
+        app:image_visibility="visible"
+        app:title="选取POS"/>
+
+
+    <LinearLayout
+        style="@style/join_item_img_style"
+        android:paddingBottom="20dp">
+        <TextView
+            style="@style/join_item_img_textView_style"
+            android:text="协议附件"/>
+
+        <ImageView
+            android:id="@+id/iv_protocol"
+            style="@style/join_item_img_pic_style"
+            android:src="@drawable/id_card_pic"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_save"
+        android:background="@drawable/shape_btn_gray"
+        style="@style/btn_blue_style"
+        android:text="保存"/>
+</LinearLayout>

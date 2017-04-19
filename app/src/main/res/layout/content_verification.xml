@@ -20,6 +20,7 @@
         android:text="验证码:185****5465,验证码错误"
         android:textColor="#eb2f3e"
         android:textSize="15sp"/>
+
     <include layout="@layout/include_line_1"/>
 
     <RelativeLayout
@@ -32,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:edit_hint="聚众客短信验证码"
+            app:show_line="false"
             app:title="校验码:"/>
 
         <TextView

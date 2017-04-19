@@ -31,7 +31,7 @@
     <LinearLayout
         style="@style/join_item_img_style">
         <TextView
-            style="@style/join_item_comm_textView_style"
+            style="@style/join_item_img_textView_style"
             android:text="正面证件照"/>
 
         <ImageView
@@ -46,7 +46,7 @@
         android:paddingBottom="20dp"
         style="@style/join_item_img_style">
         <TextView
-            style="@style/join_item_comm_textView_style"
+            style="@style/join_item_img_textView_style"
             android:text="反面证件照"/>
 
         <ImageView

@@ -15,7 +15,9 @@ import butterknife.BindView;
  * Email: lan_bing2013@163.com
  * Time: 2017/4/13  19:08
  */
-public class DealerListAdapter extends BaseListAdapter<DealerInfoBean> {
+public class DealerListAdapter extends BaseListAdapter<DealerInfoBean> implements View.OnClickListener {
+
+    OnClickListener mOnClickListener;
 
     public DealerListAdapter(Context context) {
         super(context);
@@ -29,6 +31,40 @@ public class DealerListAdapter extends BaseListAdapter<DealerInfoBean> {
     @Override
     protected BaseViewHolder createViewHolder(int itemViewType, View itemView) {
         return new Holder(itemView);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        Integer position = (Integer) v.getTag();
+        DealerInfoBean dealerInfoBean = data.get(position);
+
+        switch (v.getId()) {
+
+            case R.id.tv_dealer_payment:
+
+                if (mOnClickListener != null) {
+                    mOnClickListener.onPaymentClick(position, dealerInfoBean);
+                }
+
+                break;
+            case R.id.iv_call:
+                if (mOnClickListener != null) {
+                    mOnClickListener.onCallClick(position, dealerInfoBean);
+                }
+                break;
+        }
+    }
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        mOnClickListener = onClickListener;
+    }
+
+    public interface OnClickListener {
+
+        void onPaymentClick(int position, DealerInfoBean data);
+
+        void onCallClick(int position, DealerInfoBean data);
     }
 
     class Holder extends BaseViewHolder {
@@ -53,6 +89,11 @@ public class DealerListAdapter extends BaseListAdapter<DealerInfoBean> {
 
             mTvDealerPayment.setVisibility(data.isShowPos ? View.VISIBLE : View.GONE);
 
+            mIvCall.setOnClickListener(DealerListAdapter.this);
+            mIvCall.setTag(position);
+
+            mTvDealerPayment.setOnClickListener(DealerListAdapter.this);
+            mTvDealerPayment.setTag(position);
         }
     }
 }

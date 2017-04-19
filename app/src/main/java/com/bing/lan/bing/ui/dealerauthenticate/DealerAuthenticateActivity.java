@@ -5,7 +5,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
-import com.bing.lan.bing.ui.joinsuccess.JoinSuccessActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -49,6 +48,6 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
     @Override
     public void onClick(View view) {
 
-        JoinSuccessActivity.start(this, JoinSuccessActivity.ENTER_TYPE_DEALER);
+        showToast("缴费成功");
     }
 }

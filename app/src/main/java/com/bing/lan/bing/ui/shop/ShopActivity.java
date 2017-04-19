@@ -3,9 +3,12 @@ package com.bing.lan.bing.ui.shop;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.bing.lan.bing.ui.registerPos.RegisterPosActivity;
 import com.bing.lan.bing.ui.shopcreate.ShopCreateActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
@@ -67,6 +70,13 @@ public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
 
         mAdapter = new ShopAdapter(this);
         mLvShop.setAdapter(mAdapter);
+
+        mLvShop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivity(RegisterPosActivity.class, false, true);
+            }
+        });
 
         initData();
     }

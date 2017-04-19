@@ -227,6 +227,11 @@
             android:label="@string/title_activity_dispatch_device"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.registerPos.RegisterPosActivity"
+            android:label="@string/title_activity_register_pos"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

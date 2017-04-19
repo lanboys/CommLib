@@ -23,6 +23,7 @@ import com.bing.lan.bing.ui.modifypassword.ModifyPswActivity;
 import com.bing.lan.bing.ui.notavailable.NotAvailableActivity;
 import com.bing.lan.bing.ui.notsettlement.NotSettlementActivity;
 import com.bing.lan.bing.ui.register.RegisterActivity;
+import com.bing.lan.bing.ui.registerPos.RegisterPosActivity;
 import com.bing.lan.bing.ui.shop.ShopActivity;
 import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;
 import com.bing.lan.bing.ui.shopcreate.ShopCreateActivity;
@@ -96,6 +97,8 @@ public interface ActivityComponent {
     void inject(MapSearchActivity mapSearchActivity);
 
     void inject(DispatchDeviceActivity dispatchDeviceActivity);
+
+    void inject(RegisterPosActivity registerPosActivity);
 
     // void inject(SplashActivity splashActivity);
 
