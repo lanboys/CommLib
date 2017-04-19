@@ -147,11 +147,11 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener {
     private View createChild(CharSequence string) {
         TextView textView = new TextView(getContext());
         textView.setText(string);
-        textView.setTextSize(AppUtil.dip2px(8));
+        textView.setTextSize(AppUtil.dp2px(8));
         textView.setGravity(Gravity.CENTER);
         textView.setTextColor(Color.WHITE);
 
-        int padding = AppUtil.dip2px(2);
+        int padding = AppUtil.dp2px(2);
         textView.setPadding(padding, padding, padding, padding);
 
 

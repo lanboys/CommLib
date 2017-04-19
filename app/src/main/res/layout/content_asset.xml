@@ -60,70 +60,29 @@
             android:gravity="center"
             android:text="立即提现"
             android:textColor="@color/main_color_text_black"
-            android:textSize="20sp"/>
+            android:textSize="15sp"/>
 
-
-
-
-        <LinearLayout
-            android:id="@+id/ll_pending_pay_money"
-            style="@style/join_item_comm_style">
-            <TextView
-                style="@style/join_item_comm_textView_style"
-                android:drawableLeft="@drawable/icon_dianyidian"
-                android:drawablePadding="15dp"
-                android:text="待结算金额"/>
-
-            <TextView
-                android:id="@+id/tv_pending_pay_money"
-                style="@style/join_item_comm_editText_style"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:focusable="false"
-                android:gravity="right"
-                android:hint="￥1111.00"
-                android:paddingRight="10dp"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/iv_mine_into"/>
-        </LinearLayout>
-
-        <include layout="@layout/include_line_1"/>
-
-        <LinearLayout
-            android:id="@+id/ll_no_use_money"
-            style="@style/join_item_comm_style">
-            <TextView
-                style="@style/join_item_comm_textView_style"
-                android:drawableLeft="@drawable/icon_dianyidian"
-                android:drawablePadding="15dp"
-                android:text="待结算金额"/>
-
-            <TextView
-                android:id="@+id/tv_no_use_money"
-                style="@style/join_item_comm_editText_style"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:focusable="false"
-                android:gravity="right"
-                android:hint="￥1111.00"
-                android:paddingRight="10dp"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/iv_mine_into"/>
-        </LinearLayout>
-
-
-        <include
-            layout="@layout/include_line_2"
+        <com.bing.lan.comm.view.EditTextInputLayout
+            android:id="@+id/eti_pending_pay_money"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="wrap_content"
+            app:edit_enable="false"
+            app:edit_hint="￥1111.00"
+            app:image="@drawable/iv_mine_into"
+            app:image_visibility="visible"
+            app:title="待结算金额"/>
+
+        <com.bing.lan.comm.view.EditTextInputLayout
+            android:id="@+id/eti_no_use_money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:edit_enable="false"
+            app:edit_hint="￥1111.00"
+            app:image="@drawable/iv_mine_into"
+            app:image_visibility="visible"
+            app:show_line="false"
+            app:title="不可用金额"/>
+
 
     </LinearLayout>
 </com.bing.lan.comm.view.FlexibleScrollView>

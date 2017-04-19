@@ -14,15 +14,15 @@ import butterknife.BindView;
  * Email: lan_bing2013@163.com
  * Time: 2017/4/13  19:08
  */
-public class TakeMoneyListAdapter extends BaseListAdapter<TakeMoneyInfoBean> {
+public class IncomeListAdapter extends BaseListAdapter<IncomeInfoBean> {
 
-    public TakeMoneyListAdapter(Context context) {
+    public IncomeListAdapter(Context context) {
         super(context);
     }
 
     @Override
     protected int getItemLayoutId(int itemViewType) {
-        return R.layout.item_money;
+        return R.layout.item_income_detail;
     }
 
     @Override
@@ -32,22 +32,25 @@ public class TakeMoneyListAdapter extends BaseListAdapter<TakeMoneyInfoBean> {
 
     class Holder extends BaseViewHolder {
 
-        @BindView(R.id.tv_money)
-        TextView mTvMoney;
+        @BindView(R.id.tv_money_type)
+        TextView mTvMoneyType;
         @BindView(R.id.tv_time)
         TextView mTvTime;
-        @BindView(R.id.tv_right)
-        TextView mTvRight;
+        @BindView(R.id.tv_money_num)
+        TextView mTvMoneyNum;
+        @BindView(R.id.tv_money_source)
+        TextView mTvMoneySource;
 
         public Holder(View itemView) {
             super(itemView);
         }
 
         @Override
-        public void fillData(TakeMoneyInfoBean data, int position) {
-            mTvRight.setText(data.name);
+        public void fillData(IncomeInfoBean data, int position) {
+            mTvMoneyType.setText(data.moneyType);
             mTvTime.setText(data.time);
-            mTvMoney.setText(data.money);
+            mTvMoneyNum.setText(data.moneyNum);
+            mTvMoneySource.setText(data.moneySource);
         }
     }
 }

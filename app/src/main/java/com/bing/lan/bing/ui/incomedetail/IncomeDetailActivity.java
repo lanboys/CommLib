@@ -42,13 +42,13 @@ public class IncomeDetailActivity extends BaseActivity<IIncomeDetailContract.IIn
     @Override
     protected void readyStartPresenter() {
 
-        ArrayList<TakeMoneyInfoBean> shopBeen = new ArrayList<>();
+        ArrayList<IncomeInfoBean> shopBeen = new ArrayList<>();
 
         for (int i = 0; i < 14; i++) {
-            shopBeen.add(new TakeMoneyInfoBean("+ ￥2222.00", "2017-01-25 04:00:22", "微信收款"));
+            shopBeen.add(new IncomeInfoBean(i % 2 == 0 ? "微信收款" : "支付宝收款", "2017-01-25 04:00:22", "+ ￥14.50", "经销商分润"));
         }
 
-        TakeMoneyListAdapter adapter = new TakeMoneyListAdapter(this);
+        IncomeListAdapter adapter = new IncomeListAdapter(this);
         mLvTakeMoney.setAdapter(adapter);
 
         adapter.setDataAndRefresh(shopBeen);

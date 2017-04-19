@@ -150,7 +150,10 @@ public class EditTextInputLayout extends LinearLayout {
     public void setTextViewDrawableLeft(@DrawableRes int resId) {
 
         if (mTvTitle != null) {
-            mTvTitle.setCompoundDrawables(getResources().getDrawable(resId), null, null, null);
+            Drawable drawable = getResources().getDrawable(resId);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+
+            mTvTitle.setCompoundDrawables(drawable, null, null, null);
         }
     }
 

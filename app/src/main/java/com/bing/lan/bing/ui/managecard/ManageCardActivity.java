@@ -99,13 +99,10 @@ public class ManageCardActivity extends BaseActivity<IManageCardContract.IManage
 
         //public WithdrawBankCardBean(String bank, int id, String bankBranch, String bankCard, String bankRealname) {
 
-        WithdrawBankCardBean e = new WithdrawBankCardBean("中国银行1", 2323, "广州支行", "个人账户", "蓝兵");
-        WithdrawBankCardBean e1 = new WithdrawBankCardBean("中国银行2", 2323, "广州支行", "个人账户", "蓝兵");
-        WithdrawBankCardBean e2 = new WithdrawBankCardBean("中国银行3", 2323, "广州支行", "个人账户", "蓝兵");
-
-        mBankCardList.add(e);
-        mBankCardList.add(e1);
-        mBankCardList.add(e2);
+        for (int i = 0; i < 15; i++) {
+            WithdrawBankCardBean e = new WithdrawBankCardBean("中国银行" + i, 2323, "广州支行", "个人账户", "蓝兵");
+            mBankCardList.add(e);
+        }
     }
 
     @Override
@@ -132,7 +129,6 @@ public class ManageCardActivity extends BaseActivity<IManageCardContract.IManage
         //
         //this.finish();
         showToast("选中返回");
-
     }
 
     // 详情
@@ -147,7 +143,7 @@ public class ManageCardActivity extends BaseActivity<IManageCardContract.IManage
     private SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
         @Override
         public void onCreateMenu(SwipeMenu swipeLeftMenu, SwipeMenu swipeRightMenu, int viewType) {
-            int deleteViewWidth = AppUtil.dip2px(80);
+            int deleteViewWidth = AppUtil.dp2px(80);
             int deleteViewHeight = ViewGroup.LayoutParams.MATCH_PARENT;
 
             SwipeMenuItem deleteView = new SwipeMenuItem(ManageCardActivity.this)
@@ -168,7 +164,6 @@ public class ManageCardActivity extends BaseActivity<IManageCardContract.IManage
 
             mBankCardList.remove(menuPosition);
             mBankCardAdapter.notifyDataSetChanged();
-
         }
     };
 }
