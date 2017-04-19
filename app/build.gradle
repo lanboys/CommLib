@@ -218,8 +218,12 @@ dependencies {
 
 //  地区选择器
     compile 'liji.library.dev:citypickerview:1.0.0'
+    //时间 地区选择器
+   //  compile 'com.contrarywind:Android-PickerView:3.2.4'
+
 
     // RecyclerView 侧滑删除
     compile 'com.yanzhenjie:recyclerview-swipe:1.0.4'
+
 
 }

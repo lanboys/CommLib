@@ -160,10 +160,11 @@ public class ManageCardActivity extends BaseActivity<IManageCardContract.IManage
         @Override
         public void onItemClick(Closeable closeable, int adapterPosition, int menuPosition, int direction) {
             // 关闭被点击的菜单
-            closeable.smoothCloseMenu();
 
             mBankCardList.remove(menuPosition);
-            mBankCardAdapter.notifyDataSetChanged();
+         //   mBankCardAdapter.notifyDataSetChanged();
+            mBankCardAdapter.notifyItemRemoved(menuPosition);
+            closeable.smoothCloseMenu();
         }
     };
 }

@@ -116,4 +116,13 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
+
+    //登记缴费
+    // startActivity(DealerAuthenticateActivity.class, false, true);
+
+    //拨打电话
+    //Intent intent = new Intent(Intent.ACTION_CALL);
+    //Uri data = Uri.parse("tel:" + "135xxxxxxxx");
+    //intent.setData(data);
+    //startActivity(intent);
 }

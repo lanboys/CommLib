@@ -92,9 +92,6 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
 
     }
 
-    @OnClick(R.id.eti_select_address)
-    public void onViewClicked() {
-    }
 
     @OnClick({R.id.toolbar, R.id.eti_select_address,
             R.id.btn_join_now, R.id.iv_id_card_img_front, R.id.iv_id_card_img_back})
@@ -113,7 +110,7 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
                         if (mEtiSelectAddress.validate()) {
                             if (mEtiAddressDetail.validate()) {
                                 if (mEtiIdCardNumber.validate()) {
-                                    startActivity(DealerAuthenticateActivity.class, false, true);
+                                    showToast("登记成功");
                                 }
                             }
                         }

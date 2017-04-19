@@ -27,7 +27,6 @@
         app:edit_hint="输入真实号码"
         app:title="证件号码"/>
 
-    <include layout="@layout/include_line_1"/>
 
     <LinearLayout
         style="@style/join_item_img_style">
