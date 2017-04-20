@@ -2,8 +2,6 @@ package com.bing.lan.bing.ui.agent;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.bing.lan.bing.ui.dispatchdevice.DispatchDeviceActivity;
@@ -20,7 +18,7 @@ import butterknife.BindView;
  * @time 2017/4/6  19:12
  */
 public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
-        implements IAgentContract.IAgentView, AdapterView.OnItemClickListener {
+        implements IAgentContract.IAgentView, AgentListAdapter.OnClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -54,16 +52,14 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
 
         AgentListAdapter adapter = new AgentListAdapter(this);
         mLvAgent.setAdapter(adapter);
-        mLvAgent.setOnItemClickListener(this);
+        adapter.setOnClickListener(this);
 
         adapter.setDataAndRefresh(shopBeen);
         adapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        AgentListAdapter adapter = (AgentListAdapter) parent.getAdapter();
-        AgentInfoBean item = (AgentInfoBean) adapter.getItem(position);
+    public void onCallClick(int position, AgentInfoBean data) {
 
         startActivity(DispatchDeviceActivity.class, false, true);
     }

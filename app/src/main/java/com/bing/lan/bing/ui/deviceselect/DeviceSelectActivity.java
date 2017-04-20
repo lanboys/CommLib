@@ -64,6 +64,11 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
         }
 
         mShopAdapter = new ShopAdapter(this);
+
+        View inflate = View.inflate(this, R.layout.item_empty_lv_foot, null);
+
+        mLvDeviceList.addFooterView(inflate);
+
         mLvDeviceList.setAdapter(mShopAdapter);
         mLvDeviceList.setOnItemClickListener(this);
         mShopAdapter.setDataAndRefresh(shopBeen);
@@ -85,10 +90,14 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-        ShopAdapter adapter = (ShopAdapter) adapterView.getAdapter();
-        ShopBean item = (ShopBean) adapter.getItem(i);
-        item.isSelect = !item.isSelect;
-        adapter.notifyDataSetChanged();
+        ShopBean item = (ShopBean) adapterView.getItemAtPosition(i);
+
+        //ShopAdapter adapter = (ShopAdapter) adapterView.getAdapter();
+        //ShopBean item = (ShopBean) adapter.getItem(i);
+        if (item != null) {
+            item.isSelect = !item.isSelect;
+            mShopAdapter.notifyDataSetChanged();
+        }
     }
 
     public void showJoinAlertDialog() {

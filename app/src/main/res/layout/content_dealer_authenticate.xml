@@ -19,12 +19,11 @@
         <LinearLayout
             style="@style/join_item_img_style">
             <TextView
-                android:id="@+id/tv_authenticate_idCard_photo1"
                 style="@style/join_item_img_textView_style"
                 android:text="缴费凭证"/>
 
             <ImageView
-                android:id="@+id/iv_authenticate_idCard_photo1"
+                android:id="@+id/iv_payment_photo"
                 style="@style/join_item_img_pic_style"
                 android:src="@drawable/id_card_pic"/>
         </LinearLayout>
@@ -42,51 +41,30 @@
 
         <include layout="@layout/include_line_1"/>
 
-        <LinearLayout
-            style="@style/join_item_comm_style">
-            <TextView
 
-                android:id="@+id/tv_authenticate_name"
-                style="@style/join_item_comm_textView_style"
-                android:text="缴费金额"/>
+        <com.bing.lan.comm.view.EditTextInputLayout
+            android:id="@+id/eti_payment_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:edit_hint="物料押金金额"
+            app:title="缴费金额"/>
 
-            <EditText
-                android:id="@+id/et_authenticate_name"
-                style="@style/join_item_comm_editText_style"
-                android:hint="物料押金金额"
-                android:inputType="phone"/>
-        </LinearLayout>
+        <com.bing.lan.comm.view.EditTextInputLayout
+            android:id="@+id/eti_payment_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:image_visibility="visible"
+            app:image="@drawable/iv_mine_into"
+            app:edit_enable="false"
+            app:edit_hint="2017-04-14 14:15"
+            app:title="缴费时间"/>
+        <com.bing.lan.comm.view.EditTextInputLayout
+            android:id="@+id/eti_payment_card_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:edit_hint="缴费人卡号"
+            app:title="缴费卡号"/>
 
-        <include layout="@layout/include_line_1"/>
-        <LinearLayout
-            style="@style/join_item_comm_style">
-            <TextView
-                android:id="@+id/tv_authenticate_id"
-                style="@style/join_item_comm_textView_style"
-                android:text="缴费时间"/>
-
-            <EditText
-                android:id="@+id/et_authenticate_id"
-                style="@style/join_item_comm_editText_style"
-                android:hint="2017-04-14 14:15:45"
-                android:inputType="phone"/>
-        </LinearLayout>
-
-        <include layout="@layout/include_line_1"/>
-
-        <LinearLayout
-            style="@style/join_item_comm_style">
-            <TextView
-                android:id="@+id/tv_authenticate_id1"
-                style="@style/join_item_comm_textView_style"
-                android:text="缴费卡号"/>
-
-            <EditText
-                android:id="@+id/et_authenticate_id1"
-                style="@style/join_item_comm_editText_style"
-                android:hint="缴费人卡号"
-                android:inputType="phone"/>
-        </LinearLayout>
 
         <include layout="@layout/include_line_2"/>
 
@@ -94,18 +72,17 @@
             style="@style/join_item_img_style"
             android:paddingBottom="23dp">
             <TextView
-                android:id="@+id/tv_authenticate_idCard_photo3"
                 style="@style/join_item_img_textView_style"
                 android:text="签约协议"/>
 
             <ImageView
-                android:id="@+id/iv_authenticate_idCard_photo3"
+                android:id="@+id/iv_protocol_photo"
                 style="@style/join_item_img_pic_style"
                 android:src="@drawable/id_card_pic"/>
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_apply_authenticate"
+            android:id="@+id/btn_apply_payment"
             style="@style/btn_blue_style"
             android:background="@drawable/shape_btn_gray"
             android:text="立即登记"/>

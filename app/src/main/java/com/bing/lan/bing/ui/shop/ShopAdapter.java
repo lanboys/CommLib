@@ -15,7 +15,7 @@ import butterknife.BindView;
  * Email: lan_bing2013@163.com
  * Time: 2017/4/13  19:08
  */
-public class ShopAdapter extends BaseListAdapter<ShopBean> {
+public class ShopAdapter extends BaseListAdapter<ShopBean> implements View.OnClickListener {
 
     public ShopAdapter(Context context) {
         super(context);
@@ -30,7 +30,38 @@ public class ShopAdapter extends BaseListAdapter<ShopBean> {
     protected BaseViewHolder createViewHolder(int itemViewType, View itemView) {
         return new Holder(itemView);
     }
+    OnClickListener mOnClickListener;
+    public void setOnClickListener(OnClickListener onClickListener) {
+        mOnClickListener = onClickListener;
+    }
+    @Override
+    public void onClick(View view) {
 
+        Integer position = (Integer)view.getTag();
+        ShopBean shopBean = data.get(position);
+
+        switch (view.getId()) {
+
+            case R.id.tv_pos:
+
+                if (mOnClickListener != null) {
+                    mOnClickListener.onPaymentClick(position, shopBean);
+                }
+
+                break;
+            case R.id.iv_call:
+                if (mOnClickListener != null) {
+                    mOnClickListener.onCallClick(position, shopBean);
+                }
+                break;
+        }
+    }
+    public interface OnClickListener {
+
+        void onPaymentClick(int position, ShopBean data);
+
+        void onCallClick(int position, ShopBean data);
+    }
     class Holder extends BaseViewHolder {
 
         @BindView(R.id.tv_shop_name)
@@ -52,6 +83,12 @@ public class ShopAdapter extends BaseListAdapter<ShopBean> {
             mTvShopTime.setText(data.time);
 
             mTvPos.setVisibility(data.isShowPos ? View.VISIBLE : View.GONE);
+
+            mIvCall.setOnClickListener(ShopAdapter.this);
+            mIvCall.setTag(position);
+
+            mTvPos.setOnClickListener(ShopAdapter.this);
+            mTvPos.setTag(position);
         }
     }
 }

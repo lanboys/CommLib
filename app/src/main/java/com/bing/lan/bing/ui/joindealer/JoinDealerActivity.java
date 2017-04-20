@@ -1,7 +1,6 @@
 package com.bing.lan.bing.ui.joindealer;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -11,10 +10,10 @@ import com.bing.lan.bing.ui.joinsuccess.JoinSuccessActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
+import com.bing.lan.comm.utils.CityPickerUtil;
 import com.bing.lan.comm.utils.RegExpUtil;
 import com.bing.lan.comm.utils.SoftInputUtil;
 import com.bing.lan.comm.view.EditTextInputLayout;
-import com.lljjcoder.citypickerview.widget.CityPicker;
 
 import org.apache.http.util.TextUtils;
 
@@ -29,7 +28,7 @@ import butterknife.OnClick;
  * @time 2017/4/6  19:12
  */
 public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDealerPresenter>
-        implements IJoinDealerContract.IJoinDealerView, EditTextInputLayout.Validator {
+        implements IJoinDealerContract.IJoinDealerView, EditTextInputLayout.Validator, CityPickerUtil.CityPickerItemClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -51,8 +50,6 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
     ImageView mIvIdCardImgBack;
     @BindView(R.id.btn_join_now)
     Button mBtnJoinNow;
-
-    private CityPicker mCityPicker;
 
     @Override
     protected int getLayoutResId() {
@@ -92,6 +89,7 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
 
     }
 
+    private CityPickerUtil mCityPickerUtil;
 
     @OnClick({R.id.toolbar, R.id.eti_select_address,
             R.id.btn_join_now, R.id.iv_id_card_img_front, R.id.iv_id_card_img_back})
@@ -100,8 +98,11 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
             case R.id.eti_select_address:
                 //关闭软键盘
                 SoftInputUtil.closeSoftInput(this);
-                //选择城市
-                selectCity();
+                if (mCityPickerUtil == null) {
+                    mCityPickerUtil = new CityPickerUtil(this);
+                }
+                mCityPickerUtil.selectCity(this);
+
                 break;
 
             case R.id.btn_join_now:
@@ -123,52 +124,6 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
             case R.id.iv_id_card_img_back:
                 break;
         }
-    }
-
-    private String mProvince = "北京市";
-    private String mCity = "北京市";
-    private String mDistrict = "昌平区";
-
-    public void selectCity() {
-
-        if (mCityPicker == null) {
-            mCityPicker = new CityPicker.Builder(JoinDealerActivity.this).textSize(20)
-                    .titleTextColor("#000000")
-                    .backgroundPop(0xa0000000)
-                    .province(mProvince)
-                    .city(mCity)
-                    .district(mDistrict)
-                    .textColor(Color.parseColor("#000000"))
-                    .provinceCyclic(true)
-                    .cityCyclic(false)
-                    .districtCyclic(false)
-                    .visibleItemsCount(7)
-                    .itemPadding(10)
-                    .build();
-
-            mCityPicker.setOnCityItemClickListener(new CityPicker.OnCityItemClickListener() {
-                @Override
-                public void onSelected(String... citySelected) {
-                    mProvince = citySelected[0];
-                    mCity = citySelected[1];
-                    mDistrict = citySelected[2];
-
-                    // String text = "选择结果：\n省：" + mProvince + "\n市：" + mCity + "\n区："
-                    //         + mDistrict + "\n邮编：" + citySelected[3];
-
-                    String text = mProvince + " " + mCity + " " + mDistrict;
-                    mEtiSelectAddress.setEditContent(text);
-                    log.d("onSelected(): 地区选择结果" + text);
-                }
-
-                @Override
-                public void onCancel() {
-                    //Toast.makeText(JoinDealerActivity.this, "已取消", Toast.LENGTH_LONG).show();
-
-                }
-            });
-        }
-        mCityPicker.show();
     }
 
     @Override
@@ -251,5 +206,18 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void cityPickerItemClickListener(String province, String city, String district) {
+
+        String text = province + " " + city + " " + district;
+        mEtiSelectAddress.setEditContent(text);
+        log.d("onSelected(): 地区选择结果" + text);
+    }
+
+    @Override
+    public void cityPickerCancel() {
+
     }
 }

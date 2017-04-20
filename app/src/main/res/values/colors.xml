@@ -20,12 +20,6 @@
     <color name="color_ee9900">#EE9900</color>
     <color name="color_ffdb4e">#FFDB4E</color>
     <color name="color_f5b040">#F5B040</color>
-    <color name="theme_positive">#ee9900</color>
-    <color name="color_b3d466">#B3D466</color>
-
-
-    <color name="red_normal">#FF0000</color>
-    <color name="red_pressed">#FF6666</color>
     <!--*******************************************-->
     <!--*******************************************-->
     <!-- 主要背景色 -->
@@ -93,22 +87,13 @@
     <color name="main_bg_color">#F3F4F6</color>
     <color name="bg_white_color">#FFFFFF</color>
 
-    <color name="black">#000000</color>
-    <color name="black_alph02">#33000000</color>
-    <color name="black_alph04">#66000000</color>
-    <color name="black_alph30">#4d000000</color>
-    <color name="black_alph50">#80000000</color>
-    <color name="black_alph60">#7f000000</color>
-    <color name="black_alph70">#b3000000</color>
-    <color name="black_alph80">#cc000000</color>
-    <color name="white">#ffffffff</color>
+
 
     <color name="tv_error_color">#E5B76C</color>
 
     <color name="color_aaa">#AAAAAA</color>
     <color name="color_bbb">#BBBBBB</color>
     <color name="color_2b2b">#2B2B2B</color>
-    <color name="color_f99b15">#F99B15</color>
 
     <color name="bg_mine_new">#FF4C4C</color>
 
@@ -117,6 +102,35 @@
     <color name="tv_password_error_color">#FB0707</color>
     <color name="color_efefef">#EFEFEF</color>
 
+
+    <color name="white">#ffffffff</color>
+    <color name="gather_view_pressed">#ffffeccc</color>
+    <color name="btn_positive_normal">@color/theme_positive</color>
+    <color name="btn_positive_pressed">#ffee8800</color>
+    <color name="theme_positive">#ee9900</color>
+    <color name="color_ffdd66">#FFDD66</color>
+    <color name="color_b3d466">#B3D466</color>
+    <color name="color_f99b15">#F99B15</color>
+
+    <color name="red_normal">#FF0000</color>
+    <color name="red_pressed">#FF6666</color>
+
+    <color name="black">#000000</color>
+    <color name="black_alph02">#33000000</color>
+    <color name="black_alph04">#66000000</color>
+    <color name="black_alph30">#4d000000</color>
+    <color name="black_alph50">#80000000</color>
+    <color name="black_alph60">#7f000000</color>
+    <color name="black_alph70">#b3000000</color>
+    <color name="black_alph80">#cc000000</color>
+
+    <color name="gray_line">#CCCCCC</color>
+
+    <color name="press_color">#DDDDDD</color>
+
+    <color name="color_ff8989">#FF8989</color>
+
+    <color name="color_fbeccb">#FBECCB</color>
     <!-- 加载页面颜色 -->
     <color name="load_pager_background">#f3f3f3</color>
 

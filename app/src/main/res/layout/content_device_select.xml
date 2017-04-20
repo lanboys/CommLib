@@ -47,12 +47,12 @@
         style="@style/btn_blue_style"
         android:text="确定绑定"/>
 
-    <ListView
+    <com.bing.lan.comm.view.FlexiListView
         android:id="@+id/lv_device_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/ll_container"
         android:background="@color/main_color_white">
-    </ListView>
+    </com.bing.lan.comm.view.FlexiListView>
 
 </RelativeLayout>

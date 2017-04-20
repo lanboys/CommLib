@@ -14,7 +14,7 @@ import butterknife.BindView;
  * Email: lan_bing2013@163.com
  * Time: 2017/4/13  19:08
  */
-public class AgentListAdapter extends BaseListAdapter<AgentInfoBean> {
+public class AgentListAdapter extends BaseListAdapter<AgentInfoBean> implements View.OnClickListener {
 
     public AgentListAdapter(Context context) {
         super(context);
@@ -28,6 +28,25 @@ public class AgentListAdapter extends BaseListAdapter<AgentInfoBean> {
     @Override
     protected BaseViewHolder createViewHolder(int itemViewType, View itemView) {
         return new Holder(itemView);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Integer position = (Integer) v.getTag();
+        AgentInfoBean dealerInfoBean = data.get(position);
+
+        mOnClickListener.onCallClick(position, dealerInfoBean);
+    }
+
+    OnClickListener mOnClickListener;
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        mOnClickListener = onClickListener;
+    }
+
+    public interface OnClickListener {
+
+        void onCallClick(int position, AgentInfoBean data);
     }
 
     class Holder extends BaseViewHolder {
@@ -47,12 +66,9 @@ public class AgentListAdapter extends BaseListAdapter<AgentInfoBean> {
         public void fillData(AgentInfoBean data, int position) {
             mTvAgentName.setText(data.name);
             mTvAgentTime.setText(data.time);
+
+            mTvRegister.setOnClickListener(AgentListAdapter.this);
+            mTvRegister.setTag(position);
         }
-
-
-
-
-
-
     }
 }

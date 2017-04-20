@@ -77,6 +77,13 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
     @Override
     protected void readyStartPresenter() {
         mAdapter = new DealerListAdapter(this);
+
+
+        View inflate = View.inflate(this, R.layout.item_empty_lv_foot, null);
+
+        mLvDealer.addFooterView(inflate);
+
+
         mLvDealer.setAdapter(mAdapter);
         mAdapter.setOnClickListener(this);
 

@@ -3,9 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="78dp"
-    android:gravity="center"
+    android:gravity="center_vertical"
     android:paddingLeft="13dp"
     android:paddingRight="13dp"
+
 >
 
     <!--android:background="@color/main_color_white"-->
@@ -32,7 +33,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:padding="10dp"
         android:text="货物登记"
         android:textColor="@color/main_color_blue"
         android:textSize="@dimen/main_textSize_15sp"/>
