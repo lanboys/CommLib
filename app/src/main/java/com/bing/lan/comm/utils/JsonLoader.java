@@ -1,5 +1,6 @@
 package com.bing.lan.comm.utils;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 
@@ -36,6 +37,23 @@ public class JsonLoader {
             assets.close();
         }
         return "error";
+    }
+
+    private String getJson(Context context,String fileName) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        try {
+            AssetManager assetManager = context.getAssets();
+            BufferedReader bf = new BufferedReader(new InputStreamReader(
+                    assetManager.open(fileName)));
+            String line;
+            while ((line = bf.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return stringBuilder.toString();
     }
 
     // public TabContentBean genContentWithLocalJson() {

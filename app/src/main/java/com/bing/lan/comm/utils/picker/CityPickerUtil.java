@@ -1,10 +1,11 @@
-package com.bing.lan.comm.utils;
+package com.bing.lan.comm.utils.picker;
 
 import android.content.Context;
 import android.graphics.Color;
 
 import com.lljjcoder.citypickerview.widget.CityPicker;
 
+//https://github.com/crazyandcoder/citypicker
 public class CityPickerUtil {
 
     private CityPicker mCityPicker;
@@ -33,15 +34,18 @@ public class CityPickerUtil {
     public void selectCity(Context context) {
 
         if (mCityPicker == null) {
-            mCityPicker = new CityPicker.Builder(context).textSize(20)
+            mCityPicker = new CityPicker.Builder(context)
+                    .textSize(20)
                     .titleTextColor("#000000")
-                    .backgroundPop(0xa0000000)
-                    .province(mProvince)
+                    .backgroundPop(0x00000000)//干掉背景色 不干掉 动画有问题
+                    .province(mProvince)//已显示的时候 再次点击  如何带回去已经选择的省市区
                     .city(mCity)
                     .district(mDistrict)
                     .textColor(Color.parseColor("#000000"))
                     .provinceCyclic(true)
                     .cityCyclic(false)
+                    .confirTextColor("#0195ff")
+                    .cancelTextColor("#0195ff")
                     .districtCyclic(false)
                     .visibleItemsCount(7)
                     .itemPadding(10)
@@ -65,7 +69,7 @@ public class CityPickerUtil {
                 @Override
                 public void onCancel() {
                     if (mListener != null) {
-                        onCancel();
+                        mListener.cityPickerCancel();
                     }
                 }
             });

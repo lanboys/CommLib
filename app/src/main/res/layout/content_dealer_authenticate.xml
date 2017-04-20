@@ -46,6 +46,7 @@
             android:id="@+id/eti_payment_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:edit_inputType="phone"
             app:edit_hint="物料押金金额"
             app:title="缴费金额"/>
 
@@ -56,12 +57,13 @@
             app:image_visibility="visible"
             app:image="@drawable/iv_mine_into"
             app:edit_enable="false"
-            app:edit_hint="2017-04-14 14:15"
+            app:edit_hint="选择缴费时间"
             app:title="缴费时间"/>
         <com.bing.lan.comm.view.EditTextInputLayout
             android:id="@+id/eti_payment_card_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:edit_inputType="phone"
             app:edit_hint="缴费人卡号"
             app:title="缴费卡号"/>
 

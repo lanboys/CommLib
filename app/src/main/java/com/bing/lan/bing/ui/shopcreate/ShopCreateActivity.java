@@ -13,6 +13,7 @@ import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
+import com.bing.lan.comm.utils.picker.PickerUtil;
 import com.bing.lan.comm.view.EditTextInputLayout;
 
 import butterknife.BindView;
@@ -23,7 +24,7 @@ import butterknife.OnClick;
  * @time 2017/4/6  19:12
  */
 public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCreatePresenter>
-        implements IShopCreateContract.IShopCreateView {
+        implements IShopCreateContract.IShopCreateView, PickerUtil.PickerItemSelectListener {
 
     public static final int REQUEST_CODE_GET_ADDRESS_FORM_MAP = 1;
     public static final String ADDRESS_INFO = "address_form_map";
@@ -47,6 +48,7 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
     ImageView mIvShopPayTablePhoto;
     @BindView(R.id.btn_create_shop)
     Button mBtnCreateShop;
+    private PickerUtil mPickerUtil;
 
     @Override
     protected int getLayoutResId() {
@@ -93,7 +95,17 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.eti_shop_select_type:
-                showToast("选择主营类型");
+                //try {
+                //    selectType();
+                //} catch (Exception e) {
+                //    log.e("onViewClicked(): 选择类型出现异常 " + e.getLocalizedMessage());
+                //}
+
+                if (mPickerUtil == null) {
+                    mPickerUtil = new PickerUtil(this);
+                }
+                mPickerUtil.selectType(this);
+
                 break;
             case R.id.eti_shop_select_address:
                 //地图选址
@@ -120,5 +132,11 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
             //    selectPhoto(mIvShopCertificatePhoto);
             //    break;
         }
+    }
+
+    @Override
+    public void onItemSelect(String options1, String options2, View v) {
+
+        mEtiShopSelectType.setEditContent(options1 + " - " + options2);
     }
 }

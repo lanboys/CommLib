@@ -11,6 +11,7 @@ import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
 import com.bing.lan.comm.utils.dialog.SelectTimeBean;
 import com.bing.lan.comm.utils.dialog.TimePickDialogFragment;
+import com.bing.lan.comm.utils.picker.TimePickerUtil;
 import com.bing.lan.comm.view.EditTextInputLayout;
 
 import butterknife.BindView;
@@ -21,7 +22,7 @@ import butterknife.OnClick;
  * @time 2017/4/6  19:12
  */
 public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticateContract.IDealerAuthenticatePresenter>
-        implements IDealerAuthenticateContract.IDealerAuthenticateView {
+        implements IDealerAuthenticateContract.IDealerAuthenticateView, TimePickerUtil.PickerItemSelectListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -37,6 +38,7 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
     ImageView mIvProtocolPhoto;
     @BindView(R.id.btn_apply_payment)
     Button mBtnApplyPayment;
+    private TimePickerUtil mTimePickerUtil;
 
     @Override
     protected int getLayoutResId() {
@@ -65,7 +67,13 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
                 selectPhoto(mIvPaymentPhoto);
                 break;
             case R.id.eti_payment_time:
-                showTimePicker();
+
+                if (mTimePickerUtil == null) {
+                    mTimePickerUtil = new TimePickerUtil(this);
+                }
+
+                mTimePickerUtil.selectTime(this);
+
                 break;
             case R.id.iv_protocol_photo:
                 selectPhoto(mIvProtocolPhoto);
@@ -85,5 +93,10 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
                 mEtiPaymentTime.setEditContent(bean.getTimeDetail());
             }
         });
+    }
+
+    @Override
+    public void onItemSelect(String date, View v) {
+        mEtiPaymentTime.setEditContent(date);
     }
 }

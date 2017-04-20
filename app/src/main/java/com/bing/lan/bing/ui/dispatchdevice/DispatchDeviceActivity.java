@@ -12,7 +12,7 @@ import com.bing.lan.bing.ui.deviceselect.DeviceSelectActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
-import com.bing.lan.comm.utils.CityPickerUtil;
+import com.bing.lan.comm.utils.picker.CityPickerUtil;
 import com.bing.lan.comm.view.EditTextInputLayout;
 
 import butterknife.BindView;
