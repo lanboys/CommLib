@@ -45,6 +45,11 @@
             android:name="com.bing.lan.bing.ui.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
 
         <!-- 主页面 -->
@@ -58,11 +63,13 @@
         <activity
             android:name="com.bing.lan.bing.ui.splash.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            <!-- </intent-filter> -->
         </activity>
 
         <!-- 注册页面 -->
@@ -230,6 +237,16 @@
         <activity
             android:name="com.bing.lan.bing.ui.registerPos.RegisterPosActivity"
             android:label="@string/title_activity_register_pos"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.notAvailableDetail.NotAvailableDetail"
+            android:label="@string/title_activity_not_available_detail"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.bing.lan.bing.ui.notSettlementDetail.NotSettlementDetail"
+            android:label="@string/title_activity_not_settlement_detail"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

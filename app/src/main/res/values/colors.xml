@@ -47,7 +47,7 @@
     <!-- 主要蓝色 -->
     <color name="main_color_gray">#dfe4ed</color>
     <!-- 主要 分割线 颜色 -->
-    <color name="main_color_gray_line">#CCCCCC</color>
+    <color name="main_color_gray_line">#f0f1f3</color>
     <!-- popup 阴影 -->
     <color name="popup_color_shadow">#8b7b7979</color>
 

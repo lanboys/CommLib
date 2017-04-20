@@ -2,10 +2,11 @@ package com.bing.lan.bing.ui.notsettlement;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.bing.lan.bing.ui.takemoney.TakeMoneyInfoBean;
-import com.bing.lan.bing.ui.takemoney.TakeMoneyListAdapter;
+import com.bing.lan.bing.ui.notSettlementDetail.NotSettlementDetail;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -19,7 +20,7 @@ import butterknife.BindView;
  * @time 2017/4/6  19:12
  */
 public class NotSettlementActivity extends BaseActivity<INotSettlementContract.INotSettlementPresenter>
-        implements INotSettlementContract.INotSettlementView {
+        implements INotSettlementContract.INotSettlementView, AdapterView.OnItemClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -43,16 +44,23 @@ public class NotSettlementActivity extends BaseActivity<INotSettlementContract.I
 
     @Override
     protected void readyStartPresenter() {
-        ArrayList<TakeMoneyInfoBean> shopBeen = new ArrayList<>();
+        ArrayList<NotSettlementInfoBean> shopBeen = new ArrayList<>();
 
         for (int i = 0; i < 14; i++) {
-            shopBeen.add(new TakeMoneyInfoBean("收益: 100", "2017-01-25 04:00:22", "微信收款"));
+            shopBeen.add(new NotSettlementInfoBean("收益: 100", "2017-01-25 04:00:22", "微信收款"));
         }
 
-        TakeMoneyListAdapter adapter = new TakeMoneyListAdapter(this);
+        NotSettlementListAdapter adapter = new NotSettlementListAdapter(this);
         mLvTakeMoney.setAdapter(adapter);
+
+        mLvTakeMoney.setOnItemClickListener(this);
 
         adapter.setDataAndRefresh(shopBeen);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        startActivity(new Intent(this, NotSettlementDetail.class));
     }
 }

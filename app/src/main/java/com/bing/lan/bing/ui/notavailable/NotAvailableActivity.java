@@ -2,10 +2,11 @@ package com.bing.lan.bing.ui.notavailable;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.bing.lan.bing.ui.takemoney.TakeMoneyInfoBean;
-import com.bing.lan.bing.ui.takemoney.TakeMoneyListAdapter;
+import com.bing.lan.bing.ui.notAvailableDetail.NotAvailableDetail;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -19,7 +20,7 @@ import butterknife.BindView;
  * @time 2017/4/6  19:12
  */
 public class NotAvailableActivity extends BaseActivity<INotAvailableContract.INotAvailablePresenter>
-        implements INotAvailableContract.INotAvailableView {
+        implements INotAvailableContract.INotAvailableView, AdapterView.OnItemClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -43,16 +44,24 @@ public class NotAvailableActivity extends BaseActivity<INotAvailableContract.INo
 
     @Override
     protected void readyStartPresenter() {
-        ArrayList<TakeMoneyInfoBean> shopBeen = new ArrayList<>();
+        ArrayList<NotAvailableInfoBean> shopBeen = new ArrayList<>();
 
         for (int i = 0; i < 14; i++) {
-            shopBeen.add(new TakeMoneyInfoBean("100", "2017-01-25 04:00:22", "微信收款"));
+            shopBeen.add(new NotAvailableInfoBean("100", "2017-01-25 04:00:22", "微信收款"));
         }
 
-        TakeMoneyListAdapter adapter = new TakeMoneyListAdapter(this);
+        NotAvailableListAdapter adapter = new NotAvailableListAdapter(this);
         mLvTakeMoney.setAdapter(adapter);
+
+        mLvTakeMoney.setOnItemClickListener(this);
 
         adapter.setDataAndRefresh(shopBeen);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+        startActivity(new Intent(this, NotAvailableDetail.class));
     }
 }

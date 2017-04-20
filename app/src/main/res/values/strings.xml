@@ -30,4 +30,6 @@
     <string name="title_activity_dispatch_device">DispatchDeviceActivity</string>
     <string name="title_activity_withdraw_record_detail">WithdrawRecordDetailActivity</string>
     <string name="title_activity_register_pos">RegisterPosActivity</string>
+    <string name="title_activity_not_available_detail">NotAvailableDetail</string>
+    <string name="title_activity_not_settlement_detail">NotSettlementDetail</string>
 </resources>

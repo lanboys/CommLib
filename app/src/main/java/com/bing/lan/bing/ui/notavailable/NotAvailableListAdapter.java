@@ -14,9 +14,9 @@ import butterknife.BindView;
  * Email: lan_bing2013@163.com
  * Time: 2017/4/13  19:08
  */
-public class TakeMoneyListAdapter extends BaseListAdapter<TakeMoneyInfoBean> {
+public class NotAvailableListAdapter extends BaseListAdapter<NotAvailableInfoBean> {
 
-    public TakeMoneyListAdapter(Context context) {
+    public NotAvailableListAdapter(Context context) {
         super(context);
     }
 
@@ -44,7 +44,7 @@ public class TakeMoneyListAdapter extends BaseListAdapter<TakeMoneyInfoBean> {
         }
 
         @Override
-        public void fillData(TakeMoneyInfoBean data, int position) {
+        public void fillData(NotAvailableInfoBean data, int position) {
             mTvRight.setText(data.name);
             mTvTime.setText(data.time);
             mTvMoney.setText(data.money);

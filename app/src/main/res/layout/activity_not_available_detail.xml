@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.bing.lan.bing.ui.notavailable.NotAvailableActivity">
+    tools:context="com.bing.lan.bing.ui.notAvailableDetail.NotAvailableDetail">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,7 +22,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_not_available"/>
-
+    <include layout="@layout/content_not_available_detail"/>
 
 </android.support.design.widget.CoordinatorLayout>
