@@ -63,6 +63,7 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     protected LogUtil log;
     @Inject
     protected T mPresenter;
+    protected PhotoSelectUtil mSelectPhotoUtil;
     private ProgressDialogUtil mProgress;
     private ProgressDialogUtil mProgressDialog;
 
@@ -232,7 +233,7 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     public void showProgressDialog(String msg) {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialogUtil(this);
-            mProgressDialog.setMessage("加载中...");
+            mProgressDialog.setMessage(msg == null ? "" : msg);
             mProgressDialog.setCancelable(false);
             mProgressDialog.show();
         }
@@ -240,8 +241,10 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
 
     @Override
     public void dismissProgressDialog() {
-        mProgressDialog.dismiss();
-        mProgressDialog = null;
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
     }
 
     @Override
@@ -454,8 +457,6 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     protected boolean isHaveSelectPhoto() {
         return true;
     }
-
-    protected PhotoSelectUtil mSelectPhotoUtil;
 
     // @Override
     // public void onResume() {

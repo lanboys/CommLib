@@ -9,7 +9,7 @@
     android:background="@color/main_color_background"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.bing.lan.bing.ui.modifypassword.ModifyPswActivity"
+    tools:context="com.bing.lan.bing.ui.modifyPassword.ModifyPswActivity"
     tools:showIn="@layout/activity_modify_psw">
 
     <com.bing.lan.comm.view.EditTextInputLayout
@@ -17,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:edit_hint="新密码,8-20位数字字符下划线"
-        app:image="@drawable/eyes1"
+        app:image="@drawable/eyes2"
+        app:edit_inputType="textPassword"
         app:image_visibility="visible"
         app:title_visibility="gone"
     />

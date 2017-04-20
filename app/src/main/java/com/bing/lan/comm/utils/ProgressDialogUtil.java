@@ -14,7 +14,8 @@ public class ProgressDialogUtil extends ProgressDialog {
     private ProgressBar pgb_progress;
     private TextView tv_message;
 
-    private String mMessage = "加载中...";
+    // private String mMessage = "加载中...";
+    private String mMessage = "";
 
     public ProgressDialogUtil(Context context) {
         super(context, R.style.ProgressDialogTheme);

@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
@@ -196,6 +197,16 @@ public class AppUtil {
 
     public static int getColor(int colorId) {
         return sResources.getColor(colorId);
+    }
+
+    public static int getIntByRandom() {
+
+        return new Random(50).nextInt(30);
+    }
+
+    public static boolean getBooleanByRandom() {
+
+        return getIntByRandom() % 2 == 0;
     }
 
     public static String loadAssetsJson(String fileName) {

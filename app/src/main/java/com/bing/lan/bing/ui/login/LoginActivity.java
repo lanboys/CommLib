@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bing.lan.bing.ui.forgetpassword.ForgetPasswordActivity;
+import com.bing.lan.bing.ui.forgetPassword.ForgetPasswordActivity;
 import com.bing.lan.bing.ui.main.MainActivity;
 import com.bing.lan.bing.ui.register.RegisterActivity;
 import com.bing.lan.comm.R;
@@ -93,7 +93,7 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
     }
 
     @OnClick({R.id.btn_login, R.id.tv_new_user_register, R.id.tv_forget_password,
-            R.id.ll_login, R.id.ll_not_employee, R.id.ll_employee})
+            R.id.ll_login, R.id.ll_not_employee, R.id.ll_employee,R.id.tv_register_tip})
     public void onClick(View view) {
         switch (view.getId()) {
 

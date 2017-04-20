@@ -17,6 +17,8 @@
         <attr name="edit_inputType1" format="enum">
             <enum name="text" value="1"/>
             <enum name="phone" value="3"/>
+            <enum name="textPassword" value="128"/>
+
 
         </attr>
 
@@ -44,11 +46,12 @@
             <enum name="invisible" value="4"/>
             <enum name="gone" value="8"/>
         </attr>
-
+        <!--http://www.jb51.net/article/90004.htm-->
         <!--android:inputType="phone"-->
         <attr name="edit_inputType" format="enum">
             <enum name="text" value="1"/>
             <enum name="phone" value="3"/>
+            <enum name="textPassword" value="128"/>
 
         </attr>
 

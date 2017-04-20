@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,6 +28,10 @@ public class EditTextInputLayout extends LinearLayout {
     private ImageView mIvImage;
     private View mLineContainer;
     private boolean mIsEditEnable;
+    /**
+     * 开启校验总开关
+     */
+    private boolean isOpenValidate = AppConfig.VALIDATE;
 
     public EditTextInputLayout(Context context) {
         super(context);
@@ -114,6 +119,13 @@ public class EditTextInputLayout extends LinearLayout {
         }
     }
 
+    public void setLineVisibility(int visibility) {
+        if (mLineContainer != null) {
+
+            mLineContainer.setVisibility(visibility);
+        }
+    }
+
     public void setImageVisibility(int visibility) {
 
         if (mIvImage != null) {
@@ -190,6 +202,18 @@ public class EditTextInputLayout extends LinearLayout {
             mEdContent.setText(s);
         }
     }
+    public void setEditInputType(int type) {
+
+        if (mEdContent != null) {
+            mEdContent.setInputType(type);
+        }
+
+        //选择状态 显示明文--设置为可见的密码
+        mEdContent.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+        //默认状态显示密码--设置文本 要一起写才能起作用 InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD
+        mEdContent.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+    }
 
     public CharSequence getTitle() {
         return mTvTitle.getText();
@@ -212,11 +236,6 @@ public class EditTextInputLayout extends LinearLayout {
             return super.onInterceptTouchEvent(ev);
         }
     }
-
-    /**
-     * 开启校验总开关
-     */
-    private boolean isOpenValidate = AppConfig.VALIDATE;
 
     public boolean validate() {
 

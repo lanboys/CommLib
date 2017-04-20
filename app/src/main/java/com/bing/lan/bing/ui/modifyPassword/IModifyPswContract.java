@@ -1,4 +1,4 @@
-package com.bing.lan.bing.ui.modifypassword;
+package com.bing.lan.bing.ui.modifyPassword;
 
 import com.bing.lan.comm.base.mvp.activity.IBaseActivityContract;
 

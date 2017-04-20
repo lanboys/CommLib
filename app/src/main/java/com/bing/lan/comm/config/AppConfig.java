@@ -23,7 +23,7 @@ public class AppConfig {
     /**
      * 是否 开启 edit 验证
      */
-    public static final boolean VALIDATE = false;
+    public static final boolean VALIDATE = true;
 
     /**
      * 日间/夜间模式存储的键值

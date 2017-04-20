@@ -52,7 +52,9 @@
         <activity
             android:name="com.bing.lan.bing.ui.login.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar"
+        >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -89,7 +91,7 @@
 
         <!-- 忘记密码页面 -->
         <activity
-            android:name="com.bing.lan.bing.ui.forgetpassword.ForgetPasswordActivity"
+            android:name="com.bing.lan.bing.ui.forgetPassword.ForgetPasswordActivity"
             android:label="@string/title_activity_forget_password"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
@@ -218,7 +220,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name="com.bing.lan.bing.ui.modifypassword.ModifyPswActivity"
+            android:name="com.bing.lan.bing.ui.modifyPassword.ModifyPswActivity"
             android:label="@string/title_activity_modify_psw"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

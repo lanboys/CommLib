@@ -1,6 +1,12 @@
-package com.bing.lan.bing.ui.forgetpassword;
+package com.bing.lan.bing.ui.forgetPassword;
 
+import android.text.TextUtils;
+import android.view.View;
+
+import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
+import com.bing.lan.comm.utils.AppUtil;
+import com.bing.lan.comm.utils.RegExpUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +25,9 @@ public class ForgetPasswordPresenter
         extends BaseActivityPresenter<IForgetPasswordContract.IForgetPasswordView, IForgetPasswordContract.IForgetPasswordModule>
         implements IForgetPasswordContract.IForgetPasswordPresenter {
 
-    private static final int TOTAL_WAITING_VERIFICATION_CODE_TIME = 120;
+    public static final int TOTAL_WAITING_VERIFICATION_CODE_TIME = 120;
+    public static final int ACTION_CHECK_PHONE = 1;
+    public static final int ACTION_CHECK_VERIFICATION_CODE = 2;
     private CompositeSubscription mSubscription;
 
     @Override
@@ -36,13 +44,79 @@ public class ForgetPasswordPresenter
     @SuppressWarnings("unchecked")
     public void onSuccess(int action, Object data) {
 
+        mView.dismissProgressDialog();
+
         switch (action) {
 
-            // case LOAD_GANK:
-            //
-            //     break;
+            case ACTION_CHECK_PHONE:
+                //根据状态 tre 发送成功
+                if (!AppUtil.getBooleanByRandom()) {
+                    //倒计时
+                    updateWaitingVerificationCodeTime();
+                    mView.setVerificationStatus();
+                } else {
+                    //显示错误信息
+                    mView.setRegisterTipVisibility(View.VISIBLE);
+                }
+                break;
+            case ACTION_CHECK_VERIFICATION_CODE:
 
+                if (AppUtil.getBooleanByRandom()) {
+                    //验证码正确 进入修改密码界面
+                    mView.goModifyPswActivity();
+                } else {
+                    //验证码不正确 进入再次验证界面
+                    mView.goVerificationActivity();
+                }
+                //取消倒计时
+                releaseTask();
+
+                break;
         }
+    }
+
+    @Override
+    public void checkPhoneStatus(String phone) {
+        //请求网络
+        mModule.requestData(ACTION_CHECK_PHONE, this, phone);
+        mView.showProgressDialog("请稍后..");
+    }
+
+    @Override
+    public void checkVerificationCode(String code) {
+        mModule.requestData(ACTION_CHECK_VERIFICATION_CODE, this, code);
+        mView.showProgressDialog("请稍后..");
+    }
+
+    @Override
+    public boolean validate(String content, int id, String success, String fail) {
+        boolean result = false;
+        if (!TextUtils.isEmpty(content)) {
+            switch (id) {
+                case R.id.eti_phone_number:
+                    result = RegExpUtil.checkPhoneNum(content);
+                    break;
+                case R.id.eti_verification_code:
+                    //不为空 认为正确
+                    //进行网络请求判断验证码
+                    result = content.length() > 2;
+                    break;
+                default:
+                    result = false;
+                    break;
+            }
+        }
+
+        if (result) {
+            if (success != null) {
+                //showToast(success);
+            }
+        } else {
+            if (fail != null) {
+                mView.showToast(fail);
+            }
+        }
+        return result;
     }
 
     @Override
@@ -54,8 +128,6 @@ public class ForgetPasswordPresenter
     public void onCompleted(int action) {
         super.onCompleted(action);
     }
-
-
 
     public void updateWaitingVerificationCodeTime() {
 
@@ -70,14 +142,23 @@ public class ForgetPasswordPresenter
                             mView.updateWaitingVerificationCodeTime(countTime);
                     }
                 });
-
+        if (mSubscription == null) {
+            mSubscription = new CompositeSubscription();
+        }
         mSubscription.add(subscribe);
     }
 
     @Override
     public void onDetachView() {
         super.onDetachView();
-        mSubscription.clear();
-        mSubscription = null;
+        releaseTask();
+    }
+
+    private void releaseTask() {
+        mView.updateWaitingVerificationCodeTime(0);
+        if (mSubscription != null) {
+            mSubscription.clear();
+            mSubscription = null;
+        }
     }
 }

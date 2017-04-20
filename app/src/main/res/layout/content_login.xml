@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_login"
     android:layout_width="match_parent"
-    android:background="@color/main_color_white"
     android:layout_height="match_parent"
+    android:background="@color/main_color_white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.bing.lan.bing.ui.login.LoginActivity"
     tools:showIn="@layout/activity_login">
@@ -43,8 +43,8 @@
             android:id="@+id/et_input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             app:edit_hint1="登录密码"
+            app:edit_inputType1="textPassword"
             app:image1="@drawable/iv_password"
         >
         </com.bing.lan.comm.view.EditTextInputView>
