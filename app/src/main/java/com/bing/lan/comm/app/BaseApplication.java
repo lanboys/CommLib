@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.support.multidex.MultiDex;
 
 import com.bing.lan.comm.utils.AppUtil;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import java.io.File;
 
@@ -33,7 +34,7 @@ public class BaseApplication extends Application {
         //全局初始化
         AppUtil.initGlobal(this, getApplicationContext());
         //二维码
-        //ZXingLibrary.initDisplayOpinion(this);
+        ZXingLibrary.initDisplayOpinion(this);
 
         //otto
         // if (sBus == null) {

@@ -27,8 +27,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:textColor="@color/main_color_text_black"
                 android:text="今日收益金额(元)"
+                android:textColor="@color/main_color_text_black"
                 android:textSize="@dimen/main_textSize_15sp"/>
 
 
@@ -136,11 +136,13 @@
             android:paddingTop="22dp">
 
             <ImageView
+                android:id="@+id/iv_qrcode"
                 android:layout_width="145dp"
                 android:layout_height="145dp"
                 android:src="@drawable/qcode"/>
 
             <TextView
+                android:id="@+id/tv_qrcode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

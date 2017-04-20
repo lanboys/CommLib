@@ -42,10 +42,6 @@
             android:text="搜索"/>
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/btn_ok"
-        style="@style/btn_blue_style"
-        android:text="确定绑定"/>
 
     <com.bing.lan.comm.view.FlexiListView
         android:id="@+id/lv_device_list"
@@ -55,4 +51,8 @@
         android:background="@color/main_color_white">
     </com.bing.lan.comm.view.FlexiListView>
 
+    <Button
+        android:id="@+id/btn_ok"
+        style="@style/btn_blue_style"
+        android:text="确定绑定"/>
 </RelativeLayout>

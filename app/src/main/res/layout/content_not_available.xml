@@ -9,6 +9,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.bing.lan.bing.ui.notavailable.NotAvailableActivity"
     tools:showIn="@layout/activity_not_available">
+
     <com.bing.lan.comm.view.FlexiListView
         android:id="@+id/lv_take_money"
         android:layout_width="match_parent"

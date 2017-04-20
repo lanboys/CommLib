@@ -33,11 +33,6 @@
     <!--android:background="@drawable/btn_login_selector"-->
     <!--app:tabIndicatorColor="@color/tab_text_color_white"-->
 
-    <Button
-        android:id="@+id/btn_register_shop"
-        style="@style/btn_blue_style"
-        android:text="登记店铺"/>
-
     <com.bing.lan.comm.view.FlexiListView
         android:divider="@null"
         android:id="@+id/lv_shop"
@@ -46,5 +41,10 @@
         android:layout_below="@id/tabLayout_shop"
         android:background="@color/main_color_white">
     </com.bing.lan.comm.view.FlexiListView>
+
+    <Button
+        android:id="@+id/btn_register_shop"
+        style="@style/btn_blue_style"
+        android:text="登记店铺"/>
 
 </RelativeLayout>

@@ -33,10 +33,7 @@
     <!--app:tabIndicatorColor="@color/tab_text_color_white"-->
 
 
-    <Button
-        android:id="@+id/btn_create_dealer"
-        style="@style/btn_blue_style"
-        android:text="登记经销商"/>
+
 
     <com.bing.lan.comm.view.FlexiListView
         android:divider="@null"
@@ -47,5 +44,9 @@
         android:background="@color/main_color_white">
     </com.bing.lan.comm.view.FlexiListView>
 
+    <Button
+        android:id="@+id/btn_create_dealer"
+        style="@style/btn_blue_style"
+        android:text="登记经销商"/>
 
 </RelativeLayout>
