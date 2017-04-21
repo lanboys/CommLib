@@ -69,7 +69,7 @@ public class RegExpUtil {
         //System.out.println(Pattern.matches(regx, "aBcDefghij"));
 
         if (!name.matches("[\u4e00-\u9fa5]{2,7}")) {
-            System.out.println("只能输入2到4个汉字");
+            System.out.println("只能输入2到7个汉字");
             return false;
         }else return true;
     }

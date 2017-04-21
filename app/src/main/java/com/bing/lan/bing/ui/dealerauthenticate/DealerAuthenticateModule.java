@@ -5,7 +5,6 @@ import com.bing.lan.comm.base.mvp.IBaseContract;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityModule;
 
 import java.io.File;
-import java.io.IOException;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -34,11 +33,13 @@ public class DealerAuthenticateModule extends BaseActivityModule
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                log.e("onResponse(): ");
+
                 try {
                     log.e("onResponse(): " + response.body().string());
+                } catch (Exception e) {
 
-                    log.d("onResponse(): " + "{\"errorCode\":200,\"data\":{\"dealId\":\"20\"},\"msg\":\"\\u521b\\u5efa\\u6210\\u529f\"}");
-                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -49,7 +50,7 @@ public class DealerAuthenticateModule extends BaseActivityModule
             }
         });
 
-        // subscribe(observable, action, listener, "上传缴费凭证");
+        //   subscribe(observable, action, listener, "上传缴费凭证");
 
     }
 
