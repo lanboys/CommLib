@@ -28,7 +28,8 @@ public class DealerAuthenticateModule extends BaseActivityModule
         Call<ResponseBody> responseBodyCall = ApiManager
                 .getInstance()
                 .getJzkApiService()
-                .uploadDealerAuthenticate(requestBody, requestBody1, "205", "20000", "5465454564565612", "2017-10-10 10:10:10");
+                .uploadDealerAuthenticate(requestBody, requestBody1,
+                        "205", "20000", "5465454564565612", "2017-10-10 10:10:10");
 
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override

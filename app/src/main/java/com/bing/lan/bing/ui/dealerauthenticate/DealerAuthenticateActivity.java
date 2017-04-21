@@ -6,7 +6,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
@@ -132,8 +131,6 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
         mEtiPaymentTime.setEditContent(date);
     }
 
-    // boolean isFinishProtocolPhotoSelect = false;
-    // boolean isFinishPaymentPhotoSelect = false;
 
     File mProtocolFile;
     File mPaymentFile;
@@ -144,16 +141,14 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
         switch (imageView.getId()) {
 
             case R.id.iv_protocol_photo://签约协议照片
-                // isFinishProtocolPhotoSelect = true;
                 mProtocolFile = new File(source.getPath());
                 break;
             case R.id.iv_payment_photo://缴费凭证照片
-                // isFinishPaymentPhotoSelect = true;
                 mPaymentFile = new File(source.getPath());
                 break;
         }
 
-        Toast.makeText(this, "上传图片", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "上传图片", Toast.LENGTH_SHORT).show();
     }
 
     @Override

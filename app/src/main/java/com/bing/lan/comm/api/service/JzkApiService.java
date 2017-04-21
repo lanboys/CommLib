@@ -53,4 +53,19 @@ public interface JzkApiService {
     //@Multipart
     //@POST("upload/index.jsp")
     //Call<ResponseBody> uploadDealerAuthenticate(@Part("Upload[file]\"; filename=\"avatar.jpg") RequestBody body);
+
+    @Multipart
+    @POST("dealer/pay")
+    Call<ResponseBody> joinDealer(
+            @Query("phone") String phone,
+            @Query("real_name") String real_name,
+            @Query("province") String province,
+            @Query("city") String city,
+            @Query("area") String area,
+            @Query("addressDetail") String addressDetail,
+            @Query("idCard") String idCard,
+            @Part("Upload[file]\"; filename=\"avatar1.jpg") RequestBody body1,
+            @Part("Upload[file]\"; filename=\"avatar.jpg") RequestBody body
+
+    );
 }

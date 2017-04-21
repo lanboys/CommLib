@@ -72,7 +72,7 @@ public class JoinSuccessActivity extends BaseActivity<IJoinSuccessContract.IJoin
 
     @Override
     protected void initViewAndData(Intent intent) {
-        setToolBar(mToolbar, "登记成功", true, 0);
+        setToolBar(mToolbar, "登记成功", true, R.drawable.iv_close);
 
         if (intent != null) {
 

@@ -11,10 +11,19 @@ public interface IJoinDealerContract {
     interface IJoinDealerView
             extends IBaseActivityContract.IBaseActivityView<IJoinDealerPresenter> {
 
+        void goToJoinSuccessActivity();
+
     }
 
     interface IJoinDealerPresenter
             extends IBaseActivityContract.IBaseActivityPresenter<IJoinDealerView, IJoinDealerModule> {
+
+        boolean validate(String content, int id, String success, String fail);
+
+
+
+
+
 
     }
 
