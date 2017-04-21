@@ -61,10 +61,8 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
         activityComponent.inject(this);
     }
 
-    @Override
-    protected boolean isTranslucentStatus() {
-        return false;
-    }
+
+
 
     @Override
     protected void initViewAndData(Intent intent) {
@@ -77,8 +75,8 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
         mEtiSelectAddress.setValidator(this);
 
         //test
-        mEtiPhoneNumber.setEditContent("13556004824");
-        mEtiJoinName.setEditContent("蓝兵");
+        mEtiPhoneNumber.setEditContent("18933333333");
+        mEtiJoinName.setEditContent("蓝小兵");
         mEtiAddressDetail.setEditContent("东田大厦");
         mEtiIdCardNumber.setEditContent("440223199812253730");
         //test

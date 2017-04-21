@@ -63,6 +63,11 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
         mEtiPaymentNumber.setValidator(this);
         mEtiPaymentTime.setValidator(this);
         mEtiPaymentCardId.setValidator(this);
+
+
+        mEtiPaymentNumber.setEditContent("22000");
+        mEtiPaymentTime.setEditContent("2017-10-10 10:10:10");
+        mEtiPaymentCardId.setEditContent("5465454564565612");
     }
 
     @Override
