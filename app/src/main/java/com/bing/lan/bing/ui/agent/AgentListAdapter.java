@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bing.lan.bing.ui.agent.bean.AgentInfoBean;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.adapter.BaseListAdapter;
 

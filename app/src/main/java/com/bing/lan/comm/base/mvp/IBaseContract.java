@@ -1,5 +1,7 @@
 package com.bing.lan.comm.base.mvp;
 
+import android.content.Intent;
+
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 
 public interface IBaseContract {
@@ -25,7 +27,9 @@ public interface IBaseContract {
 
         void startActivity(Class<? extends BaseActivity> clazz, boolean isFinish, boolean isAnim);
 
-        void startActivity(Class<? extends BaseActivity> clazz);
+        void startActivity(Intent intent, boolean isFinish, boolean isAnim);
+
+        // void startActivity(Class<? extends BaseActivity> clazz);
     }
 
     interface IBasePresenter<T extends IBaseView, M extends IBaseModule> extends OnDataChangerListener {

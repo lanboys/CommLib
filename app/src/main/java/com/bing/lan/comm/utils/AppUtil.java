@@ -234,13 +234,20 @@ public class AppUtil {
         return "";
     }
 
-    public static void startActivity(Context c, Class<? extends Activity> clazz, boolean ifFinish, boolean addFlags) {
+    public static void startActivity(Context c, Class<? extends Activity> clazz,
+            boolean isFinish, boolean addFlags) {
+
         Intent intent = new Intent(c, clazz);
+        startActivity(c, intent, isFinish, addFlags);
+    }
+
+    public static void startActivity(Context c, Intent intent,
+            boolean isFinish, boolean addFlags) {
         if (addFlags) {
             intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
         }
         c.startActivity(intent);
-        if (ifFinish) {
+        if (isFinish) {
             ((Activity) c).finish();
         }
     }

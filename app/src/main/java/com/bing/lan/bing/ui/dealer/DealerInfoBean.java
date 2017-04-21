@@ -9,7 +9,12 @@ public class DealerInfoBean {
 
     public String name;
     public String time;
+    public String dealId;//	经销商id
     public boolean isShowPos;
+
+
+
+
 
     public DealerInfoBean(String name, String time, boolean isShowPos) {
         this.name = name;

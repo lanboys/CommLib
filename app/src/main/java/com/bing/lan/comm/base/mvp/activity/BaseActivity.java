@@ -191,17 +191,24 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
                 .build();
     }
 
-    /**
-     * 默认false
-     *
-     * @param clazz
-     */
-    public void startActivity(Class<? extends BaseActivity> clazz) {
-        startActivity(clazz, false, true);
-    }
+    // /**
+    //  * 默认false
+    //  *
+    //  * @param clazz
+    //  */
+    // public void startActivity(Class<? extends BaseActivity> clazz) {
+    //     startActivity(clazz, false, true);
+    // }
 
     public void startActivity(Class<? extends BaseActivity> clazz, boolean isFinish, boolean isAnim) {
         AppUtil.startActivity(this, clazz, isFinish, false);
+        if (isAnim) {
+            // overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+        }
+    }
+
+    public void startActivity(Intent intent, boolean isFinish, boolean isAnim) {
+        AppUtil.startActivity(this, intent, isFinish, false);
         if (isAnim) {
             // overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
         }
@@ -528,6 +535,6 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
         Toast.makeText(this, "上传图片", Toast.LENGTH_SHORT).show();
 
         File file = new File(source.getPath());
-       // mPresenter.uploadAvatar(file);
+        // mPresenter.uploadAvatar(file);
     }
 }

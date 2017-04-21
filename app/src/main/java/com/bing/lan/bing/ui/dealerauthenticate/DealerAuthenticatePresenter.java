@@ -17,26 +17,22 @@ public class DealerAuthenticatePresenter
 
     @Override
     public void onStart(Object... params) {
-
+        mView.showProgressDialog("请稍后");
         mModule.requestData(ACTION_UPLOAD_DEALER, this, params);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void onSuccess(int action, Object data) {
-
-        switch (action) {
-
-            // case LOAD_GANK:
-            //
-            //     break;
-
-        }
+        mView.dismissProgressDialog();
+        mView.finish();
     }
 
     @Override
     public void onError(int action, Throwable e) {
         super.onError(action, e);
+        mView.dismissProgressDialog();
+        mView.showToast("上传失败,请重试");
     }
 
     @Override

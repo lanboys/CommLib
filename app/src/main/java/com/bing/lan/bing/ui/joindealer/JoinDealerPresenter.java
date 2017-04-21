@@ -39,7 +39,7 @@ public class JoinDealerPresenter
     public void onError(int action, Throwable e) {
         super.onError(action, e);
         mView.dismissProgressDialog();
-        mView.showToast("上传照片失败");
+        mView.showToast("上传失败,请稍后再试");
     }
 
     @Override

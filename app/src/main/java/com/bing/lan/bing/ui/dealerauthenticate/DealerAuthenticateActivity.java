@@ -24,8 +24,12 @@ import butterknife.OnClick;
  * @author 蓝兵
  * @time 2017/4/6  19:12
  */
-public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticateContract.IDealerAuthenticatePresenter>
-        implements IDealerAuthenticateContract.IDealerAuthenticateView, TimePickerUtil.PickerItemSelectListener, EditTextInputLayout.Validator {
+public class DealerAuthenticateActivity extends
+        BaseActivity<IDealerAuthenticateContract.IDealerAuthenticatePresenter>
+        implements IDealerAuthenticateContract.IDealerAuthenticateView,
+        TimePickerUtil.PickerItemSelectListener, EditTextInputLayout.Validator {
+
+    public static final String DEALER_ID = "dealer_id";
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -43,7 +47,10 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
     ImageView mIvProtocolPhoto;
     @BindView(R.id.btn_apply_payment)
     Button mBtnApplyPayment;
+    File mProtocolFile;
+    File mPaymentFile;
     private TimePickerUtil mTimePickerUtil;
+    private String mDealerID;
 
     @Override
     protected int getLayoutResId() {
@@ -59,10 +66,13 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
     protected void initViewAndData(Intent intent) {
         setToolBar(mToolbar, "登记缴费", true, 0);
 
+        if (intent != null) {
+            mDealerID = intent.getStringExtra(DEALER_ID);
+        }
+
         mEtiPaymentNumber.setValidator(this);
         mEtiPaymentTime.setValidator(this);
         mEtiPaymentCardId.setValidator(this);
-
 
         mEtiPaymentNumber.setEditContent("22000");
         mEtiPaymentTime.setEditContent("2017-10-10 10:10:10");
@@ -81,13 +91,10 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
                 selectPhoto(mIvPaymentPhoto);
                 break;
             case R.id.eti_payment_time:
-
                 if (mTimePickerUtil == null) {
                     mTimePickerUtil = new TimePickerUtil(this);
                 }
-
                 mTimePickerUtil.selectTime(this);
-
                 break;
             case R.id.iv_protocol_photo:
                 selectPhoto(mIvProtocolPhoto);
@@ -99,8 +106,13 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
                         if (mEtiPaymentTime.validate()) {
                             if (mEtiPaymentCardId.validate()) {
                                 if (mProtocolFile != null) {
-                                    mPresenter.onStart(mPaymentFile, mProtocolFile, mEtiPaymentNumber.getEditContent(),
-                                            mEtiPaymentTime.getEditContent(), mEtiPaymentCardId.getEditContent());
+                                    mPresenter.onStart(
+                                            mPaymentFile,
+                                            mProtocolFile,
+                                            mDealerID,
+                                            mEtiPaymentNumber.getEditContent(),
+                                            mEtiPaymentTime.getEditContent(),
+                                            mEtiPaymentCardId.getEditContent());
                                 } else {
                                     showToast("请先上传签约协议照片");
                                 }
@@ -131,10 +143,6 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
         mEtiPaymentTime.setEditContent(date);
     }
 
-
-    File mProtocolFile;
-    File mPaymentFile;
-
     @Override
     public void uploadAvatar(ImageView imageView, Uri source) {
 
@@ -148,7 +156,7 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
                 break;
         }
 
-       // Toast.makeText(this, "上传图片", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "上传图片", Toast.LENGTH_SHORT).show();
     }
 
     @Override

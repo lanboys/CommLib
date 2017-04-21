@@ -6,17 +6,17 @@ import com.bing.lan.comm.base.mvp.IBaseContract.IBaseView;
 
 public interface IBaseActivityContract {
 
-      interface IBaseActivityView<T extends IBaseActivityPresenter> extends IBaseView<T> {
+    interface IBaseActivityView<T extends IBaseActivityPresenter> extends IBaseView<T> {
 
-
+        void finish();
     }
 
-      interface IBaseActivityPresenter<T extends IBaseActivityView, M extends IBaseActivityModule>
+    interface IBaseActivityPresenter<T extends IBaseActivityView, M extends IBaseActivityModule>
             extends IBasePresenter<T, M> {
 
     }
 
-      interface IBaseActivityModule extends IBaseModule {
+    interface IBaseActivityModule extends IBaseModule {
 
     }
 }

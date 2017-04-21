@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
 
+import com.bing.lan.bing.ui.agent.bean.AgentInfoBean;
 import com.bing.lan.bing.ui.dispatchdevice.DispatchDeviceActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;

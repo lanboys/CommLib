@@ -23,13 +23,21 @@ public class DealerAuthenticateModule extends BaseActivityModule
     @Override
     public void loadData(int action, IBaseContract.OnDataChangerListener listener, Object... parameter) {
 
-        RequestBody requestBody = createRequestBody((File) parameter[0]);
-        RequestBody requestBody1 = createRequestBody((File) parameter[1]);
         Call<ResponseBody> responseBodyCall = ApiManager
                 .getInstance()
                 .getJzkApiService()
-                .uploadDealerAuthenticate(requestBody, requestBody1,
-                        "205", "20000", "5465454564565612", "2017-10-10 10:10:10");
+                .uploadDealerAuthenticate(
+                        createRequestBody((File) parameter[0]),
+                        createRequestBody((File) parameter[1]),
+                        //         (String) parameter[2],
+                        //         (String) parameter[3],
+                        //         (String) parameter[4],
+                        //         (String) parameter[5]
+                        // );
+                        "205",
+                        "20000",
+                        "5465454564565612",
+                        "2017-10-10 10:10:10");
 
         responseBodyCall.enqueue(new Callback<ResponseBody>() {
             @Override

@@ -78,11 +78,9 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
     protected void readyStartPresenter() {
         mAdapter = new DealerListAdapter(this);
 
-
         View inflate = View.inflate(this, R.layout.item_empty_lv_foot, null);
 
         mLvDealer.addFooterView(inflate);
-
 
         mLvDealer.setAdapter(mAdapter);
         mAdapter.setOnClickListener(this);
@@ -114,11 +112,12 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
     public void onTabSelected(TabLayout.Tab tab) {
         switch (tab.getPosition()) {
             case 0:
-                mAdapter.setDataAndRefresh(mShopBeen);
+            case 2:
+                mAdapter.setDataAndRefresh(mShowShopBeen);
                 mAdapter.notifyDataSetChanged();
                 break;
             case 1:
-                mAdapter.setDataAndRefresh(mShowShopBeen);
+                mAdapter.setDataAndRefresh(mShopBeen);
                 mAdapter.notifyDataSetChanged();
                 break;
         }
@@ -138,7 +137,9 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
     public void onPaymentClick(int position, DealerInfoBean data) {
 
         // 登记缴费
-        startActivity(DealerAuthenticateActivity.class, false, true);
+        Intent intent = new Intent(this, DealerAuthenticateActivity.class);
+        intent.putExtra(DealerAuthenticateActivity.DEALER_ID, data.dealId);
+        startActivity(intent, false, true);
     }
 
     @Override
