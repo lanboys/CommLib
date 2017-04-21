@@ -99,7 +99,7 @@ public class ForgetPasswordPresenter
                 case R.id.eti_verification_code:
                     //不为空 认为正确
                     //进行网络请求判断验证码
-                    result = content.length() > 2;
+                    result = content.length() >= 6;
                     break;
                 default:
                     result = false;
@@ -155,7 +155,11 @@ public class ForgetPasswordPresenter
     }
 
     private void releaseTask() {
-        mView.updateWaitingVerificationCodeTime(0);
+
+        if (mView != null) {
+            mView.updateWaitingVerificationCodeTime(0);
+        }
+
         if (mSubscription != null) {
             mSubscription.clear();
             mSubscription = null;

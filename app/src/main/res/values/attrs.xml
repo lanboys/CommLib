@@ -7,6 +7,9 @@
         <attr name="image1" format="reference"/>
         <attr name="edit_enable1" format="boolean"/>
 
+        <attr name="edit_maxLength1" format="integer"/>
+        <attr name="edit_digits1" format="string"/>
+
         <attr name="text_string"  format="string"/>
         <attr name="text_visibility" format="enum">
             <enum name="visible" value="0"/>
@@ -31,6 +34,9 @@
         <attr name="image" format="reference"/>
         <attr name="edit_enable" format="boolean"/>
         <attr name="show_line" format="boolean"/>
+
+        <attr name="edit_maxLength" format="integer"/>
+        <attr name="edit_digits" format="string"/>
 
         <!--public static final int VISIBLE = 0;-->
         <!--public static final int INVISIBLE = 4;-->

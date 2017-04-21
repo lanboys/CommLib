@@ -1,10 +1,12 @@
 package com.bing.lan.bing.ui.dealerauthenticate;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
@@ -14,6 +16,8 @@ import com.bing.lan.comm.utils.dialog.TimePickDialogFragment;
 import com.bing.lan.comm.utils.picker.TimePickerUtil;
 import com.bing.lan.comm.view.EditTextInputLayout;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -22,18 +26,20 @@ import butterknife.OnClick;
  * @time 2017/4/6  19:12
  */
 public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticateContract.IDealerAuthenticatePresenter>
-        implements IDealerAuthenticateContract.IDealerAuthenticateView, TimePickerUtil.PickerItemSelectListener {
+        implements IDealerAuthenticateContract.IDealerAuthenticateView, TimePickerUtil.PickerItemSelectListener, EditTextInputLayout.Validator {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.iv_payment_photo)
     ImageView mIvPaymentPhoto;
+
     @BindView(R.id.eti_payment_number)
     EditTextInputLayout mEtiPaymentNumber;
     @BindView(R.id.eti_payment_time)
     EditTextInputLayout mEtiPaymentTime;
     @BindView(R.id.eti_payment_card_id)
     EditTextInputLayout mEtiPaymentCardId;
+
     @BindView(R.id.iv_protocol_photo)
     ImageView mIvProtocolPhoto;
     @BindView(R.id.btn_apply_payment)
@@ -53,6 +59,10 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
     @Override
     protected void initViewAndData(Intent intent) {
         setToolBar(mToolbar, "登记缴费", true, 0);
+
+        mEtiPaymentNumber.setValidator(this);
+        mEtiPaymentTime.setValidator(this);
+        mEtiPaymentCardId.setValidator(this);
     }
 
     @Override
@@ -79,7 +89,24 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
                 selectPhoto(mIvProtocolPhoto);
                 break;
             case R.id.btn_apply_payment:
-                showToast("缴费成功");
+
+                if (mPaymentFile != null) {
+                    if (mEtiPaymentNumber.validate()) {
+                        if (mEtiPaymentTime.validate()) {
+                            if (mEtiPaymentCardId.validate()) {
+                                if (mProtocolFile != null) {
+                                    mPresenter.onStart(mPaymentFile, mProtocolFile, mEtiPaymentNumber.getEditContent(),
+                                            mEtiPaymentTime.getEditContent(), mEtiPaymentCardId.getEditContent());
+                                } else {
+                                    showToast("请先上传签约协议照片");
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    showToast("请先上传缴费凭证照片");
+                }
+
                 break;
         }
     }
@@ -98,5 +125,43 @@ public class DealerAuthenticateActivity extends BaseActivity<IDealerAuthenticate
     @Override
     public void onItemSelect(String date, View v) {
         mEtiPaymentTime.setEditContent(date);
+    }
+
+    // boolean isFinishProtocolPhotoSelect = false;
+    // boolean isFinishPaymentPhotoSelect = false;
+
+    File mProtocolFile;
+    File mPaymentFile;
+
+    @Override
+    public void uploadAvatar(ImageView imageView, Uri source) {
+
+        switch (imageView.getId()) {
+
+            case R.id.iv_protocol_photo://签约协议照片
+                // isFinishProtocolPhotoSelect = true;
+                mProtocolFile = new File(source.getPath());
+                break;
+            case R.id.iv_payment_photo://缴费凭证照片
+                // isFinishPaymentPhotoSelect = true;
+                mPaymentFile = new File(source.getPath());
+                break;
+        }
+
+        Toast.makeText(this, "上传图片", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean validate(int id, String s) {
+        switch (id) {
+            case R.id.eti_payment_number:
+                return mPresenter.validate(s, id, "校验通过", "请输入缴费金额");
+            case R.id.eti_payment_time:
+                return mPresenter.validate(s, id, "校验通过", "请选择缴费时间");
+            case R.id.eti_payment_card_id:
+                return mPresenter.validate(s, id, "校验通过", "请输入缴费卡号");
+            default:
+                return false;
+        }
     }
 }

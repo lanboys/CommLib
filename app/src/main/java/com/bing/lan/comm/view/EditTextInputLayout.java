@@ -6,7 +6,11 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.method.DigitsKeyListener;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,6 +31,11 @@ public class EditTextInputLayout extends LinearLayout {
     private TextView mTvTitle;
     private ImageView mIvImage;
     private View mLineContainer;
+
+    public EditText getEditText() {
+        return mEdContent;
+    }
+
     private boolean mIsEditEnable;
     /**
      * 开启校验总开关
@@ -61,12 +70,18 @@ public class EditTextInputLayout extends LinearLayout {
 
             String hint = a.getString(R.styleable.EditTextInputLayout_edit_hint);
             String title = a.getString(R.styleable.EditTextInputLayout_title);
+            String editDigits = a.getString(R.styleable.EditTextInputLayout_edit_digits);
             Drawable drawable = a.getDrawable(R.styleable.EditTextInputLayout_image);
             mIsEditEnable = a.getBoolean(R.styleable.EditTextInputLayout_edit_enable, true);
             boolean showLine = a.getBoolean(R.styleable.EditTextInputLayout_show_line, true);
             int inputType = a.getInt(R.styleable.EditTextInputLayout_edit_inputType, -1);
             int imageVisible = a.getInt(R.styleable.EditTextInputLayout_image_visibility, -1);
             int titleVisible = a.getInt(R.styleable.EditTextInputLayout_title_visibility, -1);
+            int editMaxLength = a.getInt(R.styleable.EditTextInputLayout_edit_maxLength, -1);
+
+            setEditMaxLength(editMaxLength);
+
+            setEditDigits(editDigits);
 
             mEdContent.setEnabled(mIsEditEnable);
 
@@ -116,6 +131,20 @@ public class EditTextInputLayout extends LinearLayout {
             }
 
             a.recycle();
+        }
+    }
+
+    // 只有输入类型是 字符串 时才能起作用
+    public void setEditDigits(String editDigits) {
+        if (editDigits != null) {
+            mEdContent.setKeyListener(DigitsKeyListener.getInstance(editDigits));
+        }
+    }
+
+    public void setEditMaxLength(int editMaxLength) {
+
+        if (editMaxLength >= 0) {
+            mEdContent.setFilters(new InputFilter[]{new InputFilter.LengthFilter(editMaxLength)});
         }
     }
 
@@ -202,6 +231,19 @@ public class EditTextInputLayout extends LinearLayout {
             mEdContent.setText(s);
         }
     }
+
+    public void setEditShowPassword(boolean show) {
+        if (mEdContent != null) {
+            if (show) {
+                //如果选中，显示密码
+                mEdContent.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            } else {
+                //否则隐藏密码
+                mEdContent.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        }
+    }
+
     public void setEditInputType(int type) {
 
         if (mEdContent != null) {
@@ -212,7 +254,6 @@ public class EditTextInputLayout extends LinearLayout {
         mEdContent.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
         //默认状态显示密码--设置文本 要一起写才能起作用 InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD
         mEdContent.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-
     }
 
     public CharSequence getTitle() {

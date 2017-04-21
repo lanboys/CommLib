@@ -62,10 +62,12 @@ public class PhotoSelectUtil {
             @Override
             public void onItemClickListener(@PhotoSelectPopupWindow.PopupItemType.Type int type) {
                 if (type == PhotoSelectPopupWindow.PopupItemType.TAKE_PHOTO) {
+                    //拍照
                     dispatchTakePictureIntent();
                 } else if (type == PhotoSelectPopupWindow.PopupItemType.SELECT_ALBUM) {
+                    //相册 选择
                     selectAvatarFromAlbum();
-                }else if (type == PhotoSelectPopupWindow.PopupItemType.CANCEL) {
+                } else if (type == PhotoSelectPopupWindow.PopupItemType.CANCEL) {
                     popupWindow.dismiss();
                 }
             }
@@ -103,22 +105,21 @@ public class PhotoSelectUtil {
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_CAPTURE) {
+                //系统拍照  界面返回
                 beginCrop(mCurrentPhotoUri);
             } else if (requestCode == Crop.REQUEST_PICK) {
+                //系统选择照片  界面返回
                 beginCrop(data.getData());
             }
         }
 
+        //裁剪图片 界面返回
         if (requestCode == Crop.REQUEST_CROP) {
             handleCrop(resultCode, data);
         }
     }
 
-    public interface UploadListener {
-
-        void uploadAvatar(ImageView viewById, Uri source);
-    }
-
+    //进入裁剪页面
     private void beginCrop(Uri source) {
         Uri destination = Uri.fromFile(new File(mContext.getCacheDir(), "cropped"));
         Crop.of(source, destination).asSquare().start(mContext);
@@ -129,6 +130,7 @@ public class PhotoSelectUtil {
             mImageView.setImageDrawable(null);
             mImageView.setImageURI(Crop.getOutput(result));
 
+            //回调
             if (mUploadListener != null) {
                 mUploadListener.uploadAvatar(mImageView, Crop.getOutput(result));
             }
@@ -155,5 +157,10 @@ public class PhotoSelectUtil {
     private void selectAvatarFromAlbum() {
         //mImageView.setImageDrawable(null);
         Crop.pickImage(mContext);
+    }
+
+    public interface UploadListener {
+
+        void uploadAvatar(ImageView viewById, Uri source);
     }
 }

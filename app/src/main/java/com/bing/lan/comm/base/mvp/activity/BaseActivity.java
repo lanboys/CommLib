@@ -34,6 +34,7 @@ import com.bing.lan.comm.utils.ProgressDialogUtil;
 import com.bing.lan.comm.utils.SPUtil;
 import com.bing.lan.comm.utils.photoselect.PhotoSelectUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -525,5 +526,8 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     @Override
     public void uploadAvatar(ImageView imageView, Uri source) {
         Toast.makeText(this, "上传图片", Toast.LENGTH_SHORT).show();
+
+        File file = new File(source.getPath());
+       // mPresenter.uploadAvatar(file);
     }
 }

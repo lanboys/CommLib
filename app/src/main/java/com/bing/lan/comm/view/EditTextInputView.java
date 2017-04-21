@@ -5,6 +5,8 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.InputFilter;
+import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
@@ -49,6 +51,11 @@ public class EditTextInputView extends LinearLayout {
 
             String hint = a.getString(R.styleable.EditTextInputView_edit_hint1);
             String text = a.getString(R.styleable.EditTextInputView_text_string);
+
+            String editDigits = a.getString(R.styleable.EditTextInputView_edit_digits1);
+            int editMaxLength = a.getInt(R.styleable.EditTextInputView_edit_maxLength1, -1);
+
+
             Drawable drawable = a.getDrawable(R.styleable.EditTextInputView_image1);
             boolean enable = a.getBoolean(R.styleable.EditTextInputView_edit_enable1, true);
             int inputType = a.getInt(R.styleable.EditTextInputView_edit_inputType1, -1);
@@ -56,6 +63,8 @@ public class EditTextInputView extends LinearLayout {
             int visible = a.getInt(R.styleable.EditTextInputView_text_visibility, -1);
 
             mEdContent.setEnabled(enable);
+            setEditMaxLength(editMaxLength);
+            setEditDigits(editDigits);
 
             if (visible != -1) {
                 switch (visible) {
@@ -88,6 +97,18 @@ public class EditTextInputView extends LinearLayout {
             }
 
             a.recycle();
+        }
+    }
+    public void setEditDigits(String editDigits) {
+        if (editDigits != null) {
+            mEdContent.setKeyListener(DigitsKeyListener.getInstance(editDigits));
+        }
+    }
+
+    public void setEditMaxLength(int editMaxLength) {
+
+        if (editMaxLength >= 0) {
+            mEdContent.setFilters(new InputFilter[]{new InputFilter.LengthFilter(editMaxLength)});
         }
     }
 

@@ -25,6 +25,7 @@
             android:layout_weight="1"
             android:paddingRight="12dp"
             tools:hint="标题提示语"/>
+            <!--android:maxLength="10"-->
 
         <!--android:gravity="right|center_vertical"-->
 

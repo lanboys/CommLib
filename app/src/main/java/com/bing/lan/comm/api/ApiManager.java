@@ -1,5 +1,6 @@
 package com.bing.lan.comm.api;
 
+import com.bing.lan.comm.api.service.JzkApiService;
 import com.bing.lan.comm.api.service.UserApi;
 import com.bing.lan.comm.api.service.XimaApiService;
 import com.bing.lan.comm.config.AppConfig;
@@ -39,6 +40,7 @@ public class ApiManager {
     private Retrofit mApiRetrofit;
     private XimaApiService mApiService;
     private UserApi mUserApi;
+
 
     public static ApiManager getInstance() {
         return instance;
@@ -82,6 +84,23 @@ public class ApiManager {
 
     //===================================================
     //===================================================
+
+    private Retrofit mJzkApiRetrofit;
+    private JzkApiService mJzkApiService;
+
+    public JzkApiService getJzkApiService() {
+        if (mJzkApiService == null) {
+            initJzkApiService();
+        }
+        return mJzkApiService;
+    }
+
+    private void initJzkApiService() {
+        if (mJzkApiRetrofit == null) {
+            mJzkApiRetrofit = getRetrofit(ApiBaseUrl.JZK_BASE_URL);
+        }
+        mJzkApiService = mJzkApiRetrofit.create(JzkApiService.class);
+    }
 
     //===================================================
     //===================================================

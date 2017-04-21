@@ -15,6 +15,9 @@ public interface IDealerAuthenticateContract {
 
     interface IDealerAuthenticatePresenter
             extends IBaseActivityContract.IBaseActivityPresenter<IDealerAuthenticateView, IDealerAuthenticateModule> {
+        boolean validate(String content, int id, String success, String fail);
+
+
 
     }
 

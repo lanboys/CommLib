@@ -75,7 +75,7 @@ public class RegExpUtil {
     }
 
     public static boolean checkPassword(String password) {
-        Pattern pattern = Pattern.compile("^[0-9a-zA-Z_]{6,12}$"); // [0-9a-zA-Z_]*
+        Pattern pattern = Pattern.compile("^[0-9a-zA-Z_]{8,20}$"); // [0-9a-zA-Z_]*
         //        Pattern.compile("^(?=.*?[a-z])(?=.*?[0-9])[a-zA-Z0-9_]{6,16}$");
         Matcher m = pattern.matcher(password);
         return m.matches();

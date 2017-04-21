@@ -139,7 +139,7 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
             case R.id.et_input_phone_number:
                 return validateComm(s, id, "校验通过", "请输入正确的手机号码");
             case R.id.et_input_password:
-                return validateComm(s, id, "校验通过", "");
+                return validateComm(s, id, "校验通过", "请输入正确格式的密码");
             default:
                 return false;
         }

@@ -53,6 +53,11 @@ public class ForgetPasswordActivity extends BaseActivity<IForgetPasswordContract
 
         mEtiPhoneNumber.setValidator(this);
         mEtiVerificationCode.setValidator(this);
+
+        //test
+        mEtiPhoneNumber.setEditContent("13556004824");
+        mEtiVerificationCode.setEditContent("135561");
+        //test
     }
 
     @Override
@@ -67,7 +72,6 @@ public class ForgetPasswordActivity extends BaseActivity<IForgetPasswordContract
             case R.id.btn_next:
 
                 if (mEtiPhoneNumber.validate()) {
-
                     if (isVerification) {
                         if (mEtiVerificationCode.validate()) {
                             //本地校验 验证码正确 发起网络请求 再次验证
@@ -125,6 +129,13 @@ public class ForgetPasswordActivity extends BaseActivity<IForgetPasswordContract
         }
     }
 
+    /**
+     * 本地验证
+     *
+     * @param id
+     * @param s
+     * @return
+     */
     @Override
     public boolean validate(int id, String s) {
 

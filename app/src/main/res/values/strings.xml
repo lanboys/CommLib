@@ -32,4 +32,10 @@
     <string name="title_activity_register_pos">RegisterPosActivity</string>
     <string name="title_activity_not_available_detail">NotAvailableDetail</string>
     <string name="title_activity_not_settlement_detail">NotSettlementDetail</string>
+
+
+
+    <!-- 验证码 字符限制 -->
+    <string name="input_verification_code">12345</string>
+    <string name="input_phone_num">0123456789</string>
 </resources>
