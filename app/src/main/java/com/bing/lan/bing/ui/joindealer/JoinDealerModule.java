@@ -8,6 +8,10 @@ import java.io.File;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * @author 蓝兵
@@ -24,7 +28,7 @@ public class JoinDealerModule extends BaseActivityModule
     @Override
     public void loadData(int action, IBaseContract.OnDataChangerListener listener, Object... parameter) {
 
-        ApiManager.getInstance()
+        Call<ResponseBody> responseBodyCall = ApiManager.getInstance()
                 .getJzkApiService()
                 .joinDealer(
                         (String) parameter[0],
@@ -38,17 +42,22 @@ public class JoinDealerModule extends BaseActivityModule
                         createRequestBody((File) parameter[8])
                 );
 
-        // mPresenter.onStart(
-        //         mEtiPhoneNumber.getEditContent(),
-        //         mEtiJoinName.getEditContent(),
-        //         mProvince,
-        //         mCity,
-        //         mDistrict,
-        //         mEtiAddressDetail.getEditContent(),
-        //         mEtiIdCardNumber.getEditContent(),
-        //         mIdCardImgFrontFile,
-        //         mIdCardImgBackFile
-        // );
+        responseBodyCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    log.d("onResponse(): " + response.body().string());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    log.e("onResponse():  " + e.getLocalizedMessage());
+                }
+            }
 
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                log.e("onFailure():  ", t);
+            }
+        });
     }
 }

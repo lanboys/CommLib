@@ -1,12 +1,16 @@
 package com.bing.lan.comm.api.service;
 
+import com.bing.lan.bing.ui.agent.bean.AgentResultBean;
+
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by win7 on 2017/4/21.
@@ -25,6 +29,7 @@ public interface JzkApiService {
     //
     //);
 
+    // http://blog.csdn.net/qq_21430549/article/details/51227379
     @Multipart
     @POST("dealer/pay")
     Call<ResponseBody> uploadDealerAuthenticate(
@@ -68,4 +73,8 @@ public interface JzkApiService {
             @Part("Upload[file]\"; filename=\"avatar.jpg") RequestBody body
 
     );
+
+    @GET("agent/agent-list")
+    Observable<HttpResult<AgentResultBean>> loadAgentList(
+            @Query("dealerId") String dealerId, @Query("pageNum") String pageNum);
 }

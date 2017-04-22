@@ -1,5 +1,6 @@
 package com.bing.lan.bing.ui.agent;
 
+import com.bing.lan.bing.ui.agent.bean.AgentResultBean;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
 
 /**
@@ -10,24 +11,28 @@ public class AgentPresenter
         extends BaseActivityPresenter<IAgentContract.IAgentView, IAgentContract.IAgentModule>
         implements IAgentContract.IAgentPresenter {
 
+    public static final int ACTION_LOAD_AGENT_LIST = 1;
+    public static final int ACTION_LOAD_MORE_AGENT_LIST = 2;
+
     @Override
     public void onStart(Object... params) {
+        update();
+    }
 
-        // mModule.loadData(LOAD_GANK, this, LOAD_COUNT, LOAD_PAGE);
+    @Override
+    public void update() {
+        mModule.requestData(ACTION_LOAD_AGENT_LIST, this, 0);
+    }
 
+    @Override
+    public void loadMore(int pageNum) {
+        mModule.requestData(ACTION_LOAD_MORE_AGENT_LIST, this, pageNum);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void onSuccess(int action, Object data) {
-
-        switch (action) {
-
-            // case LOAD_GANK:
-            //
-            //     break;
-
-        }
+        mView.updateAgentList(action, (AgentResultBean) data);
     }
 
     @Override

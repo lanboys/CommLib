@@ -54,8 +54,8 @@ public class AgentListAdapter extends BaseListAdapter<AgentInfoBean> implements 
 
         @BindView(R.id.tv_agent_name)
         TextView mTvAgentName;
-        @BindView(R.id.tv_agent_time)
-        TextView mTvAgentTime;
+        @BindView(R.id.tv_agent_phone)
+        TextView mTvAgentPhone;
         @BindView(R.id.tv_register)
         TextView mTvRegister;
 
@@ -65,8 +65,8 @@ public class AgentListAdapter extends BaseListAdapter<AgentInfoBean> implements 
 
         @Override
         public void fillData(AgentInfoBean data, int position) {
-            mTvAgentName.setText(data.name);
-            mTvAgentTime.setText(data.time);
+            mTvAgentName.setText(data.real_name);
+            mTvAgentPhone.setText(data.phone);
 
             mTvRegister.setOnClickListener(AgentListAdapter.this);
             mTvRegister.setTag(position);

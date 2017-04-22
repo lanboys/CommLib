@@ -114,7 +114,7 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         setContentView(R.layout.activity_amap);
 
         mMarkerAddressBean = new AddressBean();
-    mCurrentAddressBean = new AddressBean();
+        mCurrentAddressBean = new AddressBean();
         //
         mTextView = (TextView) findViewById(R.id.mark_listenter_text);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -203,6 +203,7 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         mLocationClient.setLocationOption(mLocationOption);
         //启动定位
         mLocationClient.startLocation();
+        //mLocationClient.stopLocation();
     }
 
     //定位回调函数
@@ -274,7 +275,7 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
                         + amapLocation.getErrorInfo());
                 if (isFirstLoc) {
 
-                   // Toast.makeText(getApplicationContext(), "定位失败", Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getApplicationContext(), "定位失败", Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -343,6 +344,14 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
         mMapView.onDestroy();
+
+        if (mTask != null) {
+            ThreadPoolProxyUtil.removeNormalTask(mTask);
+            mTask = null;
+        }
+
+        mLocationClient.stopLocation();
+        mLocationClient.unRegisterLocationListener(this);
     }
 
     @Override
@@ -447,6 +456,12 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         resetMarker(latlng);
     }
 
+    @Override
+    public void onCameraChangeFinish(CameraPosition cameraPosition) {
+        // final LatLng latlng = cameraPosition.target;
+        // resetMarker(latlng);
+    }
+
     private void resetMarker(final LatLng latlng) {
         aMap.clear();
 
@@ -473,6 +488,7 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
     private void startGeocodeSearchTask(@NonNull LatLng latlng) {
         if (mTask != null) {
             ThreadPoolProxyUtil.removeNormalTask(mTask);
+            mTask = null;
         }
 
         mTask = new Task(this, latlng);
@@ -489,12 +505,11 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
     }
 
     public String getMarkerAddressMessage() {
-        return mMarkerAddressBean.getAddressDetail();
-    }
 
-    @Override
-    public void onCameraChangeFinish(CameraPosition cameraPosition) {
-
+        if (mMarkerAddressBean != null) {
+            return mMarkerAddressBean.getAddressDetail();
+        }
+        return "";
     }
 
     public void finishMap(String address) {

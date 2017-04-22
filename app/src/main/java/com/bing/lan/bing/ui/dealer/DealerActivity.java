@@ -99,7 +99,7 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
             }
         }
 
-        mAdapter.setDataAndRefresh(mShopBeen);
+        mAdapter.setDataAndRefresh(mShowShopBeen);
         mAdapter.notifyDataSetChanged();
     }
 

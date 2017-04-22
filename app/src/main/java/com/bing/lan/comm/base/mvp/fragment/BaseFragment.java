@@ -29,7 +29,7 @@ import butterknife.Unbinder;
  * @author 蓝兵
  * @time 2017/1/10  18:36
  */
-public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragmentPresenter>
+public abstract   class BaseFragment<T extends IBaseFragmentContract.IBaseFragmentPresenter>
         extends Fragment
         implements IBaseFragmentContract.IBaseFragmentView<T>,
         PagerLayout.OnErrorButtonListener/*, BGARefreshLayout.BGARefreshLayoutDelegate*/ {
@@ -343,6 +343,11 @@ public abstract class BaseFragment<T extends IBaseFragmentContract.IBaseFragment
 
     public void startActivity(Class<? extends BaseActivity> clazz, boolean isFinish, boolean isAnim) {
         AppUtil.startActivity(getActivity(), clazz, isFinish, false);
+    }
+
+    @Override
+    public void startActivity(Intent intent, boolean isFinish, boolean isAnim) {
+
     }
 
     /**

@@ -20,10 +20,10 @@ public class AgentInfoBean {
      * user_id : 804
      */
 
-    private String phone;
-    private String real_name;
-    private String c;
-    private String user_id;
+    public String phone;
+    public String real_name;
+    public String c;
+    public String user_id;
 
 
     public String getPhone() {

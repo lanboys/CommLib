@@ -24,7 +24,7 @@ public class JoinDealerPresenter
     @Override
     public void onStart(Object... params) {
 
-        mView.showProgressDialog("请稍后");
+       // mView.showProgressDialog("请稍后");
         mModule.requestData(ACTION_JOIN_DEALER, this, params);
     }
 
