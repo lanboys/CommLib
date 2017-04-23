@@ -11,10 +11,13 @@ public interface IJoinAgentContract {
     interface IJoinAgentView
             extends IBaseActivityContract.IBaseActivityView<IJoinAgentPresenter> {
 
+        void goToJoinSuccessActivity();
+
     }
 
     interface IJoinAgentPresenter
             extends IBaseActivityContract.IBaseActivityPresenter<IJoinAgentView, IJoinAgentModule> {
+        boolean validate(String content, int id, String success, String fail);
 
     }
 

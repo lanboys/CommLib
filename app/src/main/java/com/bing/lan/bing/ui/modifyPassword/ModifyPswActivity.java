@@ -20,7 +20,7 @@ import butterknife.OnClick;
  * @time 2017/4/6  19:12
  */
 public class ModifyPswActivity extends BaseActivity<IModifyPswContract.IModifyPswPresenter>
-        implements IModifyPswContract.IModifyPswView, View.OnClickListener {
+        implements IModifyPswContract.IModifyPswView, View.OnClickListener, EditTextInputLayout.Validator {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -47,6 +47,10 @@ public class ModifyPswActivity extends BaseActivity<IModifyPswContract.IModifyPs
         setToolBar(mToolbar, "修改密码", true, 0);
         mEtiPassword1.setImageOnClickListener(this);
         mEtiPassword1.setEditShowPassword(isShowPassword);
+        mEtiPassword2.setEditShowPassword(isShowPassword);
+
+        mEtiPassword1.setValidator(this);
+        mEtiPassword2.setValidator(this);
     }
 
     @Override
@@ -60,8 +64,18 @@ public class ModifyPswActivity extends BaseActivity<IModifyPswContract.IModifyPs
         switch (view.getId()) {
 
             case R.id.btn_finish:
-                startActivity(LoginActivity.class, true, true);
-                // finish();
+                if (mEtiPassword1.validate()) {
+                    if (mEtiPassword2.validate()) {
+                        if (mEtiPassword1.getEditContent().equals(mEtiPassword2.getEditContent())) {
+                            // mPresenter.onStart();
+                            //修改成功
+                            startActivity(LoginActivity.class, true, true);
+                        } else {
+                            showToast("两次密码不一致,请重新输入");
+                        }
+                    }
+                }
+
                 break;
             case R.id.iv_image:
                 isShowPassword = !isShowPassword;
@@ -71,11 +85,27 @@ public class ModifyPswActivity extends BaseActivity<IModifyPswContract.IModifyPs
                 //        : InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
                 mEtiPassword1.setEditShowPassword(isShowPassword);
-                EditText editText = mEtiPassword1.getEditText();
+                EditText editText1 = mEtiPassword1.getEditText();
+                editText1.setSelection(mEtiPassword1.getEditContent().length());
 
-                editText.setSelection(mEtiPassword1.getEditContent().length());
+                mEtiPassword2.setEditShowPassword(isShowPassword);
+                EditText editText2 = mEtiPassword2.getEditText();
+                editText2.setSelection(mEtiPassword2.getEditContent().length());
 
                 break;
+        }
+    }
+
+    @Override
+    public boolean validate(int id, String s) {
+        switch (id) {
+
+            case R.id.eti_password1:
+                return mPresenter.validate(s, id, "校验通过", "请按要求输入密码");
+            case R.id.eti_password2:
+                return mPresenter.validate(s, id, "校验通过", "请再次输入同样的密码");
+            default:
+                return false;
         }
     }
 }

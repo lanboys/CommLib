@@ -2,12 +2,14 @@ package com.bing.lan.comm.api.service;
 
 import com.bing.lan.bing.ui.agent.bean.AgentResultBean;
 import com.bing.lan.bing.ui.deviceselect.bean.DeviceInfoResultBean;
+import com.bing.lan.bing.ui.joinagent.bean.JoinAgentResultBean;
 
 import java.util.Map;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -90,4 +92,24 @@ public interface JzkApiService {
     @GET("agent/list")
     Observable<HttpResult<DeviceInfoResultBean>> loadDeviceList(
             @Query("type") String type, @Query("userId") String userId);
+
+    @FormUrlEncoded
+    @POST("dealer/pay")
+    Observable<HttpResult<JoinAgentResultBean>> joinAgent(
+            @Field("real_name") String real_name,
+            @Field("phone") String phone,
+            @Field("province") String province,
+            @Field("city") String city,
+            @Field("area") String area,
+            @Field("addressDetail") String addressDetail,
+            @Field("shareCode") String shareCode
+    );
+
+    @FormUrlEncoded
+    @POST("login-ios/check")
+    Observable<HttpResult<String>> checkVerificationCode(
+            @Field("cphone") String cphone,
+            @Field("ctype") String ctype,
+            @Field("cutype") String cutype
+    );
 }

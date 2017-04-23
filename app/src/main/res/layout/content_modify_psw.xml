@@ -16,7 +16,7 @@
         android:id="@+id/eti_password1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:edit_hint="新密码,8-20位数字字符下划线"
+        app:edit_hint="新密码,8-20位数字+字符"
         app:image="@drawable/eyes2"
         app:edit_inputType="textPassword"
         app:image_visibility="visible"
@@ -27,6 +27,7 @@
         android:id="@+id/eti_password2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:edit_inputType="textPassword"
         app:edit_hint="再次输入密码"
         app:title_visibility="gone"/>
     <Button

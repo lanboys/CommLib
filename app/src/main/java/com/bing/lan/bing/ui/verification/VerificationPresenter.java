@@ -1,6 +1,10 @@
 package com.bing.lan.bing.ui.verification;
 
+import android.text.TextUtils;
+
+import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
+import com.bing.lan.comm.utils.AppUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -10,6 +14,9 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
+
+import static com.bing.lan.bing.ui.forgetPassword.ForgetPasswordPresenter.ACTION_CHECK_PHONE;
+import static com.bing.lan.bing.ui.forgetPassword.ForgetPasswordPresenter.ACTION_CHECK_VERIFICATION_CODE;
 
 /**
  * @author 蓝兵
@@ -36,12 +43,34 @@ public class VerificationPresenter
     @SuppressWarnings("unchecked")
     public void onSuccess(int action, Object data) {
 
+        mView.dismissProgressDialog();
+
         switch (action) {
 
-            // case LOAD_GANK:
-            //
-            //     break;
+            case ACTION_CHECK_PHONE:
+                //根据状态 tre 发送成功
+                if (!AppUtil.getBooleanByRandom()) {
+                    //倒计时
+                    updateWaitingVerificationCodeTime();
+                    mView.setVerificationStatus();
+                } else {
+                    //显示错误信息
+                    //mView.setRegisterTipVisibility(View.VISIBLE);
+                }
+                break;
+            case ACTION_CHECK_VERIFICATION_CODE:
 
+                if (!AppUtil.getBooleanByRandom()) {
+                    //验证码正确 进入修改密码界面
+                    mView.goModifyPswActivity();
+                    //取消倒计时
+                    releaseTask();
+                } else {
+                    //验证码不正确 进入再次验证界面
+                    mView.showToast("验证码不正确,请重新输入");
+                }
+
+                break;
         }
     }
 
@@ -68,13 +97,69 @@ public class VerificationPresenter
                             mView.updateWaitingVerificationCodeTime(countTime);
                     }
                 });
+        if (mSubscription == null) {
+            mSubscription = new CompositeSubscription();
+        }
         mSubscription.add(subscribe);
     }
 
     @Override
     public void onDetachView() {
         super.onDetachView();
-        mSubscription.clear();
-        mSubscription = null;
+        releaseTask();
+    }
+
+    private void releaseTask() {
+
+        if (mView != null) {
+            mView.updateWaitingVerificationCodeTime(0);
+        }
+
+        if (mSubscription != null) {
+            mSubscription.clear();
+            mSubscription = null;
+        }
+    }
+
+    @Override
+    public void checkPhoneStatus(String phone) {
+        //请求网络
+        mModule.requestData(ACTION_CHECK_PHONE, this, phone);
+        mView.showProgressDialog("请稍后..");
+    }
+
+    @Override
+    public void checkVerificationCode(String code) {
+        mModule.requestData(ACTION_CHECK_VERIFICATION_CODE, this, code);
+        mView.showProgressDialog("请稍后..");
+    }
+
+    @Override
+    public boolean validate(String content, int id, String success, String fail) {
+        boolean result = false;
+        if (!TextUtils.isEmpty(content)) {
+            switch (id) {
+
+                case R.id.eti_verification_code:
+                    //不为空 认为正确
+                    //进行网络请求判断验证码
+                    result = content.length() >= 6;
+                    break;
+                default:
+                    result = false;
+                    break;
+            }
+        }
+
+        if (result) {
+            if (success != null) {
+                //showToast(success);
+            }
+        } else {
+            if (fail != null) {
+                mView.showToast(fail);
+            }
+        }
+        return result;
     }
 }

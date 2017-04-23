@@ -89,37 +89,6 @@ public class ForgetPasswordPresenter
     }
 
     @Override
-    public boolean validate(String content, int id, String success, String fail) {
-        boolean result = false;
-        if (!TextUtils.isEmpty(content)) {
-            switch (id) {
-                case R.id.eti_phone_number:
-                    result = RegExpUtil.checkPhoneNum(content);
-                    break;
-                case R.id.eti_verification_code:
-                    //不为空 认为正确
-                    //进行网络请求判断验证码
-                    result = content.length() >= 6;
-                    break;
-                default:
-                    result = false;
-                    break;
-            }
-        }
-
-        if (result) {
-            if (success != null) {
-                //showToast(success);
-            }
-        } else {
-            if (fail != null) {
-                mView.showToast(fail);
-            }
-        }
-        return result;
-    }
-
-    @Override
     public void onError(int action, Throwable e) {
         super.onError(action, e);
     }
@@ -164,5 +133,36 @@ public class ForgetPasswordPresenter
             mSubscription.clear();
             mSubscription = null;
         }
+    }
+
+    @Override
+    public boolean validate(String content, int id, String success, String fail) {
+        boolean result = false;
+        if (!TextUtils.isEmpty(content)) {
+            switch (id) {
+                case R.id.eti_phone_number:
+                    result = RegExpUtil.checkPhoneNum(content);
+                    break;
+                case R.id.eti_verification_code:
+                    //不为空 认为正确
+                    //进行网络请求判断验证码
+                    result = content.length() >= 6;
+                    break;
+                default:
+                    result = false;
+                    break;
+            }
+        }
+
+        if (result) {
+            if (success != null) {
+                //showToast(success);
+            }
+        } else {
+            if (fail != null) {
+                mView.showToast(fail);
+            }
+        }
+        return result;
     }
 }

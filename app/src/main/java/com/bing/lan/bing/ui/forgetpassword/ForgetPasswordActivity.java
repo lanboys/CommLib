@@ -107,10 +107,15 @@ public class ForgetPasswordActivity extends BaseActivity<IForgetPasswordContract
         startActivity(ModifyPswActivity.class, false, true);
     }
 
+    public static final String PHONE_NUMBER = "phone_number";
+
     @Override
     public void goVerificationActivity() {
         //验证码不正确 进入再次验证界面
-        startActivity(VerificationActivity.class, false, true);
+        Intent intent = new Intent(this, VerificationActivity.class);
+        intent.putExtra(PHONE_NUMBER, mEtiPhoneNumber.getEditContent());
+
+        startActivity(intent, false, true);
     }
 
     @Override

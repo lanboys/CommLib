@@ -110,6 +110,8 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
                                     if (mIdCardImgFrontFile != null) {
                                         if (mIdCardImgBackFile != null) {
                                             //网络请求
+                                            showToast("开始请求网络");
+
                                             mPresenter.onStart(
                                                     mEtiPhoneNumber.getEditContent(),
                                                     mEtiJoinName.getEditContent(),

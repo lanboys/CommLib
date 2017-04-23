@@ -33,6 +33,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:edit_hint="聚众客短信验证码"
+            app:edit_inputType="phone"
+            app:edit_maxLength="6"
             app:show_line="false"
             app:title="校验码:"/>
 

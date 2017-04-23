@@ -16,6 +16,8 @@ public interface IModifyPswContract {
     interface IModifyPswPresenter
             extends IBaseActivityContract.IBaseActivityPresenter<IModifyPswView, IModifyPswModule> {
 
+        boolean validate(String content, int id, String success, String fail);
+
     }
 
     interface IModifyPswModule
