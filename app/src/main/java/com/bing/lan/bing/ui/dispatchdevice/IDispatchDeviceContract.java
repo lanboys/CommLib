@@ -16,6 +16,7 @@ public interface IDispatchDeviceContract {
     interface IDispatchDevicePresenter
             extends IBaseActivityContract.IBaseActivityPresenter<IDispatchDeviceView, IDispatchDeviceModule> {
 
+        boolean validate(String content, int id, String success, String fail);
     }
 
     interface IDispatchDeviceModule

@@ -29,7 +29,8 @@ import butterknife.OnClick;
  * @time 2017/4/6  19:12
  */
 public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresenter>
-        implements IDealerContract.IDealerView, TabLayout.OnTabSelectedListener, DealerListAdapter.OnClickListener {
+        implements IDealerContract.IDealerView,
+        TabLayout.OnTabSelectedListener, DealerListAdapter.OnClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;

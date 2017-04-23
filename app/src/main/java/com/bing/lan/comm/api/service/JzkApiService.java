@@ -2,9 +2,13 @@ package com.bing.lan.comm.api.service;
 
 import com.bing.lan.bing.ui.agent.bean.AgentResultBean;
 
+import java.util.Map;
+
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -77,4 +81,8 @@ public interface JzkApiService {
     @GET("agent/agent-list")
     Observable<HttpResult<AgentResultBean>> loadAgentList(
             @Query("dealerId") String dealerId, @Query("pageNum") String pageNum);
+
+    @FormUrlEncoded
+    @POST("agent/send")
+    Observable<HttpResult<String>> dispatchDevice(@FieldMap Map<String, String> map);
 }

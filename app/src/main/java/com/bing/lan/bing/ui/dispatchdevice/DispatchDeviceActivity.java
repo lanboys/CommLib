@@ -15,6 +15,8 @@ import com.bing.lan.comm.di.ActivityComponent;
 import com.bing.lan.comm.utils.picker.CityPickerUtil;
 import com.bing.lan.comm.view.EditTextInputLayout;
 
+import java.io.Serializable;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -22,23 +24,28 @@ import butterknife.OnClick;
  * @author 蓝兵
  * @time 2017/4/6  19:12
  */
-public class DispatchDeviceActivity extends BaseActivity<IDispatchDeviceContract.IDispatchDevicePresenter>
-        implements IDispatchDeviceContract.IDispatchDeviceView, CityPickerUtil.CityPickerItemClickListener, RadioGroup.OnCheckedChangeListener {
+public class DispatchDeviceActivity extends
+        BaseActivity<IDispatchDeviceContract.IDispatchDevicePresenter>
+        implements IDispatchDeviceContract.IDispatchDeviceView,
+        CityPickerUtil.CityPickerItemClickListener, RadioGroup.OnCheckedChangeListener, EditTextInputLayout.Validator {
 
+    public static final int REQUEST_CODE_SELECT_DEVICE = 0;
+    public static final String SELECT_DEVICE = "select_device";
+
+    private static final String DELIVERY_ADDRESS_1 = "提货地区";
+    private static final String DELIVERY_ADDRESS_2 = "收货地区";
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.eti_device_list)
-    EditTextInputLayout mEtiDeviceList;
     @BindView(R.id.rb_delivery_type_person)
     RadioButton mRbDeliveryTypePerson;
     @BindView(R.id.rb_delivery_type_logistics)
     RadioButton mRbDeliveryTypeLogistics;
     @BindView(R.id.rg_delivery_type)
     RadioGroup mRgDeliveryType;
-
+    @BindView(R.id.eti_device_list)
+    EditTextInputLayout mEtiDeviceList;
     @BindView(R.id.eti_delivery_address)
     EditTextInputLayout mEtiDeliveryAddress;
-
     @BindView(R.id.eti_delivery_address_detail)
     EditTextInputLayout mEtiDeliveryAddressDetail;
     @BindView(R.id.eti_delivery_detail_name)
@@ -47,10 +54,16 @@ public class DispatchDeviceActivity extends BaseActivity<IDispatchDeviceContract
     EditTextInputLayout mEtiDeliveryDetailNum;
     @BindView(R.id.btn_save)
     Button mBtnSave;
+    boolean isSelfTake = true;
+    int mDeviceCount;
+    String mDeviceList;
+    int dealerId;
+    int agentId;
+    String allot_type;//角色是经销商的传“经销商”
     private CityPickerUtil mCityPickerUtil;
-
-    private static final String DELIVERY_ADDRESS_1 = "提货地区";
-    private static final String DELIVERY_ADDRESS_2 = "收货地区";
+    private String mProvince;
+    private String mCity;
+    private String mDistrict;
 
     @Override
     protected int getLayoutResId() {
@@ -67,6 +80,13 @@ public class DispatchDeviceActivity extends BaseActivity<IDispatchDeviceContract
         setToolBar(mToolbar, "配送设备", true, 0);
         mEtiDeviceList.setEditTextGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
         mRgDeliveryType.setOnCheckedChangeListener(this);
+
+        mEtiDeliveryAddress.setValidator(this);
+        mEtiDeliveryAddressDetail.setValidator(this);
+        mEtiDeviceList.setValidator(this);
+        mEtiDeliveryDetailName.setValidator(this);
+        mEtiDeliveryDetailNum.setValidator(this);
+
         changUI();
     }
 
@@ -79,7 +99,8 @@ public class DispatchDeviceActivity extends BaseActivity<IDispatchDeviceContract
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.eti_device_list:
-                startActivity(DeviceSelectActivity.class, false, true);
+                Intent intent = new Intent(this, DeviceSelectActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_SELECT_DEVICE);
                 break;
 
             case R.id.eti_delivery_address:
@@ -89,22 +110,80 @@ public class DispatchDeviceActivity extends BaseActivity<IDispatchDeviceContract
                 mCityPickerUtil.selectCity(this);
                 break;
             case R.id.btn_save:
-                showToast("保存成功");
+
+                if (mEtiDeviceList.validate()) {
+                    if (mEtiDeliveryAddress.validate()) {
+                        if (mEtiDeliveryAddressDetail.validate()) {
+                            if (!isSelfTake) {
+                                if (mEtiDeliveryDetailName.validate()) {
+                                    if (mEtiDeliveryDetailNum.validate()) {
+                                        // save();
+                                        showToast("保存成功");
+                                        finish();
+                                    }
+                                }
+                            } else {
+                                //save();
+                                showToast("保存成功");
+                                finish();
+                            }
+                        }
+                    }
+                }
                 break;
         }
     }
 
+    public void save() {
+
+        mPresenter.onStart(
+                getDeliveryType(),
+                dealerId,
+                agentId,
+                allot_type,
+                mDeviceCount,
+                mDeviceList,
+                mProvince,
+                mCity,
+                mDistrict,
+                mEtiDeliveryAddressDetail.getEditContent(),
+                mEtiDeliveryDetailName.getEditContent(),
+                mEtiDeliveryDetailNum.getEditContent()
+        );
+    }
+
+    public int getDeliveryType() {
+        // 1 快递 2上门自提
+
+        return isSelfTake ? 2 : 1;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_SELECT_DEVICE && data != null) {
+            Serializable serializableExtra = data.getSerializableExtra(SELECT_DEVICE);
+            // TODO: 2017/4/23
+            mDeviceCount = 5;
+
+            mDeviceList = "10,12";
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     @Override
     public void cityPickerItemClickListener(String province, String city, String district) {
-        mEtiDeliveryAddress.setEditContent(province + "-" + city + "-" + district);
+        mProvince = province;
+        mCity = city;
+        mDistrict = district;
+
+        mEtiDeliveryAddress.setEditContent(mProvince + "-" + mCity + "-" + mDistrict);
     }
 
     @Override
     public void cityPickerCancel() {
 
     }
-
-    boolean isSelfTake = true;
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int id) {
@@ -124,5 +203,25 @@ public class DispatchDeviceActivity extends BaseActivity<IDispatchDeviceContract
         mEtiDeliveryAddress.setTextViewTitle(isSelfTake ? DELIVERY_ADDRESS_1 : DELIVERY_ADDRESS_2);
         mEtiDeliveryDetailName.setVisibility(isSelfTake ? View.INVISIBLE : View.VISIBLE);
         mEtiDeliveryDetailNum.setVisibility(isSelfTake ? View.INVISIBLE : View.VISIBLE);
+    }
+
+    @Override
+    public boolean validate(int id, String s) {
+
+        switch (id) {
+
+            case R.id.eti_device_list:
+                return mPresenter.validate(s, id, "校验通过", "请先选择设备");
+            case R.id.eti_delivery_address:
+                return mPresenter.validate(s, id, "校验通过", isSelfTake ? "请先选择提货地区" : "请先选择收货地区");
+            case R.id.eti_delivery_address_detail:
+                return mPresenter.validate(s, id, "校验通过", "请输入详细地址");
+            case R.id.eti_delivery_detail_name:
+                return mPresenter.validate(s, id, "校验通过", "请输入物流名称");
+            case R.id.eti_delivery_detail_num:
+                return mPresenter.validate(s, id, "校验通过", "请输入物流单号");
+            default:
+                return false;
+        }
     }
 }
