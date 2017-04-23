@@ -65,7 +65,7 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
         mAgentInfoBeenList = new ArrayList<>();
 
         for (int i = 0; i < 15; i++) {
-            mAgentInfoBeenList.add(new AgentInfoBean("代理商名称" + i, "13565678123"));
+            mAgentInfoBeenList.add(new AgentInfoBean("10", "13565678123", "代理商名称" + i, "804"));
         }
 
         mAdapter = new AgentListAdapter(this);
@@ -88,8 +88,9 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
 
     @Override
     public void onCallClick(int position, AgentInfoBean data) {
-
-        startActivity(DispatchDeviceActivity.class, false, true);
+        Intent intent = new Intent(this, DispatchDeviceActivity.class);
+        intent.putExtra(DispatchDeviceActivity.AGENTID_USER_ID, data.getUser_id());
+        startActivity(intent, false, true);
     }
 
     @Override
@@ -112,6 +113,12 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
     public void onRefresh() {
         //  mPresenter.update();
         readyStartPresenter();
+    }
+
+    @Override
+    protected void onStart() {
+        onRefresh();
+        super.onStart();
     }
 
     public void closeRefreshing() {

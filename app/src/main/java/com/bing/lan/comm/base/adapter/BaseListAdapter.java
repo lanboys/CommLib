@@ -61,10 +61,20 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
     /**
      * Set data set and refresh UI.
      *
-     * @param data Data set.
+     * @param data1 Data set.
      */
-    public void setDataAndRefresh(List<T> data) {
-        this.data = data;
+    // public void setDataAndRefresh(List<T> data) {
+    //     this.data = data;
+    //     notifyDataSetChanged();
+    // }
+
+    public void setDataAndRefresh(List<T> data1) {
+        if (data != null) {
+            data.clear();
+            data.addAll(data1);
+        } else {
+            data = data1;
+        }
         notifyDataSetChanged();
     }
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
@@ -62,26 +63,10 @@ public class MapSearchActivity extends BaseActivity<IMapSearchContract.IMapSearc
     @Override
     protected void initViewAndData(Intent intent) {
         setToolBar(mToolbar, "选择位置", true, R.drawable.iv_close);
-
-        initView();
-    }
-
-    private void initView() {
-
         mEtSearchEdit.addTextChangedListener(this);
-
         mAdapter = new SearchAdapter(this);
         mLvSearchList.setAdapter(mAdapter);
         mLvSearchList.setOnItemClickListener(this);
-
-        //View viewById = findViewById(R.id.fab);
-        //viewById.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View v) {
-        //
-        //
-        //    }
-        //});
     }
 
     @Override
@@ -99,8 +84,9 @@ public class MapSearchActivity extends BaseActivity<IMapSearchContract.IMapSearc
 
         String trim = s.toString().trim();
         //ThreadPoolProxyUtil.removeDownLoadTask();
-
-        startSearchTask(trim);
+        if (!TextUtils.isEmpty(trim)) {
+            startSearchTask(trim);
+        }
 
         //InputTask.getInstance(MapSearchActivity.this, mAdapter).onSearch(trim.toString(), "");
     }
@@ -130,28 +116,6 @@ public class MapSearchActivity extends BaseActivity<IMapSearchContract.IMapSearc
         log.e("onSearchResult()搜索结果数量: " + list.size());
         log.e("onSearchResult(): 当前线程：" + Thread.currentThread().getName());
         mAdapter.setData(list);
-    }
-
-    public static class Task implements Runnable {
-
-        WeakReference<MapSearchActivity> mWeakReference;
-
-        String search;
-
-        public Task(@NonNull MapSearchActivity mapSearchActivity, @NonNull String search) {
-
-            mWeakReference = new WeakReference<>(mapSearchActivity);
-            this.search = search;
-        }
-
-        @Override
-        public void run() {
-
-            if (mWeakReference != null && search != null) {
-                MapSearchActivity activity = mWeakReference.get();
-                InputTask.getInstance(activity, activity).onSearch(search, "");
-            }
-        }
     }
 
     @Override
@@ -187,6 +151,28 @@ public class MapSearchActivity extends BaseActivity<IMapSearchContract.IMapSearc
                 }
                 SoftInputUtil.closeSoftInput(this);
                 break;
+        }
+    }
+
+    public static class Task implements Runnable {
+
+        WeakReference<MapSearchActivity> mWeakReference;
+
+        String search;
+
+        public Task(@NonNull MapSearchActivity mapSearchActivity, @NonNull String search) {
+
+            mWeakReference = new WeakReference<>(mapSearchActivity);
+            this.search = search;
+        }
+
+        @Override
+        public void run() {
+
+            if (mWeakReference != null && search != null) {
+                MapSearchActivity activity = mWeakReference.get();
+                InputTask.getInstance(activity, activity).onSearch(search, "");
+            }
         }
     }
 }

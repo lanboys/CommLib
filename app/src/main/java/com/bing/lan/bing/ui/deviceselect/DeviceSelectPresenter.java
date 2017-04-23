@@ -1,5 +1,6 @@
 package com.bing.lan.bing.ui.deviceselect;
 
+import com.bing.lan.bing.ui.deviceselect.bean.DeviceInfoResultBean;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
 
 /**
@@ -10,24 +11,18 @@ public class DeviceSelectPresenter
         extends BaseActivityPresenter<IDeviceSelectContract.IDeviceSelectView, IDeviceSelectContract.IDeviceSelectModule>
         implements IDeviceSelectContract.IDeviceSelectPresenter {
 
+    private static final int ACTION_LOAD_DEVICE_LIST = 0;
+
     @Override
     public void onStart(Object... params) {
-
-        // mModule.loadData(LOAD_GANK, this, LOAD_COUNT, LOAD_PAGE);
-
+        mModule.requestData(ACTION_LOAD_DEVICE_LIST, this, params);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void onSuccess(int action, Object data) {
 
-        switch (action) {
-
-            // case LOAD_GANK:
-            //
-            //     break;
-
-        }
+        mView.updateDevice((DeviceInfoResultBean) data);
     }
 
     @Override

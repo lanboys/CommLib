@@ -1,5 +1,6 @@
 package com.bing.lan.bing.ui.deviceselect;
 
+import com.bing.lan.bing.ui.deviceselect.bean.DeviceInfoResultBean;
 import com.bing.lan.comm.base.mvp.activity.IBaseActivityContract;
 
 /**
@@ -10,6 +11,8 @@ public interface IDeviceSelectContract {
 
     interface IDeviceSelectView
             extends IBaseActivityContract.IBaseActivityView<IDeviceSelectPresenter> {
+
+        void updateDevice(DeviceInfoResultBean deviceInfoResultBean);
 
     }
 

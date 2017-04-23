@@ -1,6 +1,7 @@
 package com.bing.lan.comm.api.service;
 
 import com.bing.lan.bing.ui.agent.bean.AgentResultBean;
+import com.bing.lan.bing.ui.deviceselect.bean.DeviceInfoResultBean;
 
 import java.util.Map;
 
@@ -85,4 +86,8 @@ public interface JzkApiService {
     @FormUrlEncoded
     @POST("agent/send")
     Observable<HttpResult<String>> dispatchDevice(@FieldMap Map<String, String> map);
+
+    @GET("agent/list")
+    Observable<HttpResult<DeviceInfoResultBean>> loadDeviceList(
+            @Query("type") String type, @Query("userId") String userId);
 }

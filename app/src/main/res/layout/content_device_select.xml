@@ -25,7 +25,7 @@
             android:layout_marginRight="65dp"
             android:background="@null"
             android:hint="输入设备EN码"
-            android:maxLines="1"
+            android:singleLine="true"
             android:textColor="@color/edit_text_color"
             android:textColorHint="@color/edit_text_hint_color"
             android:textSize="15sp"/>
@@ -37,19 +37,38 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:gravity="center"
+            android:text="搜索"
             android:textColor="@color/main_color_white"
-            android:textSize="15sp"
-            android:text="搜索"/>
+            android:textSize="15sp"/>
     </RelativeLayout>
 
-
-    <com.bing.lan.comm.view.FlexiListView
-        android:id="@+id/lv_device_list"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/ll_container"
-        android:background="@color/main_color_white">
-    </com.bing.lan.comm.view.FlexiListView>
+        android:layout_below="@id/ll_container">
+
+        <com.bing.lan.comm.view.FlexiListView
+            android:id="@+id/lv_device_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:background="@color/main_color_white">
+        </com.bing.lan.comm.view.FlexiListView>
+
+        <TextView
+            android:id="@+id/tv_search_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="没有搜索到设备"
+            android:textColor="@color/main_color_text_gray"
+            android:textSize="23sp"
+            android:visibility="gone"
+        />
+
+    </FrameLayout>
+
 
     <Button
         android:id="@+id/btn_ok"

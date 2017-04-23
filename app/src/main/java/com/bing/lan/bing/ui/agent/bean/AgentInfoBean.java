@@ -7,10 +7,11 @@ package com.bing.lan.bing.ui.agent.bean;
  */
 public class AgentInfoBean {
 
-
-    public AgentInfoBean(String name, String phone) {
-        this.real_name = name;
+    public AgentInfoBean(String c, String phone, String real_name, String user_id) {
+        this.c = c;
         this.phone = phone;
+        this.real_name = real_name;
+        this.user_id = user_id;
     }
 
     /**

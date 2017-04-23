@@ -128,7 +128,8 @@ public class ManageCardActivity extends BaseActivity<IManageCardContract.IManage
         //setResult(RESULT_OK, intent);
         //
         //this.finish();
-        showToast("选中返回");
+        // showToast("选中返回");
+        finish();
     }
 
     // 详情

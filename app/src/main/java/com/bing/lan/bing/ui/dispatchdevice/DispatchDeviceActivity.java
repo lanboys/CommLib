@@ -9,13 +9,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.bing.lan.bing.ui.deviceselect.DeviceSelectActivity;
+import com.bing.lan.bing.ui.deviceselect.bean.DeviceInfoBean;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
 import com.bing.lan.comm.utils.picker.CityPickerUtil;
 import com.bing.lan.comm.view.EditTextInputLayout;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -31,7 +32,7 @@ public class DispatchDeviceActivity extends
 
     public static final int REQUEST_CODE_SELECT_DEVICE = 0;
     public static final String SELECT_DEVICE = "select_device";
-
+    public static final String AGENTID_USER_ID = "agentId_user_id";
     private static final String DELIVERY_ADDRESS_1 = "提货地区";
     private static final String DELIVERY_ADDRESS_2 = "收货地区";
     @BindView(R.id.toolbar)
@@ -58,7 +59,7 @@ public class DispatchDeviceActivity extends
     int mDeviceCount;
     String mDeviceList;
     int dealerId;
-    int agentId;
+    String agentId;
     String allot_type;//角色是经销商的传“经销商”
     private CityPickerUtil mCityPickerUtil;
     private String mProvince;
@@ -78,6 +79,12 @@ public class DispatchDeviceActivity extends
     @Override
     protected void initViewAndData(Intent intent) {
         setToolBar(mToolbar, "配送设备", true, 0);
+
+        dealerId = 804;
+        if (intent != null) {
+            agentId = intent.getStringExtra(AGENTID_USER_ID);
+        }
+
         mEtiDeviceList.setEditTextGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
         mRgDeliveryType.setOnCheckedChangeListener(this);
 
@@ -93,14 +100,23 @@ public class DispatchDeviceActivity extends
     @Override
     protected void readyStartPresenter() {
 
+        // test
+        mEtiDeliveryAddressDetail.setEditContent("详细地址");
+        mEtiDeliveryDetailName.setEditContent("中通快递");
+        mEtiDeliveryDetailNum.setEditContent("12154654646546");
+        // test
+
+
     }
 
     @OnClick({R.id.eti_device_list, R.id.eti_delivery_address, R.id.btn_save})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.eti_device_list:
+
                 Intent intent = new Intent(this, DeviceSelectActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_SELECT_DEVICE);
+
                 break;
 
             case R.id.eti_delivery_address:
@@ -161,14 +177,27 @@ public class DispatchDeviceActivity extends
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_SELECT_DEVICE && data != null) {
-            Serializable serializableExtra = data.getSerializableExtra(SELECT_DEVICE);
-            // TODO: 2017/4/23
-            mDeviceCount = 5;
+            ArrayList<DeviceInfoBean> deviceInfoBeen = (ArrayList<DeviceInfoBean>) data.getSerializableExtra(SELECT_DEVICE);
 
-            mDeviceList = "10,12";
+            mDeviceCount = deviceInfoBeen.size();
+            mEtiDeviceList.setEditContent(mDeviceCount + "");
+
+            getDeviceList(deviceInfoBeen);
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void getDeviceList(ArrayList<DeviceInfoBean> deviceInfoBeen) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (DeviceInfoBean deviceInfoBean : deviceInfoBeen) {
+            stringBuilder.append(deviceInfoBean.deviceId).append(",");
+        }
+
+        String string = stringBuilder.toString();
+        mDeviceList = string.substring(0, string.length() - 1);
     }
 
     @Override
