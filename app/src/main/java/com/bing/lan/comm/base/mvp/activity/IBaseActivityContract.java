@@ -14,7 +14,6 @@ public interface IBaseActivityContract {
 
         void setUserType(UserType mUserType);
 
-        void setUserRole(UserRole mUserRole);
 
         void setUserPhone(String mUserphone);
 

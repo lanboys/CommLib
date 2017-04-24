@@ -147,6 +147,10 @@ public class ApiManager {
         builder.readTimeout(READ_TIMEOUT, TimeUnit.SECONDS);
         builder.writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS);
 
+        // 设置 Cookie
+        builder.addInterceptor(new AddCookiesInterceptor(AppUtil.getAppContext()));
+        builder.addInterceptor(new SaveCookiesInterceptor(AppUtil.getAppContext()));
+
         // retry mechanism
         builder.retryOnConnectionFailure(true);
         return builder;

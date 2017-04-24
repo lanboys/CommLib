@@ -40,11 +40,11 @@ public class LoginResultBean implements Serializable{
          * typeName : 经销商
          */
 
-        private String userId;
-        private String phone;
-        private String shareCode;
-        private String type;
-        private String typeName;
+        public String userId;
+        public String phone;
+        public String shareCode;
+        public String type;
+        public String typeName;
 
         public String getUserId() {
             return userId;

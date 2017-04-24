@@ -15,6 +15,15 @@ public class RegisterResultBean {
     private String data;
     private String code;
 
+    @Override
+    public String toString() {
+        return "RegisterResultBean{" +
+                "code='" + code + '\'' +
+                ", msg='" + msg + '\'' +
+                ", data='" + data + '\'' +
+                '}';
+    }
+
     public String getMsg() {
         return msg;
     }

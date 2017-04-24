@@ -20,8 +20,23 @@ public enum UserRole {
         this.mType = type;
     }
 
+    public static UserRole getUserRole(String type) {
+        switch (type) {
+            case "4":
+                return USER_ROLE_AGENT;
+            case "5":
+                return USER_ROLE_DEALER;
+            case "6":
+                return USER_ROLE_SALESMAN;
+            case "7":
+                return USER_ROLE_DEALER_AGENT;
+            case "8":
+                return USER_ROLE_NOT_ROLE;
+        }
+        return USER_ROLE_NOT_ROLE;
+    }
+
     public String getType() {
         return mType;
     }
-
 }

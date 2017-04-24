@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bing.lan.bing.cons.UserRole;
 import com.bing.lan.bing.ui.agent.AgentActivity;
 import com.bing.lan.bing.ui.asset.AssetActivity;
 import com.bing.lan.bing.ui.dealer.DealerActivity;
@@ -20,6 +21,7 @@ import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
+import java.util.List;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -64,10 +66,42 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
     @Override
     protected void initViewAndData(Intent intent) {
 
-        setToolBar(mToolbar, "1897***2323", false, 0);
-
         if (intent != null) {
             mLoginResultBean = (LoginResultBean) intent.getSerializableExtra(LoginActivity.USER_INFO);
+
+            List<LoginResultBean.TypeBean> type = mLoginResultBean.getType();
+            LoginResultBean.TypeBean typeBean = type.get(0);
+            mUserInfoBean.userId = typeBean.userId;
+            mUserInfoBean.mUserPhone = typeBean.phone;
+            mUserInfoBean.shareCode = typeBean.shareCode;
+            mUserInfoBean.type = typeBean.type;
+            mUserInfoBean.typeName = typeBean.typeName;
+
+            String substring = mUserInfoBean.mUserPhone.substring(0, 5);
+            String substring1 = mUserInfoBean.mUserPhone.substring(7);
+
+            setToolBar(mToolbar, substring + "***" + substring1, false, 0);
+
+            initViewByUserRole(mUserInfoBean.getUserRole());
+        }
+    }
+
+    public void initViewByUserRole(UserRole userRole) {
+        switch (userRole) {
+
+            case USER_ROLE_AGENT://4：代理商
+
+                break;
+            case USER_ROLE_DEALER://5：经销商
+                mLlMyAgent.setVisibility(View.VISIBLE);
+                break;
+            case USER_ROLE_SALESMAN://6：销售员
+                mLlMyDealer.setVisibility(View.VISIBLE);
+                break;
+            case USER_ROLE_DEALER_AGENT://7：经销商，代理商
+                break;
+            case USER_ROLE_NOT_ROLE://8：无角色
+                break;
         }
     }
 

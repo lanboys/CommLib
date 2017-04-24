@@ -69,10 +69,9 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     @Inject
     protected T mPresenter;
     protected PhotoSelectUtil mSelectPhotoUtil;
+    protected UserInfoBean mUserInfoBean;
     //private ProgressDialogUtil mProgress;
     private ProgressDialogUtil mProgressDialog;
-
-    private UserInfoBean mUserInfoBean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -470,6 +469,14 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
         readyStartPresenter();
     }
 
+    public UserType getUserType() {
+
+        if (mUserInfoBean != null) {
+            return mUserInfoBean.getUserType();
+        }
+        return null;
+    }
+
     public void setUserType(UserType mUserType) {
 
         if (mUserInfoBean != null) {
@@ -477,38 +484,24 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
         }
     }
 
-    public void setUserRole(UserRole mUserRole) {
-        if (mUserInfoBean != null) {
-            mUserInfoBean.mUserRole = mUserRole;
-        }
-    }
-
-    public void setUserPhone(String mUserphone) {
-        if (mUserInfoBean != null) {
-            mUserInfoBean.mUserphone = mUserphone;
-        }
-    }
-
-    public UserType getUserType() {
-
-        if (mUserInfoBean != null) {
-            return mUserInfoBean.mUserType;
-        }
-        return null;
-    }
-
     public UserRole getUserRole() {
         if (mUserInfoBean != null) {
-            return mUserInfoBean.mUserRole;
+            return mUserInfoBean.getUserRole();
         }
         return null;
     }
 
     public String getUserPhone() {
         if (mUserInfoBean != null) {
-            return mUserInfoBean.mUserphone;
+            return mUserInfoBean.mUserPhone;
         }
         return null;
+    }
+
+    public void setUserPhone(String mUserphone) {
+        if (mUserInfoBean != null) {
+            mUserInfoBean.mUserPhone = mUserphone;
+        }
     }
 
     protected boolean isHaveSelectPhoto() {

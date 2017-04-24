@@ -75,8 +75,8 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
         mEtInputPassword.setValidator(this);
 
         //test
-        mEtInputPhoneNumber.setEditContent("13556004869");
-        mEtInputPassword.setEditContent("qw13556004869");
+        mEtInputPhoneNumber.setEditContent("15915726492");
+        mEtInputPassword.setEditContent("a123456789");
 
         //test
 

@@ -2,9 +2,22 @@ package com.bing.lan.bing.cons;
 
 public class UserInfoBean {
 
-    public   String mUserphone;//用户手机号
+    public String mUserPhone;//用户手机号
+    public String userId;
+    public String shareCode;
+    public String type;
+    public String typeName;
+    public UserType mUserType;//用户类型  USER_TYPE_NOT_OA    USER_TYPE_OA
+    private UserRole mUserRole;
 
-    public  UserType mUserType;//用户类型  USER_TYPE_NOT_OA    USER_TYPE_OA
+    public UserRole getUserRole() {
+        if (mUserType == null) {
+            mUserRole = UserRole.getUserRole(type);
+        }
+        return mUserRole;
+    }
 
-    public  UserRole mUserRole;
+    public UserType getUserType() {
+        return mUserType;
+    }
 }
