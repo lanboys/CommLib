@@ -1,10 +1,11 @@
 package com.bing.lan.bing.ui.register;
 
+import com.bing.lan.bing.ui.register.bean.RegisterResultBean;
 import com.bing.lan.comm.api.ApiManager;
+import com.bing.lan.comm.api.service.HttpResult;
 import com.bing.lan.comm.base.mvp.IBaseContract;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityModule;
 
-import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -19,24 +20,66 @@ public class RegisterModule extends BaseActivityModule
 
         switch (action) {
 
-            case RegisterPresenter.ACTION_CHECK_PHONE:
-                checkPhoneStatus(action, listener, (String) parameter[0]);
+            case RegisterPresenter.ACTION_GET_VCODE:
+                getVerificationCode(action,
+                        listener,
+                        (String) parameter[0],
+                        (String) parameter[1],
+                        (String) parameter[2]);
                 break;
-            case RegisterPresenter.ACTION_CHECK_VERIFICATION_CODE:
-                checkVerificationCode(action, listener, (String) parameter[0]);
+            case RegisterPresenter.ACTION_CHECK_REGISTER:
+                register(action,
+                        listener,
+                        (String) parameter[0],
+                        (String) parameter[1],
+                        (String) parameter[2]);
                 break;
         }
     }
 
     @Override
-    public void checkPhoneStatus(int action, IBaseContract.OnDataChangerListener listener, String phone) {
-        Observable<ResponseBody> hotResult1 = ApiManager.getInstance().getUserApiService().getHotResult1();
-        subscribe(hotResult1, action, listener, "检查手机号码");
+    public void getVerificationCode(int action, IBaseContract.OnDataChangerListener listener,
+            String cphone, String ctype, String cutype) {
+
+        //Call<ResponseBody> call = ApiManager.getInstance()
+        //        .getJzkApiService()
+        //        .getVerificationCode(cphone, ctype, cutype);
+        //
+        //call.enqueue(new Callback<ResponseBody>() {
+        //    @Override
+        //    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+        //        try {
+        //            ResponseBody body = response.body();
+        //            String string = body.toString();
+        //            log.e("onResponse(): " + string);
+        //        } catch (Exception e) {
+        //            log.e("onResponse():  " + e.getLocalizedMessage());
+        //        }
+        //    }
+        //
+        //    @Override
+        //    public void onFailure(Call<ResponseBody> call, Throwable t) {
+        //        log.e("onFailure():  " + t);
+        //    }
+        //});
+
+        Observable<HttpResult<String>> observable =
+                ApiManager.getInstance()
+                        .getJzkApiService()
+                        .getVerificationCode(cphone, ctype, cutype);
+
+        subscribe(observable, action, listener, "获取验证码");
     }
 
     @Override
-    public void checkVerificationCode(int action, IBaseContract.OnDataChangerListener listener, String code) {
-        Observable<ResponseBody> hotResult1 = ApiManager.getInstance().getUserApiService().getHotResult1();
-        subscribe(hotResult1, action, listener, "检查验证码号码");
+    public void register(int action, IBaseContract.OnDataChangerListener listener,
+            String code, String phone, String password) {
+
+        Observable<HttpResult<RegisterResultBean>> observable =
+                ApiManager.getInstance()
+                        .getJzkApiService()
+                        .register(code, phone, password);
+
+        subscribe(observable, action, listener, "注册");
     }
 }

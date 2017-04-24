@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Environment;
 import android.support.multidex.MultiDex;
 
+import com.bing.lan.bing.cons.UserInfoBean;
+import com.bing.lan.bing.cons.UserType;
 import com.bing.lan.comm.utils.AppUtil;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
@@ -15,6 +17,18 @@ import java.io.File;
  * @time 2017/1/9  18:26
  */
 public class BaseApplication extends Application {
+
+    public static UserInfoBean getUser() {
+        return mUser;
+    }
+
+    private static UserInfoBean mUser;
+
+    private static void initUserInfoBean() {
+        mUser = new UserInfoBean();
+        mUser.mUserType= UserType.USER_TYPE_NOT_OA;
+
+    }
 
     //1.创建一个静态的事件总线
     //public static Bus sBus;
@@ -35,6 +49,8 @@ public class BaseApplication extends Application {
         AppUtil.initGlobal(this, getApplicationContext());
         //二维码
         ZXingLibrary.initDisplayOpinion(this);
+
+        initUserInfoBean();
 
         //otto
         // if (sBus == null) {

@@ -3,7 +3,11 @@ package com.bing.lan.bing.ui.register;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.bing.lan.bing.cons.GetVerificationCode;
+import com.bing.lan.bing.cons.UserType;
+import com.bing.lan.bing.ui.register.bean.RegisterResultBean;
 import com.bing.lan.comm.R;
+import com.bing.lan.comm.api.service.HttpResult;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
 import com.bing.lan.comm.utils.AppUtil;
 import com.bing.lan.comm.utils.RegExpUtil;
@@ -26,8 +30,8 @@ public class RegisterPresenter
         implements IRegisterContract.IRegisterPresenter {
 
     private static final int TOTAL_WAITING_VERIFICATION_CODE_TIME = 120;
-    public static final int ACTION_CHECK_PHONE = 1;
-    public static final int ACTION_CHECK_VERIFICATION_CODE = 2;
+    public static final int ACTION_GET_VCODE = 1;
+    public static final int ACTION_CHECK_REGISTER = 2;
     private CompositeSubscription mSubscription;
 
     @Override
@@ -47,18 +51,33 @@ public class RegisterPresenter
 
         switch (action) {
 
-            case ACTION_CHECK_PHONE:
-                //根据状态 tre 发送成功
-                if (!AppUtil.getBooleanByRandom()) {
+            case ACTION_GET_VCODE:
+
+                HttpResult<String> httpResult = (HttpResult<String>) data;
+                log.d("onSuccess(): " + httpResult.toString());
+
+                int errorCode = httpResult.getErrorCode();
+
+                //根据状态 true 发送成功
+                if (errorCode == 1000) {
                     //倒计时
+                    //发送成功
                     updateWaitingVerificationCodeTime();
                     mView.setVerificationStatus();
-                } else {
-                    //显示错误信息
+                    mView.showToast(httpResult.getMsg());
+                } else if (errorCode == 2000) {
+                    //验证发送失败
+                    mView.showToast(httpResult.getMsg());
+                } else if (errorCode == 500) {
+                    //表示用户存在
                     mView.setRegisterTipVisibility(View.VISIBLE);
                 }
+
                 break;
-            case ACTION_CHECK_VERIFICATION_CODE:
+            case ACTION_CHECK_REGISTER:
+
+                HttpResult<RegisterResultBean> httpResult1 = (HttpResult<RegisterResultBean>) data;
+                log.d("onSuccess(): " + httpResult1.toString());
 
                 if (AppUtil.getBooleanByRandom()) {
                     //验证码正确 进入加入我们界面
@@ -81,10 +100,10 @@ public class RegisterPresenter
         mView.dismissProgressDialog();
         switch (action) {
 
-            case ACTION_CHECK_PHONE:
+            case ACTION_GET_VCODE:
                 mView.showToast("获取验证码失败");
                 break;
-            case ACTION_CHECK_VERIFICATION_CODE:
+            case ACTION_CHECK_REGISTER:
                 mView.showToast("注册失败");
                 break;
         }
@@ -132,16 +151,18 @@ public class RegisterPresenter
     }
 
     @Override
-    public void checkPhoneStatus(String phone) {
+    public void getVerificationCode(String cphone, GetVerificationCode ctype, UserType cutype) {
+
         //请求网络
-        mModule.requestData(ACTION_CHECK_PHONE, this, phone);
-        mView.showProgressDialog("请稍后..");
+        mModule.requestData(ACTION_GET_VCODE, this, cphone, ctype.getType(), cutype.getType());
+        //mView.showProgressDialog("请稍后..");
     }
 
     @Override
-    public void checkVerificationCode(String code) {
-        mModule.requestData(ACTION_CHECK_VERIFICATION_CODE, this, code);
-        mView.showProgressDialog("请稍后..");
+    public void register(String code, String phone, String password) {
+
+        mModule.requestData(ACTION_CHECK_REGISTER, this, code, phone, password);
+        //  mView.showProgressDialog("请稍后..");
     }
 
     @Override

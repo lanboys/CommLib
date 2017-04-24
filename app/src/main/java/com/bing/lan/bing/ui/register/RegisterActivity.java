@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bing.lan.bing.cons.GetVerificationCode;
 import com.bing.lan.bing.ui.join.JoinUsActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
@@ -80,7 +81,10 @@ public class RegisterActivity extends BaseActivity<IRegisterContract.IRegisterPr
                         if (mEtInputVerification.validate()) {
                             if (mEtInputPassword.validate()) {
                                 //
-                                mPresenter.checkVerificationCode(mEtInputVerification.getEditContent());
+                                mPresenter.register(
+                                        mEtInputVerification.getEditContent(),
+                                        mEtInputPhoneNumber.getEditContent(),
+                                        mEtInputPassword.getEditContent());
                             }
                         }
                     } else {
@@ -100,8 +104,12 @@ public class RegisterActivity extends BaseActivity<IRegisterContract.IRegisterPr
             case R.id.tv_content:
                 //mPresenter.updateWaitingVerificationCodeTime();
                 if (mEtInputPhoneNumber.validate()) {
-                    mPresenter.checkPhoneStatus(mEtInputPhoneNumber.getEditContent());
 
+                    mPresenter.getVerificationCode(
+                            mEtInputPhoneNumber.getEditContent(),
+                            GetVerificationCode.REGISTER,
+                            getUserType()
+                    );
                 }
                 break;
         }

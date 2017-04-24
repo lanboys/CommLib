@@ -3,6 +3,7 @@ package com.bing.lan.comm.api.service;
 import com.bing.lan.bing.ui.agent.bean.AgentResultBean;
 import com.bing.lan.bing.ui.deviceselect.bean.DeviceInfoResultBean;
 import com.bing.lan.bing.ui.joinagent.bean.JoinAgentResultBean;
+import com.bing.lan.bing.ui.register.bean.RegisterResultBean;
 
 import java.util.Map;
 
@@ -105,12 +106,32 @@ public interface JzkApiService {
             @Field("shareCode") String shareCode
     );
 
+    //@FormUrlEncoded
+    @GET("login-ios/check")
+    Observable<HttpResult<String>> getVerificationCode(
+            @Query("cphone") String cphone,
+            @Query("ctype") String ctype,
+            @Query("cutype") String cutype
+    );
+
+
+    //@FormUrlEncoded
+    //@POST("login-ios/check")
+    //Call<ResponseBody>  getVerificationCode(
+    //        @Field("cphone") String cphone,
+    //        @Field("ctype") String ctype,
+    //        @Field("cutype") String cutype
+    //);
+
+
+
+
     @FormUrlEncoded
-    @POST("login-ios/check")
-    Observable<HttpResult<String>> checkVerificationCode(
-            @Field("cphone") String cphone,
-            @Field("ctype") String ctype,
-            @Field("cutype") String cutype
+    @POST("login-ios/reg")
+    Observable<HttpResult<RegisterResultBean>> register(
+            @Field("code") String code,
+            @Field("phone") String phone,
+            @Field("password") String password
     );
 
     @FormUrlEncoded

@@ -12,6 +12,15 @@ public class HttpResult<T> {
 
     private T data;
 
+    @Override
+    public String toString() {
+        return "HttpResult{" +
+                "errorCode=" + errorCode +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
+
     public T getData() {
         return data;
     }

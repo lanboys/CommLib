@@ -23,7 +23,7 @@ import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.fastjson.FastJsonConverterFactory;
 
 public class ApiManager {
 
@@ -59,9 +59,9 @@ public class ApiManager {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(sOkHttpClient)
-                .addConverterFactory(GsonConverterFactory.create(sGson))
+                //.addConverterFactory(GsonConverterFactory.create(sGson))
                 // .addConverterFactory(ScalarsConverterFactory.create())
-                // .addConverterFactory(FastJsonConverterFactory.create())
+                  .addConverterFactory(FastJsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
     }

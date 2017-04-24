@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bing.lan.bing.cons.UserType;
 import com.bing.lan.bing.ui.forgetPassword.ForgetPasswordActivity;
 import com.bing.lan.bing.ui.main.MainActivity;
 import com.bing.lan.bing.ui.register.RegisterActivity;
@@ -128,6 +129,9 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
         showToast(mIsEmployee ? "公司员工" : "非公司员工");
         mTvEmployee.setSelected(mIsEmployee);
         mTvNotEmployee.setSelected(!mIsEmployee);
+
+        setUserType(mIsEmployee ? UserType.USER_TYPE_OA : UserType.USER_TYPE_NOT_OA);
+
     }
 
     @Override
@@ -142,11 +146,8 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
         }
     }
 
-
-
     public void goMainActivity() {
         startActivity(MainActivity.class, true, true);
-
     }
 
     @Override

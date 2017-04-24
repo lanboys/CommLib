@@ -34,6 +34,9 @@ public class BaseSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onNext(T bean) {
+        if (bean == null) {
+            throw new NullPointerException("onNext(T bean)返回的对象bean为null");
+        }
         if (log != null) {
             log.i("onNext():加载 " + mDescription + " 成功: " + bean.toString());
         }

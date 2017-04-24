@@ -116,7 +116,7 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
     compile "com.squareup.retrofit2:converter-scalars:$rootProject.retrofitVersion"
-    //compile 'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
+     compile 'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
 
     // ok http
     compile "com.squareup.okhttp3:okhttp:$rootProject.okHttpVersion"

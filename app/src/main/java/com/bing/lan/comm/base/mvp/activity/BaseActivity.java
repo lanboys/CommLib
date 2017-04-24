@@ -19,7 +19,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bing.lan.bing.cons.UserInfoBean;
+import com.bing.lan.bing.cons.UserRole;
+import com.bing.lan.bing.cons.UserType;
 import com.bing.lan.comm.R;
+import com.bing.lan.comm.app.BaseApplication;
 import com.bing.lan.comm.base.mvp.activity.IBaseActivityContract.IBaseActivityPresenter;
 import com.bing.lan.comm.base.mvp.activity.IBaseActivityContract.IBaseActivityView;
 import com.bing.lan.comm.config.AppConfig;
@@ -65,8 +69,10 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     @Inject
     protected T mPresenter;
     protected PhotoSelectUtil mSelectPhotoUtil;
-    private ProgressDialogUtil mProgress;
+    //private ProgressDialogUtil mProgress;
     private ProgressDialogUtil mProgressDialog;
+
+    private UserInfoBean mUserInfoBean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -459,7 +465,50 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
             mSelectPhotoUtil.setUploadListener(this);
         }
 
+        mUserInfoBean = BaseApplication.getUser();
+
         readyStartPresenter();
+    }
+
+    public void setUserType(UserType mUserType) {
+
+        if (mUserInfoBean != null) {
+            mUserInfoBean.mUserType = mUserType;
+        }
+    }
+
+    public void setUserRole(UserRole mUserRole) {
+        if (mUserInfoBean != null) {
+            mUserInfoBean.mUserRole = mUserRole;
+        }
+    }
+
+    public void setUserPhone(String mUserphone) {
+        if (mUserInfoBean != null) {
+            mUserInfoBean.mUserphone = mUserphone;
+        }
+    }
+
+    public UserType getUserType() {
+
+        if (mUserInfoBean != null) {
+            return mUserInfoBean.mUserType;
+        }
+        return null;
+    }
+
+    public UserRole getUserRole() {
+        if (mUserInfoBean != null) {
+            return mUserInfoBean.mUserRole;
+        }
+        return null;
+    }
+
+    public String getUserPhone() {
+        if (mUserInfoBean != null) {
+            return mUserInfoBean.mUserphone;
+        }
+        return null;
     }
 
     protected boolean isHaveSelectPhoto() {
