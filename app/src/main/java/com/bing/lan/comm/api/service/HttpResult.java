@@ -1,6 +1,5 @@
 package com.bing.lan.comm.api.service;
 
-
 /**
  * 统一处理返回数据
  */
@@ -8,7 +7,17 @@ public class HttpResult<T> {
 
     private int errorCode;
 
+    private int code;
+
     private String msg;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
 
     private T data;
 
@@ -16,6 +25,7 @@ public class HttpResult<T> {
     public String toString() {
         return "HttpResult{" +
                 "errorCode=" + errorCode +
+                ", code=" + code +
                 ", msg='" + msg + '\'' +
                 ", data=" + data +
                 '}';

@@ -87,9 +87,8 @@ public class ForgetPasswordActivity extends BaseActivity<IForgetPasswordContract
             case R.id.tv_verification_code:
                 if (mEtiPhoneNumber.validate()) {
                     //网络请求 检查手机号 是否注册
-                  //  mPresenter.checkPhoneStatus(mEtiPhoneNumber.getEditContent());
-                      isVerification = true;
-
+                    //  mPresenter.checkPhoneStatus(mEtiPhoneNumber.getEditContent());
+                    isVerification = true;
                 }
                 break;
             case R.id.tv_register_tip:

@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.bing.lan.bing.ui.agent.AgentActivity;
 import com.bing.lan.bing.ui.asset.AssetActivity;
 import com.bing.lan.bing.ui.dealer.DealerActivity;
+import com.bing.lan.bing.ui.login.LoginActivity;
+import com.bing.lan.bing.ui.login.bean.LoginResultBean;
 import com.bing.lan.bing.ui.shop.ShopActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
@@ -47,6 +49,7 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
     @BindView(R.id.tv_qrcode)
     TextView mTvQrcode;
     private Random mRandom;
+    private LoginResultBean mLoginResultBean;
 
     @Override
     protected int getLayoutResId() {
@@ -62,6 +65,10 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
     protected void initViewAndData(Intent intent) {
 
         setToolBar(mToolbar, "1897***2323", false, 0);
+
+        if (intent != null) {
+            mLoginResultBean = (LoginResultBean) intent.getSerializableExtra(LoginActivity.USER_INFO);
+        }
     }
 
     @Override
@@ -90,7 +97,6 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
                 break;
             case R.id.iv_qrcode:
 
-
                 createQrcode();
                 break;
         }
@@ -115,7 +121,6 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
         }
         Bitmap mBitmap = CodeUtils.createImage(s, 400, 400, logo);
         mIvQrcode.setImageBitmap(mBitmap);
-
 
         //打开扫码界面
         //Intent intent = new Intent(this, CaptureActivity.class);

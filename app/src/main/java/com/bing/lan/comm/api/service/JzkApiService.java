@@ -3,6 +3,7 @@ package com.bing.lan.comm.api.service;
 import com.bing.lan.bing.ui.agent.bean.AgentResultBean;
 import com.bing.lan.bing.ui.deviceselect.bean.DeviceInfoResultBean;
 import com.bing.lan.bing.ui.joinagent.bean.JoinAgentResultBean;
+import com.bing.lan.bing.ui.login.bean.LoginResultBean;
 import com.bing.lan.bing.ui.register.bean.RegisterResultBean;
 
 import java.util.Map;
@@ -106,29 +107,23 @@ public interface JzkApiService {
             @Field("shareCode") String shareCode
     );
 
-    //@FormUrlEncoded
+    /**
+     * 获取验证码
+     *
+     * @param cphone 手机号
+     * @param ctype  类型 找回密码 传3 ，注册 传1
+     * @param cutype 是否公司 1 代表非公司人员   2 公司人员
+     */
     @GET("login-ios/check")
-    Observable<HttpResult<String>> getVerificationCode(
+    Observable<RegisterResultBean> getVerificationCode(
             @Query("cphone") String cphone,
             @Query("ctype") String ctype,
             @Query("cutype") String cutype
     );
 
-
-    //@FormUrlEncoded
-    //@POST("login-ios/check")
-    //Call<ResponseBody>  getVerificationCode(
-    //        @Field("cphone") String cphone,
-    //        @Field("ctype") String ctype,
-    //        @Field("cutype") String cutype
-    //);
-
-
-
-
     @FormUrlEncoded
     @POST("login-ios/reg")
-    Observable<HttpResult<RegisterResultBean>> register(
+    Observable<RegisterResultBean> register(
             @Field("code") String code,
             @Field("phone") String phone,
             @Field("password") String password
@@ -136,7 +131,7 @@ public interface JzkApiService {
 
     @FormUrlEncoded
     @POST("login-ios/login")
-    Observable<HttpResult<String>> login(
+    Observable<HttpResult<LoginResultBean>> login(
             @Field("type") String type,
             @Field("phone") String phone,
             @Field("password") String password

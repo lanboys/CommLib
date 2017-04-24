@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.bing.lan.bing.cons.UserType;
 import com.bing.lan.bing.ui.forgetPassword.ForgetPasswordActivity;
+import com.bing.lan.bing.ui.join.JoinUsActivity;
+import com.bing.lan.bing.ui.login.bean.LoginResultBean;
 import com.bing.lan.bing.ui.main.MainActivity;
 import com.bing.lan.bing.ui.register.RegisterActivity;
 import com.bing.lan.comm.R;
@@ -86,8 +88,6 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
         mPresenter.onStart();
     }
 
-    String type;
-
     @OnClick({R.id.btn_login, R.id.tv_new_user_register, R.id.tv_forget_password,
             R.id.ll_login, R.id.ll_not_employee, R.id.ll_employee, R.id.tv_register_tip})
     public void onClick(View view) {
@@ -99,7 +99,10 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
                     if (mEtInputPassword.validate()) {
                         //startActivity(MainActivity.class, true, true);
 
-                        mPresenter.login(type, mEtInputPhoneNumber.getEditContent(), mEtInputPassword.getEditContent());
+                        mPresenter.login(
+                                getUserType().getType(),
+                                mEtInputPhoneNumber.getEditContent(),
+                                mEtInputPassword.getEditContent());
                     }
                 }
 
@@ -131,7 +134,6 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
         mTvNotEmployee.setSelected(!mIsEmployee);
 
         setUserType(mIsEmployee ? UserType.USER_TYPE_OA : UserType.USER_TYPE_NOT_OA);
-
     }
 
     @Override
@@ -146,8 +148,20 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
         }
     }
 
-    public void goMainActivity() {
-        startActivity(MainActivity.class, true, true);
+    public void goMainActivity(LoginResultBean loginResultBean) {
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(USER_INFO, loginResultBean);
+        startActivity(intent, true, true);
+    }
+
+    public static final String USER_INFO = "user_info";
+
+    @Override
+    public void goJoinUsActivity(LoginResultBean loginResultBean) {
+        Intent intent = new Intent(this, JoinUsActivity.class);
+        intent.putExtra(USER_INFO, loginResultBean);
+        startActivity(intent, true, true);
     }
 
     @Override

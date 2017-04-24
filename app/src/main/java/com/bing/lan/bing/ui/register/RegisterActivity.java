@@ -77,7 +77,7 @@ public class RegisterActivity extends BaseActivity<IRegisterContract.IRegisterPr
             case R.id.btn_register:
 
                 if (mEtInputPhoneNumber.validate()) {
-                    if (isVerification) {
+                  //  if (isVerification) {
                         if (mEtInputVerification.validate()) {
                             if (mEtInputPassword.validate()) {
                                 //
@@ -87,9 +87,9 @@ public class RegisterActivity extends BaseActivity<IRegisterContract.IRegisterPr
                                         mEtInputPassword.getEditContent());
                             }
                         }
-                    } else {
-                        showToast("请先获取验证码");
-                    }
+                    //} else {
+                    //    showToast("请先获取验证码");
+                    //}
                 }
 
                 break;
@@ -139,7 +139,7 @@ public class RegisterActivity extends BaseActivity<IRegisterContract.IRegisterPr
             case R.id.et_input_phone_number:
                 return mPresenter.validate(s, id, "校验通过", "请输入正确的手机号");
             case R.id.et_input_verification:
-                return mPresenter.validate(s, id, "校验通过", "请输入验证码");
+                return mPresenter.validate(s, id, "校验通过", "请输入6位数的验证码");
             case R.id.et_input_password:
                 return mPresenter.validate(s, id, "校验通过", "请输入密码");
             default:

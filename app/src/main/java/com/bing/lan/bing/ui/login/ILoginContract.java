@@ -1,5 +1,6 @@
 package com.bing.lan.bing.ui.login;
 
+import com.bing.lan.bing.ui.login.bean.LoginResultBean;
 import com.bing.lan.comm.base.mvp.activity.IBaseActivityContract;
 
 public interface ILoginContract {
@@ -7,10 +8,11 @@ public interface ILoginContract {
     interface ILoginView
             extends IBaseActivityContract.IBaseActivityView<ILoginPresenter> {
 
-        void goMainActivity();
+        void goMainActivity(LoginResultBean loginResultBean);
+
+        void goJoinUsActivity(LoginResultBean loginResultBean);
 
         void setLoginTipVisibility(int visibility);
-
     }
 
     interface ILoginPresenter

@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.InputFilter;
 import android.text.method.DigitsKeyListener;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
@@ -55,7 +57,6 @@ public class EditTextInputView extends LinearLayout {
             String editDigits = a.getString(R.styleable.EditTextInputView_edit_digits1);
             int editMaxLength = a.getInt(R.styleable.EditTextInputView_edit_maxLength1, -1);
 
-
             Drawable drawable = a.getDrawable(R.styleable.EditTextInputView_image1);
             boolean enable = a.getBoolean(R.styleable.EditTextInputView_edit_enable1, true);
             int inputType = a.getInt(R.styleable.EditTextInputView_edit_inputType1, -1);
@@ -86,6 +87,10 @@ public class EditTextInputView extends LinearLayout {
 
             if (inputType != -1) {
                 mEdContent.setInputType(inputType);
+
+                if (inputType == 128) {
+                    setEditShowPassword(false);
+                }
             }
 
             if (hint != null) {
@@ -99,6 +104,19 @@ public class EditTextInputView extends LinearLayout {
             a.recycle();
         }
     }
+
+    public void setEditShowPassword(boolean show) {
+        if (mEdContent != null) {
+            if (show) {
+                //如果选中，显示密码
+                mEdContent.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            } else {
+                //否则隐藏密码
+                mEdContent.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        }
+    }
+
     public void setEditDigits(String editDigits) {
         if (editDigits != null) {
             mEdContent.setKeyListener(DigitsKeyListener.getInstance(editDigits));

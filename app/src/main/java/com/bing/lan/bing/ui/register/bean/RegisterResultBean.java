@@ -5,22 +5,15 @@ package com.bing.lan.bing.ui.register.bean;
  */
 public class RegisterResultBean {
 
-    //{
-    //    "errorCode": "测试内容bui2",
-    //        "msg": "测试内容sv41"
-    //}
-
-    private String errorCode;
+    /**
+     * msg : 发送失败
+     * data : null
+     * code : 2000
+     */
 
     private String msg;
-
-    public String getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
-    }
+    private String data;
+    private String code;
 
     public String getMsg() {
         return msg;
@@ -30,13 +23,19 @@ public class RegisterResultBean {
         this.msg = msg;
     }
 
-    // String ——type;
+    public Object getData() {
+        return data;
+    }
 
-    @Override
-    public String toString() {
-        return "RegisterResultBean{" +
-                "errorCode='" + errorCode + '\'' +
-                ", msg='" + msg + '\'' +
-                '}';
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

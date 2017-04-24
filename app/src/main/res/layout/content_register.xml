@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             app:edit_hint1="聚众客短信验证码"
             app:edit_inputType1="phone"
-            app:edit_maxLength1="11"
+            app:edit_maxLength1="6"
             app:image1="@drawable/iv_verification_code"
             app:text_string="获取验证码"
             app:text_visibility="visible"

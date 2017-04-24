@@ -1,5 +1,6 @@
 package com.bing.lan.bing.ui.login;
 
+import com.bing.lan.bing.ui.login.bean.LoginResultBean;
 import com.bing.lan.comm.api.ApiManager;
 import com.bing.lan.comm.api.service.HttpResult;
 import com.bing.lan.comm.base.mvp.IBaseContract;
@@ -17,14 +18,14 @@ public class LoginModule extends BaseActivityModule
     @Override
     public void loadData(int action, IBaseContract.OnDataChangerListener listener, Object... parameter) {
 
-        Observable<HttpResult<String>> observable = ApiManager.getInstance()
+        Observable<HttpResult<LoginResultBean>> observable = ApiManager.getInstance()
                 .getJzkApiService()
                 .login(
-                        (String) parameter[1],
                         (String) parameter[0],
+                        (String) parameter[1],
                         (String) parameter[2]
                 );
 
-        subscribe(observable, action, listener, "登录..");
+         subscribe(observable, action, listener, "登录..");
     }
 }

@@ -7,9 +7,7 @@ import com.bing.lan.bing.cons.GetVerificationCode;
 import com.bing.lan.bing.cons.UserType;
 import com.bing.lan.bing.ui.register.bean.RegisterResultBean;
 import com.bing.lan.comm.R;
-import com.bing.lan.comm.api.service.HttpResult;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
-import com.bing.lan.comm.utils.AppUtil;
 import com.bing.lan.comm.utils.RegExpUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -49,26 +47,23 @@ public class RegisterPresenter
 
         mView.dismissProgressDialog();
 
+        RegisterResultBean httpResult = (RegisterResultBean) data;
+        String errorCode = httpResult.getCode();
+
         switch (action) {
 
             case ACTION_GET_VCODE:
 
-                HttpResult<String> httpResult = (HttpResult<String>) data;
-                log.d("onSuccess(): " + httpResult.toString());
-
-                int errorCode = httpResult.getErrorCode();
-
                 //根据状态 true 发送成功
-                if (errorCode == 1000) {
-                    //倒计时
+                if ("1000".equals(errorCode)) {
                     //发送成功
-                    updateWaitingVerificationCodeTime();
+                    updateWaitingVerificationCodeTime();  //倒计时
                     mView.setVerificationStatus();
                     mView.showToast(httpResult.getMsg());
-                } else if (errorCode == 2000) {
+                } else if ("2000".equals(errorCode)) {
                     //验证发送失败
                     mView.showToast(httpResult.getMsg());
-                } else if (errorCode == 500) {
+                } else if ("500".equals(errorCode)) {
                     //表示用户存在
                     mView.setRegisterTipVisibility(View.VISIBLE);
                 }
@@ -76,18 +71,16 @@ public class RegisterPresenter
                 break;
             case ACTION_CHECK_REGISTER:
 
-                HttpResult<RegisterResultBean> httpResult1 = (HttpResult<RegisterResultBean>) data;
-                log.d("onSuccess(): " + httpResult1.toString());
-
-                if (AppUtil.getBooleanByRandom()) {
+                if ("200".equals(errorCode)) {
                     //验证码正确 进入加入我们界面
                     mView.goJoinUsActivity();
                     //取消倒计时
                     releaseTask();
+                } else if ("0".equals(errorCode)) {
+                    //验证码不正确
+                    mView.showToast(httpResult.getMsg());
                 } else {
-                    //验证码不正确 进入再次验证界面
-                    // mView.goVerificationActivity();
-                    mView.showToast("验证码不正确，请重新输入");
+                    mView.showToast(httpResult.getMsg());
                 }
 
                 break;

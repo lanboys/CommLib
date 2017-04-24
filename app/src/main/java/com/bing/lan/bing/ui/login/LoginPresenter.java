@@ -3,10 +3,14 @@ package com.bing.lan.bing.ui.login;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.bing.lan.bing.cons.UserRole;
+import com.bing.lan.bing.ui.login.bean.LoginResultBean;
 import com.bing.lan.comm.R;
+import com.bing.lan.comm.api.service.HttpResult;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
-import com.bing.lan.comm.utils.AppUtil;
 import com.bing.lan.comm.utils.RegExpUtil;
+
+import java.util.List;
 
 import rx.subscriptions.CompositeSubscription;
 
@@ -42,17 +46,28 @@ public class LoginPresenter extends BaseActivityPresenter<ILoginContract.ILoginV
     public void onSuccess(int action, Object data) {
         mView.dismissProgressDialog();
 
+        int code = ((HttpResult<LoginResultBean>) data).getCode();
+        LoginResultBean loginResultBean = ((HttpResult<LoginResultBean>) data).getData();
+
+        List<LoginResultBean.TypeBean> type = null;
+        if (loginResultBean != null) {
+            type = loginResultBean.getType();
+        }
+
         switch (action) {
 
             case ACTION_LOGIN:
-                //根据状态 tre 发送成功
-                if (!AppUtil.getBooleanByRandom()) {
-                    //倒计时
-                    mView.goMainActivity();
-                } else {
-                    //显示错误信息
-                    //mView.showToast("登录失败");
+                //根据状态 true 发送成功
+                if (code == 200 && type != null && type.size() > 0) {
+                    //if (!AppUtil.getBooleanByRandom()) {
 
+                    if (UserRole.USER_ROLE_NOT_ROLE.getType().equals(type.get(0))) {
+                        mView.goJoinUsActivity(loginResultBean);
+                    } else {
+                        mView.goMainActivity(loginResultBean);
+                    }
+                } else if (code == 500) {
+                    //未注册
                     mView.setLoginTipVisibility(View.VISIBLE);
                 }
                 break;
