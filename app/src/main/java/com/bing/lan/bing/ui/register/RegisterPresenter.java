@@ -1,6 +1,12 @@
 package com.bing.lan.bing.ui.register;
 
+import android.text.TextUtils;
+import android.view.View;
+
+import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
+import com.bing.lan.comm.utils.AppUtil;
+import com.bing.lan.comm.utils.RegExpUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,15 +25,16 @@ public class RegisterPresenter
         extends BaseActivityPresenter<IRegisterContract.IRegisterView, IRegisterContract.IRegisterModule>
         implements IRegisterContract.IRegisterPresenter {
 
-
     private static final int TOTAL_WAITING_VERIFICATION_CODE_TIME = 120;
+    public static final int ACTION_CHECK_PHONE = 1;
+    public static final int ACTION_CHECK_VERIFICATION_CODE = 2;
     private CompositeSubscription mSubscription;
 
     @Override
     public void onStart(Object... params) {
-        if (mSubscription == null) {
-            mSubscription = new CompositeSubscription();
-        }
+        //if (mSubscription == null) {
+        //    mSubscription = new CompositeSubscription();
+        //}
         // mModule.loadData(LOAD_GANK, this, LOAD_COUNT, LOAD_PAGE);
 
     }
@@ -36,24 +43,59 @@ public class RegisterPresenter
     @SuppressWarnings("unchecked")
     public void onSuccess(int action, Object data) {
 
+        mView.dismissProgressDialog();
+
         switch (action) {
 
-            // case LOAD_GANK:
-            //
-            //     break;
+            case ACTION_CHECK_PHONE:
+                //根据状态 tre 发送成功
+                if (!AppUtil.getBooleanByRandom()) {
+                    //倒计时
+                    updateWaitingVerificationCodeTime();
+                    mView.setVerificationStatus();
+                } else {
+                    //显示错误信息
+                    mView.setRegisterTipVisibility(View.VISIBLE);
+                }
+                break;
+            case ACTION_CHECK_VERIFICATION_CODE:
 
+                if (AppUtil.getBooleanByRandom()) {
+                    //验证码正确 进入加入我们界面
+                    mView.goJoinUsActivity();
+                    //取消倒计时
+                    releaseTask();
+                } else {
+                    //验证码不正确 进入再次验证界面
+                    // mView.goVerificationActivity();
+                    mView.showToast("验证码不正确，请重新输入");
+                }
+
+                break;
         }
     }
 
     @Override
     public void onError(int action, Throwable e) {
         super.onError(action, e);
+        mView.dismissProgressDialog();
+        switch (action) {
+
+            case ACTION_CHECK_PHONE:
+                mView.showToast("获取验证码失败");
+                break;
+            case ACTION_CHECK_VERIFICATION_CODE:
+                mView.showToast("注册失败");
+                break;
+        }
     }
 
     @Override
     public void onCompleted(int action) {
         super.onCompleted(action);
+        mView.dismissProgressDialog();
     }
+
     public void updateWaitingVerificationCodeTime() {
         Subscription subscribe = Observable.interval(0, 1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
@@ -67,13 +109,70 @@ public class RegisterPresenter
                             mView.updateWaitingVerificationCodeTime(countTime);
                     }
                 });
+        if (mSubscription == null) {
+            mSubscription = new CompositeSubscription();
+        }
         mSubscription.add(subscribe);
     }
 
     @Override
     public void onDetachView() {
         super.onDetachView();
-        mSubscription.clear();
-        mSubscription = null;
+        releaseTask();
+    }
+
+    private void releaseTask() {
+        if (mView != null) {
+            mView.updateWaitingVerificationCodeTime(0);
+        }
+        if (mSubscription != null) {
+            mSubscription.clear();
+            mSubscription = null;
+        }
+    }
+
+    @Override
+    public void checkPhoneStatus(String phone) {
+        //请求网络
+        mModule.requestData(ACTION_CHECK_PHONE, this, phone);
+        mView.showProgressDialog("请稍后..");
+    }
+
+    @Override
+    public void checkVerificationCode(String code) {
+        mModule.requestData(ACTION_CHECK_VERIFICATION_CODE, this, code);
+        mView.showProgressDialog("请稍后..");
+    }
+
+    @Override
+    public boolean validate(String content, int id, String success, String fail) {
+        boolean result = false;
+        if (!TextUtils.isEmpty(content)) {
+            switch (id) {
+                case R.id.et_input_phone_number:
+                    result = RegExpUtil.checkPhoneNum(content);
+                    break;
+                case R.id.et_input_verification:
+                    result = content.length() >= 6;
+                    break;
+                case R.id.et_input_password:
+                    result = RegExpUtil.checkPassword(content);
+                    break;
+                default:
+                    result = false;
+                    break;
+            }
+        }
+
+        if (result) {
+            if (success != null) {
+                //showToast(success);
+            }
+        } else {
+            if (fail != null) {
+                mView.showToast(fail);
+            }
+        }
+        return result;
     }
 }

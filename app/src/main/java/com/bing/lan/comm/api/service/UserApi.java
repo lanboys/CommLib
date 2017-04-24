@@ -34,7 +34,8 @@ public interface UserApi   {
     );
 
     // 横向 listview
-    @GET("mobile/discovery/v3/recommend/hotAndGuess?code=43_440000_4401&device=android&version=5.4.81")
+    //@GET("mobile/discovery/v3/recommend/hotAndGuess?code=43_440000_4401&device=android&version=5.4.81")
+    @GET("daily")
     Observable<ResponseBody>  getHotResult1();
     // http://mobile.ximalaya.com/mobile/discovery/v3/recommend/hotAndGuess?code=43_440000_4401&device=android&version=5.4.81
 

@@ -77,11 +77,15 @@ public class VerificationPresenter
     @Override
     public void onError(int action, Throwable e) {
         super.onError(action, e);
+        mView.dismissProgressDialog();
+
     }
 
     @Override
     public void onCompleted(int action) {
         super.onCompleted(action);
+        mView.dismissProgressDialog();
+
     }
 
     public void updateWaitingVerificationCodeTime() {

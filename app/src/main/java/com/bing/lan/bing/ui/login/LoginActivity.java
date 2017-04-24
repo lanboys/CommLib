@@ -2,7 +2,6 @@ package com.bing.lan.bing.ui.login;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -14,7 +13,6 @@ import com.bing.lan.bing.ui.register.RegisterActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
-import com.bing.lan.comm.utils.RegExpUtil;
 import com.bing.lan.comm.view.EditTextInputView;
 
 import butterknife.BindView;
@@ -62,11 +60,6 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
     }
 
     @Override
-    protected boolean isTranslucentStatus() {
-        return false;
-    }
-
-    @Override
     protected void startInject(ActivityComponent activityComponent) {
         activityComponent.inject(this);
     }
@@ -92,8 +85,10 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
         mPresenter.onStart();
     }
 
+    String type;
+
     @OnClick({R.id.btn_login, R.id.tv_new_user_register, R.id.tv_forget_password,
-            R.id.ll_login, R.id.ll_not_employee, R.id.ll_employee,R.id.tv_register_tip})
+            R.id.ll_login, R.id.ll_not_employee, R.id.ll_employee, R.id.tv_register_tip})
     public void onClick(View view) {
         switch (view.getId()) {
 
@@ -101,7 +96,9 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
 
                 if (mEtInputPhoneNumber.validate()) {
                     if (mEtInputPassword.validate()) {
-                        startActivity(MainActivity.class, true, true);
+                        //startActivity(MainActivity.class, true, true);
+
+                        mPresenter.login(type, mEtInputPhoneNumber.getEditContent(), mEtInputPassword.getEditContent());
                     }
                 }
 
@@ -137,39 +134,23 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
     public boolean validate(int id, String s) {
         switch (id) {
             case R.id.et_input_phone_number:
-                return validateComm(s, id, "校验通过", "请输入正确的手机号码");
+                return mPresenter.validate(s, id, "校验通过", "请输入正确格式的手机号码");
             case R.id.et_input_password:
-                return validateComm(s, id, "校验通过", "请输入正确格式的密码");
+                return mPresenter.validate(s, id, "校验通过", "请输入正确格式的密码");
             default:
                 return false;
         }
     }
 
-    public boolean validateComm(String content, int id, String success, String fail) {
 
-        boolean result = false;
 
-        if (!TextUtils.isEmpty(content)) {
-            switch (id) {
+    public void goMainActivity() {
+        startActivity(MainActivity.class, true, true);
 
-                case R.id.et_input_phone_number:
-                    result = RegExpUtil.checkPhoneNum(content);
-                    break;
-                case R.id.et_input_password:
-                    result = RegExpUtil.checkPassword(content);
-                    break;
-                default:
-                    result = false;
-                    break;
-            }
-        }
+    }
 
-        if (result) {
-            //showToast(success);
-        } else {
-            showToast(fail);
-        }
-
-        return result;
+    @Override
+    public void setLoginTipVisibility(int visibility) {
+        mTvRegisterTip.setVisibility(visibility);
     }
 }

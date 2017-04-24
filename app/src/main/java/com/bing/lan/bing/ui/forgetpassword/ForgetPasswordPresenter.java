@@ -32,9 +32,9 @@ public class ForgetPasswordPresenter
 
     @Override
     public void onStart(Object... params) {
-        if (mSubscription == null) {
-            mSubscription = new CompositeSubscription();
-        }
+        //if (mSubscription == null) {
+        //    mSubscription = new CompositeSubscription();
+        //}
 
         // mModule.loadData(LOAD_GANK, this, LOAD_COUNT, LOAD_PAGE);
 
@@ -76,6 +76,18 @@ public class ForgetPasswordPresenter
     }
 
     @Override
+    public void onError(int action, Throwable e) {
+        super.onError(action, e);
+        mView.dismissProgressDialog();
+    }
+
+    @Override
+    public void onCompleted(int action) {
+        super.onCompleted(action);
+        mView.dismissProgressDialog();
+    }
+
+    @Override
     public void checkPhoneStatus(String phone) {
         //请求网络
         mModule.requestData(ACTION_CHECK_PHONE, this, phone);
@@ -86,16 +98,6 @@ public class ForgetPasswordPresenter
     public void checkVerificationCode(String code) {
         mModule.requestData(ACTION_CHECK_VERIFICATION_CODE, this, code);
         mView.showProgressDialog("请稍后..");
-    }
-
-    @Override
-    public void onError(int action, Throwable e) {
-        super.onError(action, e);
-    }
-
-    @Override
-    public void onCompleted(int action) {
-        super.onCompleted(action);
     }
 
     public void updateWaitingVerificationCodeTime() {

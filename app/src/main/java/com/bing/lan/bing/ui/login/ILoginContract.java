@@ -7,11 +7,18 @@ public interface ILoginContract {
     interface ILoginView
             extends IBaseActivityContract.IBaseActivityView<ILoginPresenter> {
 
+        void goMainActivity();
+
+        void setLoginTipVisibility(int visibility);
+
     }
 
     interface ILoginPresenter
             extends IBaseActivityContract.IBaseActivityPresenter<ILoginView, ILoginModule> {
 
+        boolean validate(String content, int id, String success, String fail);
+
+        void login(String type, String phone, String password);
     }
 
     interface ILoginModule

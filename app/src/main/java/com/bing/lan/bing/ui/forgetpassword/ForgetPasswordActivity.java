@@ -62,7 +62,7 @@ public class ForgetPasswordActivity extends BaseActivity<IForgetPasswordContract
 
     @Override
     protected void readyStartPresenter() {
-        mPresenter.onStart();
+        //mPresenter.onStart();
     }
 
     @OnClick({R.id.btn_next, R.id.tv_verification_code, R.id.tv_register_tip})
@@ -75,7 +75,8 @@ public class ForgetPasswordActivity extends BaseActivity<IForgetPasswordContract
                     if (isVerification) {
                         if (mEtiVerificationCode.validate()) {
                             //本地校验 验证码正确 发起网络请求 再次验证
-                            mPresenter.checkVerificationCode(mEtiVerificationCode.getEditContent());
+                            //mPresenter.checkVerificationCode(mEtiVerificationCode.getEditContent());
+                            goModifyPswActivity();
                         }
                     } else {
                         showToast("请先获取验证码");
@@ -86,7 +87,9 @@ public class ForgetPasswordActivity extends BaseActivity<IForgetPasswordContract
             case R.id.tv_verification_code:
                 if (mEtiPhoneNumber.validate()) {
                     //网络请求 检查手机号 是否注册
-                    mPresenter.checkPhoneStatus(mEtiPhoneNumber.getEditContent());
+                  //  mPresenter.checkPhoneStatus(mEtiPhoneNumber.getEditContent());
+                      isVerification = true;
+
                 }
                 break;
             case R.id.tv_register_tip:

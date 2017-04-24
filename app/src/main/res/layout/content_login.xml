@@ -56,6 +56,7 @@
             android:layout_height="49dp"
             android:gravity="center"
             android:text="号码未注册，前往注册.."
+            android:visibility="invisible"
             android:textColor="#f24d5a"
             android:textSize="14sp"/>
 

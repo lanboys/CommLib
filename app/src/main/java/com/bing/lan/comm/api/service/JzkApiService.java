@@ -40,8 +40,8 @@ public interface JzkApiService {
     @Multipart
     @POST("dealer/pay")
     Call<ResponseBody> uploadDealerAuthenticate(
-            @Part("Upload[file]\"; filename=\"avatar.jpg") RequestBody body,
-            @Part("Upload[file]\"; filename=\"avatar1.jpg") RequestBody body1,
+            @Part("Upload[file][]\"; filename=\"avatar.jpg") RequestBody body,
+            @Part("Upload[file][]\"; filename=\"avatar1.jpg") RequestBody body1,
             @Query("dealerID") String dealerID,
             @Query("pay_money") String pay_money,
             @Query("paynumbers") String paynumbers,
@@ -111,5 +111,13 @@ public interface JzkApiService {
             @Field("cphone") String cphone,
             @Field("ctype") String ctype,
             @Field("cutype") String cutype
+    );
+
+    @FormUrlEncoded
+    @POST("login-ios/login")
+    Observable<HttpResult<String>> login(
+            @Field("type") String type,
+            @Field("phone") String phone,
+            @Field("password") String password
     );
 }
