@@ -1,5 +1,6 @@
 package com.bing.lan.bing.ui.joinagent;
 
+import com.bing.lan.bing.ui.joinagent.bean.JoinAgentResultBean;
 import com.bing.lan.comm.base.mvp.activity.IBaseActivityContract;
 
 /**
@@ -11,7 +12,7 @@ public interface IJoinAgentContract {
     interface IJoinAgentView
             extends IBaseActivityContract.IBaseActivityView<IJoinAgentPresenter> {
 
-        void goToJoinSuccessActivity();
+        void goToJoinSuccessActivity(JoinAgentResultBean joinAgentResultBean);
 
     }
 

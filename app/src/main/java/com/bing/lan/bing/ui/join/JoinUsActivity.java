@@ -1,6 +1,7 @@
 package com.bing.lan.bing.ui.join;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -38,11 +39,11 @@ import butterknife.BindView;
 public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresenter>
         implements IJoinUsContract.IJoinUsView {
 
+    public static Activity mContext;
     @BindView(R.id.view_pager)
     ViewPager view_pager;
     @BindView(R.id.circle_pager_indicator)
     CirclePageIndicator circle_pager_indicator;
-
     int[] mImageResList = {R.drawable.join_us1, R.drawable.join_us2};
     List<View> mImageViewList = new ArrayList<>();
     ViewPagerAdapter mViewPagerAdapter;
@@ -50,6 +51,21 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
     Toolbar mToolbar;
     @BindView(R.id.tv_show_dialog)
     TextView mTvShowDialog;
+    private LoginResultBean mLoginResultBean;
+    private AlertDialog mAlertDialog;
+
+    public static void finishSelf() {
+        if (mContext != null) {
+            mContext.finish();
+            mContext = null;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        mContext = null;
+        super.onDestroy();
+    }
 
     @Override
     protected int getLayoutResId() {
@@ -76,10 +92,10 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
         mPresenter.onStart();
     }
 
-    private LoginResultBean mLoginResultBean;
-
     @Override
     protected void initViewAndData(Intent intent) {
+
+        mContext = this;
 
         setToolBar(mToolbar, "立即加盟", true, R.drawable.iv_close);
 
@@ -246,6 +262,4 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
             mAlertDialog = null;
         }
     }
-
-    private AlertDialog mAlertDialog;
 }

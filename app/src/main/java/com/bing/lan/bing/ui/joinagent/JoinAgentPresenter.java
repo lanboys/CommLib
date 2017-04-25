@@ -2,6 +2,7 @@ package com.bing.lan.bing.ui.joinagent;
 
 import android.text.TextUtils;
 
+import com.bing.lan.bing.ui.joinagent.bean.JoinAgentResultBean;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.api.service.HttpResult;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
@@ -27,12 +28,16 @@ public class JoinAgentPresenter
     @Override
     @SuppressWarnings("unchecked")
     public void onSuccess(int action, Object data) {
-        // mView.dismissProgressDialog();
+        mView.dismissProgressDialog();
 
-        switch (((HttpResult) data).getErrorCode()) {
+        JoinAgentResultBean joinAgentResultBean = ((HttpResult<JoinAgentResultBean>) data).getData();
+
+        int errorCode = ((HttpResult) data).getErrorCode();
+
+        switch (errorCode) {
             //  200创建成功,500创建失败，501代理商已存在，502邀请码不属于经销商
             case 200:
-                mView.goToJoinSuccessActivity();
+                mView.goToJoinSuccessActivity(joinAgentResultBean);
                 break;
             case 500:
             case 501:

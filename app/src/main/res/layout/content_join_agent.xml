@@ -33,5 +33,10 @@
             style="@style/btn_blue_style"
             android:text="立即登记"/>
 
+        <ImageView
+            android:id="@+id/test_imageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"/>
+
     </LinearLayout>
 </com.bing.lan.comm.view.FlexibleScrollView>

@@ -67,6 +67,9 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
     protected void initViewAndData(Intent intent) {
 
         if (intent != null) {
+            //登录页面直接进来的
+            //还可以登录--->登记经销商/代理商--->进来
+            // TODO: 2017/4/25
             mLoginResultBean = (LoginResultBean) intent.getSerializableExtra(LoginActivity.USER_INFO);
             if (mLoginResultBean != null) {
                 List<LoginResultBean.TypeBean> type = mLoginResultBean.getType();

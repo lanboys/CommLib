@@ -88,17 +88,16 @@ public interface JzkApiService {
 
     );
 
-
     //@FormUrlEncoded
     @Multipart
     @POST("dealer/add")
     Observable<HttpResult<JoinDealerInfoBean>> joinDealer(
             @QueryMap Map<String, String> map,
-           // MultipartBody.Part part,
+            // MultipartBody.Part part,
             @PartMap() Map<String, RequestBody> partMap
     );
 
-  //  MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("imgfile", file.getName(), imageBody);
+    //  MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("imgfile", file.getName(), imageBody);
 
     @GET("agent/agent-list")
     Observable<HttpResult<AgentResultBean>> loadAgentList(
@@ -113,16 +112,43 @@ public interface JzkApiService {
             @Query("type") String type, @Query("userId") String userId);
 
     @FormUrlEncoded
-    @POST("dealer/pay")
+    @POST("agent/add")
     Observable<HttpResult<JoinAgentResultBean>> joinAgent(
-            @Field("real_name") String real_name,
             @Field("phone") String phone,
+            @Field("real_name") String real_name,
             @Field("province") String province,
             @Field("city") String city,
             @Field("area") String area,
             @Field("addressDetail") String addressDetail,
             @Field("shareCode") String shareCode
     );
+
+
+    // @Multipart
+    // @POST("agent/add")
+    // Observable<HttpResult<JoinAgentResultBean>> joinAgent(
+    //         @Part("phone") String phone,
+    //         @Part("real_name") String real_name,
+    //         @Part("province") String province,
+    //         @Part("city") String city,
+    //         @Part("area") String area,
+    //         @Part("addressDetail") String addressDetail,
+    //         @Part("shareCode") String shareCode
+    // );
+
+    // @Multipart
+    // @POST("agent/add")
+    // Observable<HttpResult<JoinAgentResultBean>> joinAgent(
+    //         @Query("phone") String phone,
+    //         @Query("real_name") String real_name,
+    //         @Query("province") String province,
+    //         @Query("city") String city,
+    //         @Query("area") String area,
+    //         @Query("addressDetail") String addressDetail,
+    //         @Query("shareCode") String idCard,
+    //         @Part("Upload[file][]\"; filename=\"avatar.jpg") RequestBody body
+    //
+    // );
 
     /**
      * 获取验证码

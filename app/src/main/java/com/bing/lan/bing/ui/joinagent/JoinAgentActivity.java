@@ -1,10 +1,14 @@
 package com.bing.lan.bing.ui.joinagent;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.bing.lan.bing.cons.UserInfoBean;
+import com.bing.lan.bing.ui.joinagent.bean.JoinAgentResultBean;
 import com.bing.lan.bing.ui.joinsuccess.JoinSuccessActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
@@ -12,6 +16,8 @@ import com.bing.lan.comm.di.ActivityComponent;
 import com.bing.lan.comm.utils.SoftInputUtil;
 import com.bing.lan.comm.utils.picker.CityPickerUtil;
 import com.bing.lan.comm.view.EditTextInputLayout;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,6 +45,10 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
 
     @BindView(R.id.btn_join_now)
     Button mBtnJoinNow;
+
+
+    @BindView(R.id.test_imageView)
+    ImageView test_imageView;
     private CityPickerUtil mCityPickerUtil;
     private String mProvince;
     private String mCity;
@@ -69,13 +79,35 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
         mEtiAddressDetail.setValidator(this);
         mEtiInviteCode.setValidator(this);
 
+        mEtiPhoneNumber.setEditContent(getUserPhone());
+
         //test
-        mEtiPhoneNumber.setEditContent("13556004224");
         mEtiJoinName.setEditContent("蓝兵");
         mEtiAddressDetail.setEditContent("东田大厦");
-        mEtiInviteCode.setEditContent("要唯一");
+        mEtiInviteCode.setEditContent("JTVCQK7Y");
         //test
+
+        test_imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectPhoto(test_imageView);
+
+            }
+        });
+
     }
+
+    File test_imageViewFile;
+
+    @Override
+    public void uploadAvatar(ImageView imageView, Uri source) {
+
+                test_imageViewFile = new File(source.getPath());
+
+
+
+    }
+
 
     @Override
     protected void readyStartPresenter() {
@@ -111,7 +143,8 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
                                             mCity,
                                             mDistrict,
                                             mEtiAddressDetail.getEditContent(),
-                                            mEtiInviteCode.getEditContent()
+                                            mEtiInviteCode.getEditContent(),
+                                            test_imageViewFile
                                     );
                                 }
                             }
@@ -123,7 +156,14 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
         }
     }
 
-    public void goToJoinSuccessActivity() {
+    @Override
+    public void goToJoinSuccessActivity(  JoinAgentResultBean joinAgentResultBean ) {
+        if (joinAgentResultBean != null) {
+            setUserId(joinAgentResultBean.getAgentId()+"");
+            UserInfoBean userInfoBean = getUserInfoBean();
+            userInfoBean.shareCode = joinAgentResultBean.getShareCode();
+            userInfoBean.type = "4";
+        }
 
         JoinSuccessActivity.start(this, JoinSuccessActivity.ENTER_TYPE_AGENT);
     }

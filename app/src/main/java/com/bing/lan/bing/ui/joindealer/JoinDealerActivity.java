@@ -76,8 +76,9 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
         mEtiIdCardNumber.setValidator(this);
         mEtiSelectAddress.setValidator(this);
 
-        //test
         mEtiPhoneNumber.setEditContent(getUserPhone());
+
+        //test
         mEtiJoinName.setEditContent("蓝小兵");
         mEtiAddressDetail.setEditContent("东田大厦");
         mEtiIdCardNumber.setEditContent("440223199812253730");

@@ -28,6 +28,7 @@ public class JoinAgentModule extends BaseActivityModule
                         (String) parameter[4],
                         (String) parameter[5],
                         (String) parameter[6]
+                      //  RequestBody.create(MediaType.parse("multipart/form-data"), (File) parameter[7])
 
                 );
 

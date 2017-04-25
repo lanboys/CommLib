@@ -7,5 +7,31 @@ package com.bing.lan.bing.ui.joinagent.bean;
  */
 public class JoinAgentResultBean {
 
-    String agentId;
+    public int agentId;
+
+    public String shareCode;
+
+    @Override
+    public String toString() {
+        return "JoinAgentResultBean{" +
+                "agentId=" + agentId +
+                ", shareCode='" + shareCode + '\'' +
+                '}';
+    }
+
+    public int getAgentId() {
+        return agentId;
+    }
+
+    public void setAgentId(int agentId) {
+        this.agentId = agentId;
+    }
+
+    public String getShareCode() {
+        return shareCode;
+    }
+
+    public void setShareCode(String shareCode) {
+        this.shareCode = shareCode;
+    }
 }
