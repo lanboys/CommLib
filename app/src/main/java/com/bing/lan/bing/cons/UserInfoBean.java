@@ -11,7 +11,7 @@ public class UserInfoBean {
     private UserRole mUserRole;
 
     public UserRole getUserRole() {
-        if (mUserType == null) {
+        if (mUserRole == null) {
             mUserRole = UserRole.getUserRole(type);
         }
         return mUserRole;

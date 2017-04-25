@@ -44,7 +44,10 @@ public class RegisterModule extends BaseActivityModule
         Observable<RegisterResultBean> observable =
                 ApiManager.getInstance()
                         .getJzkApiService()
-                        .getVerificationCode(cphone, ctype, cutype);
+                        .getVerificationCode(
+                                cphone,
+                                ctype,
+                                cutype);
 
         subscribe(observable, action, listener, "获取验证码");
 

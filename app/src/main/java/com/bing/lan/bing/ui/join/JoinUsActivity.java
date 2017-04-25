@@ -1,6 +1,10 @@
 package com.bing.lan.bing.ui.join;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +17,8 @@ import android.widget.Toast;
 
 import com.bing.lan.bing.ui.joinagent.JoinAgentActivity;
 import com.bing.lan.bing.ui.joindealer.JoinDealerActivity;
+import com.bing.lan.bing.ui.login.LoginActivity;
+import com.bing.lan.bing.ui.login.bean.LoginResultBean;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -70,10 +76,25 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
         mPresenter.onStart();
     }
 
+    private LoginResultBean mLoginResultBean;
+
     @Override
     protected void initViewAndData(Intent intent) {
 
-        setToolBar(mToolbar, "立即加盟", true, 0);
+        setToolBar(mToolbar, "立即加盟", true, R.drawable.iv_close);
+
+        if (intent != null) {
+            mLoginResultBean = (LoginResultBean) intent.getSerializableExtra(LoginActivity.USER_INFO);
+            if (mLoginResultBean != null) {
+                List<LoginResultBean.TypeBean> type = mLoginResultBean.getType();
+                LoginResultBean.TypeBean typeBean = type.get(0);
+                mUserInfoBean.userId = typeBean.userId;
+                mUserInfoBean.mUserPhone = typeBean.phone;
+                mUserInfoBean.shareCode = typeBean.shareCode;
+                mUserInfoBean.type = typeBean.type;
+                mUserInfoBean.typeName = typeBean.typeName;
+            }
+        }
 
         mTvShowDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,13 +142,13 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
         inflate.findViewById(R.id.btn_join_agent).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(JoinAgentActivity.class, false, false);
+                startActivity(JoinAgentActivity.class, false, true);
             }
         });
         inflate.findViewById(R.id.btn_join_dealer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(JoinDealerActivity.class, false, false);
+                startActivity(JoinDealerActivity.class, false, true);
             }
         });
 
@@ -171,14 +192,60 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
         switch (item.getItemId()) {
             case R.id.action_call:
 
-                View inflate = View.inflate(JoinUsActivity.this, R.layout.alert_call, null);
-
-                new AlertDialog.Builder(this)
-                        .setView(inflate)
-                        .create().show();
+                showCallAlertDialog("020-81292999");
 
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void showCallAlertDialog(String phone) {
+        mAlertDialog = createExitDialog(phone);
+
+        mAlertDialog.show();
+    }
+
+    private AlertDialog createExitDialog(String phone) {
+
+        View inflate = View.inflate(this, R.layout.alert_call, null);
+        TextView textView = (TextView) inflate.findViewById(R.id.tv_phone);
+        textView.setText(phone);
+        inflate.findViewById(R.id.tv_call).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callPhone(phone);
+            }
+        });
+
+        return new AlertDialog.Builder(this/*,R.style.join_alert_dialog*/)
+                //.setView(inflate)
+                .setView(inflate)
+                .create();
+    }
+
+    private void callPhone(String phone) {
+        // 拨打电话
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        Uri data1 = Uri.parse("tel:" + phone);
+        intent.setData(data1);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        startActivity(intent);
+
+        if (mAlertDialog != null && mAlertDialog.isShowing()) {
+            mAlertDialog.dismiss();
+            mAlertDialog = null;
+        }
+    }
+
+    private AlertDialog mAlertDialog;
 }

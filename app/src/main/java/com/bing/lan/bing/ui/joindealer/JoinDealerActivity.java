@@ -74,8 +74,11 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
         mEtiIdCardNumber.setValidator(this);
         mEtiSelectAddress.setValidator(this);
 
+
+
+
         //test
-        mEtiPhoneNumber.setEditContent("18933333333");
+        mEtiPhoneNumber.setEditContent(getUserPhone());
         mEtiJoinName.setEditContent("蓝小兵");
         mEtiAddressDetail.setEditContent("东田大厦");
         mEtiIdCardNumber.setEditContent("440223199812253730");
@@ -84,6 +87,15 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
 
     @Override
     protected void readyStartPresenter() {
+
+        //{
+        //    "msg": "\u521b\u5efa\u6210\u529f",
+        //        "data": {
+        //    "dealId": 16,
+        //            "shareCode": "GB3OFJTF"
+        //},
+        //    "errorCode": 200
+        //}
 
     }
 

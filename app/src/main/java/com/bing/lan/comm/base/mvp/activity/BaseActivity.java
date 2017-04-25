@@ -84,6 +84,8 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
         //启动di
         startInject(getActivityComponent());
         //初始化View 和 数据
+        mUserInfoBean = BaseApplication.getUser();
+
         initViewAndData(getIntent());
         //获取权限
         requestPermissions();
@@ -464,7 +466,6 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
             mSelectPhotoUtil.setUploadListener(this);
         }
 
-        mUserInfoBean = BaseApplication.getUser();
 
         readyStartPresenter();
     }

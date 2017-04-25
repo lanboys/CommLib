@@ -55,9 +55,9 @@
             android:id="@+id/et_input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:edit_maxLength1="20"
-            app:edit_inputType1="textPassword"
             app:edit_hint1="8-20位数字+字符"
+            app:edit_inputType1="textPassword"
+            app:edit_maxLength1="20"
             app:image1="@drawable/iv_password"
         >
         </com.bing.lan.comm.view.EditTextInputView>
@@ -68,10 +68,10 @@
             android:layout_width="match_parent"
             android:layout_height="49dp"
             android:gravity="center"
-            android:visibility="invisible"
             android:text="手机号码已注册，前往登录"
             android:textColor="@color/main_color_blue"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:visibility="invisible"/>
 
         <Button
             android:id="@+id/btn_register"

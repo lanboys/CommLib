@@ -132,9 +132,15 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
         showToast(mIsEmployee ? "公司员工" : "非公司员工");
         mTvEmployee.setSelected(mIsEmployee);
         mTvNotEmployee.setSelected(!mIsEmployee);
+        mTvNewUserRegister.setVisibility(mIsEmployee ? View.INVISIBLE : View.VISIBLE);
 
         setUserType(mIsEmployee ? UserType.USER_TYPE_OA : UserType.USER_TYPE_NOT_OA);
     }
+
+
+
+
+
 
     @Override
     public boolean validate(int id, String s) {

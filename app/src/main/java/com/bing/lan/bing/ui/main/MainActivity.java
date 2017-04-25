@@ -68,21 +68,22 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
 
         if (intent != null) {
             mLoginResultBean = (LoginResultBean) intent.getSerializableExtra(LoginActivity.USER_INFO);
+            if (mLoginResultBean != null) {
+                List<LoginResultBean.TypeBean> type = mLoginResultBean.getType();
+                LoginResultBean.TypeBean typeBean = type.get(0);
+                mUserInfoBean.userId = typeBean.userId;
+                mUserInfoBean.mUserPhone = typeBean.phone;
+                mUserInfoBean.shareCode = typeBean.shareCode;
+                mUserInfoBean.type = typeBean.type;
+                mUserInfoBean.typeName = typeBean.typeName;
 
-            List<LoginResultBean.TypeBean> type = mLoginResultBean.getType();
-            LoginResultBean.TypeBean typeBean = type.get(0);
-            mUserInfoBean.userId = typeBean.userId;
-            mUserInfoBean.mUserPhone = typeBean.phone;
-            mUserInfoBean.shareCode = typeBean.shareCode;
-            mUserInfoBean.type = typeBean.type;
-            mUserInfoBean.typeName = typeBean.typeName;
+                String substring = mUserInfoBean.mUserPhone.substring(0, 5);
+                String substring1 = mUserInfoBean.mUserPhone.substring(7);
 
-            String substring = mUserInfoBean.mUserPhone.substring(0, 5);
-            String substring1 = mUserInfoBean.mUserPhone.substring(7);
+                setToolBar(mToolbar, substring + "***" + substring1, false, 0);
 
-            setToolBar(mToolbar, substring + "***" + substring1, false, 0);
-
-            initViewByUserRole(mUserInfoBean.getUserRole());
+                initViewByUserRole(mUserInfoBean.getUserRole());
+            }
         }
     }
 
@@ -90,7 +91,6 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
         switch (userRole) {
 
             case USER_ROLE_AGENT://4：代理商
-
                 break;
             case USER_ROLE_DEALER://5：经销商
                 mLlMyAgent.setVisibility(View.VISIBLE);
@@ -130,7 +130,6 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
                 startActivity(AgentActivity.class, false, true);
                 break;
             case R.id.iv_qrcode:
-
                 createQrcode();
                 break;
         }

@@ -61,9 +61,16 @@ public class LoginPresenter extends BaseActivityPresenter<ILoginContract.ILoginV
                 if (code == 200 && type != null && type.size() > 0) {
                     //if (!AppUtil.getBooleanByRandom()) {
 
-                    if (UserRole.USER_ROLE_NOT_ROLE.getType().equals(type.get(0))) {
+                    String type1 = type.get(0).getType();
+
+                    if (UserRole.USER_ROLE_NOT_ROLE.getType().equals(type1)) {
+                        //无角色
                         mView.goJoinUsActivity(loginResultBean);
-                    } else {
+                    } /*else if (UserType.USER_TYPE_OA.getType().equals(mView.getUserType().getType())&&) {
+                        //公司人员  且是销售员
+
+                    }*/ else {
+                        // TODO: 2017/4/25
                         mView.goMainActivity(loginResultBean);
                     }
                 } else if (code == 500) {

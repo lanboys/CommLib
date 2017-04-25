@@ -28,6 +28,7 @@ public class BaseApplication extends Application {
         mUser = new UserInfoBean();
         mUser.mUserType= UserType.USER_TYPE_NOT_OA;
 
+
     }
 
     //1.创建一个静态的事件总线

@@ -68,8 +68,10 @@ public interface JzkApiService {
     //@POST("upload/index.jsp")
     //Call<ResponseBody> uploadDealerAuthenticate(@Part("Upload[file]\"; filename=\"avatar.jpg") RequestBody body);
 
+    //@Query
+
     @Multipart
-    @POST("dealer/pay")
+    @POST("dealer/add")
     Call<ResponseBody> joinDealer(
             @Query("phone") String phone,
             @Query("real_name") String real_name,
@@ -78,8 +80,8 @@ public interface JzkApiService {
             @Query("area") String area,
             @Query("addressDetail") String addressDetail,
             @Query("idCard") String idCard,
-            @Part("Upload[file]\"; filename=\"avatar1.jpg") RequestBody body1,
-            @Part("Upload[file]\"; filename=\"avatar.jpg") RequestBody body
+            @Part("Upload[file][]\"; filename=\"avatar1.jpg") RequestBody body1,
+            @Part("Upload[file][]\"; filename=\"avatar.jpg") RequestBody body
 
     );
 
