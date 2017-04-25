@@ -137,11 +137,6 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
         setUserType(mIsEmployee ? UserType.USER_TYPE_OA : UserType.USER_TYPE_NOT_OA);
     }
 
-
-
-
-
-
     @Override
     public boolean validate(int id, String s) {
         switch (id) {
@@ -165,6 +160,10 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
 
     @Override
     public void goJoinUsActivity(LoginResultBean loginResultBean) {
+
+
+        mUserInfoBean.mCanGoHomeFromJoinDealerAgentActivity = true;
+
         Intent intent = new Intent(this, JoinUsActivity.class);
         intent.putExtra(USER_INFO, loginResultBean);
         startActivity(intent, true, true);

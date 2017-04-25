@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import com.bing.lan.bing.ui.login.LoginActivity;
+import com.bing.lan.bing.ui.main.MainActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -108,7 +110,12 @@ public class JoinSuccessActivity extends BaseActivity<IJoinSuccessContract.IJoin
     @Override
     public void onBackPressed() {
 
-        startActivity(JoinSuccessActivity.class, false, true);
+        if (mUserInfoBean.mCanGoHomeFromJoinDealerAgentActivity) {
+            startActivity(MainActivity.class, true, true);
+        } else {
+            startActivity(LoginActivity.class, true, true);
+        }
+
         super.onBackPressed();
     }
 
