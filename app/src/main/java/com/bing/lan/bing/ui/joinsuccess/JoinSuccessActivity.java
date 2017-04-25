@@ -105,6 +105,13 @@ public class JoinSuccessActivity extends BaseActivity<IJoinSuccessContract.IJoin
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+        startActivity(JoinSuccessActivity.class, false, true);
+        super.onBackPressed();
+    }
+
     @OnClick(R.id.tv_manual)
     public void onViewClicked() {
 

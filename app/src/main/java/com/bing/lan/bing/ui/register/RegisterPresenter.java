@@ -6,6 +6,7 @@ import android.view.View;
 import com.bing.lan.bing.cons.GetVerificationCode;
 import com.bing.lan.bing.cons.UserType;
 import com.bing.lan.bing.ui.register.bean.RegisterResultBean;
+import com.bing.lan.bing.ui.register.bean.RegisterUserInfoBean;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
 import com.bing.lan.comm.utils.RegExpUtil;
@@ -49,6 +50,7 @@ public class RegisterPresenter
 
         RegisterResultBean httpResult = (RegisterResultBean) data;
         String errorCode = httpResult.getCode();
+        RegisterUserInfoBean userInfo = httpResult.getData();
 
         switch (action) {
 
@@ -73,7 +75,7 @@ public class RegisterPresenter
 
                 if ("200".equals(errorCode)) {
                     //验证码正确 进入加入我们界面
-                    mView.goJoinUsActivity();
+                    mView.goJoinUsActivity(userInfo);
                     //取消倒计时
                     releaseTask();
                 } else if ("0".equals(errorCode)) {

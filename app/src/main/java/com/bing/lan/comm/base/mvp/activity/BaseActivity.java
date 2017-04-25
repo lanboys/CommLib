@@ -36,7 +36,8 @@ import com.bing.lan.comm.utils.ImmersionUtil;
 import com.bing.lan.comm.utils.LogUtil;
 import com.bing.lan.comm.utils.ProgressDialogUtil;
 import com.bing.lan.comm.utils.SPUtil;
-import com.bing.lan.comm.utils.photoselect.PhotoSelectUtil;
+import com.bing.lan.comm.utils.photoselect.PhotoSelectCropUtil;
+import com.bing.lan.comm.utils.photoselect.UploadListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ import static android.support.v7.app.AppCompatDelegate.setDefaultNightMode;
  */
 public abstract class BaseActivity<T extends IBaseActivityPresenter>
         extends AppCompatActivity
-        implements IBaseActivityView<T>, PhotoSelectUtil.UploadListener {
+        implements IBaseActivityView<T>, UploadListener {
 
     private static final int BASE_PERMISSION_REQUEST_CODE = 0;
     // protected LogUtil log = LogUtil.getLogUtil(getClass(), 1);
@@ -68,7 +69,13 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     protected LogUtil log;
     @Inject
     protected T mPresenter;
-    protected PhotoSelectUtil mSelectPhotoUtil;
+    protected PhotoSelectCropUtil mSelectPhotoUtil;
+
+    public UserInfoBean getUserInfoBean() {
+        return mUserInfoBean;
+    }
+
+    //protected PhotoSelectUtil mSelectPhotoUtil;
     protected UserInfoBean mUserInfoBean;
     //private ProgressDialogUtil mProgress;
     private ProgressDialogUtil mProgressDialog;
@@ -462,10 +469,10 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
         //选择照片
 
         if (isHaveSelectPhoto()) {
-            mSelectPhotoUtil = new PhotoSelectUtil(this);
+            //mSelectPhotoUtil = new PhotoSelectUtil(this);
+            mSelectPhotoUtil = new PhotoSelectCropUtil(this);
             mSelectPhotoUtil.setUploadListener(this);
         }
-
 
         readyStartPresenter();
     }
@@ -476,6 +483,13 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
             return mUserInfoBean.getUserType();
         }
         return null;
+    }
+
+    public void setUserId(String userId) {
+
+        if (mUserInfoBean != null) {
+            mUserInfoBean.userId = userId;
+        }
     }
 
     public void setUserType(UserType mUserType) {

@@ -12,7 +12,7 @@ public class RegisterResultBean {
      */
 
     private String msg;
-    private String data;
+    private RegisterUserInfoBean data;
     private String code;
 
     @Override
@@ -32,11 +32,11 @@ public class RegisterResultBean {
         this.msg = msg;
     }
 
-    public Object getData() {
+    public RegisterUserInfoBean getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(RegisterUserInfoBean data) {
         this.data = data;
     }
 

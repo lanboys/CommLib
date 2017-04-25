@@ -82,7 +82,7 @@ ext {
     rxandroidVersion = '1.2.1'
 
     //retrofit
-    retrofitVersion = '2.1.0'
+    retrofitVersion = '2.2.0'
 
     //okHttp
     okHttpVersion = '3.6.0'

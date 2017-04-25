@@ -77,7 +77,7 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
                 mUserInfoBean.type = typeBean.type;
                 mUserInfoBean.typeName = typeBean.typeName;
 
-                String substring = mUserInfoBean.mUserPhone.substring(0, 5);
+                String substring = mUserInfoBean.mUserPhone.substring(0, 4);
                 String substring1 = mUserInfoBean.mUserPhone.substring(7);
 
                 setToolBar(mToolbar, substring + "***" + substring1, false, 0);

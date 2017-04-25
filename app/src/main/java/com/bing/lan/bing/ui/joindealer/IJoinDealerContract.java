@@ -1,5 +1,6 @@
 package com.bing.lan.bing.ui.joindealer;
 
+import com.bing.lan.bing.ui.joindealer.bean.JoinDealerInfoBean;
 import com.bing.lan.comm.base.mvp.activity.IBaseActivityContract;
 
 /**
@@ -11,7 +12,7 @@ public interface IJoinDealerContract {
     interface IJoinDealerView
             extends IBaseActivityContract.IBaseActivityView<IJoinDealerPresenter> {
 
-        void goToJoinSuccessActivity();
+        void goToJoinSuccessActivity(JoinDealerInfoBean dealerInfoBean);
 
     }
 

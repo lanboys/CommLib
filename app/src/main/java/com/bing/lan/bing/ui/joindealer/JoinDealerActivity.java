@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.bing.lan.bing.cons.UserInfoBean;
+import com.bing.lan.bing.ui.joindealer.bean.JoinDealerInfoBean;
 import com.bing.lan.bing.ui.joinsuccess.JoinSuccessActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
@@ -74,9 +76,6 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
         mEtiIdCardNumber.setValidator(this);
         mEtiSelectAddress.setValidator(this);
 
-
-
-
         //test
         mEtiPhoneNumber.setEditContent(getUserPhone());
         mEtiJoinName.setEditContent("蓝小兵");
@@ -122,7 +121,7 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
                                     if (mIdCardImgFrontFile != null) {
                                         if (mIdCardImgBackFile != null) {
                                             //网络请求
-                                            showToast("开始请求网络");
+                                            //   showToast("开始请求网络");
 
                                             mPresenter.onStart(
                                                     mEtiPhoneNumber.getEditContent(),
@@ -159,10 +158,17 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
         }
     }
 
-    public void goToJoinSuccessActivity() {
+    @Override
+    public void goToJoinSuccessActivity(JoinDealerInfoBean dealerInfoBean) {
+
+        if (dealerInfoBean != null) {
+            setUserId(dealerInfoBean.getDealId() + "");
+            UserInfoBean userInfoBean = getUserInfoBean();
+            userInfoBean.shareCode = dealerInfoBean.getShareCode();
+            userInfoBean.type = "5";
+        }
 
         JoinSuccessActivity.start(this, JoinSuccessActivity.ENTER_TYPE_DEALER);
-
     }
 
     @Override

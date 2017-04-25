@@ -2,7 +2,9 @@ package com.bing.lan.bing.ui.joindealer;
 
 import android.text.TextUtils;
 
+import com.bing.lan.bing.ui.joindealer.bean.JoinDealerInfoBean;
 import com.bing.lan.comm.R;
+import com.bing.lan.comm.api.service.HttpResult;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
 import com.bing.lan.comm.utils.RegExpUtil;
 
@@ -24,7 +26,7 @@ public class JoinDealerPresenter
     @Override
     public void onStart(Object... params) {
 
-       // mView.showProgressDialog("请稍后");
+        mView.showProgressDialog("请稍后");
         mModule.requestData(ACTION_JOIN_DEALER, this, params);
     }
 
@@ -32,7 +34,22 @@ public class JoinDealerPresenter
     @SuppressWarnings("unchecked")
     public void onSuccess(int action, Object data) {
         mView.dismissProgressDialog();
-        mView.goToJoinSuccessActivity();
+
+        JoinDealerInfoBean dealerInfoBean = ((HttpResult<JoinDealerInfoBean>) data).getData();
+        String msg = ((HttpResult<JoinDealerInfoBean>) data).getMsg();
+        int code = ((HttpResult<JoinDealerInfoBean>) data).getErrorCode();
+
+        //200 成功 501 该客户已成为经销商 502该客户已成为经销商，但未审核，500 失败
+        switch (code) {
+            case 200:
+                mView.goToJoinSuccessActivity(dealerInfoBean);
+                break;
+            case 500:
+            case 501:
+            case 502:
+                mView.showToast(msg);
+                break;
+        }
     }
 
     @Override

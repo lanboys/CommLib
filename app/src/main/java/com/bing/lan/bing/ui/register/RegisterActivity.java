@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.bing.lan.bing.cons.GetVerificationCode;
 import com.bing.lan.bing.ui.join.JoinUsActivity;
+import com.bing.lan.bing.ui.register.bean.RegisterUserInfoBean;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -77,16 +78,16 @@ public class RegisterActivity extends BaseActivity<IRegisterContract.IRegisterPr
             case R.id.btn_register:
 
                 if (mEtInputPhoneNumber.validate()) {
-                  //  if (isVerification) {
-                        if (mEtInputVerification.validate()) {
-                            if (mEtInputPassword.validate()) {
-                                //
-                                mPresenter.register(
-                                        mEtInputVerification.getEditContent(),
-                                        mEtInputPhoneNumber.getEditContent(),
-                                        mEtInputPassword.getEditContent());
-                            }
+                    //  if (isVerification) {
+                    if (mEtInputVerification.validate()) {
+                        if (mEtInputPassword.validate()) {
+                            //
+                            mPresenter.register(
+                                    mEtInputVerification.getEditContent(),
+                                    mEtInputPhoneNumber.getEditContent(),
+                                    mEtInputPassword.getEditContent());
                         }
+                    }
                     //} else {
                     //    showToast("请先获取验证码");
                     //}
@@ -153,7 +154,16 @@ public class RegisterActivity extends BaseActivity<IRegisterContract.IRegisterPr
     }
 
     @Override
-    public void goJoinUsActivity() {
+    public void goJoinUsActivity(RegisterUserInfoBean userInfo) {
+
+        if (userInfo != null) {
+            String phone = userInfo.getPhone();
+            int userId = userInfo.getUserId();
+
+            setUserPhone(phone);
+            setUserId(userId + "");
+        }
+
         startActivity(JoinUsActivity.class, true, true);
     }
 }

@@ -33,7 +33,7 @@ import static android.app.Activity.RESULT_OK;
  * </activity>
  */
 
-public class PhotoSelectUtil {
+public class PhotoSelectCropUtil {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private Activity mContext;
@@ -45,7 +45,7 @@ public class PhotoSelectUtil {
         mUploadListener = uploadListener;
     }
 
-    public PhotoSelectUtil(Activity context) {
+    public PhotoSelectCropUtil(Activity context) {
         mContext = context;
     }
 
@@ -121,19 +121,8 @@ public class PhotoSelectUtil {
 
     //进入裁剪页面
     private void beginCrop(Uri source) {
-
-
-        //Uri destination = Uri.fromFile(new File(mContext.getCacheDir(), "cropped"));
-        //Crop.of(source, destination).asSquare().start(mContext);
-
-        mImageView.setImageDrawable(null);
-        mImageView.setImageURI(source);
-
-        //回调
-        if (mUploadListener != null) {
-            mUploadListener.uploadAvatar(mImageView, source);
-        }
-
+        Uri destination = Uri.fromFile(new File(mContext.getCacheDir(), "cropped"));
+        Crop.of(source, destination).asSquare().start(mContext);
     }
 
     private void handleCrop(int resultCode, Intent result) {

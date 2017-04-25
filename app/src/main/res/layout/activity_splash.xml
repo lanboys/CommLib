@@ -11,6 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_welcome"/>
+        android:src="@drawable/splash_pic"/>
 
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.bing.lan.bing.ui.register;
 
 import com.bing.lan.bing.cons.GetVerificationCode;
 import com.bing.lan.bing.cons.UserType;
+import com.bing.lan.bing.ui.register.bean.RegisterUserInfoBean;
 import com.bing.lan.comm.base.mvp.IBaseContract;
 import com.bing.lan.comm.base.mvp.activity.IBaseActivityContract;
 
@@ -14,7 +15,7 @@ public interface IRegisterContract {
 
         void setRegisterTipVisibility(int visibility);
 
-        void goJoinUsActivity();
+        void goJoinUsActivity(RegisterUserInfoBean userInfo );
 
         void updateWaitingVerificationCodeTime(int time);
     }

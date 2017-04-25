@@ -3,6 +3,7 @@ package com.bing.lan.comm.api.service;
 import com.bing.lan.bing.ui.agent.bean.AgentResultBean;
 import com.bing.lan.bing.ui.deviceselect.bean.DeviceInfoResultBean;
 import com.bing.lan.bing.ui.joinagent.bean.JoinAgentResultBean;
+import com.bing.lan.bing.ui.joindealer.bean.JoinDealerInfoBean;
 import com.bing.lan.bing.ui.login.bean.LoginResultBean;
 import com.bing.lan.bing.ui.register.bean.RegisterResultBean;
 
@@ -18,7 +19,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -72,7 +75,7 @@ public interface JzkApiService {
 
     @Multipart
     @POST("dealer/add")
-    Call<ResponseBody> joinDealer(
+    Observable<HttpResult<JoinDealerInfoBean>> joinDealer(
             @Query("phone") String phone,
             @Query("real_name") String real_name,
             @Query("province") String province,
@@ -84,6 +87,18 @@ public interface JzkApiService {
             @Part("Upload[file][]\"; filename=\"avatar.jpg") RequestBody body
 
     );
+
+
+    //@FormUrlEncoded
+    @Multipart
+    @POST("dealer/add")
+    Observable<HttpResult<JoinDealerInfoBean>> joinDealer(
+            @QueryMap Map<String, String> map,
+           // MultipartBody.Part part,
+            @PartMap() Map<String, RequestBody> partMap
+    );
+
+  //  MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("imgfile", file.getName(), imageBody);
 
     @GET("agent/agent-list")
     Observable<HttpResult<AgentResultBean>> loadAgentList(
