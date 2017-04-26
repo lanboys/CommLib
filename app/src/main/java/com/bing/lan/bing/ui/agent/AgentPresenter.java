@@ -33,13 +33,13 @@ public class AgentPresenter
     @SuppressWarnings("unchecked")
     public void onSuccess(int action, Object data) {
         mView.updateAgentList(action, (AgentResultBean) data);
-        mView.closeRefreshing();
+        // mView.closeRefreshing();
     }
 
     @Override
     public void onError(int action, Throwable e) {
         super.onError(action, e);
-        mView.closeRefreshing();
+        // mView.closeRefreshing();
     }
 
     @Override

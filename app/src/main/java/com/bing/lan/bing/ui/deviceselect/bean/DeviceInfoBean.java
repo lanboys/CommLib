@@ -21,6 +21,9 @@ public class DeviceInfoBean  implements Serializable{
 
     public String searchKeyword;
 
+    public DeviceInfoBean() {
+    }
+
     public DeviceInfoBean(String deviceId, String en_code) {
         this.deviceId = deviceId;
         this.en_code = en_code;

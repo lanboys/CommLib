@@ -11,6 +11,8 @@ public class HttpResult<T> {
 
     private String msg;
 
+    private T data;
+
     public int getCode() {
         return code;
     }
@@ -18,8 +20,6 @@ public class HttpResult<T> {
     public void setCode(int code) {
         this.code = code;
     }
-
-    private T data;
 
     @Override
     public String toString() {

@@ -36,6 +36,6 @@ public class AgentModule extends BaseActivityModule
                     }
                 });
 
-        subscribe(observable, action, listener, "下载第" + parameter[0] + "页代理商列表");
+        subscribe(observable, action, listener, "下载第" + parameter[1] + "页代理商列表");
     }
 }

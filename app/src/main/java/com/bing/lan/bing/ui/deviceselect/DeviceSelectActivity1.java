@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,10 +19,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bing.lan.bing.ui.deviceselect.bean.DeviceInfoBean;
+import com.bing.lan.bing.ui.deviceselect.bean.DeviceInfoResultBean;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
-import com.bing.lan.comm.listener.ListViewScrollListener;
 import com.bing.lan.comm.utils.SoftInputUtil;
 
 import java.util.ArrayList;
@@ -36,8 +38,8 @@ import static com.bing.lan.bing.ui.dispatchdevice.DispatchDeviceActivity.SELECT_
  * @author 蓝兵
  * @time 2017/4/6  19:12
  */
-public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDeviceSelectPresenter>
-        implements IDeviceSelectContract.IDeviceSelectView, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class DeviceSelectActivity1 extends BaseActivity<IDeviceSelectContract.IDeviceSelectPresenter>
+        implements IDeviceSelectContract.IDeviceSelectView, AdapterView.OnItemClickListener, TextWatcher {
 
     public static final String USER_ID = "userId";
     public static final String TYPE = "type";
@@ -52,18 +54,16 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
     @BindView(R.id.lv_device_list)
     ListView mLvDeviceList;
     boolean isSelectAll;
-    // @BindView(R.id.tv_search_tip)
-    // TextView mTvSearchTip;
-    boolean canLoadMore = true;
-    @BindView(R.id.sref_container)
-    SwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.tv_search_tip)
+    TextView mTvSearchTip;
+    String userId;
+    String type;
     private AlertDialog mSelectAlertDialog;
     private AlertDialog mCallAlertDialog;
     private DeviceListAdapter mDeviceListAdapter;
     private List<DeviceInfoBean> mDeviceInfoBeanList;
     private List<DeviceInfoBean> mDeviceInfoBeanSearchList;
     private ArrayList<DeviceInfoBean> mDeviceInfoBeanSelectList;
-    private int pageNum = 0;
 
     @Override
     protected int getLayoutResId() {
@@ -77,36 +77,51 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
 
     @Override
     protected void startInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
+       // activityComponent.inject(this);
     }
 
     @Override
     protected void initViewAndData(Intent intent) {
         setToolBar(mToolbar, "选取设备", true, 0);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
+
+        if (intent != null) {
+            userId = intent.getStringExtra(USER_ID);
+            type = intent.getStringExtra(TYPE);
+        }
 
         mDeviceInfoBeanList = new ArrayList<>();
+        mDeviceInfoBeanSearchList = new ArrayList<>();
+        mDeviceInfoBeanSelectList = new ArrayList<>();
+
+        mEtEnCode.addTextChangedListener(this);
 
         mDeviceListAdapter = new DeviceListAdapter(this);
 
         View inflate = View.inflate(this, R.layout.item_empty_lv_foot, null);
         mLvDeviceList.addFooterView(inflate);
-
         mLvDeviceList.setAdapter(mDeviceListAdapter);
-        mLvDeviceList.setOnScrollListener(new ListViewScrollListener() {
-            @Override
-            public void onListViewLoadMore() {
-                DeviceSelectActivity.this.onListViewLoadMore();
-            }
-        });
-
         mLvDeviceList.setOnItemClickListener(this);
         mDeviceListAdapter.setDataAndRefresh(new ArrayList<>());
     }
 
     @Override
     protected void readyStartPresenter() {
-        searchDevices();
+
+          mPresenter.onStart(type, userId);
+
+        // test
+        // updateDevice(null);
+        // test
+    }
+
+    public int getSelectNum() {
+        mDeviceInfoBeanSelectList.clear();
+        for (DeviceInfoBean deviceInfoBean : mDeviceInfoBeanSearchList) {
+            if (deviceInfoBean.isSelect) {
+                mDeviceInfoBeanSelectList.add(deviceInfoBean);
+            }
+        }
+        return mDeviceInfoBeanSelectList.size();
     }
 
     @Override
@@ -129,7 +144,7 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
 
     private AlertDialog createSelectDialog() {
 
-        View inflate = View.inflate(DeviceSelectActivity.this, R.layout.alert_pos_ok, null);
+        View inflate = View.inflate(DeviceSelectActivity1.this, R.layout.alert_pos_ok, null);
         inflate.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,7 +184,7 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
 
     private AlertDialog createCallDialog() {
 
-        View inflate = View.inflate(DeviceSelectActivity.this, R.layout.alert_devices_select, null);
+        View inflate = View.inflate(DeviceSelectActivity1.this, R.layout.alert_devices_select, null);
         inflate.findViewById(R.id.tv_call).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,7 +197,7 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
             @Override
             public void onClick(View v) {
 
-                //  finish();
+                finish();
                 mCallAlertDialog.dismiss();
             }
         });
@@ -238,7 +253,7 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
         switch (view.getId()) {
             case R.id.tv_search:
                 closeSoft();
-                searchDevices();
+                searchDevices(mEtEnCode.getText().toString().trim());
                 break;
             case R.id.btn_ok:
                 if (getSelectNum() > 0) {
@@ -251,56 +266,70 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
         }
     }
 
-    public void searchDevices() {
-        pageNum = 0;
-        mPresenter.onStart(mUserInfoBean.userId,
-                mUserInfoBean.getUserType().getType(),
-                mUserInfoBean.getUserRole().getType(),
-                pageNum,
-                mEtEnCode.getText().toString().trim()
-        );
-    }
-
-    private void onListViewLoadMore() {
-
-        if (canLoadMore) {
-
-            mPresenter.loadMore(mUserInfoBean.userId,
-                    mUserInfoBean.getUserType().getType(),
-                    mUserInfoBean.getUserRole().getType(),
-                    pageNum,
-                    mEtEnCode.getText().toString().trim()
-            );
-        }
-    }
-
-    public int getSelectNum() {
-        mDeviceInfoBeanSelectList.clear();
+    public void searchDevices(String s) {
+        mDeviceInfoBeanSearchList.clear();
         for (DeviceInfoBean deviceInfoBean : mDeviceInfoBeanList) {
-            if (deviceInfoBean.isSelect) {
-                mDeviceInfoBeanSelectList.add(deviceInfoBean);
+            if (deviceInfoBean.en_code.contains(s)) {
+                deviceInfoBean.searchKeyword = s;
+                mDeviceInfoBeanSearchList.add(deviceInfoBean);
+            } else {
+                deviceInfoBean.searchKeyword = null;
+                // deviceInfoBean.isSelect = false;
             }
         }
-        return mDeviceInfoBeanSelectList.size();
+        mDeviceListAdapter.setDataAndRefresh(mDeviceInfoBeanSearchList);
+        mTvSearchTip.setVisibility(mDeviceInfoBeanSearchList.size() > 0 ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        String trim = s.toString().trim();
+
+        if (TextUtils.isEmpty(trim)) {
+            for (DeviceInfoBean deviceInfoBean : mDeviceInfoBeanList) {
+                deviceInfoBean.searchKeyword = null;
+                // deviceInfoBean.isSelect=false;
+            }
+            // mShopAdapter.setDataAndRefresh(mDeviceInfoBeanList);
+            mDeviceInfoBeanSearchList.clear();
+            mDeviceInfoBeanSearchList.addAll(mDeviceInfoBeanList);
+            mDeviceListAdapter.setDataAndRefresh(mDeviceInfoBeanSearchList);
+        } else {
+            searchDevices(trim);
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        mTvSearchTip.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+        // String string = s.toString();
+        //
+        // if (TextUtils.isEmpty(string)) {
+        //     mShopAdapter.setDataAndRefresh(mDeviceInfoBeanList);
+        // }
     }
 
     public void closeSoft() {
         SoftInputUtil.closeSoftInput(this);
     }
 
-    @Override
-    public void updateDevice(List<DeviceInfoBean> deviceInfoBeen) {
+    // @Override
+    public void updateDevice(DeviceInfoResultBean deviceInfoResultBean) {
 
-        //复位
-        mDeviceInfoBeanList.clear();
-        mDeviceInfoBeanSelectList.clear();
-
-        canLoadMore = true;
-
-        if (deviceInfoBeen!=null&&deviceInfoBeen.size() > 0) {
-            pageNum += 1;
-            mDeviceInfoBeanList.addAll(deviceInfoBeen);
+        for (int i = 0; i < 13; i++) {
+            String en_code = i % 2 == 0 ? "iOLijuKEiiF456JUFR IYiii" : "iOLijuKE123iJUFR IOKDTY";
+            mDeviceInfoBeanList.add(new DeviceInfoBean(i + "", en_code));
         }
+        mDeviceInfoBeanSearchList.clear();
+        mDeviceInfoBeanSearchList.addAll(mDeviceInfoBeanList);
+        // mDeviceInfoBeanSearchList.addAll(deviceInfoResultBean.getData());
+
+        mDeviceListAdapter.setDataAndRefresh(mDeviceInfoBeanSearchList);
 
         if (mDeviceInfoBeanList.size() == 0) {
             showCallAlertDialog();
@@ -308,24 +337,17 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
     }
 
     @Override
-    public void loadMoreDevice(List<DeviceInfoBean> deviceInfoBeen) {
-        if (deviceInfoBeen!=null&&deviceInfoBeen.size() > 0) {
-            pageNum += 1;
-            mDeviceInfoBeanList.addAll(deviceInfoBeen);
-        } else {
-            canLoadMore = false;
-        }
+    public void updateDevice(List<DeviceInfoBean> deviceInfoBeen) {
+
     }
 
     @Override
-    public void onRefresh() {
-        searchDevices();
+    public void loadMoreDevice(List<DeviceInfoBean> deviceInfoBeen) {
+
     }
 
+    @Override
     public void closeRefreshing() {
 
-        if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
     }
 }

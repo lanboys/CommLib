@@ -34,6 +34,7 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.lv_agent)
     ListView mLvAgent;
+    boolean isFirst = true;
     private List<AgentInfoBean> mAgentInfoBeenList;
     private AgentListAdapter mAdapter;
     private int mPageCount;
@@ -62,9 +63,7 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
     @Override
     protected void readyStartPresenter() {
 
-
         mPresenter.onStart(getUserInfoBean().userId);
-
     }
 
     private void initListView() {
@@ -97,9 +96,6 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
         Intent intent = new Intent(this, DispatchDeviceActivity.class);
         intent.putExtra(DispatchDeviceActivity.AGENTID_USER_ID, data.getUser_id());
         startActivity(intent, false, true);
-
-
-
     }
 
     @Override
@@ -120,13 +116,17 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
 
     @Override
     public void onRefresh() {
-          mPresenter.update(getUserInfoBean().userId);
+        mPresenter.update(getUserInfoBean().userId);
         //readyStartPresenter();
     }
 
     @Override
     protected void onStart() {
-        onRefresh();
+        if (!isFirst) {
+            onRefresh();
+            isFirst = false;
+        }
+
         super.onStart();
     }
 
@@ -138,8 +138,8 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
     }
 
     public void onListViewLoadMore() {
-        if (mPageCount < mPageNum) {
-            mPresenter.loadMore(getUserInfoBean().userId,mPageNum + 1);
+        if (mPageNum < mPageCount - 1) {
+            mPresenter.loadMore(getUserInfoBean().userId, mPageNum + 1);
         }
     }
 }
