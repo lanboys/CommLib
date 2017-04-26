@@ -25,7 +25,7 @@ public class DeviceSelectModule extends BaseActivityModule
 
         HashMap<String, String> map = new HashMap<>();
         map.put("userId", (String) parameter[0]);
-        map.put("userId", "340");
+        // map.put("userId", "340");
         String type = (String) parameter[1];
         map.put("type", type);
         if (UserType.USER_TYPE_NOT_OA.getType().equals(type)) {
