@@ -1,6 +1,10 @@
 package com.bing.lan.bing.ui.deviceselect;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -54,7 +58,8 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
     TextView mTvSearchTip;
     String userId;
     String type;
-    private AlertDialog mAlertDialog;
+    private AlertDialog mSelectAlertDialog;
+    private AlertDialog mCallAlertDialog;
     private DeviceListAdapter mDeviceListAdapter;
     private List<DeviceInfoBean> mDeviceInfoBeanList;
     private List<DeviceInfoBean> mDeviceInfoBeanSearchList;
@@ -132,31 +137,25 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
         }
     }
 
-    public void showJoinAlertDialog() {
-        mAlertDialog = createExitDialog();
-        //Window window = alertDialog.getWindow();
-        //WindowManager.LayoutParams lp = window.getAttributes();
-        //lp.alpha = 0.9f;
-        //window.setAttributes(lp);
-        //window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        mAlertDialog.show();
+    public void showSelectAlertDialog() {
+        mSelectAlertDialog = createSelectDialog();
+        mSelectAlertDialog.show();
     }
 
-    private AlertDialog createExitDialog() {
+    private AlertDialog createSelectDialog() {
 
         View inflate = View.inflate(DeviceSelectActivity.this, R.layout.alert_pos_ok, null);
         inflate.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAlertDialog.dismiss();
+                mSelectAlertDialog.dismiss();
             }
         });
         inflate.findViewById(R.id.tv_ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectFinish();
-                mAlertDialog.dismiss();
+                mSelectAlertDialog.dismiss();
             }
         });
 
@@ -165,9 +164,66 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
         viewById.setText("确定绑定已选的" + getSelectNum() + "个POS机设备");
 
         return new AlertDialog.Builder(this)
-
                 .setView(inflate)
                 .create();
+    }
+
+    public void showCallAlertDialog() {
+        mCallAlertDialog = createCallDialog();
+        mCallAlertDialog.show();
+    }
+
+    private AlertDialog createCallDialog() {
+
+        View inflate = View.inflate(DeviceSelectActivity.this, R.layout.alert_devices_select, null);
+        inflate.findViewById(R.id.tv_call).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callPhone("020-81292999");
+
+                mCallAlertDialog.dismiss();
+            }
+        });
+        inflate.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+                mCallAlertDialog.dismiss();
+            }
+        });
+
+        //TextView viewById = (TextView) inflate.findViewById(R.id.tv_connection);
+        //
+        //viewById.setText("确定绑定已选的" + getSelectNum() + "个POS机设备");
+
+        return new AlertDialog.Builder(this)
+                .setView(inflate)
+                .create();
+    }
+
+    private void callPhone(String phone) {
+        // 拨打电话
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        Uri data1 = Uri.parse("tel:" + phone);
+        intent.setData(data1);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        startActivity(intent);
+
+        if (mCallAlertDialog != null && mCallAlertDialog.isShowing()) {
+            mCallAlertDialog.dismiss();
+            mCallAlertDialog = null;
+        }
     }
 
     public void selectFinish() {
@@ -201,7 +257,7 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
                 break;
             case R.id.btn_ok:
                 if (getSelectNum() > 0) {
-                    showJoinAlertDialog();
+                    showSelectAlertDialog();
                 } else {
                     showToast("请先选择设备");
                 }
@@ -274,5 +330,9 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
         // mDeviceInfoBeanSearchList.addAll(deviceInfoResultBean.getData());
 
         mDeviceListAdapter.setDataAndRefresh(mDeviceInfoBeanSearchList);
+
+        if (mDeviceInfoBeanList.size() == 0) {
+            showCallAlertDialog();
+        }
     }
 }

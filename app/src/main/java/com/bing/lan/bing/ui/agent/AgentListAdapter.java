@@ -36,7 +36,7 @@ public class AgentListAdapter extends BaseListAdapter<AgentInfoBean> implements 
         Integer position = (Integer) v.getTag();
         AgentInfoBean dealerInfoBean = data.get(position);
 
-        mOnClickListener.onCallClick(position, dealerInfoBean);
+        mOnClickListener.onDeviceRegisterClick(position, dealerInfoBean);
     }
 
     OnClickListener mOnClickListener;
@@ -47,7 +47,7 @@ public class AgentListAdapter extends BaseListAdapter<AgentInfoBean> implements 
 
     public interface OnClickListener {
 
-        void onCallClick(int position, AgentInfoBean data);
+        void onDeviceRegisterClick(int position, AgentInfoBean data);
     }
 
     class Holder extends BaseViewHolder {

@@ -133,15 +133,15 @@ public class DispatchDeviceActivity extends
                             if (!isSelfTake) {
                                 if (mEtiDeliveryDetailName.validate()) {
                                     if (mEtiDeliveryDetailNum.validate()) {
-                                        // save();
-                                        showToast("保存成功");
-                                        finish();
+                                         save();
+                                        //showToast("保存成功");
+                                        //finish();
                                     }
                                 }
                             } else {
-                                //save();
-                                showToast("保存成功");
-                                finish();
+                                save();
+                                //showToast("保存成功");
+                                //finish();
                             }
                         }
                     }

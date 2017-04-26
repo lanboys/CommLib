@@ -92,10 +92,14 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
     }
 
     @Override
-    public void onCallClick(int position, AgentInfoBean data) {
+    public void onDeviceRegisterClick(int position, AgentInfoBean data) {
+
         Intent intent = new Intent(this, DispatchDeviceActivity.class);
         intent.putExtra(DispatchDeviceActivity.AGENTID_USER_ID, data.getUser_id());
         startActivity(intent, false, true);
+
+
+
     }
 
     @Override

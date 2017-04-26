@@ -23,7 +23,7 @@ public class AgentModule extends BaseActivityModule
                 .getJzkApiService()
                 .loadAgentList(
                         (String) parameter[0],
-                        parameter[0] + "")
+                        parameter[1] + "")
                 .filter(new Func1<HttpResult<AgentResultBean>, Boolean>() {
                     @Override
                     public Boolean call(HttpResult<AgentResultBean> agentResultBeanHttpResult) {
