@@ -2,7 +2,6 @@ package com.bing.lan.bing.ui.main;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +18,7 @@ import com.bing.lan.bing.ui.shop.ShopActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
+import com.bing.lan.comm.utils.AppUtil;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.util.List;
@@ -85,6 +85,8 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
 
                 setToolBar(mToolbar, substring + "***" + substring1, false, 0);
 
+                createQrcode(typeBean.shareCode);
+
                 initViewByUserRole(mUserInfoBean.getUserRole());
             }
         }
@@ -133,29 +135,16 @@ public class MainActivity extends BaseActivity<IMainContract.IMainPresenter>
                 startActivity(AgentActivity.class, false, true);
                 break;
             case R.id.iv_qrcode:
-                createQrcode();
+                //createQrcode();
                 break;
         }
     }
 
-    public void createQrcode() {
-
-        if (mRandom == null) {
-
-            mRandom = new Random(50);
-        }
-
-        int i = mRandom.nextInt(30);
-
-        String s = i + "4DAS4FRF11111" + i;
+    public void createQrcode(String s) {
 
         mTvQrcode.setText("邀请码：" + s);
-        Bitmap logo = null;
 
-        if (i % 2 == 0) {
-            logo = BitmapFactory.decodeResource(getResources(), R.drawable.iv_logo);
-        }
-        Bitmap mBitmap = CodeUtils.createImage(s, 400, 400, logo);
+        Bitmap mBitmap = CodeUtils.createImage(s, AppUtil.dp2px(145), AppUtil.dp2px(145), null);
         mIvQrcode.setImageBitmap(mBitmap);
 
         //打开扫码界面

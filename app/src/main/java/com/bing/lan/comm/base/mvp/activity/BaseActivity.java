@@ -3,7 +3,6 @@ package com.bing.lan.comm.base.mvp.activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -588,10 +587,17 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     }
 
     @Override
-    public void uploadAvatar(ImageView imageView, Uri source) {
+    public void uploadAvatar(ImageView imageView, File source) {
         Toast.makeText(this, "上传图片", Toast.LENGTH_SHORT).show();
 
-        File file = new File(source.getPath());
+       // File file = new File(source.getPath());
         // mPresenter.uploadAvatar(file);
+
+
+
+
+
+
+
     }
 }

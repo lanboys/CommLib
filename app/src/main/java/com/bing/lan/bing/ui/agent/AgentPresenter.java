@@ -16,32 +16,35 @@ public class AgentPresenter
 
     @Override
     public void onStart(Object... params) {
-        update();
+        update((String) params[0]);
     }
 
     @Override
-    public void update() {
-        mModule.requestData(ACTION_LOAD_AGENT_LIST, this, 0);
+    public void update(String dealerId) {
+        mModule.requestData(ACTION_LOAD_AGENT_LIST, this, dealerId,0);
     }
 
     @Override
-    public void loadMore(int pageNum) {
-        mModule.requestData(ACTION_LOAD_MORE_AGENT_LIST, this, pageNum);
+    public void loadMore(String dealerId,int pageNum) {
+        mModule.requestData(ACTION_LOAD_MORE_AGENT_LIST, this,dealerId, pageNum);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void onSuccess(int action, Object data) {
         mView.updateAgentList(action, (AgentResultBean) data);
+        mView.closeRefreshing();
     }
 
     @Override
     public void onError(int action, Throwable e) {
         super.onError(action, e);
+        mView.closeRefreshing();
     }
 
     @Override
     public void onCompleted(int action) {
         super.onCompleted(action);
+        mView.closeRefreshing();
     }
 }

@@ -1,12 +1,10 @@
 package com.bing.lan.bing.ui.shopcreate;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bing.lan.bing.ui.map.AMapActivity;
 import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;
@@ -15,6 +13,8 @@ import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
 import com.bing.lan.comm.utils.picker.PickerUtil;
 import com.bing.lan.comm.view.EditTextInputLayout;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -71,10 +71,10 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
     }
 
     @Override
-    public void uploadAvatar(ImageView imageView, Uri source) {
+    public void uploadAvatar(ImageView imageView, File source) {
 
-        log.e("uploadAvatar():  " + source.toString());
-        Toast.makeText(this, "上传图片", Toast.LENGTH_SHORT).show();
+        //log.e("uploadAvatar():  " + source.toString());
+        //Toast.makeText(this, "上传图片", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -22,7 +22,7 @@ public class AgentModule extends BaseActivityModule
         Observable<AgentResultBean> observable = ApiManager.getInstance()
                 .getJzkApiService()
                 .loadAgentList(
-                        "803",
+                        (String) parameter[0],
                         parameter[0] + "")
                 .filter(new Func1<HttpResult<AgentResultBean>, Boolean>() {
                     @Override

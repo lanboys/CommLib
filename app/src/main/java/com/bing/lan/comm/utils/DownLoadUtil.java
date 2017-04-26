@@ -16,27 +16,27 @@ import okhttp3.ResponseBody;
 /**
  * Created by Tamic on 2016-07-11.
  */
-public class DownLoadUtil {
+public class DownloadUtil {
 
     private static final String TAG = "DownLoadManager";
     private static String APK_CONTENT_TYPE = "application/vnd.android.package-archive";
     private static String PNG_CONTENT_TYPE = "image/png";
     private static String JPG_CONTENT_TYPE = "image/jpg";
     private static String fileSuffix = "";
-    private static DownLoadUtil sInstance;
+    private static DownloadUtil sInstance;
     private CallBack callBack;
     private Handler handler;
 
-    public DownLoadUtil(CallBack callBack) {
+    public DownloadUtil(CallBack callBack) {
         this.callBack = callBack;
     }
 
     /**
      * DownLoadManager getInstance
      */
-    public static synchronized DownLoadUtil getInstance(CallBack callBack) {
+    public static synchronized DownloadUtil getInstance(CallBack callBack) {
         if (sInstance == null) {
-            sInstance = new DownLoadUtil(callBack);
+            sInstance = new DownloadUtil(callBack);
         }
         return sInstance;
     }

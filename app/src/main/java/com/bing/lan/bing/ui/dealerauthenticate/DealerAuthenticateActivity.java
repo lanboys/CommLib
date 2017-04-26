@@ -1,7 +1,6 @@
 package com.bing.lan.bing.ui.dealerauthenticate;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -144,15 +143,15 @@ public class DealerAuthenticateActivity extends
     }
 
     @Override
-    public void uploadAvatar(ImageView imageView, Uri source) {
+    public void uploadAvatar(ImageView imageView, File source) {
 
         switch (imageView.getId()) {
 
             case R.id.iv_protocol_photo://签约协议照片
-                mProtocolFile = new File(source.getPath());
+                mProtocolFile = source;
                 break;
             case R.id.iv_payment_photo://缴费凭证照片
-                mPaymentFile = new File(source.getPath());
+                mPaymentFile = source;
                 break;
         }
 

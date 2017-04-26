@@ -13,14 +13,16 @@ public interface IAgentContract {
             extends IBaseActivityContract.IBaseActivityView<IAgentPresenter> {
 
         void updateAgentList(int action, AgentResultBean agentResultBean);
+
+        void closeRefreshing();
     }
 
     interface IAgentPresenter
             extends IBaseActivityContract.IBaseActivityPresenter<IAgentView, IAgentModule> {
 
-        void update();
+        void update(String dealerId);
 
-        void loadMore(int pageNum);
+        void loadMore(String dealerId,int pageNum);
     }
 
     interface IAgentModule

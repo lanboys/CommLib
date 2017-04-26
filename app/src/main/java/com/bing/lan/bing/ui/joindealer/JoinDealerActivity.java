@@ -1,13 +1,13 @@
 package com.bing.lan.bing.ui.joindealer;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bing.lan.bing.cons.UserInfoBean;
+import com.bing.lan.bing.ui.join.JoinUsActivity;
 import com.bing.lan.bing.ui.joindealer.bean.JoinDealerInfoBean;
 import com.bing.lan.bing.ui.joinsuccess.JoinSuccessActivity;
 import com.bing.lan.comm.R;
@@ -55,6 +55,7 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
     private String mProvince;
     private String mCity;
     private String mDistrict;
+    private boolean mIsFromJoinUsActivity;
 
     @Override
     protected int getLayoutResId() {
@@ -69,6 +70,10 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
     @Override
     protected void initViewAndData(Intent intent) {
         setToolBar(mToolbar, "经销商登记", true, 0);
+
+        if (intent != null) {
+            mIsFromJoinUsActivity = intent.getBooleanExtra(JoinUsActivity.FROM_JOINUSACTIVITY, false);
+        }
 
         mEtiPhoneNumber.setValidator(this);
         mEtiJoinName.setValidator(this);
@@ -162,26 +167,29 @@ public class JoinDealerActivity extends BaseActivity<IJoinDealerContract.IJoinDe
     @Override
     public void goToJoinSuccessActivity(JoinDealerInfoBean dealerInfoBean) {
 
-        if (dealerInfoBean != null) {
-            setUserId(dealerInfoBean.getDealId() + "");
-            UserInfoBean userInfoBean = getUserInfoBean();
-            userInfoBean.shareCode = dealerInfoBean.getShareCode();
-            userInfoBean.type = "5";
+        if (mIsFromJoinUsActivity) {
+            if (dealerInfoBean != null) {
+                setUserId(dealerInfoBean.getDealId() + "");
+                UserInfoBean userInfoBean = getUserInfoBean();
+                userInfoBean.shareCode = dealerInfoBean.getShareCode();
+                userInfoBean.type = "5";
+            }
+            JoinSuccessActivity.start(this, JoinSuccessActivity.ENTER_TYPE_DEALER);
+        } else {
+            finish();
         }
-
-        JoinSuccessActivity.start(this, JoinSuccessActivity.ENTER_TYPE_DEALER);
     }
 
     @Override
-    public void uploadAvatar(ImageView imageView, Uri source) {
+    public void uploadAvatar(ImageView imageView, File source) {
 
         switch (imageView.getId()) {
 
             case R.id.iv_id_card_img_front://签约协议照片
-                mIdCardImgFrontFile = new File(source.getPath());
+                mIdCardImgFrontFile = source;
                 break;
             case R.id.iv_id_card_img_back://缴费凭证照片
-                mIdCardImgBackFile = new File(source.getPath());
+                mIdCardImgBackFile = source;
                 break;
         }
 

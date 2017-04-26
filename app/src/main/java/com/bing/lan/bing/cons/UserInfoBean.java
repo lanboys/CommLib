@@ -9,7 +9,7 @@ public class UserInfoBean {
     public String typeName;
     public UserType mUserType;//用户类型  USER_TYPE_NOT_OA    USER_TYPE_OA
     private UserRole mUserRole;
-    public boolean mCanGoHomeFromJoinDealerAgentActivity;//当用户 无角色
+    //public boolean mCanGoHomeFromJoinDealerAgentActivity;//当用户 无角色
 
 
 

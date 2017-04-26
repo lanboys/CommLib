@@ -152,19 +152,27 @@ public class JoinUsActivity extends BaseActivity<IJoinUsContract.IJoinUsPresente
         alertDialog.show();
     }
 
+    public static final String FROM_JOINUSACTIVITY = "from_joinusactivity";
+
     private AlertDialog createExitDialog() {
 
         View inflate = View.inflate(JoinUsActivity.this, R.layout.alert_join, null);
         inflate.findViewById(R.id.btn_join_agent).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(JoinAgentActivity.class, false, true);
+
+                Intent intent = new Intent(JoinUsActivity.this, JoinAgentActivity.class);
+                intent.putExtra(FROM_JOINUSACTIVITY, true);
+                startActivity(intent, false, true);
             }
         });
         inflate.findViewById(R.id.btn_join_dealer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(JoinDealerActivity.class, false, true);
+
+                Intent intent = new Intent(JoinUsActivity.this, JoinDealerActivity.class);
+                intent.putExtra(FROM_JOINUSACTIVITY, true);
+                startActivity(intent, false, true);
             }
         });
 

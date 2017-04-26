@@ -73,20 +73,36 @@ public interface JzkApiService {
 
     //@Query
 
+    //@Multipart
+    //@POST("dealer/add")
+    //Observable<HttpResult<JoinDealerInfoBean>> joinDealer(
+    //        @Part("phone") String phone,
+    //        @Part("real_name") String real_name,
+    //        @Part("province") String province,
+    //        @Part("city") String city,
+    //        @Part("area") String area,
+    //        @Part("addressDetail") String addressDetail,
+    //        @Part("idCard") String idCard,
+    //        @Part("Upload[file][]\"; filename=\"avatar1.jpg") RequestBody body1,
+    //        @Part("Upload[file][]\"; filename=\"avatar.jpg") RequestBody body
+    //
+    //);
+
     @Multipart
     @POST("dealer/add")
     Observable<HttpResult<JoinDealerInfoBean>> joinDealer(
-            @Query("phone") String phone,
-            @Query("real_name") String real_name,
-            @Query("province") String province,
-            @Query("city") String city,
-            @Query("area") String area,
-            @Query("addressDetail") String addressDetail,
-            @Query("idCard") String idCard,
+            @Part("phone") RequestBody phone,
+            @Part("real_name") RequestBody real_name,
+            @Part("province") RequestBody province,
+            @Part("city") RequestBody city,
+            @Part("area") RequestBody area,
+            @Part("addressDetail") RequestBody addressDetail,
+            @Part("idCard") RequestBody idCard,
             @Part("Upload[file][]\"; filename=\"avatar1.jpg") RequestBody body1,
             @Part("Upload[file][]\"; filename=\"avatar.jpg") RequestBody body
 
     );
+
 
     //@FormUrlEncoded
     @Multipart

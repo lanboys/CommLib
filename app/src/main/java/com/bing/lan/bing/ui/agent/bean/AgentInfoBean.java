@@ -7,12 +7,15 @@ package com.bing.lan.bing.ui.agent.bean;
  */
 public class AgentInfoBean {
 
-    public AgentInfoBean(String c, String phone, String real_name, String user_id) {
-        this.c = c;
-        this.phone = phone;
-        this.real_name = real_name;
-        this.user_id = user_id;
+    public AgentInfoBean() {
     }
+
+    //public AgentInfoBean(String c, String phone, String real_name, String user_id) {
+    //    this.c = c;
+    //    this.phone = phone;
+    //    this.real_name = real_name;
+    //    this.user_id = user_id;
+    //}
 
     /**
      * phone : 测试内容k3s5
@@ -25,7 +28,6 @@ public class AgentInfoBean {
     public String real_name;
     public String c;
     public String user_id;
-
 
     public String getPhone() {
         return phone;
@@ -57,5 +59,15 @@ public class AgentInfoBean {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    @Override
+    public String toString() {
+        return "AgentInfoBean{" +
+                "phone='" + phone + '\'' +
+                ", real_name='" + real_name + '\'' +
+                ", c='" + c + '\'' +
+                ", user_id='" + user_id + '\'' +
+                '}';
     }
 }

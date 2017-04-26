@@ -41,7 +41,6 @@ public class ApiManager {
     private XimaApiService mApiService;
     private UserApi mUserApi;
 
-
     public static ApiManager getInstance() {
         return instance;
     }
@@ -61,7 +60,7 @@ public class ApiManager {
                 .client(sOkHttpClient)
                 //.addConverterFactory(GsonConverterFactory.create(sGson))
                 // .addConverterFactory(ScalarsConverterFactory.create())
-                  .addConverterFactory(FastJsonConverterFactory.create())
+                .addConverterFactory(FastJsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
     }

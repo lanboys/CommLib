@@ -56,20 +56,25 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
         setToolBar(mToolbar, "代理商", true, 0);
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        initListView();
     }
 
     @Override
     protected void readyStartPresenter() {
-        // mPresenter.onStart();
 
+
+        mPresenter.onStart(getUserInfoBean().userId);
+
+    }
+
+    private void initListView() {
         mAgentInfoBeenList = new ArrayList<>();
 
-        for (int i = 0; i < 15; i++) {
-            mAgentInfoBeenList.add(new AgentInfoBean("10", "13565678123", "代理商名称" + i, "804"));
-        }
+        //for (int i = 0; i < 15; i++) {
+        //    mAgentInfoBeenList.add(new AgentInfoBean("10", "13565678123", "代理商名称" + i, "804"));
+        //}
 
         mAdapter = new AgentListAdapter(this);
-
         mLvAgent.setAdapter(mAdapter);
         mAdapter.setOnClickListener(this);
 
@@ -83,7 +88,7 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
             }
         });
 
-        closeRefreshing();
+        //closeRefreshing();
     }
 
     @Override
@@ -111,8 +116,8 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
 
     @Override
     public void onRefresh() {
-        //  mPresenter.update();
-        readyStartPresenter();
+          mPresenter.update(getUserInfoBean().userId);
+        //readyStartPresenter();
     }
 
     @Override
@@ -130,7 +135,7 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
 
     public void onListViewLoadMore() {
         if (mPageCount < mPageNum) {
-            mPresenter.loadMore(mPageNum + 1);
+            mPresenter.loadMore(getUserInfoBean().userId,mPageNum + 1);
         }
     }
 }

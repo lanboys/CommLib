@@ -1,13 +1,13 @@
 package com.bing.lan.bing.ui.joinagent;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bing.lan.bing.cons.UserInfoBean;
+import com.bing.lan.bing.ui.join.JoinUsActivity;
 import com.bing.lan.bing.ui.joinagent.bean.JoinAgentResultBean;
 import com.bing.lan.bing.ui.joinsuccess.JoinSuccessActivity;
 import com.bing.lan.comm.R;
@@ -46,13 +46,13 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
     @BindView(R.id.btn_join_now)
     Button mBtnJoinNow;
 
-
     @BindView(R.id.test_imageView)
     ImageView test_imageView;
     private CityPickerUtil mCityPickerUtil;
     private String mProvince;
     private String mCity;
     private String mDistrict;
+    private boolean mIsFromJoinUsActivity;
 
     @Override
     protected int getLayoutResId() {
@@ -73,6 +73,10 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
     protected void initViewAndData(Intent intent) {
         setToolBar(mToolbar, "代理商登记", true, 0);
 
+        if (intent != null) {
+            mIsFromJoinUsActivity = intent.getBooleanExtra(JoinUsActivity.FROM_JOINUSACTIVITY, false);
+        }
+
         mEtiPhoneNumber.setValidator(this);
         mEtiJoinName.setValidator(this);
         mEtiSelectAddress.setValidator(this);
@@ -91,23 +95,17 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
             @Override
             public void onClick(View v) {
                 selectPhoto(test_imageView);
-
             }
         });
-
     }
 
     File test_imageViewFile;
 
     @Override
-    public void uploadAvatar(ImageView imageView, Uri source) {
+    public void uploadAvatar(ImageView imageView, File source) {
 
-                test_imageViewFile = new File(source.getPath());
-
-
-
+        test_imageViewFile = new File(source.getPath());
     }
-
 
     @Override
     protected void readyStartPresenter() {
@@ -157,15 +155,19 @@ public class JoinAgentActivity extends BaseActivity<IJoinAgentContract.IJoinAgen
     }
 
     @Override
-    public void goToJoinSuccessActivity(  JoinAgentResultBean joinAgentResultBean ) {
-        if (joinAgentResultBean != null) {
-            setUserId(joinAgentResultBean.getAgentId()+"");
-            UserInfoBean userInfoBean = getUserInfoBean();
-            userInfoBean.shareCode = joinAgentResultBean.getShareCode();
-            userInfoBean.type = "4";
-        }
+    public void goToJoinSuccessActivity(JoinAgentResultBean joinAgentResultBean) {
 
-        JoinSuccessActivity.start(this, JoinSuccessActivity.ENTER_TYPE_AGENT);
+        if (mIsFromJoinUsActivity) {
+            if (joinAgentResultBean != null) {
+                setUserId(joinAgentResultBean.getAgentId() + "");
+                UserInfoBean userInfoBean = getUserInfoBean();
+                userInfoBean.shareCode = joinAgentResultBean.getShareCode();
+                userInfoBean.type = "4";
+            }
+            JoinSuccessActivity.start(this, JoinSuccessActivity.ENTER_TYPE_AGENT);
+        } else {
+            finish();
+        }
     }
 
     @Override

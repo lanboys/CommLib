@@ -97,7 +97,8 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
 
                 if (mEtInputPhoneNumber.validate()) {
                     if (mEtInputPassword.validate()) {
-                        //startActivity(MainActivity.class, true, true);
+
+                        //startActivity(JoinUsActivity.class, true, true);
 
                         mPresenter.login(
                                 getUserType().getType(),
@@ -161,8 +162,7 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
     @Override
     public void goJoinUsActivity(LoginResultBean loginResultBean) {
 
-
-        mUserInfoBean.mCanGoHomeFromJoinDealerAgentActivity = true;
+        //mUserInfoBean.mCanGoHomeFromJoinDealerAgentActivity = true;
 
         Intent intent = new Intent(this, JoinUsActivity.class);
         intent.putExtra(USER_INFO, loginResultBean);

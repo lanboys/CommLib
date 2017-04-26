@@ -129,9 +129,11 @@ public class PhotoSelectUtil {
         mImageView.setImageDrawable(null);
         mImageView.setImageURI(source);
 
+        File file = new File(source.getPath());
+
         //回调
         if (mUploadListener != null) {
-            mUploadListener.uploadAvatar(mImageView, source);
+            mUploadListener.uploadAvatar(mImageView, file);
         }
 
     }
@@ -139,11 +141,16 @@ public class PhotoSelectUtil {
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
             mImageView.setImageDrawable(null);
-            mImageView.setImageURI(Crop.getOutput(result));
+
+            Uri uri = Crop.getOutput(result);
+            File file = new File(uri.getPath());
+
+            mImageView.setImageURI(uri);
+
 
             //回调
             if (mUploadListener != null) {
-                mUploadListener.uploadAvatar(mImageView, Crop.getOutput(result));
+                mUploadListener.uploadAvatar(mImageView, file);
             }
         } else if (resultCode == Crop.RESULT_ERROR) {
             Toast.makeText(mContext, Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
