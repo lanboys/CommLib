@@ -41,8 +41,14 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
     @BindView(R.id.btn_create_dealer)
     Button mBtnCreateDealer;
 
-    private ArrayList<DealerInfoBean> mShopBeen = new ArrayList<>();
-    private ArrayList<DealerInfoBean> mShowShopBeen = new ArrayList<>();
+    //STATUS_PAYMENT_NOT("1"),    // 1是未缴费
+    //STATUS_PAYMENT_OK("2"),            // 2 是缴费
+    //STATUS_PAYMENT_TIME_OUT("3");            // 3 是过期
+
+    private ArrayList<DealerInfoBean> mPaymentListOK = new ArrayList<>();
+    private ArrayList<DealerInfoBean> mPaymentListNot = new ArrayList<>();
+    private ArrayList<DealerInfoBean> mPaymentListTimeOut = new ArrayList<>();
+
     private DealerListAdapter mAdapter;
     private AlertDialog mAlertDialog;
 
@@ -57,11 +63,16 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
     }
 
     @Override
+    protected void readyStartPresenter() {
+    }
+
+    @Override
     protected void initViewAndData(Intent intent) {
 
         setToolBar(mToolbar, "经销商", true, 0);
 
         initTabLayout();
+        initListView();
     }
 
     private void initTabLayout() {
@@ -75,8 +86,7 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
         mTabLayoutShop.addOnTabSelectedListener(this);
     }
 
-    @Override
-    protected void readyStartPresenter() {
+    private void initListView() {
         mAdapter = new DealerListAdapter(this);
 
         View inflate = View.inflate(this, R.layout.item_empty_lv_foot, null);
@@ -85,23 +95,7 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
 
         mLvDealer.setAdapter(mAdapter);
         mAdapter.setOnClickListener(this);
-
-        initData();
-    }
-
-    private void initData() {
-
-        for (int i = 0; i < 13; i++) {
-            DealerInfoBean shopBean = new DealerInfoBean("经销商名称", "入驻时间", i % 2 == 0);
-            if (shopBean.isShowPos) {
-                mShowShopBeen.add(shopBean);
-            } else {
-                mShopBeen.add(shopBean);
-            }
-        }
-
-        mAdapter.setDataAndRefresh(mShowShopBeen);
-        mAdapter.notifyDataSetChanged();
+        mAdapter.setDataAndRefresh(new ArrayList<>());
     }
 
     @OnClick(R.id.btn_create_dealer)
@@ -111,15 +105,16 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
+
         switch (tab.getPosition()) {
-            case 0:
-            case 2:
-                mAdapter.setDataAndRefresh(mShowShopBeen);
-                mAdapter.notifyDataSetChanged();
+            case 0:// 1是未缴费
+                mAdapter.setDataAndRefresh(mPaymentListNot);
                 break;
-            case 1:
-                mAdapter.setDataAndRefresh(mShopBeen);
-                mAdapter.notifyDataSetChanged();
+            case 1:// 2 是缴费
+                mAdapter.setDataAndRefresh(mPaymentListOK);
+                break;
+            case 2:// 3 是过期
+                mAdapter.setDataAndRefresh(mPaymentListTimeOut);
                 break;
         }
     }

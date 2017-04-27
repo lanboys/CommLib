@@ -8,16 +8,10 @@ public class UserInfoBean {
     public String type;
     public String typeName;
     public UserType mUserType;//用户类型  USER_TYPE_NOT_OA    USER_TYPE_OA
-    private UserRole mUserRole;
     //public boolean mCanGoHomeFromJoinDealerAgentActivity;//当用户 无角色
 
-
-
     public UserRole getUserRole() {
-        if (mUserRole == null) {
-            mUserRole = UserRole.getUserRole(type);
-        }
-        return mUserRole;
+        return UserRole.getUserRole(type);
     }
 
     public UserType getUserType() {

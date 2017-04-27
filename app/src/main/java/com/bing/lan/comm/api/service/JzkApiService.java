@@ -78,11 +78,24 @@ public interface JzkApiService {
      *
      * @param dealerId
      * @param pageNum
-     * @return
      */
     @GET("agent/agent-list")
     Observable<HttpResult<AgentResultBean>> loadAgentList(
             @Query("dealerId") String dealerId,
+            @Query("pageNum") String pageNum
+    );
+
+    /**
+     * 经销商列表
+     *
+     * @param userId
+     * @param status
+     * @param pageNum
+     */
+    @GET("agent/agent-list")
+    Observable<HttpResult<AgentResultBean>> loadDealerList(
+            @Query("userId") String userId,
+            @Query("status") String status,
             @Query("pageNum") String pageNum
     );
 

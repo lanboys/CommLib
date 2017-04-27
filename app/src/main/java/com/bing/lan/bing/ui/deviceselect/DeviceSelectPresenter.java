@@ -47,15 +47,32 @@ public class DeviceSelectPresenter
 
                 case ACTION_UPDATE_DEVICE:
                     mView.updateDevice(deviceInfoBeen);
-
                     break;
                 case ACTION_LOADMORE_DEVICE:
                     mView.loadMoreDevice(deviceInfoBeen);
                     break;
             }
         } else {
-            mView.showToast(result.getMsg());
-            mView.showCallAlertDialog();
+            //List<DeviceInfoBean> mDeviceInfoBeanList = new ArrayList<>();
+            //for (int i = 0; i < 13; i++) {
+            //    String en_code = i % 2 == 0 ? "iOLijuKEiiF456JUFR IYiii" : "iOLijuKE123iJUFR IOKDTY";
+            //    mDeviceInfoBeanList.add(new DeviceInfoBean(i + "", en_code));
+            //}
+            //
+            //mView.updateDevice(mDeviceInfoBeanList);
+
+            switch (action) {
+
+                case ACTION_UPDATE_DEVICE:
+                    mView.showCallAlertDialog();
+                    break;
+                case ACTION_LOADMORE_DEVICE:
+                    break;
+
+                default:
+                    mView.showToast(result.getMsg());
+                    break;
+            }
         }
     }
 
@@ -68,6 +85,5 @@ public class DeviceSelectPresenter
     public void onCompleted(int action) {
         super.onCompleted(action);
         mView.closeRefreshing();
-
     }
 }

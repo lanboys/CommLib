@@ -86,6 +86,7 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mDeviceInfoBeanList = new ArrayList<>();
+        mDeviceInfoBeanSelectList = new ArrayList<>();
 
         mDeviceListAdapter = new DeviceListAdapter(this);
 
@@ -101,7 +102,7 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
         });
 
         mLvDeviceList.setOnItemClickListener(this);
-        mDeviceListAdapter.setDataAndRefresh(new ArrayList<>());
+        mDeviceListAdapter.setDataAndRefresh(mDeviceInfoBeanList);
     }
 
     @Override
@@ -297,9 +298,10 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
 
         canLoadMore = true;
 
-        if (deviceInfoBeen!=null&&deviceInfoBeen.size() > 0) {
+        if (deviceInfoBeen != null && deviceInfoBeen.size() > 0) {
             pageNum += 1;
-            mDeviceInfoBeanList.addAll(deviceInfoBeen);
+            //mDeviceInfoBeanList.addAll(deviceInfoBeen);
+            mDeviceListAdapter.setDataAndRefresh(deviceInfoBeen);
         }
 
         if (mDeviceInfoBeanList.size() == 0) {
@@ -309,9 +311,10 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
 
     @Override
     public void loadMoreDevice(List<DeviceInfoBean> deviceInfoBeen) {
-        if (deviceInfoBeen!=null&&deviceInfoBeen.size() > 0) {
+        if (deviceInfoBeen != null && deviceInfoBeen.size() > 0) {
             pageNum += 1;
             mDeviceInfoBeanList.addAll(deviceInfoBeen);
+            mDeviceListAdapter.notifyDataSetChanged();
         } else {
             canLoadMore = false;
         }

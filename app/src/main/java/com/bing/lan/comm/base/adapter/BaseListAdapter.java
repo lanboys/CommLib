@@ -14,10 +14,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 
-/**
- * @author 赵坤
- * @email artzok@163.com
- */
+
 public abstract class BaseListAdapter<T> extends BaseAdapter {
     public static final int ITEM_TYPE_NORMAL = 0;       // Plain item flag
 
