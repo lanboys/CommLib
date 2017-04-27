@@ -1,5 +1,7 @@
 package com.bing.lan.bing.ui.dealer;
 
+import com.bing.lan.bing.ui.dealer.bean.DealerResultBean;
+import com.bing.lan.comm.api.service.HttpResult;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
 
 /**
@@ -17,15 +19,69 @@ public class DealerPresenter
 
     }
 
+    public static final int ACTION_UPDATE_DEALER_LIST_1 = 1;
+    public static final int ACTION_UPDATE_DEALER_LIST_2 = 2;
+    public static final int ACTION_UPDATE_DEALER_LIST_3 = 3;
+
+    public static final int ACTION_LOAD_MORE_DEALER_LIST_1 = 4;
+    public static final int ACTION_LOAD_MORE_DEALER_LIST_2 = 5;
+    public static final int ACTION_LOAD_MORE_DEALER_LIST_3 = 6;
+
+    @Override
+    public void update(String status, String userId) {
+        //1是未缴费 2 是缴费 3 是过期
+        switch (status) {
+            case "1":
+                mModule.requestData(ACTION_UPDATE_DEALER_LIST_1, this, status, userId, 0);
+                break;
+            case "2":
+                mModule.requestData(ACTION_UPDATE_DEALER_LIST_2, this, status, userId, 0);
+                break;
+            case "3":
+                mModule.requestData(ACTION_UPDATE_DEALER_LIST_3, this, status, userId, 0);
+                break;
+        }
+    }
+
+    @Override
+    public void loadMore(String status, String userId, int pageNum) {
+        switch (status) {
+            case "1":
+                mModule.requestData(ACTION_LOAD_MORE_DEALER_LIST_1, this, status, userId, pageNum);
+                break;
+            case "2":
+                mModule.requestData(ACTION_LOAD_MORE_DEALER_LIST_2, this, status, userId, pageNum);
+                break;
+            case "3":
+                mModule.requestData(ACTION_LOAD_MORE_DEALER_LIST_3, this, status, userId, pageNum);
+                break;
+        }
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public void onSuccess(int action, Object data) {
 
-        switch (action) {
+        DealerResultBean resultBean = ((HttpResult<DealerResultBean>) data).getData();
 
-            // case LOAD_GANK:
-            //
-            //     break;
+        //List<DealerInfoBean> dealerInfoBeanList = resultBean.getData();
+
+        if (resultBean != null) {
+
+            switch (action) {
+
+                case ACTION_UPDATE_DEALER_LIST_1:
+                case ACTION_UPDATE_DEALER_LIST_2:
+                case ACTION_UPDATE_DEALER_LIST_3:
+                    mView.updateDealerList(action, resultBean);
+                    break;
+                case ACTION_LOAD_MORE_DEALER_LIST_1:
+                case ACTION_LOAD_MORE_DEALER_LIST_2:
+                case ACTION_LOAD_MORE_DEALER_LIST_3:
+
+                    break;
+            }
+        } else {
 
         }
     }
@@ -38,5 +94,6 @@ public class DealerPresenter
     @Override
     public void onCompleted(int action) {
         super.onCompleted(action);
+        mView.closeRefreshing();
     }
 }

@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bing.lan.bing.ui.dealer.bean.DealerInfoBean;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.adapter.BaseListAdapter;
 

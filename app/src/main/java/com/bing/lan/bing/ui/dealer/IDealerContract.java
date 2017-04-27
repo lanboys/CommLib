@@ -1,5 +1,6 @@
 package com.bing.lan.bing.ui.dealer;
 
+import com.bing.lan.bing.ui.dealer.bean.DealerResultBean;
 import com.bing.lan.comm.base.mvp.activity.IBaseActivityContract;
 
 /**
@@ -11,11 +12,17 @@ public interface IDealerContract {
     interface IDealerView
             extends IBaseActivityContract.IBaseActivityView<IDealerPresenter> {
 
+        void updateDealerList(int action, DealerResultBean dealerResultBean);
+
+        void closeRefreshing();
     }
 
     interface IDealerPresenter
             extends IBaseActivityContract.IBaseActivityPresenter<IDealerView, IDealerModule> {
 
+        void update(String status, String userId);
+
+        void loadMore(String status, String userId, int pageNum);
     }
 
     interface IDealerModule

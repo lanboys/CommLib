@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,6 +14,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bing.lan.bing.cons.DealerPaymentStatus;
+import com.bing.lan.bing.ui.dealer.bean.DealerInfoBean;
+import com.bing.lan.bing.ui.dealer.bean.DealerResultBean;
 import com.bing.lan.bing.ui.dealerauthenticate.DealerAuthenticateActivity;
 import com.bing.lan.bing.ui.joindealer.JoinDealerActivity;
 import com.bing.lan.comm.R;
@@ -20,6 +24,7 @@ import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -30,7 +35,8 @@ import butterknife.OnClick;
  */
 public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresenter>
         implements IDealerContract.IDealerView,
-        TabLayout.OnTabSelectedListener, DealerListAdapter.OnClickListener {
+        TabLayout.OnTabSelectedListener, DealerListAdapter.OnClickListener,
+        SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -40,6 +46,8 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
     ListView mLvDealer;
     @BindView(R.id.btn_create_dealer)
     Button mBtnCreateDealer;
+    @BindView(R.id.sref_container)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     //STATUS_PAYMENT_NOT("1"),    // 1是未缴费
     //STATUS_PAYMENT_OK("2"),            // 2 是缴费
@@ -64,12 +72,45 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
 
     @Override
     protected void readyStartPresenter() {
+
+        initData();
+    }
+
+    private void initData() {
+        mSwipeRefreshLayout.setRefreshing(true);
+
+        mPresenter.update(
+                DealerPaymentStatus.STATUS_PAYMENT_NOT.getPaymentStatus(),
+                getUserInfoBean().userId);
+
+        mPresenter.update(
+                DealerPaymentStatus.STATUS_PAYMENT_OK.getPaymentStatus(),
+                getUserInfoBean().userId);
+
+        mPresenter.update(
+                DealerPaymentStatus.STATUS_PAYMENT_TIME_OUT.getPaymentStatus(),
+                getUserInfoBean().userId);
+    }
+
+    boolean isFirst = true;
+
+    @Override
+    protected void onStart() {
+
+        if (isFirst) {
+            isFirst = false;
+        } else {
+            initData();
+        }
+
+        super.onStart();
     }
 
     @Override
     protected void initViewAndData(Intent intent) {
 
         setToolBar(mToolbar, "经销商", true, 0);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         initTabLayout();
         initListView();
@@ -103,17 +144,38 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
         startActivity(JoinDealerActivity.class, false, true);
     }
 
+    DealerPaymentStatus mDealerPaymentStatus = DealerPaymentStatus.STATUS_PAYMENT_NOT;
+
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
 
         switch (tab.getPosition()) {
-            case 0:// 1是未缴费
-                mAdapter.setDataAndRefresh(mPaymentListNot);
+            case 0:// 1 是未缴费
+                mDealerPaymentStatus = DealerPaymentStatus.STATUS_PAYMENT_NOT;
                 break;
             case 1:// 2 是缴费
-                mAdapter.setDataAndRefresh(mPaymentListOK);
+                mDealerPaymentStatus = DealerPaymentStatus.STATUS_PAYMENT_OK;
                 break;
             case 2:// 3 是过期
+                mDealerPaymentStatus = DealerPaymentStatus.STATUS_PAYMENT_TIME_OUT;
+                break;
+        }
+
+        updateUI();
+    }
+
+    private void updateUI() {
+        switch (mDealerPaymentStatus) {
+
+            case STATUS_PAYMENT_NOT:
+                mAdapter.setDataAndRefresh(mPaymentListNot);
+
+                break;
+            case STATUS_PAYMENT_OK:
+                mAdapter.setDataAndRefresh(mPaymentListOK);
+
+                break;
+            case STATUS_PAYMENT_TIME_OUT:
                 mAdapter.setDataAndRefresh(mPaymentListTimeOut);
                 break;
         }
@@ -134,7 +196,7 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
 
         // 登记缴费
         Intent intent = new Intent(this, DealerAuthenticateActivity.class);
-        intent.putExtra(DealerAuthenticateActivity.DEALER_ID, data.dealId);
+        intent.putExtra(DealerAuthenticateActivity.DEALER_ID, data.userId);
         startActivity(intent, false, true);
     }
 
@@ -193,6 +255,81 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
         if (mAlertDialog != null && mAlertDialog.isShowing()) {
             mAlertDialog.dismiss();
             mAlertDialog = null;
+        }
+    }
+
+    private int mPageCount;
+    private int mPageNum;
+    private String mTotalCount;
+
+    @Override
+    public void updateDealerList(int action, DealerResultBean dealerResultBean) {
+
+        mPageCount = Integer.valueOf(dealerResultBean.getPageCount());
+        mPageNum = Integer.valueOf(dealerResultBean.getPageNum());
+        mTotalCount = dealerResultBean.getTotalCount();
+        List<DealerInfoBean> dealerInfoBeanList = dealerResultBean.getData();
+
+        //1是未缴费 2 是缴费 3 是过期
+        switch (action) {
+            case DealerPresenter.ACTION_UPDATE_DEALER_LIST_1:
+
+                mPaymentListNot.clear();
+                mPaymentListNot.addAll(dealerInfoBeanList);
+
+                //mAdapter.setDataAndRefresh(mPaymentListNot);
+
+                break;
+            case DealerPresenter.ACTION_UPDATE_DEALER_LIST_2:
+
+                for (DealerInfoBean dealer : dealerInfoBeanList) {
+                    dealer.isShowPos = false;
+                }
+                mPaymentListOK.clear();
+                mPaymentListOK.addAll(dealerInfoBeanList);
+
+                break;
+            case DealerPresenter.ACTION_UPDATE_DEALER_LIST_3:
+
+                mPaymentListOK.clear();
+                mPaymentListOK.addAll(dealerInfoBeanList);
+
+                break;
+            //case DealerPresenter.ACTION_LOAD_MORE_DEALER_LIST_1:
+            //
+            //    break;
+            //case DealerPresenter.ACTION_LOAD_MORE_DEALER_LIST_2:
+            //
+            //    break;
+            //case DealerPresenter.ACTION_LOAD_MORE_DEALER_LIST_3:
+            //
+            //    break;
+        }
+        updateUI();
+    }
+
+    @Override
+    public void onRefresh() {
+        switch (mDealerPaymentStatus) {
+
+            case STATUS_PAYMENT_NOT:
+
+                break;
+            case STATUS_PAYMENT_OK:
+
+                break;
+            case STATUS_PAYMENT_TIME_OUT:
+
+                break;
+        }
+
+        mPresenter.update(mDealerPaymentStatus.getPaymentStatus(), getUserInfoBean().userId);
+    }
+
+    @Override
+    public void closeRefreshing() {
+        if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
         }
     }
 }

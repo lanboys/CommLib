@@ -1,6 +1,7 @@
 package com.bing.lan.comm.api.service;
 
 import com.bing.lan.bing.ui.agent.bean.AgentResultBean;
+import com.bing.lan.bing.ui.dealer.bean.DealerResultBean;
 import com.bing.lan.bing.ui.deviceselect.bean.DeviceInfoResultBean;
 import com.bing.lan.bing.ui.joinagent.bean.JoinAgentResultBean;
 import com.bing.lan.bing.ui.joindealer.bean.JoinDealerInfoBean;
@@ -92,10 +93,10 @@ public interface JzkApiService {
      * @param status
      * @param pageNum
      */
-    @GET("agent/agent-list")
-    Observable<HttpResult<AgentResultBean>> loadDealerList(
-            @Query("userId") String userId,
+    @GET("dealer/list")
+    Observable<HttpResult<DealerResultBean>> loadDealerList(
             @Query("status") String status,
+            @Query("userId") String userId,
             @Query("pageNum") String pageNum
     );
 

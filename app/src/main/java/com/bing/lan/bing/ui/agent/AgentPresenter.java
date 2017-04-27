@@ -21,12 +21,12 @@ public class AgentPresenter
 
     @Override
     public void update(String dealerId) {
-        mModule.requestData(ACTION_LOAD_AGENT_LIST, this, dealerId,0);
+        mModule.requestData(ACTION_LOAD_AGENT_LIST, this, dealerId, 0);
     }
 
     @Override
-    public void loadMore(String dealerId,int pageNum) {
-        mModule.requestData(ACTION_LOAD_MORE_AGENT_LIST, this,dealerId, pageNum);
+    public void loadMore(String dealerId, int pageNum) {
+        mModule.requestData(ACTION_LOAD_MORE_AGENT_LIST, this, dealerId, pageNum);
     }
 
     @Override
