@@ -12,7 +12,7 @@ public interface IDealerContract {
     interface IDealerView
             extends IBaseActivityContract.IBaseActivityView<IDealerPresenter> {
 
-        void updateDealerList(int action, DealerResultBean dealerResultBean);
+        void updateList(int action, DealerResultBean dealerResultBean);
 
         void loadMoreList(int action, DealerResultBean dealerResultBean);
 

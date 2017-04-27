@@ -8,8 +8,8 @@ import android.widget.ImageView;
 
 import com.bing.lan.bing.ui.map.AMapActivity;
 import com.bing.lan.bing.ui.mapsearch.AddressBean;
+import com.bing.lan.bing.ui.shop.bean.ShopInfoBean;
 import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;
-import com.bing.lan.bing.ui.shopauthenticate.bean.ShopInfoBean;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -84,7 +84,6 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
         mEtiShopkeeperName.setEditContent("蓝兵");
         mEtiShopName.setEditContent("蓝兵店铺");
         mEtiShopSelectType.setEditContent("餐饮食品,高档餐厅,中餐");
-        mEtiShopSelectAddress.setEditContent("东田大厦");
         //test
     }
 

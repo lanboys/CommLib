@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bing.lan.bing.ui.shop.ShopActivity;
-import com.bing.lan.bing.ui.shopauthenticate.bean.ShopInfoBean;
+import com.bing.lan.bing.ui.shop.bean.ShopInfoBean;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;

@@ -8,8 +8,9 @@ import com.bing.lan.bing.ui.joinagent.bean.JoinAgentResultBean;
 import com.bing.lan.bing.ui.joindealer.bean.JoinDealerInfoBean;
 import com.bing.lan.bing.ui.login.bean.LoginResultBean;
 import com.bing.lan.bing.ui.register.bean.RegisterResultBean;
+import com.bing.lan.bing.ui.shop.bean.ShopInfoBean;
+import com.bing.lan.bing.ui.shop.bean.ShopResultBean;
 import com.bing.lan.bing.ui.shopauthenticate.bean.ShopAuthenticateResultBean;
-import com.bing.lan.bing.ui.shopauthenticate.bean.ShopInfoBean;
 
 import java.util.Map;
 
@@ -76,10 +77,22 @@ public interface JzkApiService {
             @Part("Upload[file][]\"; filename=\"avatar1.jpg") RequestBody body1
     );
 
+    /**
+     * 创建门店
+     *
+     * @param map
+     * @return
+     */
     @Multipart
     @POST("strore/store-add")
     Observable<HttpResult<ShopInfoBean>> uploadShop(@PartMap Map<String, RequestBody> map);
 
+    /**
+     * 提交门店认证资料
+     *
+     * @param map
+     * @return
+     */
     @Multipart
     @POST("strore/store-cert")
     Observable<HttpResult<ShopAuthenticateResultBean>> uploadShopAuthenticate(@PartMap Map<String, RequestBody> map);
@@ -106,6 +119,20 @@ public interface JzkApiService {
     @GET("dealer/list")
     Observable<HttpResult<DealerResultBean>> loadDealerList(
             @Query("status") String status,
+            @Query("userId") String userId,
+            @Query("pageNum") String pageNum
+    );
+
+    /**
+     * 门店列表
+     *
+     * @param userId
+     * @param island
+     * @param pageNum
+     */
+    @GET("strore/store-list")
+    Observable<HttpResult<ShopResultBean>> loadShopList(
+            @Query("island") String island,
             @Query("userId") String userId,
             @Query("pageNum") String pageNum
     );

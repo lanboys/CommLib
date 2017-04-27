@@ -301,7 +301,7 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
     private String mTotalCount3;
 
     @Override
-    public void updateDealerList(int action, DealerResultBean dealerResultBean) {
+    public void updateList(int action, DealerResultBean dealerResultBean) {
 
         List<DealerInfoBean> dealerInfoBeanList = dealerResultBean.getData();
 
@@ -380,18 +380,6 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
 
     @Override
     public void onRefresh() {
-        switch (mDealerPaymentStatus) {
-
-            case STATUS_PAYMENT_NOT:
-
-                break;
-            case STATUS_PAYMENT_OK:
-
-                break;
-            case STATUS_PAYMENT_TIME_OUT:
-
-                break;
-        }
 
         mPresenter.update(mDealerPaymentStatus.getPaymentStatus(), getUserInfoBean().userId);
     }

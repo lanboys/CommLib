@@ -130,7 +130,7 @@ public class DeviceSelectActivity1 extends BaseActivity<IDeviceSelectContract.ID
         DeviceInfoBean item = (DeviceInfoBean) adapterView.getItemAtPosition(i);
 
         //DeviceListAdapter adapter = (DeviceListAdapter) adapterView.getAdapter();
-        //ShopBean item = (ShopBean) adapter.getItem(i);
+        //ShopInfoBean item = (ShopInfoBean) adapter.getItem(i);
         if (item != null) {
             item.isSelect = !item.isSelect;
             mDeviceListAdapter.notifyDataSetChanged();

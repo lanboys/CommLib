@@ -73,7 +73,7 @@ public class DealerPresenter
                 case ACTION_UPDATE_DEALER_LIST_1:
                 case ACTION_UPDATE_DEALER_LIST_2:
                 case ACTION_UPDATE_DEALER_LIST_3:
-                    mView.updateDealerList(action, resultBean);
+                    mView.updateList(action, resultBean);
                     break;
                 case ACTION_LOAD_MORE_DEALER_LIST_1:
                 case ACTION_LOAD_MORE_DEALER_LIST_2:

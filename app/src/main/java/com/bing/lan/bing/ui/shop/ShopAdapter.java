@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bing.lan.bing.ui.shop.bean.ShopBean;
+import com.bing.lan.bing.ui.shop.bean.ShopInfoBean;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.adapter.BaseListAdapter;
 
@@ -16,7 +16,9 @@ import butterknife.BindView;
  * Email: lan_bing2013@163.com
  * Time: 2017/4/13  19:08
  */
-public class ShopAdapter extends BaseListAdapter<ShopBean> implements View.OnClickListener {
+public class ShopAdapter extends BaseListAdapter<ShopInfoBean> implements View.OnClickListener {
+
+    OnClickListener mOnClickListener;
 
     public ShopAdapter(Context context) {
         super(context);
@@ -31,22 +33,23 @@ public class ShopAdapter extends BaseListAdapter<ShopBean> implements View.OnCli
     protected BaseViewHolder createViewHolder(int itemViewType, View itemView) {
         return new Holder(itemView);
     }
-    OnClickListener mOnClickListener;
+
     public void setOnClickListener(OnClickListener onClickListener) {
         mOnClickListener = onClickListener;
     }
+
     @Override
     public void onClick(View view) {
 
-        Integer position = (Integer)view.getTag();
-        ShopBean shopBean = data.get(position);
+        Integer position = (Integer) view.getTag();
+        ShopInfoBean shopBean = data.get(position);
 
         switch (view.getId()) {
 
             case R.id.tv_pos:
 
                 if (mOnClickListener != null) {
-                    mOnClickListener.onPaymentClick(position, shopBean);
+                    mOnClickListener.onButtonClick(position, shopBean);
                 }
 
                 break;
@@ -57,12 +60,14 @@ public class ShopAdapter extends BaseListAdapter<ShopBean> implements View.OnCli
                 break;
         }
     }
+
     public interface OnClickListener {
 
-        void onPaymentClick(int position, ShopBean data);
+        void onButtonClick(int position, ShopInfoBean data);
 
-        void onCallClick(int position, ShopBean data);
+        void onCallClick(int position, ShopInfoBean data);
     }
+
     class Holder extends BaseViewHolder {
 
         @BindView(R.id.tv_shop_name)
@@ -79,11 +84,12 @@ public class ShopAdapter extends BaseListAdapter<ShopBean> implements View.OnCli
         }
 
         @Override
-        public void fillData(ShopBean data, int position) {
+        public void fillData(ShopInfoBean data, int position) {
             mTvShopName.setText(data.name);
-            mTvShopTime.setText(data.time);
+            mTvShopTime.setText(data.createTime);
 
-            mTvPos.setVisibility(data.isShowPos ? View.VISIBLE : View.GONE);
+            mTvPos.setVisibility(data.isShowButton ? View.VISIBLE : View.GONE);
+            mTvPos.setText(data.isAuth ? "绑定POS" : "提交认证资料");
 
             mIvCall.setOnClickListener(ShopAdapter.this);
             mIvCall.setTag(position);

@@ -2,7 +2,7 @@ package com.bing.lan.bing.ui.shopcreate;
 
 import android.text.TextUtils;
 
-import com.bing.lan.bing.ui.shopauthenticate.bean.ShopInfoBean;
+import com.bing.lan.bing.ui.shop.bean.ShopInfoBean;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.api.service.HttpResult;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;

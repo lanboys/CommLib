@@ -187,6 +187,8 @@ public class PhotoSelectCropUtil1 {
 
                     BitmapFactory.Options opts1 = new BitmapFactory.Options();
                     opts1.inSampleSize = 4;//缩小四倍
+                    opts1.inPreferredConfig= Bitmap.Config.RGB_565;
+
                     //压缩后图片
                     Bitmap bitmap1 = BitmapFactory.decodeFile(smallFile.getAbsolutePath(), opts1);
 

@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,24 +14,37 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bing.lan.bing.cons.ShopAuthenticationStatus;
 import com.bing.lan.bing.ui.registerPos.RegisterPosActivity;
-import com.bing.lan.bing.ui.shop.bean.ShopBean;
+import com.bing.lan.bing.ui.shop.bean.ShopInfoBean;
+import com.bing.lan.bing.ui.shop.bean.ShopResultBean;
+import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;
 import com.bing.lan.bing.ui.shopcreate.ShopCreateActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
+import com.bing.lan.comm.listener.ListViewScrollListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.bing.lan.bing.cons.ShopAuthenticationStatus.STATUS_AUTH_NOT;
+import static com.bing.lan.bing.cons.ShopAuthenticationStatus.STATUS_AUTH_OK;
+import static com.bing.lan.bing.ui.shop.ShopPresenter.ACTION_LOAD_MORE_SHOP_LIST_NOT;
+import static com.bing.lan.bing.ui.shop.ShopPresenter.ACTION_LOAD_MORE_SHOP_LIST_OK;
+import static com.bing.lan.bing.ui.shop.ShopPresenter.ACTION_UPDATE_SHOP_LIST_NOT;
+import static com.bing.lan.bing.ui.shop.ShopPresenter.ACTION_UPDATE_SHOP_LIST_OK;
 
 /**
  * @author 蓝兵
  * @time 2017/4/6  19:12
  */
 public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
-        implements IShopContract.IShopView, TabLayout.OnTabSelectedListener, ShopAdapter.OnClickListener {
+        implements IShopContract.IShopView, TabLayout.OnTabSelectedListener,
+        ShopAdapter.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -38,11 +52,23 @@ public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
     TabLayout mTabLayoutShop;
     @BindView(R.id.lv_shop)
     ListView mLvShop;
+    @BindView(R.id.sref_container)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.btn_register_shop)
     Button mBtnRegisterShop;
-    private ArrayList<ShopBean> mShopBeen = new ArrayList<>();
-    private ArrayList<ShopBean> mShowShopBeen = new ArrayList<>();
+    ShopAuthenticationStatus mShopAuthenticationStatus = STATUS_AUTH_NOT;
+    boolean isFirst = true;
+    private ArrayList<ShopInfoBean> mShopAuthListNot = new ArrayList<>();
+    private ArrayList<ShopInfoBean> mShopAuthListOK = new ArrayList<>();
     private ShopAdapter mAdapter;
+    private AlertDialog mAlertDialog;
+    private int mPageCount1;
+    private int mPageNum1 = 1;
+    private int mTotalCount1;
+    private int mPageCount2;
+    private int mPageNum2 = 1;
+    private int mTotalCount2;
+
 
     @Override
     protected int getLayoutResId() {
@@ -58,8 +84,10 @@ public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
     protected void initViewAndData(Intent intent) {
 
         setToolBar(mToolbar, "我的店铺", true, 0);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         initTabLayout();
+        initListView();
     }
 
     private void initTabLayout() {
@@ -74,34 +102,56 @@ public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
     @Override
     protected void readyStartPresenter() {
 
-        mAdapter = new ShopAdapter(this);
-
-        View inflate = View.inflate(this, R.layout.item_empty_lv_foot, null);
-
-        mLvShop.addFooterView(inflate);
-
-
-        mLvShop.setAdapter(mAdapter);
-
-        mAdapter.setOnClickListener(this);
-
         initData();
     }
 
     private void initData() {
+        mSwipeRefreshLayout.setRefreshing(true);
 
-        for (int i = 0; i < 17; i++) {
-            ShopBean shopBean = new ShopBean("店铺名称", "入驻时间", i % 2 == 0);
+        mPresenter.update(
+                ShopAuthenticationStatus.STATUS_AUTH_NOT.getAuthStatus(),
+                getUserInfoBean().userId);
 
-            if (shopBean.isShowPos) {
-                mShowShopBeen.add(shopBean);
-            } else {
-                mShopBeen.add(shopBean);
+        mPresenter.update(
+                ShopAuthenticationStatus.STATUS_AUTH_OK.getAuthStatus(),
+                getUserInfoBean().userId);
+    }
+
+    private void initListView() {
+        mAdapter = new ShopAdapter(this);
+
+        View inflate = View.inflate(this, R.layout.item_empty_lv_foot, null);
+        mLvShop.addFooterView(inflate);
+
+        mLvShop.setAdapter(mAdapter);
+        mAdapter.setOnClickListener(this);
+        mAdapter.setDataAndRefresh(new ArrayList<>());
+
+        mLvShop.setOnScrollListener(new ListViewScrollListener() {
+            @Override
+            public void onListViewLoadMore() {
+                ShopActivity.this.onListViewLoadMore();
             }
-        }
+        });
+    }
 
-        mAdapter.setDataAndRefresh(mShopBeen);
-        mAdapter.notifyDataSetChanged();
+    private void onListViewLoadMore() {
+        switch (mShopAuthenticationStatus) {
+
+            case STATUS_AUTH_NOT:
+                if (mPageNum1 < mPageCount1) {
+                    mPresenter.loadMore(mShopAuthenticationStatus.getAuthStatus(),
+                            getUserInfoBean().userId, mPageNum1 + 1);
+                }
+
+                break;
+            case STATUS_AUTH_OK:
+                if (mPageNum2 < mPageCount2) {
+                    mPresenter.loadMore(mShopAuthenticationStatus.getAuthStatus(),
+                            getUserInfoBean().userId, mPageNum2 + 1);
+                }
+                break;
+        }
     }
 
     @OnClick(R.id.btn_register_shop)
@@ -110,15 +160,38 @@ public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
     }
 
     @Override
+    protected void onStart() {
+
+        if (isFirst) {
+            isFirst = false;
+        } else {
+            initData();
+        }
+
+        super.onStart();
+    }
+
+    @Override
     public void onTabSelected(TabLayout.Tab tab) {
         switch (tab.getPosition()) {
-            case 0:
-                mAdapter.setDataAndRefresh(mShopBeen);
-                mAdapter.notifyDataSetChanged();
+            case 0:// 1 未认证
+                mShopAuthenticationStatus = STATUS_AUTH_NOT;
                 break;
-            case 1:
-                mAdapter.setDataAndRefresh(mShowShopBeen);
-                mAdapter.notifyDataSetChanged();
+            case 1:// 2 认证
+                mShopAuthenticationStatus = STATUS_AUTH_OK;
+                break;
+        }
+
+        updateUI();
+    }
+
+    private void updateUI() {
+        switch (mShopAuthenticationStatus) {
+            case STATUS_AUTH_NOT:
+                mAdapter.setDataAndRefresh(mShopAuthListNot);
+                break;
+            case STATUS_AUTH_OK:
+                mAdapter.setDataAndRefresh(mShopAuthListOK);
                 break;
         }
     }
@@ -134,24 +207,24 @@ public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
     }
 
     @Override
-    public void onPaymentClick(int position, ShopBean data) {
-        startActivity(RegisterPosActivity.class, false, true);
+    public void onButtonClick(int position, ShopInfoBean shopInfoBean) {
 
+        if (shopInfoBean.isAuth) {
+            startActivity(RegisterPosActivity.class, false, true);
+        } else {
+            Intent intent = new Intent(this, ShopAuthenticateActivity.class);
+            intent.putExtra(ShopAuthenticateActivity.SHOP_INFO, shopInfoBean);
+            startActivity(intent, false, true);
+        }
     }
 
     @Override
-    public void onCallClick(int position, ShopBean data) {
-        showJoinAlertDialog("10086");
+    public void onCallClick(int position, ShopInfoBean data) {
+        showJoinAlertDialog(data.getPhone());
     }
 
     public void showJoinAlertDialog(String phone) {
         mAlertDialog = createExitDialog(phone);
-        //Window window = alertDialog.getWindow();
-        //WindowManager.LayoutParams lp = window.getAttributes();
-        //lp.alpha = 0.9f;
-        //window.setAttributes(lp);
-        //window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-
         mAlertDialog.show();
     }
 
@@ -196,6 +269,60 @@ public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
             mAlertDialog = null;
         }
     }
-    private AlertDialog mAlertDialog;
 
+    @Override
+    public void onRefresh() {
+       mPresenter.update(
+                mShopAuthenticationStatus.getAuthStatus(),
+                getUserInfoBean().userId);
+    }
+
+    @Override
+    public void closeRefreshing() {
+        if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void updateList(int action, ShopResultBean dealerResultBean) {
+        handData(true, action, dealerResultBean);
+    }
+
+    @Override
+    public void loadMoreList(int action, ShopResultBean shopResultBean) {
+        handData(false, action, shopResultBean);
+    }
+
+    private void handData(boolean isUpdate, int action, ShopResultBean shopResultBean) {
+        List<ShopInfoBean> shopInfoBeanList = shopResultBean.getData();
+        switch (action) {
+            case ACTION_UPDATE_SHOP_LIST_NOT:
+            case ACTION_LOAD_MORE_SHOP_LIST_NOT:
+
+                mPageCount1 = shopResultBean.getPageCount();
+                mPageNum1 = Integer.valueOf(shopResultBean.getPageNum());
+                mTotalCount1 = shopResultBean.getTotalCount();
+                if (isUpdate) {
+                    mShopAuthListNot.clear();
+                }
+                mShopAuthListNot.addAll(shopInfoBeanList);
+                break;
+            case ACTION_UPDATE_SHOP_LIST_OK:
+            case ACTION_LOAD_MORE_SHOP_LIST_OK:
+                mPageCount2 = shopResultBean.getPageCount();
+                mPageNum2 = Integer.valueOf(shopResultBean.getPageNum());
+                mTotalCount2 = shopResultBean.getTotalCount();
+                if (isUpdate) {
+                    mShopAuthListOK.clear();
+                }
+
+                for (ShopInfoBean infoBean : shopInfoBeanList) {
+                    infoBean.isAuth = true;
+                }
+                mShopAuthListOK.addAll(shopInfoBeanList);
+                break;
+        }
+        updateUI();
+    }
 }
