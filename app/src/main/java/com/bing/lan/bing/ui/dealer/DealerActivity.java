@@ -232,7 +232,9 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
 
     @Override
     public void onCallClick(int position, DealerInfoBean data) {
-        showJoinAlertDialog("10086");
+
+        String phone = data.getPhone();
+        showJoinAlertDialog(phone);
     }
 
     public void showJoinAlertDialog(String phone) {

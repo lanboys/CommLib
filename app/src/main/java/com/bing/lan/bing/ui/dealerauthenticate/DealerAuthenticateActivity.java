@@ -111,7 +111,8 @@ public class DealerAuthenticateActivity extends
                                             mEtiPaymentTime.getEditContent(),
                                             mEtiPaymentCardId.getEditContent(),
                                             mPaymentFile,
-                                            mProtocolFile);
+                                            mProtocolFile
+                                    );
                                 } else {
                                     showToast("请先上传签约协议照片");
                                 }

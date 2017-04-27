@@ -21,7 +21,7 @@ public class AddressBean implements Serializable {
 
     public String province;//省信息
     public String city;//城市信息
-    public String district;//城区信息
+    public String district;//城区信息area
 
     public String township;//乡镇
     public String street;//街道信息

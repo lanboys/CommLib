@@ -148,6 +148,7 @@
         <activity
             android:name="com.bing.lan.bing.ui.shop.ShopActivity"
             android:label="@string/title_activity_shop"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity

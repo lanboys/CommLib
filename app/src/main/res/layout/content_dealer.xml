@@ -45,7 +45,8 @@
             android:layout_height="match_parent"
             android:layout_below="@id/tabLayout_shop"
             android:background="@color/main_color_white"
-            android:divider="@null">
+        >
+            <!--android:divider="@null"-->
         </ListView>
 
     </android.support.v4.widget.SwipeRefreshLayout>

@@ -72,8 +72,8 @@ public class DealerListAdapter extends BaseListAdapter<DealerInfoBean> implement
 
         @BindView(R.id.tv_dealer_name)
         TextView mTvDealerName;
-        @BindView(R.id.tv_dealer_time)
-        TextView mTvDealerTime;
+        @BindView(R.id.tv_dealer_phone)
+        TextView mTvDealerPhone;
         @BindView(R.id.tv_dealer_payment)
         TextView mTvDealerPayment;
         @BindView(R.id.iv_call)
@@ -86,7 +86,7 @@ public class DealerListAdapter extends BaseListAdapter<DealerInfoBean> implement
         @Override
         public void fillData(DealerInfoBean data, int position) {
             mTvDealerName.setText(data.name);
-            mTvDealerTime.setText(data.time);
+            mTvDealerPhone.setText(data.phone);
 
             mTvDealerPayment.setVisibility(data.isShowPos ? View.VISIBLE : View.GONE);
 

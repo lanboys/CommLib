@@ -21,7 +21,7 @@
         android:textColor="@color/main_color_text_black"
         android:textSize="15sp"/>
     <TextView
-        android:id="@+id/tv_dealer_time"
+        android:id="@+id/tv_dealer_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_dealer_name"
@@ -35,14 +35,14 @@
         layout="@layout/include_line_2"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:layout_below="@id/tv_dealer_time"
+        android:layout_below="@id/tv_dealer_phone"
         android:layout_marginTop="17dp"/>
 
     <TextView
         android:id="@+id/tv_dealer_payment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_dealer_time"
+        android:layout_below="@id/tv_dealer_phone"
         android:paddingBottom="10dp"
         android:layout_marginTop="19dp"
         android:paddingTop="20dp"

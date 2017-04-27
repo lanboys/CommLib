@@ -1,4 +1,4 @@
-package com.bing.lan.bing.ui.shop;
+package com.bing.lan.bing.ui.shop.bean;
 
 /**
  * Author: 蓝兵

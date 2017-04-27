@@ -11,6 +11,7 @@ public class PickerUtil {
 
     private ArrayList<ProvinceBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
+    private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
 
     private OptionsPickerView pvOptions;
 
@@ -26,7 +27,7 @@ public class PickerUtil {
 
     public interface PickerItemSelectListener {
 
-        void onItemSelect(String options1, String options2, View v);
+        void onItemSelect(String options1, String options2, String options3, View v);
     }
 
     public void selectType(Activity activity) {
@@ -51,11 +52,16 @@ public class PickerUtil {
                 //返回的分别是三个级别的选中位置
                 String tx = options1Items.get(options1).getPickerViewText()
                         + options2Items.get(options1).get(options2)
-                       /* + options3Items.get(options1).get(options2).get(options3).getPickerViewText()*/;
+                        + options3Items.get(options1).get(options2).get(options3);
                 // btn_Options.setText(tx);
 
                 if (mListener != null) {
-                    mListener.onItemSelect(options1Items.get(options1).getPickerViewText(), options2Items.get(options1).get(options2), v);
+                    mListener.onItemSelect(
+                            options1Items.get(options1).getPickerViewText(),
+                            options2Items.get(options1).get(options2),
+
+                            options3Items.get(options1).get(options2).get(options3),
+                            v);
                 }
             }
         })
@@ -76,13 +82,17 @@ public class PickerUtil {
         //pvOptions.setSelectOptions(1,1);
 
         /*pvOptions.setPicker(options1Items);//一级选择器*/
-        pvOptions.setPicker(options1Items, options2Items);//二级选择器
-        /*pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器*/
+        //pvOptions.setPicker(options1Items, options2Items);//二级选择器
+        pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
 
         // 不联动的多级选项
         /*pvOptions.setNPicker(options1Items, options2Items,options3Items);//三级选择器*/
 
     }
+
+    //private ArrayList<ProvinceBean> options1Items = new ArrayList<>();
+    //private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
+    //private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
 
     private void initOptionData() {
 

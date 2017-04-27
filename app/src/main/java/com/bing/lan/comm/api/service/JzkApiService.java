@@ -8,6 +8,8 @@ import com.bing.lan.bing.ui.joinagent.bean.JoinAgentResultBean;
 import com.bing.lan.bing.ui.joindealer.bean.JoinDealerInfoBean;
 import com.bing.lan.bing.ui.login.bean.LoginResultBean;
 import com.bing.lan.bing.ui.register.bean.RegisterResultBean;
+import com.bing.lan.bing.ui.shopauthenticate.bean.ShopAuthenticateResultBean;
+import com.bing.lan.bing.ui.shopauthenticate.bean.ShopInfoBean;
 
 import java.util.Map;
 
@@ -19,6 +21,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import rx.Observable;
@@ -27,8 +30,6 @@ import rx.Observable;
  * Created by win7 on 2017/4/21.
  */
 public interface JzkApiService {
-
-
 
     //@Multipart
     //@POST("upload/index.jsp")
@@ -74,6 +75,14 @@ public interface JzkApiService {
             @Part("Upload[file][]\"; filename=\"avatar.jpg") RequestBody body,
             @Part("Upload[file][]\"; filename=\"avatar1.jpg") RequestBody body1
     );
+
+    @Multipart
+    @POST("strore/store-add")
+    Observable<HttpResult<ShopInfoBean>> uploadShop(@PartMap Map<String, RequestBody> map);
+
+    @Multipart
+    @POST("strore/store-cert")
+    Observable<HttpResult<ShopAuthenticateResultBean>> uploadShopAuthenticate(@PartMap Map<String, RequestBody> map);
 
     /**
      * 代理商列表

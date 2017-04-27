@@ -11,10 +11,13 @@ public interface IShopAuthenticateContract {
     interface IShopAuthenticateView
             extends IBaseActivityContract.IBaseActivityView<IShopAuthenticatePresenter> {
 
+        void goToShopActivity( );
+
     }
 
     interface IShopAuthenticatePresenter
             extends IBaseActivityContract.IBaseActivityPresenter<IShopAuthenticateView, IShopAuthenticateModule> {
+        boolean validate(String content, int id, String success, String fail);
 
     }
 

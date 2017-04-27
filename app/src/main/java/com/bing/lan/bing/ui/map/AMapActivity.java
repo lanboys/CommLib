@@ -435,8 +435,15 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
             public void onItemClickListener(@AddressPopupWindow.PopupItemType.Type int type) {
                 if (type == AddressPopupWindow.PopupItemType.BTN_OK) {
 
+
+
+
                     String trim = mTextView.getText().toString().trim();
-                    finishMap(trim);
+                    finishMap(mMarkerAddressBean);
+
+
+
+
                     popupWindow.dismiss();
                 } else if (type == AddressPopupWindow.PopupItemType.IV_CLOSE) {
                     popupWindow.dismiss();
@@ -512,10 +519,10 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         return "";
     }
 
-    public void finishMap(String address) {
-        if (address != null) {
+    public void finishMap(AddressBean mMarkerAddressBean ) {
+        if (mMarkerAddressBean != null) {
             Intent date = new Intent();
-            date.putExtra(ShopCreateActivity.ADDRESS_INFO, address);
+            date.putExtra(ShopCreateActivity.ADDRESS_INFO, mMarkerAddressBean);
             setResult(ShopCreateActivity.REQUEST_CODE_GET_ADDRESS_FORM_MAP, date);
         }
         finish();

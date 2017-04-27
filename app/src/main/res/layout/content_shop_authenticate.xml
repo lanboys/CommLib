@@ -72,6 +72,7 @@
             android:id="@+id/eti_authenticate_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:edit_inputType="phone"
             app:edit_hint="身份证号码"
             app:title="     身份证号码"/>
 
@@ -107,6 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:edit_hint="营业执照号码"
+            app:edit_inputType="phone"
             app:show_line="false"
             app:title="营业执照号"/>
 

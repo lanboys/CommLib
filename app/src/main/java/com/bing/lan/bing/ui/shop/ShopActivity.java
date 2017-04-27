@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bing.lan.bing.ui.registerPos.RegisterPosActivity;
+import com.bing.lan.bing.ui.shop.bean.ShopBean;
 import com.bing.lan.bing.ui.shopcreate.ShopCreateActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
