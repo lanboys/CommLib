@@ -14,6 +14,8 @@ public interface IDealerContract {
 
         void updateDealerList(int action, DealerResultBean dealerResultBean);
 
+        void loadMoreList(int action, DealerResultBean dealerResultBean);
+
         void closeRefreshing();
     }
 

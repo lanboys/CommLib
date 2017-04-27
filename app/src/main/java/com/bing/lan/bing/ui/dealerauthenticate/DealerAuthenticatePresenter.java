@@ -24,20 +24,19 @@ public class DealerAuthenticatePresenter
     @Override
     @SuppressWarnings("unchecked")
     public void onSuccess(int action, Object data) {
-        mView.dismissProgressDialog();
         mView.finish();
     }
 
     @Override
     public void onError(int action, Throwable e) {
         super.onError(action, e);
-        mView.dismissProgressDialog();
         mView.showToast("上传失败,请重试");
     }
 
     @Override
     public void onCompleted(int action) {
         super.onCompleted(action);
+        mView.dismissProgressDialog();
     }
 
     @Override

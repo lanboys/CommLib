@@ -1,17 +1,14 @@
 package com.bing.lan.bing.ui.dealerauthenticate;
 
+import com.bing.lan.bing.ui.dealerauthenticate.bean.DealerAuthenticateResultBean;
 import com.bing.lan.comm.api.ApiManager;
+import com.bing.lan.comm.api.service.HttpResult;
 import com.bing.lan.comm.base.mvp.IBaseContract;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityModule;
 
 import java.io.File;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.Observable;
 
 /**
  * @author 蓝兵
@@ -23,48 +20,19 @@ public class DealerAuthenticateModule extends BaseActivityModule
     @Override
     public void loadData(int action, IBaseContract.OnDataChangerListener listener, Object... parameter) {
 
-        Call<ResponseBody> responseBodyCall = ApiManager
+        Observable<HttpResult<DealerAuthenticateResultBean>> observable = ApiManager
                 .getInstance()
                 .getJzkApiService()
                 .uploadDealerAuthenticate(
-                        createRequestBody((File) parameter[0]),
-                        createRequestBody((File) parameter[1]),
-                        //         (String) parameter[2],
-                        //         (String) parameter[3],
-                        //         (String) parameter[4],
-                        //         (String) parameter[5]
-                        // );
-                        "205",
-                        "20000",
-                        "5465454564565612",
-                        "2017-10-10 10:10:10");
+                        createRequestBody((String) parameter[0]),
+                        createRequestBody((String) parameter[1]),
+                        createRequestBody((String) parameter[2]),
+                        createRequestBody((String) parameter[3]),
+                        createRequestBody((File) parameter[4]),
+                        createRequestBody((File) parameter[5])
 
-        responseBodyCall.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                );
 
-                log.e("onResponse(): ");
-
-                try {
-                    log.e("onResponse(): " + response.body().string());
-                } catch (Exception e) {
-
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                log.e("onFailure():  ", t);
-            }
-        });
-
-        //   subscribe(observable, action, listener, "上传缴费凭证");
-
-    }
-
-    private RequestBody createRequestBody(File file) {
-
-        return RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        subscribe(observable, action, listener, "上传缴费凭证");
     }
 }

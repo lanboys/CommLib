@@ -24,19 +24,6 @@ public class JoinDealerModule extends BaseActivityModule
     @Override
     public void loadData(int action, IBaseContract.OnDataChangerListener listener, Object... parameter) {
 
-        //Observable<HttpResult<JoinDealerInfoBean>> observable = ApiManager.getInstance()
-        //        .getJzkApiService()
-        //        .joinDealer(
-        //                (String) parameter[0],
-        //                (String) parameter[1],
-        //                (String) parameter[2],
-        //                (String) parameter[3],
-        //                (String) parameter[4],
-        //                (String) parameter[5],
-        //                (String) parameter[6],
-        //                createRequestBody((File) parameter[7]),
-        //                createRequestBody((File) parameter[8])
-        //        );
 
         Observable<HttpResult<JoinDealerInfoBean>> observable = ApiManager.getInstance()
                 .getJzkApiService()
@@ -87,13 +74,5 @@ public class JoinDealerModule extends BaseActivityModule
         return map;
     }
 
-    private RequestBody createRequestBody(File file) {
 
-        return RequestBody.create(MediaType.parse("multipart/form-data"), file);
-    }
-
-    private RequestBody createRequestBody(String value) {
-
-        return RequestBody.create(null, value);
-    }
 }

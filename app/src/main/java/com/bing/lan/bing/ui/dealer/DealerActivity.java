@@ -22,6 +22,7 @@ import com.bing.lan.bing.ui.joindealer.JoinDealerActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
+import com.bing.lan.comm.listener.ListViewScrollListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,6 +138,35 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
         mLvDealer.setAdapter(mAdapter);
         mAdapter.setOnClickListener(this);
         mAdapter.setDataAndRefresh(new ArrayList<>());
+
+        mLvDealer.setOnScrollListener(new ListViewScrollListener() {
+            @Override
+            public void onListViewLoadMore() {
+                DealerActivity.this.onListViewLoadMore();
+            }
+        });
+    }
+
+    private void onListViewLoadMore() {
+        switch (mDealerPaymentStatus) {
+
+            case STATUS_PAYMENT_NOT:
+                if (mPageNum1 <  mPageCount1) {
+                    mPresenter.loadMore(mDealerPaymentStatus.getPaymentStatus(), getUserInfoBean().userId, mPageNum1 + 1);
+                }
+
+                break;
+            case STATUS_PAYMENT_OK:
+                if (mPageNum2 <  mPageCount2) {
+                    mPresenter.loadMore(mDealerPaymentStatus.getPaymentStatus(), getUserInfoBean().userId, mPageNum2 + 1);
+                }
+                break;
+            case STATUS_PAYMENT_TIME_OUT:
+                if (mPageNum3 <  mPageCount3) {
+                    mPresenter.loadMore(mDealerPaymentStatus.getPaymentStatus(), getUserInfoBean().userId, mPageNum3 + 1);
+                }
+                break;
+        }
     }
 
     @OnClick(R.id.btn_create_dealer)
@@ -258,21 +288,28 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
         }
     }
 
-    private int mPageCount;
-    private int mPageNum;
-    private String mTotalCount;
+    private int mPageCount1;
+    private int mPageNum1 = 1;
+    private String mTotalCount1;
+    private int mPageCount2;
+    private int mPageNum2 = 1;
+    private String mTotalCount2;
+    private int mPageCount3;
+    private int mPageNum3 = 1;
+    private String mTotalCount3;
 
     @Override
     public void updateDealerList(int action, DealerResultBean dealerResultBean) {
 
-        mPageCount = Integer.valueOf(dealerResultBean.getPageCount());
-        mPageNum = Integer.valueOf(dealerResultBean.getPageNum());
-        mTotalCount = dealerResultBean.getTotalCount();
         List<DealerInfoBean> dealerInfoBeanList = dealerResultBean.getData();
 
         //1是未缴费 2 是缴费 3 是过期
         switch (action) {
             case DealerPresenter.ACTION_UPDATE_DEALER_LIST_1:
+
+                mPageCount1 = dealerResultBean.getPageCount();
+                mPageNum1 = Integer.valueOf(dealerResultBean.getPageNum());
+                mTotalCount1 = dealerResultBean.getTotalCount();
 
                 mPaymentListNot.clear();
                 mPaymentListNot.addAll(dealerInfoBeanList);
@@ -281,7 +318,9 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
 
                 break;
             case DealerPresenter.ACTION_UPDATE_DEALER_LIST_2:
-
+                mPageCount2 = dealerResultBean.getPageCount();
+                mPageNum2 = Integer.valueOf(dealerResultBean.getPageNum());
+                mTotalCount2 = dealerResultBean.getTotalCount();
                 for (DealerInfoBean dealer : dealerInfoBeanList) {
                     dealer.isShowPos = false;
                 }
@@ -290,21 +329,50 @@ public class DealerActivity extends BaseActivity<IDealerContract.IDealerPresente
 
                 break;
             case DealerPresenter.ACTION_UPDATE_DEALER_LIST_3:
+                mPageCount3 = dealerResultBean.getPageCount();
+                mPageNum3 = Integer.valueOf(dealerResultBean.getPageNum());
+                mTotalCount3 = dealerResultBean.getTotalCount();
 
                 mPaymentListOK.clear();
                 mPaymentListOK.addAll(dealerInfoBeanList);
 
                 break;
-            //case DealerPresenter.ACTION_LOAD_MORE_DEALER_LIST_1:
-            //
-            //    break;
-            //case DealerPresenter.ACTION_LOAD_MORE_DEALER_LIST_2:
-            //
-            //    break;
-            //case DealerPresenter.ACTION_LOAD_MORE_DEALER_LIST_3:
-            //
-            //    break;
         }
+        updateUI();
+    }
+
+    @Override
+    public void loadMoreList(int action, DealerResultBean dealerResultBean) {
+        List<DealerInfoBean> dealerInfoBeanList = dealerResultBean.getData();
+
+        //1是未缴费 2 是缴费 3 是过期
+        switch (action) {
+
+            case DealerPresenter.ACTION_LOAD_MORE_DEALER_LIST_1:
+                mPageCount1 = dealerResultBean.getPageCount();
+                mPageNum1 = Integer.valueOf(dealerResultBean.getPageNum());
+                mTotalCount1 = dealerResultBean.getTotalCount();
+
+                mPaymentListNot.addAll(dealerInfoBeanList);
+                break;
+            case DealerPresenter.ACTION_LOAD_MORE_DEALER_LIST_2:
+                mPageCount2 = dealerResultBean.getPageCount();
+                mPageNum2 = Integer.valueOf(dealerResultBean.getPageNum());
+                mTotalCount2 = dealerResultBean.getTotalCount();
+                for (DealerInfoBean dealer : dealerInfoBeanList) {
+                    dealer.isShowPos = false;
+                }
+                mPaymentListOK.addAll(dealerInfoBeanList);
+                break;
+            case DealerPresenter.ACTION_LOAD_MORE_DEALER_LIST_3:
+                mPageCount3 = dealerResultBean.getPageCount();
+                mPageNum3 = Integer.valueOf(dealerResultBean.getPageNum());
+                mTotalCount3 = dealerResultBean.getTotalCount();
+
+                mPaymentListOK.addAll(dealerInfoBeanList);
+                break;
+        }
+
         updateUI();
     }
 

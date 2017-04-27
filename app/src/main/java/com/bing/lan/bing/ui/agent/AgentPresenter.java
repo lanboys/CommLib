@@ -21,7 +21,7 @@ public class AgentPresenter
 
     @Override
     public void update(String dealerId) {
-        mModule.requestData(ACTION_LOAD_AGENT_LIST, this, dealerId, 0);
+        mModule.requestData(ACTION_LOAD_AGENT_LIST, this, dealerId, 1);
     }
 
     @Override

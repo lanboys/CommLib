@@ -32,13 +32,13 @@ public class DealerPresenter
         //1是未缴费 2 是缴费 3 是过期
         switch (status) {
             case "1":
-                mModule.requestData(ACTION_UPDATE_DEALER_LIST_1, this, status, userId, 0);
+                mModule.requestData(ACTION_UPDATE_DEALER_LIST_1, this, status, userId, 1);
                 break;
             case "2":
-                mModule.requestData(ACTION_UPDATE_DEALER_LIST_2, this, status, userId, 0);
+                mModule.requestData(ACTION_UPDATE_DEALER_LIST_2, this, status, userId, 1);
                 break;
             case "3":
-                mModule.requestData(ACTION_UPDATE_DEALER_LIST_3, this, status, userId, 0);
+                mModule.requestData(ACTION_UPDATE_DEALER_LIST_3, this, status, userId, 1);
                 break;
         }
     }
@@ -79,6 +79,7 @@ public class DealerPresenter
                 case ACTION_LOAD_MORE_DEALER_LIST_2:
                 case ACTION_LOAD_MORE_DEALER_LIST_3:
 
+                    mView.loadMoreList(action, resultBean);
                     break;
             }
         } else {

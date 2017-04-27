@@ -2,6 +2,7 @@ package com.bing.lan.comm.api.service;
 
 import com.bing.lan.bing.ui.agent.bean.AgentResultBean;
 import com.bing.lan.bing.ui.dealer.bean.DealerResultBean;
+import com.bing.lan.bing.ui.dealerauthenticate.bean.DealerAuthenticateResultBean;
 import com.bing.lan.bing.ui.deviceselect.bean.DeviceInfoResultBean;
 import com.bing.lan.bing.ui.joinagent.bean.JoinAgentResultBean;
 import com.bing.lan.bing.ui.joindealer.bean.JoinDealerInfoBean;
@@ -11,8 +12,6 @@ import com.bing.lan.bing.ui.register.bean.RegisterResultBean;
 import java.util.Map;
 
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -29,17 +28,7 @@ import rx.Observable;
  */
 public interface JzkApiService {
 
-    // http://blog.csdn.net/qq_21430549/article/details/51227379
-    @Multipart
-    @POST("dealer/pay")
-    Call<ResponseBody> uploadDealerAuthenticate(
-            @Part("Upload[file][]\"; filename=\"avatar.jpg") RequestBody body,
-            @Part("Upload[file][]\"; filename=\"avatar1.jpg") RequestBody body1,
-            @Query("dealerID") String dealerID,
-            @Query("pay_money") String pay_money,
-            @Query("paynumbers") String paynumbers,
-            @Query("start_time") String start_time
-    );
+
 
     //@Multipart
     //@POST("upload/index.jsp")
@@ -72,6 +61,18 @@ public interface JzkApiService {
             @Part("Upload[file][]\"; filename=\"avatar1.jpg") RequestBody body1,
             @Part("Upload[file][]\"; filename=\"avatar.jpg") RequestBody body
 
+    );
+
+    // http://blog.csdn.net/qq_21430549/article/details/51227379
+    @Multipart
+    @POST("dealer/pay")
+    Observable<HttpResult<DealerAuthenticateResultBean>> uploadDealerAuthenticate(
+            @Part("dealerID") RequestBody dealerID,
+            @Part("pay_money") RequestBody pay_money,
+            @Part("paynumbers") RequestBody paynumbers,
+            @Part("start_time") RequestBody start_time,
+            @Part("Upload[file][]\"; filename=\"avatar.jpg") RequestBody body,
+            @Part("Upload[file][]\"; filename=\"avatar1.jpg") RequestBody body1
     );
 
     /**

@@ -24,14 +24,19 @@ public class DeviceSelectModule extends BaseActivityModule
     public void loadData(int action, IBaseContract.OnDataChangerListener listener, Object... parameter) {
 
         HashMap<String, String> map = new HashMap<>();
+
         map.put("userId", (String) parameter[0]);
         // map.put("userId", "340");
+
         String type = (String) parameter[1];
         map.put("type", type);
+
         if (UserType.USER_TYPE_NOT_OA.getType().equals(type)) {
             map.put("roleType", (String) parameter[2]);
         }
+
         map.put("pageNum", parameter[3] + "");
+
         String enCode = (String) parameter[4];
         if (!TextUtils.isEmpty(enCode)) {
             map.put("enCode", enCode);

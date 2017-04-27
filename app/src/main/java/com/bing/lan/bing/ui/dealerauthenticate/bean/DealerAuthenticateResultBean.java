@@ -1,6 +1,6 @@
 package com.bing.lan.bing.ui.dealerauthenticate.bean;
 
-public class DealerAuthenticate {
+public class DealerAuthenticateResultBean {
     //"logId": "51"
     public String logId;
 }

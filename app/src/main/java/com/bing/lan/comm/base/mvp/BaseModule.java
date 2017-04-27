@@ -6,11 +6,14 @@ import com.bing.lan.comm.di.DiModule;
 import com.bing.lan.comm.utils.LogUtil;
 import com.bing.lan.comm.utils.RxJavaUtils;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -105,4 +108,15 @@ public abstract class BaseModule implements IBaseContract.IBaseModule {
     }
 
     protected abstract void loadData(int action, IBaseContract.OnDataChangerListener listener, Object[] parameter);
+
+
+    protected RequestBody createRequestBody(File file) {
+
+        return RequestBody.create(MediaType.parse("multipart/form-data"), file);
+    }
+
+    protected RequestBody createRequestBody(String value) {
+
+        return RequestBody.create(null, value);
+    }
 }

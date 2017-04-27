@@ -106,12 +106,12 @@ public class DealerAuthenticateActivity extends
                             if (mEtiPaymentCardId.validate()) {
                                 if (mProtocolFile != null) {
                                     mPresenter.onStart(
-                                            mPaymentFile,
-                                            mProtocolFile,
                                             mDealerID,
                                             mEtiPaymentNumber.getEditContent(),
                                             mEtiPaymentTime.getEditContent(),
-                                            mEtiPaymentCardId.getEditContent());
+                                            mEtiPaymentCardId.getEditContent(),
+                                            mPaymentFile,
+                                            mProtocolFile);
                                 } else {
                                     showToast("请先上传签约协议照片");
                                 }

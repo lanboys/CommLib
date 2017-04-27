@@ -38,7 +38,7 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
     private List<AgentInfoBean> mAgentInfoBeenList;
     private AgentListAdapter mAdapter;
     private int mPageCount;
-    private int mPageNum;
+    private int mPageNum =1;
     private String mTotalCount;
 
     @Override
@@ -138,7 +138,7 @@ public class AgentActivity extends BaseActivity<IAgentContract.IAgentPresenter>
     }
 
     public void onListViewLoadMore() {
-        if (mPageNum < mPageCount - 1) {
+        if (mPageNum <  mPageCount ) {
             mPresenter.loadMore(getUserInfoBean().userId, mPageNum + 1);
         }
     }
