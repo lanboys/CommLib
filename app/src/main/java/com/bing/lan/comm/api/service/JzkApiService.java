@@ -267,4 +267,19 @@ public interface JzkApiService {
             @Query("ctype") String ctype,
             @Query("code") String code
     );
+
+    /**
+     * 找回密码2
+     *
+     * @param phone
+     * @param roletype
+     * @param password
+     * @return
+     */
+    @GET("login-ios/pass")
+    Observable<RegisterResultBean> foundPassword2(
+            @Query("phone") String phone,
+            @Query("password") String password,
+            @Query("roletype") String roletype
+    );
 }

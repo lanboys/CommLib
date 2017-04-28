@@ -63,7 +63,6 @@ public class ForgetPasswordActivity extends BaseActivity<IForgetPasswordContract
 
     @Override
     protected void readyStartPresenter() {
-        //mPresenter.onStart();
     }
 
     @OnClick({R.id.btn_next, R.id.tv_verification_code, R.id.tv_register_tip})
@@ -111,7 +110,10 @@ public class ForgetPasswordActivity extends BaseActivity<IForgetPasswordContract
     @Override
     public void goModifyPswActivity() {
         //验证码正确 进入修改密码界面
-        startActivity(ModifyPswActivity.class, false, true);
+        Intent intent = new Intent(this, ModifyPswActivity.class);
+        intent.putExtra(PHONE_NUMBER, mEtiPhoneNumber.getEditContent());
+
+        startActivity(intent, false, true);
     }
 
     public static final String PHONE_NUMBER = "phone_number";

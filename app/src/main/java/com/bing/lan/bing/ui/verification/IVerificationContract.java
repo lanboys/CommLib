@@ -1,5 +1,7 @@
 package com.bing.lan.bing.ui.verification;
 
+import com.bing.lan.bing.cons.GetVerificationCode;
+import com.bing.lan.bing.cons.UserType;
 import com.bing.lan.comm.base.mvp.IBaseContract;
 import com.bing.lan.comm.base.mvp.activity.IBaseActivityContract;
 
@@ -24,9 +26,9 @@ public interface IVerificationContract {
 
         void updateWaitingVerificationCodeTime();
 
-        void checkPhoneStatus(String phone);
+        void getVerificationCode(String cphone, GetVerificationCode ctype, UserType cutype);
 
-        void checkVerificationCode(String code);
+        void checkVerificationCode(String phone, GetVerificationCode ctype, String code);
 
         boolean validate(String content, int id, String success, String fail);
     }
@@ -34,8 +36,8 @@ public interface IVerificationContract {
     interface IVerificationModule
             extends IBaseActivityContract.IBaseActivityModule {
 
-        void checkPhoneStatus(int action, IBaseContract.OnDataChangerListener listener, String phone);
+        void checkVerificationCode(int action, IBaseContract.OnDataChangerListener listener, String phone, String ctype, String code);
 
-        void checkVerificationCode(int action, IBaseContract.OnDataChangerListener listener, String code);
+        void getVerificationCode(int action, IBaseContract.OnDataChangerListener listener, String cphone, String ctype, String cutype);
     }
 }

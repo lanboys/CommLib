@@ -2,9 +2,12 @@ package com.bing.lan.bing.ui.verification;
 
 import android.text.TextUtils;
 
+import com.bing.lan.bing.cons.GetVerificationCode;
+import com.bing.lan.bing.cons.UserType;
+import com.bing.lan.bing.ui.register.bean.RegisterResultBean;
+import com.bing.lan.bing.ui.register.bean.RegisterUserInfoBean;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
-import com.bing.lan.comm.utils.AppUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,7 +18,6 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
-
 /**
  * @author 蓝兵
  * @time 2017/4/6  19:12
@@ -25,47 +27,57 @@ public class VerificationPresenter
         implements IVerificationContract.IVerificationPresenter {
 
     private static final int TOTAL_WAITING_VERIFICATION_CODE_TIME = 120;
-    public static final int ACTION_CHECK_VERIFICATION_CODE = 2;
-    public static final int ACTION_CHECK_PHONE = 1;
     private CompositeSubscription mSubscription;
+    public static final int ACTION_GET_VCODE = 1;
+    public static final int ACTION_CHECK_VCODE = 2;
 
     @Override
     public void onStart(Object... params) {
-        if (mSubscription == null) {
-            mSubscription = new CompositeSubscription();
-        }
 
-        // mModule.loadData(LOAD_GANK, this, LOAD_COUNT, LOAD_PAGE);
+    }
 
+    @Override
+    public void getVerificationCode(String cphone, GetVerificationCode ctype, UserType cutype) {
+        mModule.requestData(ACTION_GET_VCODE, this, cphone, ctype.getType(), cutype.getType());
+    }
+
+    @Override
+    public void checkVerificationCode(String phone, GetVerificationCode ctype, String code) {
+        mModule.requestData(ACTION_CHECK_VCODE, this, phone, ctype.getType(), code);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void onSuccess(int action, Object data) {
 
-        mView.dismissProgressDialog();
+        RegisterResultBean httpResult = (RegisterResultBean) data;
+        String errorCode = httpResult.getCode();
+        RegisterUserInfoBean userInfo = httpResult.getData();
 
         switch (action) {
 
-            case ACTION_CHECK_PHONE:
-                //根据状态 true 发送成功
-                if (!AppUtil.getBooleanByRandom()) {
-                    //倒计时
-                    updateWaitingVerificationCodeTime();
-                    mView.setVerificationStatus();
-                } else {
-                    //显示错误信息
-                    //mView.setRegisterTipVisibility(View.VISIBLE);
-                }
-                break;
-            case ACTION_CHECK_VERIFICATION_CODE:
+            case ACTION_GET_VCODE:
 
-                if (!AppUtil.getBooleanByRandom()) {
+                // 发送成功
+                if ("1000".equals(errorCode)) {
+                    updateWaitingVerificationCodeTime();  //倒计时
+                    mView.setVerificationStatus();
+                    mView.showToast(httpResult.getMsg());
+                } else if ("2000".equals(errorCode)) {
+                    //验证发送失败
+                    mView.showToast(httpResult.getMsg());
+                }
+
+                break;
+
+            case ACTION_CHECK_VCODE:
+
+                if ("200".equals(errorCode)) {
                     //验证码正确 进入修改密码界面
                     mView.goModifyPswActivity();
                     //取消倒计时
                     releaseTask();
-                } else {
+                } else if ("2000".equals(errorCode)) {
                     //验证码不正确 进入再次验证界面
                     mView.showToast("验证码不正确,请重新输入");
                 }
@@ -77,15 +89,12 @@ public class VerificationPresenter
     @Override
     public void onError(int action, Throwable e) {
         super.onError(action, e);
-        mView.dismissProgressDialog();
-
     }
 
     @Override
     public void onCompleted(int action) {
         super.onCompleted(action);
         mView.dismissProgressDialog();
-
     }
 
     public void updateWaitingVerificationCodeTime() {
@@ -126,27 +135,12 @@ public class VerificationPresenter
     }
 
     @Override
-    public void checkPhoneStatus(String phone) {
-        //请求网络
-        mModule.requestData(ACTION_CHECK_PHONE, this, phone);
-        mView.showProgressDialog("请稍后..");
-    }
-
-    @Override
-    public void checkVerificationCode(String code) {
-        mModule.requestData(ACTION_CHECK_VERIFICATION_CODE, this, code);
-        mView.showProgressDialog("请稍后..");
-    }
-
-    @Override
     public boolean validate(String content, int id, String success, String fail) {
         boolean result = false;
         if (!TextUtils.isEmpty(content)) {
             switch (id) {
 
                 case R.id.eti_verification_code:
-                    //不为空 认为正确
-                    //进行网络请求判断验证码
                     result = content.length() >= 6;
                     break;
                 default:

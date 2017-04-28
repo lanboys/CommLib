@@ -1,5 +1,6 @@
 package com.bing.lan.bing.ui.modifyPassword;
 
+import com.bing.lan.comm.base.mvp.IBaseContract;
 import com.bing.lan.comm.base.mvp.activity.IBaseActivityContract;
 
 /**
@@ -17,11 +18,11 @@ public interface IModifyPswContract {
             extends IBaseActivityContract.IBaseActivityPresenter<IModifyPswView, IModifyPswModule> {
 
         boolean validate(String content, int id, String success, String fail);
-
     }
 
     interface IModifyPswModule
             extends IBaseActivityContract.IBaseActivityModule {
 
+        void modifyPassword(int action, IBaseContract.OnDataChangerListener listener,String phone, String password, String roletype);
     }
 }

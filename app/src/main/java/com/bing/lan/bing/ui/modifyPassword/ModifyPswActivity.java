@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.bing.lan.bing.ui.login.LoginActivity;
+import com.bing.lan.bing.ui.forgetPassword.ForgetPasswordActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
@@ -42,6 +42,8 @@ public class ModifyPswActivity extends BaseActivity<IModifyPswContract.IModifyPs
         activityComponent.inject(this);
     }
 
+    private String mPhoneNumber;
+
     @Override
     protected void initViewAndData(Intent intent) {
         setToolBar(mToolbar, "修改密码", true, 0);
@@ -51,6 +53,10 @@ public class ModifyPswActivity extends BaseActivity<IModifyPswContract.IModifyPs
 
         mEtiPassword1.setValidator(this);
         mEtiPassword2.setValidator(this);
+
+        if (intent != null) {
+            mPhoneNumber = intent.getStringExtra(ForgetPasswordActivity.PHONE_NUMBER);
+        }
     }
 
     @Override
@@ -67,9 +73,12 @@ public class ModifyPswActivity extends BaseActivity<IModifyPswContract.IModifyPs
                 if (mEtiPassword1.validate()) {
                     if (mEtiPassword2.validate()) {
                         if (mEtiPassword1.getEditContent().equals(mEtiPassword2.getEditContent())) {
-                            // mPresenter.onStart();
-                            //修改成功
-                            startActivity(LoginActivity.class, true, true);
+                            mPresenter.onStart(
+                                    mPhoneNumber,
+                                    mEtiPassword1.getEditContent(),
+                                    getUserType().getType()
+
+                            );
                         } else {
                             showToast("两次密码不一致,请重新输入");
                         }

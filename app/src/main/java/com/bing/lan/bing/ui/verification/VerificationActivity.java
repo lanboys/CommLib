@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bing.lan.bing.cons.GetVerificationCode;
 import com.bing.lan.bing.ui.forgetPassword.ForgetPasswordActivity;
 import com.bing.lan.bing.ui.modifyPassword.ModifyPswActivity;
 import com.bing.lan.comm.R;
@@ -59,7 +60,7 @@ public class VerificationActivity extends BaseActivity<IVerificationContract.IVe
             substring = mPhoneNumber.substring(0, 4);
             substring1 = mPhoneNumber.substring(8);
         }
-        mTvVerificationTip.setText("验证码:" + substring + "****" + substring1 + ", 验证码错误");
+        mTvVerificationTip.setText("手机号:" + substring + "****" + substring1 + ", 验证码错误");
         mEtiVerificationCode.setValidator(this);
     }
 
@@ -73,18 +74,23 @@ public class VerificationActivity extends BaseActivity<IVerificationContract.IVe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_verification_code:
-                // mPresenter.updateWaitingVerificationCodeTime();
 
-                //网络请求 检查手机号 是否注册
-                mPresenter.checkPhoneStatus(mPhoneNumber);
+                mPresenter.getVerificationCode(
+                        mPhoneNumber,
+                        GetVerificationCode.FIND_PASSWORD,
+                        getUserType()
+                );
 
                 break;
             case R.id.btn_next:
 
                 if (isVerification) {
                     if (mEtiVerificationCode.validate()) {
-                        //本地校验 验证码正确 发起网络请求 再次验证
-                        mPresenter.checkVerificationCode(mEtiVerificationCode.getEditContent());
+                        mPresenter.checkVerificationCode(
+                                mPhoneNumber,
+                                GetVerificationCode.FIND_PASSWORD,
+                                mEtiVerificationCode.getEditContent()
+                        );
                     }
                 } else {
                     showToast("请先获取验证码");
@@ -127,7 +133,7 @@ public class VerificationActivity extends BaseActivity<IVerificationContract.IVe
     public boolean validate(int id, String s) {
 
         switch (id) {
- 
+
             case R.id.eti_verification_code:
                 return mPresenter.validate(s, id, "校验通过", "请输入有效的验证码");
             default:

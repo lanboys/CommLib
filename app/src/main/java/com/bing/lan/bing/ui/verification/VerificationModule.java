@@ -1,12 +1,11 @@
 package com.bing.lan.bing.ui.verification;
 
+import com.bing.lan.bing.ui.register.bean.RegisterResultBean;
 import com.bing.lan.comm.api.ApiManager;
 import com.bing.lan.comm.base.mvp.IBaseContract;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityModule;
 
-import okhttp3.ResponseBody;
 import rx.Observable;
-
 
 /**
  * @author 蓝兵
@@ -20,24 +19,53 @@ public class VerificationModule extends BaseActivityModule
 
         switch (action) {
 
-            case VerificationPresenter.ACTION_CHECK_PHONE:
-                checkPhoneStatus(action, listener, (String) parameter[0]);
+            case VerificationPresenter.ACTION_GET_VCODE:
+                getVerificationCode(
+                        action,
+                        listener,
+                        (String) parameter[0],
+                        (String) parameter[1],
+                        (String) parameter[2]);
                 break;
-            case VerificationPresenter.ACTION_CHECK_VERIFICATION_CODE:
-                checkVerificationCode(action, listener, (String) parameter[0]);
+            case VerificationPresenter.ACTION_CHECK_VCODE:
+
+                checkVerificationCode(
+                        action,
+                        listener,
+                        (String) parameter[0],
+                        (String) parameter[1],
+                        (String) parameter[2]);
+
                 break;
         }
     }
 
     @Override
-    public void checkPhoneStatus(int action, IBaseContract.OnDataChangerListener listener, String phone) {
-        Observable<ResponseBody> hotResult1 = ApiManager.getInstance().getUserApiService().getHotResult1();
-        subscribe(hotResult1, action, listener, "检查手机号码");
+    public void checkVerificationCode(int action, IBaseContract.OnDataChangerListener listener,
+            String phone, String ctype, String code) {
+
+        Observable<RegisterResultBean> observable = ApiManager.getInstance()
+                .getJzkApiService()
+                .foundPassword1(
+                        phone,
+                        ctype,
+                        code);
+
+        subscribe(observable, action, listener, "找回密码1");
     }
 
     @Override
-    public void checkVerificationCode(int action, IBaseContract.OnDataChangerListener listener, String code) {
-        Observable<ResponseBody> hotResult1 = ApiManager.getInstance().getUserApiService().getHotResult1();
-        subscribe(hotResult1, action, listener, "检查验证码号码");
+    public void getVerificationCode(int action, IBaseContract.OnDataChangerListener listener,
+            String cphone, String ctype, String cutype) {
+
+        Observable<RegisterResultBean> observable =
+                ApiManager.getInstance()
+                        .getJzkApiService()
+                        .getVerificationCode(
+                                cphone,
+                                ctype,
+                                cutype);
+
+        subscribe(observable, action, listener, "获取验证码");
     }
 }

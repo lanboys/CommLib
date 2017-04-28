@@ -14,14 +14,24 @@ public class RegisterResultBean {
     private String msg;
     private RegisterUserInfoBean data;
     private String code;
+    private String errorCode;
 
     @Override
     public String toString() {
         return "RegisterResultBean{" +
-                "code='" + code + '\'' +
-                ", msg='" + msg + '\'' +
-                ", data='" + data + '\'' +
+                "msg='" + msg + '\'' +
+                ", data=" + data +
+                ", code='" + code + '\'' +
+                ", errorCode='" + errorCode + '\'' +
                 '}';
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
     }
 
     public String getMsg() {
