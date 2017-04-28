@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bing.lan.bing.cons.ShopAuthenticationStatus;
-import com.bing.lan.bing.ui.registerPos.RegisterPosActivity;
+import com.bing.lan.bing.ui.registerPOS.RegisterPosActivity;
 import com.bing.lan.bing.ui.shop.bean.ShopInfoBean;
 import com.bing.lan.bing.ui.shop.bean.ShopResultBean;
 import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;
@@ -68,7 +68,6 @@ public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
     private int mPageCount2;
     private int mPageNum2 = 1;
     private int mTotalCount2;
-
 
     @Override
     protected int getLayoutResId() {
@@ -205,15 +204,18 @@ public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
+    public static final String SHOP_INFO = "Shop_info";
 
     @Override
     public void onButtonClick(int position, ShopInfoBean shopInfoBean) {
 
         if (shopInfoBean.isAuth) {
-            startActivity(RegisterPosActivity.class, false, true);
+            Intent intent = new Intent(this, RegisterPosActivity.class);
+            intent.putExtra( SHOP_INFO, shopInfoBean);
+            startActivity(intent, false, true);
         } else {
             Intent intent = new Intent(this, ShopAuthenticateActivity.class);
-            intent.putExtra(ShopAuthenticateActivity.SHOP_INFO, shopInfoBean);
+            intent.putExtra( SHOP_INFO, shopInfoBean);
             startActivity(intent, false, true);
         }
     }
@@ -272,7 +274,7 @@ public class ShopActivity extends BaseActivity<IShopContract.IShopPresenter>
 
     @Override
     public void onRefresh() {
-       mPresenter.update(
+        mPresenter.update(
                 mShopAuthenticationStatus.getAuthStatus(),
                 getUserInfoBean().userId);
     }

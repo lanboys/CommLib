@@ -35,18 +35,12 @@ public class RegisterPresenter
 
     @Override
     public void onStart(Object... params) {
-        //if (mSubscription == null) {
-        //    mSubscription = new CompositeSubscription();
-        //}
-        // mModule.loadData(LOAD_GANK, this, LOAD_COUNT, LOAD_PAGE);
 
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void onSuccess(int action, Object data) {
-
-        mView.dismissProgressDialog();
 
         RegisterResultBean httpResult = (RegisterResultBean) data;
         String errorCode = httpResult.getCode();
@@ -92,9 +86,7 @@ public class RegisterPresenter
     @Override
     public void onError(int action, Throwable e) {
         super.onError(action, e);
-        mView.dismissProgressDialog();
         switch (action) {
-
             case ACTION_GET_VCODE:
                 mView.showToast("获取验证码失败");
                 break;
@@ -150,14 +142,12 @@ public class RegisterPresenter
 
         //请求网络
         mModule.requestData(ACTION_GET_VCODE, this, cphone, ctype.getType(), cutype.getType());
-        //mView.showProgressDialog("请稍后..");
     }
 
     @Override
     public void register(String code, String phone, String password) {
 
         mModule.requestData(ACTION_CHECK_REGISTER, this, code, phone, password);
-        //  mView.showProgressDialog("请稍后..");
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bing.lan.bing.cons.GetVerificationCode;
 import com.bing.lan.bing.ui.modifyPassword.ModifyPswActivity;
 import com.bing.lan.bing.ui.register.RegisterActivity;
 import com.bing.lan.bing.ui.verification.VerificationActivity;
@@ -54,10 +55,10 @@ public class ForgetPasswordActivity extends BaseActivity<IForgetPasswordContract
         mEtiPhoneNumber.setValidator(this);
         mEtiVerificationCode.setValidator(this);
 
-        //test
-        mEtiPhoneNumber.setEditContent("13556004824");
-        mEtiVerificationCode.setEditContent("135561");
-        //test
+        if (intent != null) {
+            String phone = intent.getStringExtra(PHONE_NUMBER);
+            mEtiPhoneNumber.setEditContent(phone);
+        }
     }
 
     @Override
@@ -74,9 +75,11 @@ public class ForgetPasswordActivity extends BaseActivity<IForgetPasswordContract
                 if (mEtiPhoneNumber.validate()) {
                     if (isVerification) {
                         if (mEtiVerificationCode.validate()) {
-                            //本地校验 验证码正确 发起网络请求 再次验证
-                            //mPresenter.checkVerificationCode(mEtiVerificationCode.getEditContent());
-                            goModifyPswActivity();
+                            mPresenter.checkVerificationCode(
+                                    mEtiPhoneNumber.getEditContent(),
+                                    GetVerificationCode.FIND_PASSWORD,
+                                    mEtiVerificationCode.getEditContent()
+                            );
                         }
                     } else {
                         showToast("请先获取验证码");
@@ -86,9 +89,11 @@ public class ForgetPasswordActivity extends BaseActivity<IForgetPasswordContract
                 break;
             case R.id.tv_verification_code:
                 if (mEtiPhoneNumber.validate()) {
-                    //网络请求 检查手机号 是否注册
-                    //  mPresenter.checkPhoneStatus(mEtiPhoneNumber.getEditContent());
-                    isVerification = true;
+                    mPresenter.getVerificationCode(
+                            mEtiPhoneNumber.getEditContent(),
+                            GetVerificationCode.FIND_PASSWORD,
+                            getUserType()
+                    );
                 }
                 break;
             case R.id.tv_register_tip:

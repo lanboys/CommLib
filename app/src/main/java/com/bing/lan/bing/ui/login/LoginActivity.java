@@ -16,6 +16,7 @@ import com.bing.lan.bing.ui.register.RegisterActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
+import com.bing.lan.comm.utils.RegExpUtil;
 import com.bing.lan.comm.view.EditTextInputView;
 
 import butterknife.BindView;
@@ -112,9 +113,16 @@ public class LoginActivity extends BaseActivity<ILoginContract.ILoginPresenter>
                 startActivity(RegisterActivity.class, false, true);
                 break;
             case R.id.tv_forget_password:
-                startActivity(ForgetPasswordActivity.class, false, true);
-                break;
 
+                Intent intent = new Intent(this, ForgetPasswordActivity.class);
+                String phone = mEtInputPhoneNumber.getEditContent();
+                if (RegExpUtil.checkPhoneNum(phone)) {
+                    intent.putExtra(ForgetPasswordActivity.PHONE_NUMBER, phone);
+                }
+
+                startActivity(intent, false, true);
+
+                break;
             case R.id.ll_not_employee:
                 mIsEmployee = false;
                 reset();

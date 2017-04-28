@@ -30,28 +30,19 @@
         android:textSize="10sp"/>
 
 
-    <include
-
-        layout="@layout/include_line_2"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_below="@id/tv_dealer_phone"
-        android:layout_marginTop="17dp"/>
-
     <TextView
         android:id="@+id/tv_dealer_payment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_dealer_phone"
-        android:paddingBottom="10dp"
         android:layout_marginTop="19dp"
-        android:paddingTop="20dp"
         android:gravity="center"
+        android:paddingTop="20dp"
         android:text="登记缴费"
         android:textColor="@color/main_color_blue"
         android:textSize="15sp"/>
+    <!--android:visibility="gone"-->
 
-        android:visibility="gone"
     <ImageView
         android:id="@+id/iv_call"
         android:layout_width="wrap_content"
@@ -60,4 +51,14 @@
         android:layout_marginTop="14dp"
         android:padding="10dp"
         android:src="@drawable/shop_phone"/>
+
+
+    <include
+
+        layout="@layout/include_line_2"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@id/tv_dealer_payment"
+        android:layout_marginTop="15dp"
+    />
 </RelativeLayout>

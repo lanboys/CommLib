@@ -87,6 +87,10 @@ public interface JzkApiService {
     @POST("strore/store-add")
     Observable<HttpResult<ShopInfoBean>> uploadShop(@PartMap Map<String, RequestBody> map);
 
+    @Multipart
+    @POST("strore/add-pos")
+    Observable<HttpResult<Object>> registerPos(@PartMap Map<String, RequestBody> map);
+
     /**
      * 提交门店认证资料
      *
@@ -247,5 +251,20 @@ public interface JzkApiService {
             @Field("type") String type,
             @Field("phone") String phone,
             @Field("password") String password
+    );
+
+    /**
+     * 找回密码1
+     *
+     * @param phone
+     * @param ctype
+     * @param code
+     * @return
+     */
+    @GET("login-ios/found-pass")
+    Observable<RegisterResultBean> foundPassword1(
+            @Query("phone") String phone,
+            @Query("ctype") String ctype,
+            @Query("code") String code
     );
 }

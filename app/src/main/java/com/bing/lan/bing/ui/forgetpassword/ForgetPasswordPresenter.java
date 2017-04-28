@@ -3,9 +3,12 @@ package com.bing.lan.bing.ui.forgetPassword;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.bing.lan.bing.cons.GetVerificationCode;
+import com.bing.lan.bing.cons.UserType;
+import com.bing.lan.bing.ui.register.bean.RegisterResultBean;
+import com.bing.lan.bing.ui.register.bean.RegisterUserInfoBean;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivityPresenter;
-import com.bing.lan.comm.utils.AppUtil;
 import com.bing.lan.comm.utils.RegExpUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -26,45 +29,58 @@ public class ForgetPasswordPresenter
         implements IForgetPasswordContract.IForgetPasswordPresenter {
 
     public static final int TOTAL_WAITING_VERIFICATION_CODE_TIME = 120;
-    public static final int ACTION_CHECK_PHONE = 1;
-    public static final int ACTION_CHECK_VERIFICATION_CODE = 2;
     private CompositeSubscription mSubscription;
+    public static final int ACTION_GET_VCODE = 1;
+    public static final int ACTION_CHECK_VCODE = 2;
 
     @Override
     public void onStart(Object... params) {
-        //if (mSubscription == null) {
-        //    mSubscription = new CompositeSubscription();
-        //}
 
-        // mModule.loadData(LOAD_GANK, this, LOAD_COUNT, LOAD_PAGE);
+    }
 
+    @Override
+    public void getVerificationCode(String cphone, GetVerificationCode ctype, UserType cutype) {
+        mModule.requestData(ACTION_GET_VCODE, this, cphone, ctype.getType(), cutype.getType());
+    }
+
+    @Override
+    public void checkVerificationCode(String phone, GetVerificationCode ctype, String code) {
+        mModule.requestData(ACTION_CHECK_VCODE, this, phone, ctype.getType(), code);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void onSuccess(int action, Object data) {
 
-        mView.dismissProgressDialog();
+        RegisterResultBean httpResult = (RegisterResultBean) data;
+        String errorCode = httpResult.getCode();
+        RegisterUserInfoBean userInfo = httpResult.getData();
 
         switch (action) {
 
-            case ACTION_CHECK_PHONE:
-                //根据状态 tre 发送成功
-                if (!AppUtil.getBooleanByRandom()) {
-                    //倒计时
-                    updateWaitingVerificationCodeTime();
+            case ACTION_GET_VCODE:
+
+                //根据状态 true 发送成功
+                if ("1000".equals(errorCode)) {
+                    updateWaitingVerificationCodeTime();  //倒计时
                     mView.setVerificationStatus();
-                } else {
-                    //显示错误信息
+                    mView.showToast(httpResult.getMsg());
+                } else if ("2000".equals(errorCode)) {
+                    //验证发送失败
+                    mView.showToast(httpResult.getMsg());
+                } else if ("500".equals(errorCode)) {
+                    //表示用户存在
                     mView.setRegisterTipVisibility(View.VISIBLE);
                 }
-                break;
-            case ACTION_CHECK_VERIFICATION_CODE:
 
-                if (AppUtil.getBooleanByRandom()) {
+                break;
+
+            case ACTION_CHECK_VCODE:
+
+                if ("200".equals(errorCode)) {
                     //验证码正确 进入修改密码界面
                     mView.goModifyPswActivity();
-                } else {
+                } else if ("2000".equals(errorCode)) {
                     //验证码不正确 进入再次验证界面
                     mView.goVerificationActivity();
                 }
@@ -78,26 +94,12 @@ public class ForgetPasswordPresenter
     @Override
     public void onError(int action, Throwable e) {
         super.onError(action, e);
-        mView.dismissProgressDialog();
     }
 
     @Override
     public void onCompleted(int action) {
         super.onCompleted(action);
         mView.dismissProgressDialog();
-    }
-
-    @Override
-    public void checkPhoneStatus(String phone) {
-        //请求网络
-        mModule.requestData(ACTION_CHECK_PHONE, this, phone);
-        mView.showProgressDialog("请稍后..");
-    }
-
-    @Override
-    public void checkVerificationCode(String code) {
-        mModule.requestData(ACTION_CHECK_VERIFICATION_CODE, this, code);
-        mView.showProgressDialog("请稍后..");
     }
 
     public void updateWaitingVerificationCodeTime() {

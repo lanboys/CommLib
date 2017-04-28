@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.bing.lan.bing.ui.shop.bean.ShopInfoBean;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.adapter.BaseListAdapter;
+import com.bing.lan.comm.utils.TimeUtil;
 
 import butterknife.BindView;
 
@@ -86,7 +87,8 @@ public class ShopAdapter extends BaseListAdapter<ShopInfoBean> implements View.O
         @Override
         public void fillData(ShopInfoBean data, int position) {
             mTvShopName.setText(data.name);
-            mTvShopTime.setText(data.createTime);
+            mTvShopTime.setText(TimeUtil.time(data.createTime));
+
 
             mTvPos.setVisibility(data.isShowButton ? View.VISIBLE : View.GONE);
             mTvPos.setText(data.isAuth ? "绑定POS" : "提交认证资料");

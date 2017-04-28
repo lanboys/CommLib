@@ -1,4 +1,4 @@
-package com.bing.lan.bing.ui.registerPos;
+package com.bing.lan.bing.ui.registerPOS;
 
 import com.bing.lan.comm.base.mvp.activity.IBaseActivityContract;
 
@@ -15,6 +15,7 @@ public interface IRegisterPosContract {
 
     interface IRegisterPosPresenter
             extends IBaseActivityContract.IBaseActivityPresenter<IRegisterPosView, IRegisterPosModule> {
+        boolean validate(String content, int id, String success, String fail);
 
     }
 

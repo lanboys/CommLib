@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bing.lan.comm.R;
-import com.bing.lan.comm.utils.AppTimeUtils;
+import com.bing.lan.comm.utils.TimeUtil;
 import com.bing.lan.comm.utils.AppUtil;
 
 public class NotSettlementDetail extends AppCompatActivity {
@@ -91,7 +91,7 @@ public class NotSettlementDetail extends AppCompatActivity {
         tv_poundage.setText(withdrawRecord.getPoundage() / 100f + "");
         tv_rate.setText(withdrawRecord.getRate() * 100 + "%");
         tv_applyNum.setText(withdrawRecord.getApplyNumber());
-        tv_apply_time.setText(AppTimeUtils.time(withdrawRecord.getCreateTime() + ""));
+        tv_apply_time.setText(TimeUtil.time(withdrawRecord.getCreateTime() + ""));
         tv_apply_residence.setText(withdrawRecord.getBankRealname());
         tv_phone.setText(withdrawRecord.getPhone());
         tv_gather_account.setText(withdrawRecord.getBankCard());

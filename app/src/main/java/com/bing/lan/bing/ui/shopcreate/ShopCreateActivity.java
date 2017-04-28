@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.bing.lan.bing.ui.map.AMapActivity;
 import com.bing.lan.bing.ui.mapsearch.AddressBean;
+import com.bing.lan.bing.ui.shop.ShopActivity;
 import com.bing.lan.bing.ui.shop.bean.ShopInfoBean;
 import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;
 import com.bing.lan.comm.R;
@@ -233,7 +234,7 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
     public void goToShopAuthenticateActivity(ShopInfoBean shopInfoBean) {
 
         Intent intent = new Intent(this, ShopAuthenticateActivity.class);
-        intent.putExtra(ShopAuthenticateActivity.SHOP_INFO, shopInfoBean);
+        intent.putExtra(ShopActivity.SHOP_INFO, shopInfoBean);
 
         startActivity(intent, false, true);
     }

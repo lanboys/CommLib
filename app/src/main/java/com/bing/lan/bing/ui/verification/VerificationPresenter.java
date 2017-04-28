@@ -15,8 +15,6 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
-import static com.bing.lan.bing.ui.forgetPassword.ForgetPasswordPresenter.ACTION_CHECK_PHONE;
-import static com.bing.lan.bing.ui.forgetPassword.ForgetPasswordPresenter.ACTION_CHECK_VERIFICATION_CODE;
 
 /**
  * @author 蓝兵
@@ -27,6 +25,8 @@ public class VerificationPresenter
         implements IVerificationContract.IVerificationPresenter {
 
     private static final int TOTAL_WAITING_VERIFICATION_CODE_TIME = 120;
+    public static final int ACTION_CHECK_VERIFICATION_CODE = 2;
+    public static final int ACTION_CHECK_PHONE = 1;
     private CompositeSubscription mSubscription;
 
     @Override
@@ -48,7 +48,7 @@ public class VerificationPresenter
         switch (action) {
 
             case ACTION_CHECK_PHONE:
-                //根据状态 tre 发送成功
+                //根据状态 true 发送成功
                 if (!AppUtil.getBooleanByRandom()) {
                     //倒计时
                     updateWaitingVerificationCodeTime();

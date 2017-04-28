@@ -8,6 +8,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,7 +40,8 @@ import static com.bing.lan.bing.ui.dispatchdevice.DispatchDeviceActivity.SELECT_
  * @time 2017/4/6  19:12
  */
 public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDeviceSelectPresenter>
-        implements IDeviceSelectContract.IDeviceSelectView, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+        implements IDeviceSelectContract.IDeviceSelectView, AdapterView.OnItemClickListener,
+        SwipeRefreshLayout.OnRefreshListener, TextWatcher {
 
     public static final String USER_ID = "userId";
     public static final String TYPE = "type";
@@ -84,6 +88,8 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
     protected void initViewAndData(Intent intent) {
         setToolBar(mToolbar, "选取设备", true, 0);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+
+        mEtEnCode.addTextChangedListener(this);
 
         mDeviceInfoBeanList = new ArrayList<>();
         mDeviceInfoBeanSelectList = new ArrayList<>();
@@ -329,6 +335,23 @@ public class DeviceSelectActivity extends BaseActivity<IDeviceSelectContract.IDe
 
         if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        if (TextUtils.isEmpty(editable.toString())) {
+            searchDevices();
         }
     }
 }

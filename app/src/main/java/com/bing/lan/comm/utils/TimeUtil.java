@@ -12,7 +12,7 @@ import java.util.Calendar;
  * Email: yxhuang@gmail.com
  */
 
-public class AppTimeUtils {
+public class TimeUtil {
 
     /**
      *  转换成时间
@@ -67,7 +67,7 @@ public class AppTimeUtils {
 
             days[i] = month + "月" + day +"日";
 
-            //PayLog.i("AppTimeUtils", "getCurrentDayBeforeSevenDay i " + i + "  " + days[i] );
+            //PayLog.i("TimeUtil", "getCurrentDayBeforeSevenDay i " + i + "  " + days[i] );
         }
 
         return days;

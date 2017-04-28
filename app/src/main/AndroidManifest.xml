@@ -254,7 +254,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name="com.bing.lan.bing.ui.registerPos.RegisterPosActivity"
+            android:name="com.bing.lan.bing.ui.registerPOS.RegisterPosActivity"
             android:label="@string/title_activity_register_pos"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

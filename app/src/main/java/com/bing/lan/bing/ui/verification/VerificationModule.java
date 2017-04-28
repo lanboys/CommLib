@@ -7,8 +7,6 @@ import com.bing.lan.comm.base.mvp.activity.BaseActivityModule;
 import okhttp3.ResponseBody;
 import rx.Observable;
 
-import static com.bing.lan.bing.ui.forgetPassword.ForgetPasswordPresenter.ACTION_CHECK_PHONE;
-import static com.bing.lan.bing.ui.forgetPassword.ForgetPasswordPresenter.ACTION_CHECK_VERIFICATION_CODE;
 
 /**
  * @author 蓝兵
@@ -22,10 +20,10 @@ public class VerificationModule extends BaseActivityModule
 
         switch (action) {
 
-            case ACTION_CHECK_PHONE:
+            case VerificationPresenter.ACTION_CHECK_PHONE:
                 checkPhoneStatus(action, listener, (String) parameter[0]);
                 break;
-            case ACTION_CHECK_VERIFICATION_CODE:
+            case VerificationPresenter.ACTION_CHECK_VERIFICATION_CODE:
                 checkVerificationCode(action, listener, (String) parameter[0]);
                 break;
         }

@@ -28,7 +28,6 @@ public class ShopAuthenticateActivity extends BaseActivity<IShopAuthenticateCont
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
-    public static final String SHOP_INFO = "Shop_info";
 
     //名称/企业名称
     //身份证号码/法人
@@ -87,7 +86,7 @@ public class ShopAuthenticateActivity extends BaseActivity<IShopAuthenticateCont
         setToolBar(mToolbar, "认证资料", true, 0);
 
         if (intent != null) {
-            mShopInfoBean = (ShopInfoBean) intent.getSerializableExtra(SHOP_INFO);
+            mShopInfoBean = (ShopInfoBean) intent.getSerializableExtra(ShopActivity.SHOP_INFO);
         }
 
         //test
