@@ -128,6 +128,11 @@ public class MapUtil {
 
         AddressBean addressBean = new AddressBean();
 
+        addressBean.latitude = latLng.latitude;
+        addressBean.longitude = latLng.longitude;
+        addressBean.latLng = latLng;
+        addressBean.latLonPoint = point;
+
         if (area != null)
             addressBean.province = area;
         if (loc != null && !area.equals(loc))

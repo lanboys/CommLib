@@ -30,7 +30,7 @@ import butterknife.OnClick;
  * @time 2017/4/6  19:12
  */
 public class MapSearchActivity extends BaseActivity<IMapSearchContract.IMapSearchPresenter>
-        implements IMapSearchContract.IMapSearchView, TextWatcher, AdapterView.OnItemClickListener, InputTask.CallBack {
+        implements IMapSearchContract.IMapSearchView, TextWatcher, AdapterView.OnItemClickListener, AMapPoiSearchUtil.PoiSearchCallBack {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -48,7 +48,8 @@ public class MapSearchActivity extends BaseActivity<IMapSearchContract.IMapSearc
     ListView mLvSearchList;
 
     private SearchAdapter mAdapter;
-    private Task mTask;
+    private SearchTask mSearchTask;
+    private AMapPoiSearchUtil mAMapPoiSearchUtil;
 
     @Override
     protected int getLayoutResId() {
@@ -88,16 +89,16 @@ public class MapSearchActivity extends BaseActivity<IMapSearchContract.IMapSearc
             startSearchTask(trim);
         }
 
-        //InputTask.getInstance(MapSearchActivity.this, mAdapter).onSearch(trim.toString(), "");
+        //AMapPoiSearchUtil.getInstance(MapSearchActivity.this, mAdapter).onSearch(trim.toString(), "");
     }
 
     private void startSearchTask(String trim) {
-        if (mTask != null) {
-            ThreadPoolProxyUtil.removeNormalTask(mTask);
+        if (mSearchTask != null) {
+            ThreadPoolProxyUtil.removeNormalTask(mSearchTask);
         }
 
-        mTask = new Task(this, trim);
-        ThreadPoolProxyUtil.executeNormalTask(mTask);
+        mSearchTask = new SearchTask(this, trim);
+        ThreadPoolProxyUtil.executeSingleTask(mSearchTask);
     }
 
     @Override
@@ -146,21 +147,21 @@ public class MapSearchActivity extends BaseActivity<IMapSearchContract.IMapSearc
                 mEtSearchEdit.setText("");
                 break;
             case R.id.tv_cancel:
-                if (mTask != null) {
-                    ThreadPoolProxyUtil.removeNormalTask(mTask);
+                if (mSearchTask != null) {
+                    ThreadPoolProxyUtil.removeNormalTask(mSearchTask);
                 }
                 SoftInputUtil.closeSoftInput(this);
                 break;
         }
     }
 
-    public static class Task implements Runnable {
+    public static class SearchTask implements Runnable {
 
         WeakReference<MapSearchActivity> mWeakReference;
 
         String search;
 
-        public Task(@NonNull MapSearchActivity mapSearchActivity, @NonNull String search) {
+        public SearchTask(@NonNull MapSearchActivity mapSearchActivity, @NonNull String search) {
 
             mWeakReference = new WeakReference<>(mapSearchActivity);
             this.search = search;
@@ -171,7 +172,10 @@ public class MapSearchActivity extends BaseActivity<IMapSearchContract.IMapSearc
 
             if (mWeakReference != null && search != null) {
                 MapSearchActivity activity = mWeakReference.get();
-                InputTask.getInstance(activity, activity).onSearch(search, "");
+                if (activity.mAMapPoiSearchUtil == null) {
+                    activity.mAMapPoiSearchUtil = new AMapPoiSearchUtil( activity);
+                }
+                activity.mAMapPoiSearchUtil.onSearch(activity, search, "");
             }
         }
     }

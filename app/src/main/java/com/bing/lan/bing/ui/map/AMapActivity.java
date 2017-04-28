@@ -33,6 +33,7 @@ import com.bing.lan.bing.ui.mapsearch.MapSearchActivity;
 import com.bing.lan.bing.ui.mapsearch.MapUtil;
 import com.bing.lan.bing.ui.shopcreate.ShopCreateActivity;
 import com.bing.lan.comm.R;
+import com.bing.lan.comm.utils.LogUtil;
 import com.bing.lan.comm.utils.ThreadPoolProxyUtil;
 import com.bing.lan.comm.utils.popup.AddressPopupWindow;
 
@@ -75,7 +76,7 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
             AddressBean addressInfo = (AddressBean) data.getSerializableExtra("addressInfo");
 
             LatLng latlng = new LatLng(addressInfo.getLatitude(), addressInfo.getLongitude());
-            resetMarker(latlng);
+            resetMarker(latlng, true);
 
             // Toast.makeText(this, addressInfo.toString(), Toast.LENGTH_SHORT).show();
         }
@@ -138,7 +139,7 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
 
         aMap.setOnMarkerClickListener(this);// 设置点击marker事件监听器
         aMap.setOnInfoWindowClickListener(this);// 设置点击infoWindow事件监听器
-        aMap.setOnCameraChangeListener(this);
+        aMap.setOnCameraChangeListener(this); //设置屏幕移动监听
         // aMap.setOnMapLoadedListener(this);// 设置amap加载成功事件监听器
 
         aMap.setInfoWindowAdapter(this);// 设置自定义InfoWindow样式
@@ -228,8 +229,8 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
                 mCurrentAddressBean.district = amapLocation.getDistrict();//城区信息
                 mCurrentAddressBean.street = amapLocation.getStreet();//街道信息
                 mCurrentAddressBean.streetNum = amapLocation.getStreetNum();//街道门牌号信息
-                amapLocation.getCityCode();//城市编码
-                amapLocation.getAdCode();//地区编码
+                mCurrentAddressBean.cityCode = amapLocation.getCityCode();//城市编码
+                mCurrentAddressBean.adCode = amapLocation.getAdCode();//地区编码
 
                 mCurrentLatLng = new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude());
 
@@ -238,7 +239,13 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
                         + amapLocation.getProvince() + "" + amapLocation.getDistrict() + ""
                         + amapLocation.getStreet() + "" + amapLocation.getStreetNum());
 
-                Log.e("amap", buffer.toString());
+
+                log.e("onLocationChanged(): ================================================================================================================== " );
+                log.e("onLocationChanged(): 定位地址: " + buffer.toString());
+
+                log.e("onLocationChanged(): mCurrentAddressBean: " + mCurrentAddressBean.toString());
+                log.e("onLocationChanged(): mMarkerAddressBean: " + mMarkerAddressBean.toString());
+                log.e("onLocationChanged(): ================================================================================================================== " );
 
                 // 如果不设置标志位，此时再拖动地图时，它会不断将地图移动到当前的位置
                 if (isFirstLoc) {
@@ -250,7 +257,8 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
                     mMarkerAddressBean.district = amapLocation.getDistrict();//城区信息
                     mMarkerAddressBean.street = amapLocation.getStreet();//街道信息
                     mMarkerAddressBean.streetNum = amapLocation.getStreetNum();//街道门牌号信息
-
+                    mMarkerAddressBean.cityCode = amapLocation.getCityCode();//城市编码
+                    mMarkerAddressBean.adCode = amapLocation.getAdCode();//地区编码
                     //设置缩放级别
                     aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
                     //将地图移动到定位点
@@ -305,13 +313,15 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
 
         if (amapLocation != null) {
             StringBuffer buffer = new StringBuffer();
-            buffer.append(amapLocation.getCountry() + "" + amapLocation.getProvince() + "" + amapLocation.getCity() + "" + amapLocation.getDistrict() + "" + amapLocation.getStreet() + "" + amapLocation.getStreetNum());
+            buffer.append(amapLocation.getCountry() + "" + amapLocation.getProvince() + ""
+                    + amapLocation.getCity() + "" + amapLocation.getDistrict() + "" +
+                    amapLocation.getStreet() + "" + amapLocation.getStreetNum());
         }
 
         //标题
         //options.title(buffer.toString());
         //子标题
-        options.snippet("这里好火");
+        options.snippet("");
         //设置多少帧刷新一次图片资源
         options.period(60);
 
@@ -435,14 +445,8 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
             public void onItemClickListener(@AddressPopupWindow.PopupItemType.Type int type) {
                 if (type == AddressPopupWindow.PopupItemType.BTN_OK) {
 
-
-
-
                     String trim = mTextView.getText().toString().trim();
                     finishMap(mMarkerAddressBean);
-
-
-
 
                     popupWindow.dismiss();
                 } else if (type == AddressPopupWindow.PopupItemType.IV_CLOSE) {
@@ -457,21 +461,24 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
+    protected final LogUtil log = LogUtil.getLogUtil(getClass(), LogUtil.LOG_VERBOSE);
+
     @Override
     public void onCameraChange(CameraPosition cameraPosition) {
-        final LatLng latlng = cameraPosition.target;
-        resetMarker(latlng);
+        LatLng latlng = cameraPosition.target;
+        resetMarker(latlng, false);
+        log.e("onCameraChange(): 正在移动,经纬度：" + latlng.toString());
     }
 
     @Override
     public void onCameraChangeFinish(CameraPosition cameraPosition) {
-        // final LatLng latlng = cameraPosition.target;
-        // resetMarker(latlng);
+        LatLng latlng = cameraPosition.target;
+        //resetMarker(latlng,false);
+        log.e("onCameraChangeFinish(): 移动结束,经纬度：" + latlng.toString());
     }
 
-    private void resetMarker(final LatLng latlng) {
+    private void resetMarker(final LatLng latlng, boolean isMoveCamera) {
         aMap.clear();
-
         startGeocodeSearchTask(latlng);
 
         Marker marker = aMap.addMarker(getMarkerOptions(latlng));
@@ -484,7 +491,9 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         //aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 10));
 
         //移动到 latlng 位置
-        aMap.moveCamera(CameraUpdateFactory.changeLatLng(latlng));
+        if (isMoveCamera) {
+            aMap.moveCamera(CameraUpdateFactory.changeLatLng(latlng));
+        }
     }
 
     /**
@@ -519,7 +528,7 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         return "";
     }
 
-    public void finishMap(AddressBean mMarkerAddressBean ) {
+    public void finishMap(AddressBean mMarkerAddressBean) {
         if (mMarkerAddressBean != null) {
             Intent date = new Intent();
             date.putExtra(ShopCreateActivity.ADDRESS_INFO, mMarkerAddressBean);

@@ -16,6 +16,7 @@ public class ThreadPoolProxyUtil {
 
     private static ThreadPoolProxyUtil mNormalThreadPoolProxy;
     private static ThreadPoolProxyUtil mDownLoadThreadPoolProxy;
+    private static ThreadPoolProxyUtil mSingleThreadPoolProxy;
     private ThreadPoolExecutor mExecutor;
     private int mCorePoolSize;
     private int mMaximumPoolSize;
@@ -46,6 +47,14 @@ public class ThreadPoolProxyUtil {
         createNormalThreadPoolProxy().execute(task);
     }
 
+    public static void executeSingleTask(Runnable task) {
+        createSingleThreadPoolProxy().execute(task);
+    }
+
+    public static void removeSingleTask(Runnable task) {
+        createSingleThreadPoolProxy().remove(task);
+    }
+
     public static void removeDownLoadTask(Runnable task) {
         createDownLoadThreadPoolProxy().remove(task);
     }
@@ -54,9 +63,9 @@ public class ThreadPoolProxyUtil {
         createNormalThreadPoolProxy().remove(task);
     }
 
-    //public static void removeAllNormalTask( ) {
-    //    createNormalThreadPoolProxy();
-    //}
+    public static Future<?> submitSingleTask(Runnable task) {
+        return createSingleThreadPoolProxy().submit(task);
+    }
 
     public static Future<?> submitDownLoadTask(Runnable task) {
         return createDownLoadThreadPoolProxy().submit(task);
@@ -64,6 +73,20 @@ public class ThreadPoolProxyUtil {
 
     public static Future<?> submitNormalTask(Runnable task) {
         return createNormalThreadPoolProxy().submit(task);
+    }
+
+    /**
+     * 返回单线程池代理
+     */
+    private static ThreadPoolProxyUtil createSingleThreadPoolProxy() {
+        if (mSingleThreadPoolProxy == null) {
+            synchronized (ThreadPoolProxyUtil.class) {
+                if (mSingleThreadPoolProxy == null) {
+                    mSingleThreadPoolProxy = new ThreadPoolProxyUtil(1, 1, 5000);
+                }
+            }
+        }
+        return mNormalThreadPoolProxy;
     }
 
     /**
@@ -107,6 +130,8 @@ public class ThreadPoolProxyUtil {
                     long keepAliveTime = mKeepAliveTime;
 
                     TimeUnit unit = TimeUnit.MILLISECONDS;
+                    //LinkedBlockingDeque还是可选容量的(防止过度膨胀)，即可以指定队列的容量。
+                    // 如果不指定，默认容量大小等于Integer.MAX_VALUE。
                     BlockingQueue<Runnable> workQueue = new LinkedBlockingDeque<>();
                     ThreadFactory threadFactory = Executors.defaultThreadFactory();
                     RejectedExecutionHandler handler = new ThreadPoolExecutor.DiscardPolicy();
@@ -161,5 +186,11 @@ public class ThreadPoolProxyUtil {
         mExecutor.remove(task);
     }
 
-
+    ///**
+    // * 移除所有任务
+    // */
+    //private void removeAll(Runnable task) {
+    //    getThreadPoolExecutor();
+    //    mExecutor.
+    //}
 }

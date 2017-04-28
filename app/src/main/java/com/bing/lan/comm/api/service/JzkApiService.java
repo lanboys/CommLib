@@ -32,12 +32,8 @@ import rx.Observable;
  */
 public interface JzkApiService {
 
-    //@Multipart
-    //@POST("upload/index.jsp")
-    //Call<ResponseBody> uploadDealerAuthenticate(@Part("Upload[file]\"; filename=\"avatar.jpg") RequestBody body);
-
     /**
-     * 加入代理商
+     * 经销商创建
      *
      * @param phone
      * @param real_name
@@ -66,6 +62,18 @@ public interface JzkApiService {
     );
 
     // http://blog.csdn.net/qq_21430549/article/details/51227379
+
+    /**
+     * 经销商缴费续费
+     *
+     * @param dealerID
+     * @param pay_money
+     * @param paynumbers
+     * @param start_time
+     * @param body
+     * @param body1
+     * @return
+     */
     @Multipart
     @POST("dealer/pay")
     Observable<HttpResult<DealerAuthenticateResultBean>> uploadDealerAuthenticate(
@@ -75,42 +83,6 @@ public interface JzkApiService {
             @Part("start_time") RequestBody start_time,
             @Part("Upload[file][]\"; filename=\"avatar.jpg") RequestBody body,
             @Part("Upload[file][]\"; filename=\"avatar1.jpg") RequestBody body1
-    );
-
-    /**
-     * 创建门店
-     *
-     * @param map
-     * @return
-     */
-    @Multipart
-    @POST("strore/store-add")
-    Observable<HttpResult<ShopInfoBean>> uploadShop(@PartMap Map<String, RequestBody> map);
-
-    @Multipart
-    @POST("strore/add-pos")
-    Observable<HttpResult<Object>> registerPos(@PartMap Map<String, RequestBody> map);
-
-    /**
-     * 提交门店认证资料
-     *
-     * @param map
-     * @return
-     */
-    @Multipart
-    @POST("strore/store-cert")
-    Observable<HttpResult<ShopAuthenticateResultBean>> uploadShopAuthenticate(@PartMap Map<String, RequestBody> map);
-
-    /**
-     * 代理商列表
-     *
-     * @param dealerId
-     * @param pageNum
-     */
-    @GET("agent/agent-list")
-    Observable<HttpResult<AgentResultBean>> loadAgentList(
-            @Query("dealerId") String dealerId,
-            @Query("pageNum") String pageNum
     );
 
     /**
@@ -128,6 +100,36 @@ public interface JzkApiService {
     );
 
     /**
+     * 创建门店
+     *
+     * @param map
+     * @return
+     */
+    @Multipart
+    @POST("strore/store-add")
+    Observable<HttpResult<ShopInfoBean>> uploadShop(@PartMap Map<String, RequestBody> map);
+
+    /**
+     * 配置pos
+     *
+     * @param map
+     * @return
+     */
+    @Multipart
+    @POST("strore/add-pos")
+    Observable<HttpResult<Object>> registerPos(@PartMap Map<String, RequestBody> map);
+
+    /**
+     * 提交门店认证资料
+     *
+     * @param map
+     * @return
+     */
+    @Multipart
+    @POST("strore/store-cert")
+    Observable<HttpResult<ShopAuthenticateResultBean>> uploadShopAuthenticate(@PartMap Map<String, RequestBody> map);
+
+    /**
      * 门店列表
      *
      * @param userId
@@ -141,21 +143,36 @@ public interface JzkApiService {
             @Query("pageNum") String pageNum
     );
 
+    /**
+     * 代理商设备配送
+     *
+     * @param map
+     * @return
+     */
     @FormUrlEncoded
     @POST("agent/send")
     Observable<HttpResult<String>> dispatchDevice(@FieldMap Map<String, String> map);
 
+    /**
+     * 设备列表
+     *
+     * @param map
+     * @return
+     */
     @GET("agent/list")
     Observable<HttpResult<DeviceInfoResultBean>> loadDeviceList(@QueryMap Map<String, String> map);
 
-    // @GET("agent/list")
-    // Observable<HttpResult<DeviceInfoResultBean>> loadDeviceList(
-    //         @Query("type") String type,
-    //         @Query("userId") String userId,
-    //         @Query("roleType") String roleType,
-    //         @Query("pageNum") String pageNum,
-    //         @Query("enCode") String enCode
-    // );
+    /**
+     * 代理商列表
+     *
+     * @param dealerId
+     * @param pageNum
+     */
+    @GET("agent/agent-list")
+    Observable<HttpResult<AgentResultBean>> loadAgentList(
+            @Query("dealerId") String dealerId,
+            @Query("pageNum") String pageNum
+    );
 
     /**
      * 加入代理商(只能通过注册添加)
@@ -180,32 +197,6 @@ public interface JzkApiService {
             @Field("addressDetail") String addressDetail,
             @Field("shareCode") String shareCode
     );
-
-    // @Multipart
-    // @POST("agent/add")
-    // Observable<HttpResult<JoinAgentResultBean>> joinAgent(
-    //         @Part("phone") String phone,
-    //         @Part("real_name") String real_name,
-    //         @Part("province") String province,
-    //         @Part("city") String city,
-    //         @Part("area") String area,
-    //         @Part("addressDetail") String addressDetail,
-    //         @Part("shareCode") String shareCode
-    // );
-
-    // @Multipart
-    // @POST("agent/add")
-    // Observable<HttpResult<JoinAgentResultBean>> joinAgent(
-    //         @Query("phone") String phone,
-    //         @Query("real_name") String real_name,
-    //         @Query("province") String province,
-    //         @Query("city") String city,
-    //         @Query("area") String area,
-    //         @Query("addressDetail") String addressDetail,
-    //         @Query("shareCode") String idCard,
-    //         @Part("Upload[file][]\"; filename=\"avatar.jpg") RequestBody body
-    //
-    // );
 
     /**
      * 获取验证码

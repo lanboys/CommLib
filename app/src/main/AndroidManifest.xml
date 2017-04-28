@@ -56,9 +56,9 @@
             android:theme="@style/AppTheme.NoActionBar"
         >
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
+            <!--<action android:name="android.intent.action.MAIN"/>-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             <!--</intent-filter>-->
         </activity>
 
@@ -74,12 +74,12 @@
             android:name="com.bing.lan.bing.ui.splash.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
 
-             <category android:name="android.intent.category.LAUNCHER"/>
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
 
         <!-- 注册页面 -->
@@ -221,7 +221,9 @@
         <activity
             android:name="com.bing.lan.bing.ui.map.AMapActivity"
             android:label="@string/title_activity_amap"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+        >
+            <!--android:process=":map"-->
         </activity>
         <activity
             android:name="com.bing.lan.bing.ui.verification.VerificationActivity"

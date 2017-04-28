@@ -6,6 +6,7 @@ import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
+import com.bing.lan.comm.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,48 +16,29 @@ import java.util.List;
  * @email lan_bing2013@163.com
  * @time 2017/4/16  15:40
  */
-public class InputTask implements PoiSearch.OnPoiSearchListener {
+public class AMapPoiSearchUtil implements PoiSearch.OnPoiSearchListener {
 
-    private static InputTask mInstance;
     private PoiSearch mSearch;
-    private Context mContext;
 
-    private InputTask(Context context, CallBack callBack) {
-        this.mContext = context;
+    public AMapPoiSearchUtil(PoiSearchCallBack callBack) {
         this.mCallBack = callBack;
     }
 
-    /**
-     * 获取实例
-     *
-     * @param context 上下文
-     * @return
-     */
-    public static InputTask getInstance(Context context, CallBack callBack) {
-        if (mInstance == null) {
-            synchronized (InputTask.class) {
-                if (mInstance == null) {
-                    mInstance = new InputTask(context, callBack);
-                }
-            }
-        }
-        return mInstance;
-    }
-
-    public void setResultListener(CallBack callBack) {
+    public void setResultListener(PoiSearchCallBack callBack) {
         this.mCallBack = callBack;
     }
 
     /**
      * POI搜索
      *
-     * @param key  关键字
-     * @param city 城市
+     * @param context
+     * @param key     关键字
+     * @param city    城市
      */
-    public void onSearch(String key, String city) {
+    public void onSearch(Context context, String key, String city) {
         //POI搜索条件
         PoiSearch.Query query = new PoiSearch.Query(key, "", city);
-        mSearch = new PoiSearch(mContext, query);
+        mSearch = new PoiSearch(context, query);
         //设置异步监听
         mSearch.setOnPoiSearchListener(this);
         //查询POI异步接口
@@ -99,14 +81,16 @@ public class InputTask implements PoiSearch.OnPoiSearchListener {
         }
     }
 
+    protected final LogUtil log = LogUtil.getLogUtil(getClass(), LogUtil.LOG_VERBOSE);
+
     @Override
     public void onPoiItemSearched(PoiItem poiItem, int i) {
 
     }
 
-    CallBack mCallBack;
+    PoiSearchCallBack mCallBack;
 
-    public interface CallBack {
+    public interface PoiSearchCallBack {
 
         void onSearchResult(List<AddressBean> list);
     }

@@ -18,39 +18,38 @@ import java.util.concurrent.TimeUnit;
  */
 public class ThreadPoolManager {
 
-    private final static int DEFAULT_COREPOOL_SIZE = 1;
-    private final static int DEFAULT_MAXIMUMPOOL_SIZE = 4;
-    private final static long DEFAULT_KEEPALIVE_TIME = 3;
-    private final static TimeUnit DEFAULT_TIMEUNIT = TimeUnit.SECONDS;
+    private final static int DEFAULT_CORE_POOL_SIZE = 1;
+    private final static int DEFAULT_MAXIMUM_POOL_SIZE = 4;
+    private final static long DEFAULT_KEEP_ALIVE_TIME = 3;
+    private final static TimeUnit DEFAULT_TIME_UNIT = TimeUnit.SECONDS;
     private static ThreadPoolManager sInstance = null;
     private ThreadPoolExecutor mWorkThreadPool = null; // 线程池
     private ScheduledExecutorService mScheduledExecutorService = null; // 调度线程池
-    private Thread mScheduledThread = null; // 调度Runnable
+    private Runnable mScheduledTask = null; // 调度Runnable
     private Queue<Runnable> mWaitTasksQueue = null; // 等待任务队列
     private RejectedExecutionHandler mRejectedExecutionHandler = null; // 任务被拒绝执行的处理器
-    private Object mLock = new Object();
+    private final Object mLock = new Object();
 
     private ThreadPoolManager() {
-        this(DEFAULT_COREPOOL_SIZE, DEFAULT_MAXIMUMPOOL_SIZE,
-                DEFAULT_KEEPALIVE_TIME, DEFAULT_TIMEUNIT, false);
+        this(DEFAULT_CORE_POOL_SIZE, DEFAULT_MAXIMUM_POOL_SIZE,
+                DEFAULT_KEEP_ALIVE_TIME, DEFAULT_TIME_UNIT, false);
     }
 
     private ThreadPoolManager(int corePoolSize, int maximumPoolSize,
             long keepAliveTime, TimeUnit unit, boolean isPriority) {
         //并发队列 交替执行任务
         mWaitTasksQueue = new ConcurrentLinkedQueue<>();
-        mScheduledThread = new ScheduledThread();
+        mScheduledTask = new ScheduledTask();
+
         //创建一个单线程执行器 每1秒执行一个
         //http://blog.csdn.net/lmj623565791/article/details/27109467
-        mScheduledExecutorService = Executors
-                .newSingleThreadScheduledExecutor();
-        mScheduledExecutorService.scheduleAtFixedRate(mScheduledThread, 0,
-                1000, TimeUnit.MILLISECONDS);
-
+        mScheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        mScheduledExecutorService.scheduleAtFixedRate(mScheduledTask, 0, 1000, TimeUnit.MILLISECONDS);
+        //异常处理器
         initRejectedExecutionHandler();
-        //阻塞队列 队列最大长度16
-        BlockingQueue<Runnable> queue = isPriority ? new PriorityBlockingQueue<Runnable>(
-                16) : new LinkedBlockingQueue<Runnable>(16);
+        //阻塞队列 队列最大长度16 可以设置是否有优先级
+        BlockingQueue<Runnable> queue = isPriority ? new PriorityBlockingQueue<>(16)
+                : new LinkedBlockingQueue<>(16);
         mWorkThreadPool = new ThreadPoolExecutor(corePoolSize, maximumPoolSize,
                 keepAliveTime, unit, queue, mRejectedExecutionHandler);
     }
@@ -153,7 +152,7 @@ public class ThreadPoolManager {
             }
             mScheduledExecutorService = null;
         }
-        mScheduledThread = null;
+        mScheduledTask = null;
         synchronized (mLock) {
             if (mWaitTasksQueue != null) {
                 mWaitTasksQueue.clear();
@@ -162,13 +161,9 @@ public class ThreadPoolManager {
         }
     }
 
-    /**
-     * 初始化调度Runnable
-     * 应该改为 implement Runnable
-     */
-    private class ScheduledThread extends Thread {
+    private class ScheduledTask implements Runnable {
 
-        @Override
+        //@Override
         public void run() {
             synchronized (mLock) {
                 if (hasMoreWaitTask()) {
