@@ -9,6 +9,7 @@ import com.amap.api.services.geocoder.RegeocodeAddress;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeRoad;
 import com.amap.api.services.geocoder.StreetNumber;
+import com.bing.lan.comm.utils.LogUtil;
 
 import java.util.List;
 
@@ -19,20 +20,19 @@ import java.util.List;
  */
 public class MapUtil {
 
+    protected static final LogUtil log = LogUtil.getLogUtil(MapUtil.class, LogUtil.LOG_VERBOSE);
+
     public static String getAddressMessageByLatLng(final Context context, final LatLng latLng) {
 
         GeocodeSearch geocodeSearch = new GeocodeSearch(context);
-        LatLonPoint point = new LatLonPoint(latLng.latitude,
-                latLng.longitude);
-        RegeocodeQuery regeocodeQuery = new RegeocodeQuery(
-                point, 1000, GeocodeSearch.AMAP);
+        LatLonPoint point = new LatLonPoint(latLng.latitude, latLng.longitude);
+        RegeocodeQuery regeocodeQuery = new RegeocodeQuery(point, 1000, GeocodeSearch.AMAP);
 
         RegeocodeAddress address = null;
         try {
-            address = geocodeSearch
-                    .getFromLocation(regeocodeQuery);
+            address = geocodeSearch.getFromLocation(regeocodeQuery);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.e("getAddressMessageByLatLng():  " + e.getLocalizedMessage());
         }
         if (null == address) {
             return null;
@@ -88,23 +88,20 @@ public class MapUtil {
     public static AddressBean getAddressBeanByLatLng(final Context context, final LatLng latLng) {
 
         GeocodeSearch geocodeSearch = new GeocodeSearch(context);
-        LatLonPoint point = new LatLonPoint(latLng.latitude,
-                latLng.longitude);
-        RegeocodeQuery regeocodeQuery = new RegeocodeQuery(
-                point, 1000, GeocodeSearch.AMAP);
+        LatLonPoint point = new LatLonPoint(latLng.latitude, latLng.longitude);
+        RegeocodeQuery regeocodeQuery = new RegeocodeQuery(point, 1000, GeocodeSearch.AMAP);
 
         RegeocodeAddress address = null;
         try {
-            address = geocodeSearch
-                    .getFromLocation(regeocodeQuery);
+            address = geocodeSearch.getFromLocation(regeocodeQuery);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.e("getAddressBeanByLatLng():  " + e.getLocalizedMessage());
         }
         if (null == address) {
             return null;
         }
 
-        StringBuffer stringBuffer = new StringBuffer();
+        // StringBuffer stringBuffer = new StringBuffer();
 
         String area = address.getProvince();// 省或直辖市
         String loc = address.getCity();// 地级市或直辖市

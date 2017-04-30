@@ -7,11 +7,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -33,6 +33,7 @@ import com.bing.lan.bing.ui.mapsearch.MapSearchActivity;
 import com.bing.lan.bing.ui.mapsearch.MapUtil;
 import com.bing.lan.bing.ui.shopcreate.ShopCreateActivity;
 import com.bing.lan.comm.R;
+import com.bing.lan.comm.utils.AppUtil;
 import com.bing.lan.comm.utils.LogUtil;
 import com.bing.lan.comm.utils.ThreadPoolProxyUtil;
 import com.bing.lan.comm.utils.popup.AddressPopupWindow;
@@ -49,8 +50,9 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
     //api 文档
     // http://a.amap.com/lbs/static/unzip/Android_Map_Doc/index.html
 
-    public AddressBean mMarkerAddressBean = new AddressBean();
-    public AddressBean mCurrentAddressBean = new AddressBean();
+    protected final LogUtil log = LogUtil.getLogUtil(getClass(), LogUtil.LOG_VERBOSE);
+    public AddressBean mMarkerAddressBean;
+    public AddressBean mCurrentAddressBean;
     MapView mMapView = null;//地图控件
     Toolbar mToolbar;
     //显示地图需要的变量
@@ -65,15 +67,116 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
     private boolean isShowInfoWindow = true;
     private ImageView mSearch;
     private TextView mTextView;//点击定位按钮位置会改变是因为marker的原因
-    private LatLng mCurrentLatLng;
+    // private LatLng mCurrentLatLng;
     private Task mTask;
+    private TextView mTvLocation;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_amap);
+
+        mMarkerAddressBean = new AddressBean();
+        mCurrentAddressBean = new AddressBean();
+        //
+        mTextView = (TextView) findViewById(R.id.mark_listenter_text);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setToolBar(mToolbar, "选择位置", true, R.drawable.iv_close);
+
+        mTvLocation = (TextView) findViewById(R.id.tv_location);
+        //自定义手动定位按钮
+        mTvLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCurrentAddressBean.latLng != null) {
+                    aMap.moveCamera(CameraUpdateFactory.changeLatLng(mCurrentAddressBean.latLng));
+                    aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+                    log.e("onClick(): 手动定位成功");
+                } else {
+                    Toast.makeText(AppUtil.getAppContext(), "定位失败,请稍后再试", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        mSearch = (ImageView) findViewById(R.id.iv_search);
+        mSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AMapActivity.this, MapSearchActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+
+        //获取地图控件引用
+        mMapView = (MapView) findViewById(R.id.map);
+        //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
+        mMapView.onCreate(savedInstanceState);
+
+        aMap = mMapView.getMap();
+
+        aMap.setOnMarkerClickListener(this);// 设置点击marker事件监听器
+        aMap.setOnInfoWindowClickListener(this);// 设置点击infoWindow事件监听器
+        aMap.setOnCameraChangeListener(this); //设置屏幕移动监听
+        // aMap.setOnMapLoadedListener(this);// 设置amap加载成功事件监听器
+
+        aMap.setInfoWindowAdapter(this);// 设置自定义InfoWindow样式
+
+        //设置右上角手动定位定位按钮 并且可以点击
+        UiSettings settings = aMap.getUiSettings();
+        // 是否显示定位按钮
+        // settings.setMyLocationButtonEnabled(true);
+
+        // 设置定位监听
+        aMap.setLocationSource(this);
+        // 是否可触发定位并显示定位层
+        aMap.setMyLocationEnabled(true);
+
+        // 设置地图默认的指南针是否显示
+        // settings.setCompassEnabled(true);
+        // 设置地图默认的比例尺是否显示
+        // settings.setScaleControlsEnabled(true);
+        //  设置地图是否可以手势滑动
+        // settings.setScrollGesturesEnabled(true);
+        // 设置地图是否可以手势缩放大小
+        // settings.setZoomGesturesEnabled(true);
+        // 设置地图logo显示在左下方
+        // settings.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_LEFT);
+        // 设置地图logo显示在底部居中
+        // settings.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_CENTER);
+        // 设置地图logo显示在右下方
+        // settings.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_RIGHT);
+
+        // 点击 Marker （标记） 的事件
+        aMap.setOnMarkerClickListener(this);
+        // 设置定位样式
+        // aMap.setMyLocationStyle(getMyLocationStyle());
+
+        //开始定位
+        initLoc();
+    }
+
+    @NonNull
+    private MyLocationStyle getMyLocationStyle() {
+        //定位的小图标 默认是蓝点
+        MyLocationStyle myLocationStyle = new MyLocationStyle();
+        // myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.icon_gcoding));
+        myLocationStyle.radiusFillColor(android.R.color.transparent);
+        myLocationStyle.strokeColor(android.R.color.transparent);
+
+        // myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_SHOW);//只定位一次。
+        // myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE) ;//定位一次，且将视角移动到地图中心点。
+        // myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW) ;//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
+        // myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_MAP_ROTATE);//连续定位、且将视角移动到地图中心点，地图依照设备方向旋转，定位点会跟随设备移动。（1秒1次定位）
+        // myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）默认执行此种模式。
+
+        return myLocationStyle;
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 0 && data != null) {
 
-            AddressBean addressInfo = (AddressBean) data.getSerializableExtra("addressInfo");
+            AddressBean addressInfo = data.getParcelableExtra("addressInfo");
 
             LatLng latlng = new LatLng(addressInfo.getLatitude(), addressInfo.getLongitude());
             resetMarker(latlng, true);
@@ -109,77 +212,6 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_amap);
-
-        mMarkerAddressBean = new AddressBean();
-        mCurrentAddressBean = new AddressBean();
-        //
-        mTextView = (TextView) findViewById(R.id.mark_listenter_text);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setToolBar(mToolbar, "选择位置", true, R.drawable.iv_close);
-
-        mSearch = (ImageView) findViewById(R.id.iv_search);
-        mSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AMapActivity.this, MapSearchActivity.class);
-                startActivityForResult(intent, 0);
-            }
-        });
-
-        //获取地图控件引用
-        mMapView = (MapView) findViewById(R.id.map);
-        //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
-        mMapView.onCreate(savedInstanceState);
-
-        aMap = mMapView.getMap();
-
-        aMap.setOnMarkerClickListener(this);// 设置点击marker事件监听器
-        aMap.setOnInfoWindowClickListener(this);// 设置点击infoWindow事件监听器
-        aMap.setOnCameraChangeListener(this); //设置屏幕移动监听
-        // aMap.setOnMapLoadedListener(this);// 设置amap加载成功事件监听器
-
-        aMap.setInfoWindowAdapter(this);// 设置自定义InfoWindow样式
-
-        //设置右上角手动定位定位按钮 并且可以点击
-        UiSettings settings = aMap.getUiSettings();
-        // 是否显示定位按钮
-        settings.setMyLocationButtonEnabled(true);
-
-        // 设置定位监听
-        aMap.setLocationSource(this);
-        // 是否可触发定位并显示定位层
-        aMap.setMyLocationEnabled(true);
-
-        // 点击 Marker （标记） 的事件
-        aMap.setOnMarkerClickListener(this);
-        // 设置定位样式
-        // aMap.setMyLocationStyle(getMyLocationStyle());
-
-        //开始定位
-        initLoc();
-    }
-
-    @NonNull
-    private MyLocationStyle getMyLocationStyle() {
-        //定位的小图标 默认是蓝点
-        MyLocationStyle myLocationStyle = new MyLocationStyle();
-        // myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.icon_gcoding));
-        myLocationStyle.radiusFillColor(android.R.color.transparent);
-        myLocationStyle.strokeColor(android.R.color.transparent);
-
-        // myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_SHOW);//只定位一次。
-        // myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE) ;//定位一次，且将视角移动到地图中心点。
-        // myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW) ;//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
-        // myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_MAP_ROTATE);//连续定位、且将视角移动到地图中心点，地图依照设备方向旋转，定位点会跟随设备移动。（1秒1次定位）
-        // myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）默认执行此种模式。
-
-        return myLocationStyle;
-    }
-
     //定位
     private void initLoc() {
         //初始化定位
@@ -199,12 +231,11 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         //设置是否允许模拟位置,默认为false，不允许模拟位置
         mLocationOption.setMockEnable(false);
         //设置定位间隔,单位毫秒,默认为2000ms
-        mLocationOption.setInterval(5000);
+        mLocationOption.setInterval(2000);
         //给定位客户端对象设置定位参数
         mLocationClient.setLocationOption(mLocationOption);
         //启动定位
         mLocationClient.startLocation();
-        //mLocationClient.stopLocation();
     }
 
     //定位回调函数
@@ -232,20 +263,21 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
                 mCurrentAddressBean.cityCode = amapLocation.getCityCode();//城市编码
                 mCurrentAddressBean.adCode = amapLocation.getAdCode();//地区编码
 
-                mCurrentLatLng = new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude());
+                mCurrentAddressBean.latLng = new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude());
 
                 StringBuffer buffer = new StringBuffer();
                 buffer.append(amapLocation.getCountry() + "" + amapLocation.getProvince() + "" + amapLocation.getCity() + ""
                         + amapLocation.getProvince() + "" + amapLocation.getDistrict() + ""
                         + amapLocation.getStreet() + "" + amapLocation.getStreetNum());
 
-
-                log.e("onLocationChanged(): ================================================================================================================== " );
+                log.e("onLocationChanged(): ================================================================================================================== ");
                 log.e("onLocationChanged(): 定位地址: " + buffer.toString());
 
                 log.e("onLocationChanged(): mCurrentAddressBean: " + mCurrentAddressBean.toString());
                 log.e("onLocationChanged(): mMarkerAddressBean: " + mMarkerAddressBean.toString());
-                log.e("onLocationChanged(): ================================================================================================================== " );
+                log.e("onLocationChanged(): ================================================================================================================== ");
+
+                mListener.onLocationChanged(amapLocation);
 
                 // 如果不设置标志位，此时再拖动地图时，它会不断将地图移动到当前的位置
                 if (isFirstLoc) {
@@ -262,8 +294,9 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
                     //设置缩放级别
                     aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
                     //将地图移动到定位点
-                    aMap.moveCamera(CameraUpdateFactory.changeLatLng(mCurrentLatLng));
+                    aMap.moveCamera(CameraUpdateFactory.changeLatLng(mCurrentAddressBean.latLng));
                     //点击定位按钮 能够将地图的中心移动到定位点
+                    // 显示默认的系统小蓝点
                     mListener.onLocationChanged(amapLocation);
                     //添加图钉
                     Marker marker = aMap.addMarker(getMarkerOptions(amapLocation));
@@ -278,12 +311,11 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
                 }
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
-                Log.e("AmapError", "location Error, ErrCode:"
-                        + amapLocation.getErrorCode() + ", errInfo:"
-                        + amapLocation.getErrorInfo());
+                log.e("location Error, ErrCode:" + amapLocation.getErrorCode() +
+                        ", errInfo:" + amapLocation.getErrorInfo());
                 if (isFirstLoc) {
 
-                    // Toast.makeText(getApplicationContext(), "定位失败", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "定位失败", Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -321,9 +353,9 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         //标题
         //options.title(buffer.toString());
         //子标题
-        options.snippet("");
+        // options.snippet("");
         //设置多少帧刷新一次图片资源
-        options.period(60);
+        // options.period(60);
 
         //http://developer.amap.com/api/android-sdk/guide/create-map/mylocation#location-marker-5-0
         // 定位蓝点的图标锚点自定义：
@@ -360,8 +392,12 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
             mTask = null;
         }
 
-        mLocationClient.stopLocation();
-        mLocationClient.unRegisterLocationListener(this);
+        if (mLocationClient != null) {
+            mLocationClient.stopLocation();
+            mLocationClient.unRegisterLocationListener(this);
+            mLocationClient.onDestroy();
+            mLocationClient = null;
+        }
     }
 
     @Override
@@ -425,8 +461,7 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
      */
     @Override
     public View getInfoWindow(Marker marker) {
-        View infoWindow = getLayoutInflater().inflate(
-                R.layout.map_info_window, null);
+        View infoWindow = getLayoutInflater().inflate(R.layout.map_info_window, null);
         TextView titleUi = ((TextView) infoWindow.findViewById(R.id.title));
         titleUi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -455,13 +490,13 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
             }
         });
 
-        popupWindow.setAddressLoc(mMarkerAddressBean.getAddressLoc());
-        popupWindow.setAddressDetail(mMarkerAddressBean.getAddressDetail());
+        if (mMarkerAddressBean != null) {
+            popupWindow.setAddressLoc(mMarkerAddressBean.getAddressLoc());
+            popupWindow.setAddressDetail(mMarkerAddressBean.getAddressDetail());
+        }
 
         popupWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
-
-    protected final LogUtil log = LogUtil.getLogUtil(getClass(), LogUtil.LOG_VERBOSE);
 
     @Override
     public void onCameraChange(CameraPosition cameraPosition) {

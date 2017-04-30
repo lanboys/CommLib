@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/popup_color_shadow"
     android:gravity="bottom">
 
@@ -54,7 +54,7 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:focusable="false"
-                android:hint="湖南省 长沙区 天心区"
+                tools:hint="湖南省 长沙区 天心区"
                 android:maxLines="1"
                 android:textColor="#3a424d"
                 android:textSize="15sp"/>
@@ -75,7 +75,7 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:focusable="false"
-                android:hint="湖南省 长沙区 天心区 书院134路"
+                tools:hint="湖南省 长沙区 天心区 书院134路"
                 android:maxLines="2"
                 android:textColor="#3a424d"
                 android:textSize="15sp"/>

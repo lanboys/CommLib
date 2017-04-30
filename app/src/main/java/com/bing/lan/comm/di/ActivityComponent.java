@@ -23,7 +23,7 @@ import com.bing.lan.bing.ui.modifyPassword.ModifyPswActivity;
 import com.bing.lan.bing.ui.notavailable.NotAvailableActivity;
 import com.bing.lan.bing.ui.notsettlement.NotSettlementActivity;
 import com.bing.lan.bing.ui.register.RegisterActivity;
-import com.bing.lan.bing.ui.registerPOS.RegisterPosActivity;
+import com.bing.lan.bing.ui.registerPos.RegisterPosActivity;
 import com.bing.lan.bing.ui.shop.ShopActivity;
 import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;
 import com.bing.lan.bing.ui.shopcreate.ShopCreateActivity;

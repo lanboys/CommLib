@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bing.lan.bing.cons.ShopAuthenticationStatus;
-import com.bing.lan.bing.ui.registerPOS.RegisterPosActivity;
+import com.bing.lan.bing.ui.registerPos.RegisterPosActivity;
 import com.bing.lan.bing.ui.shop.bean.ShopInfoBean;
 import com.bing.lan.bing.ui.shop.bean.ShopResultBean;
 import com.bing.lan.bing.ui.shopauthenticate.ShopAuthenticateActivity;

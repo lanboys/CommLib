@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:gravity="center"
-                android:text="当前位置"
+                android:text="当前位置           "
                 android:textColor="@color/main_color_blue"
                 android:textSize="13sp"/>
             <TextView
@@ -56,11 +56,22 @@
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:singleLine="true"
-                tools:text="广东省广州市天河区广海路121号"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                tools:text="广东省广州市天河区广海路121号"/>
 
         </LinearLayout>
 
     </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/ic_my_location_black_48dp"
+    />
 
 </RelativeLayout>

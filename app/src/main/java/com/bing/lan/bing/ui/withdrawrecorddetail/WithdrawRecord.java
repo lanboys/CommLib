@@ -1,5 +1,4 @@
-package com.bing.lan.bing.ui.withdrawrecorddetail;
-
+package com.bing.lan.bing.ui.withdrawRecordDetail;
 /**
  * Author: yxhuang
  * Date: 2017/4/6

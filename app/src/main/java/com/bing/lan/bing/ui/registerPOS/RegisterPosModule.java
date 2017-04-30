@@ -1,4 +1,4 @@
-package com.bing.lan.bing.ui.registerPOS;
+package com.bing.lan.bing.ui.registerPos;
 
 import com.bing.lan.comm.api.ApiManager;
 import com.bing.lan.comm.api.service.HttpResult;

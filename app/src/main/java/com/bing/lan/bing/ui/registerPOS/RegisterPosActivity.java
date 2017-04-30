@@ -1,4 +1,4 @@
-package com.bing.lan.bing.ui.registerPOS;
+package com.bing.lan.bing.ui.registerPos;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;

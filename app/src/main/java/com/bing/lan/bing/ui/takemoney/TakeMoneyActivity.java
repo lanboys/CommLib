@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.bing.lan.bing.ui.withdrawrecorddetail.WithdrawRecordDetailActivity;
+import com.bing.lan.bing.ui.withdrawRecordDetail.WithdrawRecordDetailActivity;
 import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;

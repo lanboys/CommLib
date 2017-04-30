@@ -93,7 +93,8 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CODE_GET_ADDRESS_FORM_MAP && data != null) {
-            mAddressBean = (AddressBean) data.getSerializableExtra(ADDRESS_INFO);
+            // mAddressBean = (AddressBean) data.getSerializableExtra(ADDRESS_INFO);
+            mAddressBean = data.getParcelableExtra(ADDRESS_INFO);
             if (mAddressBean != null) {
                 //  mTvShopSelectAddress.setText(stringExtra);
                 mEtiShopSelectAddress.setEditContent(mAddressBean.getAddressDetail());

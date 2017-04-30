@@ -1,4 +1,4 @@
-package com.bing.lan.bing.ui.withdrawrecorddetail;
+package com.bing.lan.bing.ui.withdrawRecordDetail;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,8 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bing.lan.comm.R;
-import com.bing.lan.comm.utils.TimeUtil;
 import com.bing.lan.comm.utils.AppUtil;
+import com.bing.lan.comm.utils.TimeUtil;
 
 /**
  * 提现详情
