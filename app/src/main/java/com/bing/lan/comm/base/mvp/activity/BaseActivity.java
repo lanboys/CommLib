@@ -35,7 +35,7 @@ import com.bing.lan.comm.utils.ImmersionUtil;
 import com.bing.lan.comm.utils.LogUtil;
 import com.bing.lan.comm.utils.ProgressDialogUtil;
 import com.bing.lan.comm.utils.SPUtil;
-import com.bing.lan.comm.utils.photoselect.PhotoSelectCropUtil;
+import com.bing.lan.comm.utils.photoselect.PhotoSelectCropUtil1;
 import com.bing.lan.comm.utils.photoselect.UploadListener;
 
 import java.io.File;
@@ -68,7 +68,7 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     protected LogUtil log;
     @Inject
     protected T mPresenter;
-    protected PhotoSelectCropUtil mSelectPhotoUtil;
+    protected PhotoSelectCropUtil1 mSelectPhotoUtil;
 
     public UserInfoBean getUserInfoBean() {
         return mUserInfoBean;
@@ -469,7 +469,7 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
 
         if (isHaveSelectPhoto()) {
             //mSelectPhotoUtil = new PhotoSelectUtil(this);
-            mSelectPhotoUtil = new PhotoSelectCropUtil(this);
+            mSelectPhotoUtil = new PhotoSelectCropUtil1(this);
             mSelectPhotoUtil.setUploadListener(this);
         }
 

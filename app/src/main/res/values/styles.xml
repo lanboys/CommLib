@@ -80,7 +80,7 @@
         <item name="android:windowExitAnimation">@anim/popup_out_anim</item>
     </style>
 
-    <style tools:ignore="NewApi" name="CustomTheme" parent="android:Theme.DeviceDefault">
+    <style name="CustomTheme" parent="android:Theme.DeviceDefault" tools:ignore="NewApi">
         <item name="cropImageStyle">@style/Widget.CropImageView</item>
     </style>
 
@@ -159,6 +159,7 @@
     </style>
 
 
+    <!--<item name="android:scaleType">centerInside</item>-->
     <!-- 经销商/代理商页面 上传图片 主题 -->
     <style name="join_item_img_pic_style">
         <item name="android:scaleType">fitXY</item>

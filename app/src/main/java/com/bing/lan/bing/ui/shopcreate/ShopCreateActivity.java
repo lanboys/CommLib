@@ -113,6 +113,17 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
                 }
                 mPickerUtil.selectType(this);
 
+
+
+
+
+
+
+
+
+
+
+
                 break;
             case R.id.eti_shop_select_address:
                 //地图选址

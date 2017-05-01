@@ -9,25 +9,18 @@ import java.util.ArrayList;
 
 public class PickerUtil {
 
+    PickerItemSelectListener mListener;
     private ArrayList<ProvinceBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
-
     private OptionsPickerView pvOptions;
-
-    public void setListener(PickerItemSelectListener listener) {
-        mListener = listener;
-    }
 
     public PickerUtil(PickerItemSelectListener listener) {
         mListener = listener;
     }
 
-    PickerItemSelectListener mListener;
-
-    public interface PickerItemSelectListener {
-
-        void onItemSelect(String options1, String options2, String options3, View v);
+    public void setListener(PickerItemSelectListener listener) {
+        mListener = listener;
     }
 
     public void selectType(Activity activity) {
@@ -90,10 +83,6 @@ public class PickerUtil {
 
     }
 
-    //private ArrayList<ProvinceBean> options1Items = new ArrayList<>();
-    //private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
-    //private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
-
     private void initOptionData() {
 
         /**
@@ -108,25 +97,76 @@ public class PickerUtil {
 
         //选项2
         ArrayList<String> options2Items_01 = new ArrayList<>();
-        options2Items_01.add("");
-        //options2Items_01.add("佛山");
+        options2Items_01.add("蓝领");
+        options2Items_01.add("少女");
         //options2Items_01.add("东莞");
         //options2Items_01.add("珠海");
         ArrayList<String> options2Items_02 = new ArrayList<>();
-        options2Items_02.add("");
+        options2Items_02.add("白领");
         //options2Items_02.add("岳阳");
         //options2Items_02.add("株洲");
         //options2Items_02.add("衡阳");
         ArrayList<String> options2Items_03 = new ArrayList<>();
         options2Items_03.add("礼品鲜花");
         options2Items_03.add("餐饮外卖");
-        options2Items_03.add("丽人健身");
-        options2Items_03.add("休闲娱乐");
+        // options2Items_03.add("丽人健身");
+        // options2Items_03.add("休闲娱乐");
 
         options2Items.add(options2Items_01);
         options2Items.add(options2Items_02);
         options2Items.add(options2Items_03);
 
         /*--------数据源添加完毕---------*/
+
+        ArrayList<ArrayList<String>> options3Items_01 = new ArrayList<ArrayList<String>>();
+
+        ArrayList<String> options3Items_01_01 = new ArrayList<>();
+        options3Items_01_01.add("工人");
+        options3Items_01_01.add("大学生");
+
+        ArrayList<String> options3Items_01_02 = new ArrayList<>();
+        options3Items_01_02.add("女工人");
+        options3Items_01_02.add("大女学生");
+
+        options3Items_01.add(options3Items_01_01);
+        options3Items_01.add(options3Items_01_02);
+
+        ArrayList<ArrayList<String>> options3Items_02 = new ArrayList<ArrayList<String>>();
+
+
+        ArrayList<String> options3Items_02_01 = new ArrayList<>();
+        options3Items_02_01.add("女工人111");
+        options3Items_02_01.add("大女学生11");
+
+        options3Items_02.add(options3Items_02_01);
+
+        ArrayList<ArrayList<String>> options3Items_03 = new ArrayList<ArrayList<String>>();
+
+        ArrayList<String> options3Items_03_01 = new ArrayList<>();
+        options3Items_03_01.add("工人");
+        options3Items_03_01.add("大学生");
+
+        ArrayList<String> options3Items_03_02 = new ArrayList<>();
+        options3Items_03_02.add("女工人");
+        options3Items_03_02.add("大女学生");
+
+        options3Items_03.add(options3Items_03_01);
+        options3Items_03.add(options3Items_03_02);
+
+        options3Items.add(options3Items_01);
+        options3Items.add(options3Items_02);
+        options3Items.add(options3Items_03);
+
+
+
+    }
+
+    //private ArrayList<ProvinceBean> options1Items = new ArrayList<>();
+    //private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
+    //private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
+
+    public interface PickerItemSelectListener {
+
+        void onItemSelect(String options1, String options2, String options3, View v);
     }
 }

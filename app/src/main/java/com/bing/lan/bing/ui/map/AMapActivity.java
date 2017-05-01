@@ -353,9 +353,9 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         //标题
         //options.title(buffer.toString());
         //子标题
-        // options.snippet("");
+        options.snippet("");
         //设置多少帧刷新一次图片资源
-        // options.period(60);
+        options.period(60);
 
         //http://developer.amap.com/api/android-sdk/guide/create-map/mylocation#location-marker-5-0
         // 定位蓝点的图标锚点自定义：

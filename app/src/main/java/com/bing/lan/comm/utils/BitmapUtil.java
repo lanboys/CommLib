@@ -3,8 +3,14 @@ package com.bing.lan.comm.utils;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.media.ThumbnailUtils;
 import android.os.Build;
+import android.os.SystemClock;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,6 +26,8 @@ import java.io.OutputStream;
  */
 
 public class BitmapUtil {
+
+    protected static final LogUtil log = LogUtil.getLogUtil(BitmapUtil.class, LogUtil.LOG_VERBOSE);
 
     /**
      * @param options   参数
@@ -105,25 +113,40 @@ public class BitmapUtil {
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(pathName, options);
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        log.e("decodeSampledBitmapFromFile():  options.inSampleSize " + options.inSampleSize);
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
         options.inJustDecodeBounds = false;
         Bitmap src = BitmapFactory.decodeFile(pathName, options);
+
+        int bitmapAngle = getBitmapDegress(pathName);
+        if (bitmapAngle != 0) {
+            //对图片进行旋转校验 如果图片已经出现旋转了  现在开始复位并返回
+            src = rotateBitmapByAngle(src, bitmapAngle);
+            log.d("decodeSampledBitmapFromFile(): 照片旋转角度:  " + bitmapAngle);
+        }
+
         return createScaleBitmap(src, reqWidth, reqHeight, options.inSampleSize);
     }
 
-    protected static final LogUtil log = LogUtil.getLogUtil(BitmapUtil.class, LogUtil.LOG_VERBOSE);
-
-    public static long getBitmapsize(Bitmap bitmap) {
+    /**
+     * @param bitmap
+     * @return 字节
+     */
+    public static long getBitmapSize(Bitmap bitmap) {
 
         if (bitmap == null) {
-            log.e("getBitmapsize(): bitmap 为 null");
+            log.e("getBitmapSize(): bitmap 为 null");
             return 0;
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {    //API 19
+            return bitmap.getAllocationByteCount();
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {//API 12
             return bitmap.getByteCount();
         }
-        // Pre HC-MR1
-        return bitmap.getRowBytes() * bitmap.getHeight();
+        // 在低版本中用一行的字节x高度
+        return bitmap.getRowBytes() * bitmap.getHeight();                //earlier version
     }
 
     public static String savePicToSdcard(Bitmap bitmap, String path, String fileName) {
@@ -158,10 +181,155 @@ public class BitmapUtil {
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, os);
             os.flush();
             os.close();
+            if (!bitmap.isRecycled()) {
+                bitmap.recycle();
+            }
         } catch (IOException e) {
             log.e("savePicToSdcard():  " + e.getLocalizedMessage());
         }
 
         return destFile;
+    }
+
+    /**
+     * 质量压缩方法
+     *
+     * @param bitmap
+     * @param maxSize kb
+     */
+    public static File compressImage(Bitmap bitmap, File destFile, int maxSize) {
+
+        long startTime = SystemClock.currentThreadTimeMillis();
+        log.e("compressImage() startTime: " + startTime);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        int quality = 90;
+        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+
+        while (baos.toByteArray().length / 1024 > maxSize) {
+            baos.reset();
+            quality -= 10;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+            log.e("compressImage(): quality" + quality);
+        }
+
+        try {
+            baos.writeTo(new FileOutputStream(destFile));
+        } catch (Exception e) {
+            log.e("compressImage():  " + e.getLocalizedMessage());
+        } finally {
+            try {
+                baos.flush();
+                baos.close();
+            } catch (IOException e) {
+                log.e("compressImage():  " + e.getLocalizedMessage());
+            }
+        }
+
+        // if (!bitmap.isRecycled()) {
+        //     bitmap.recycle();
+        // }
+        long endTime = SystemClock.currentThreadTimeMillis();
+        log.e("compressImage() endTime: " + endTime);
+        log.e("compressImage() 压缩用时: " + (endTime - startTime));
+        try {
+            log.e("compressImage() 压缩后大小: " + FileUtil.formatFileSize(FileUtil.getFileSize(destFile)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return destFile;
+    }
+
+    /**
+     * 质量压缩方法
+     *
+     * @param image
+     * @return
+     */
+    public static Bitmap compressImage(Bitmap image, int maxSize) {
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        int options = 100;
+        while (baos.toByteArray().length / 1024 > maxSize) {
+            baos.reset();
+            image.compress(Bitmap.CompressFormat.JPEG, options, baos);
+            options -= 10;
+        }
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
+        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);
+        try {
+            baos.flush();
+            baos.close();
+            isBm.close();
+        } catch (IOException e) {
+            log.e("compressImage():  " + e.getLocalizedMessage());
+        }
+        // if (!image.isRecycled()) {
+        //     image.recycle();
+        // }
+
+        return bitmap;
+    }
+
+    /**
+     * 将图片路径Uri所表示的图片转换成指定大小的照片显示出来
+     */
+    public static Bitmap getThumbnail(Bitmap srcBmp, int reqWidth, int reqHeight) {
+        Bitmap dstBmp;
+        if (srcBmp.getWidth() < reqWidth && srcBmp.getHeight() < reqHeight) {
+            dstBmp = ThumbnailUtils.extractThumbnail(srcBmp, reqWidth, reqHeight);
+            // Otherwise the ratio between measures is calculated to fit requested thumbnail's one
+        } else {
+            int x = 0, y = 0, width = srcBmp.getWidth(), height = srcBmp.getHeight();
+            float ratio = ((float) reqWidth / (float) reqHeight) * ((float) srcBmp.getHeight() / (float) srcBmp.getWidth());
+            if (ratio < 1) {
+                x = (int) (srcBmp.getWidth() - srcBmp.getWidth() * ratio) / 2;
+                width = (int) (srcBmp.getWidth() * ratio);
+            } else {
+                y = (int) (srcBmp.getHeight() - srcBmp.getHeight() / ratio) / 2;
+                height = (int) (srcBmp.getHeight() / ratio);
+            }
+            dstBmp = Bitmap.createBitmap(srcBmp, x, y, width, height);
+        }
+        return dstBmp;
+    }
+
+    /**
+     * 获取位图的方向	0	90	180	  270
+     *
+     * @param path 图片的本地的文件地址
+     */
+    public static int getBitmapDegress(String path) {
+        int degress = 0;
+        try {
+            ExifInterface exifInterface = new ExifInterface(path);
+            int orietnaton = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+            switch (orietnaton) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    degress = 90;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    degress = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    degress = 270;
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return degress;
+    }
+
+    /**
+     * 当程序员发现如果返回的图片出现了旋转 可以通过该方法进行复位
+     */
+    public static Bitmap rotateBitmapByAngle(Bitmap bmp, int degress) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degress);
+        Bitmap result = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
+        return result;
     }
 }

@@ -168,7 +168,7 @@ public class AppUtil {
     }
 
     public static String getCacheDir() {
-        return FileUtils.getCacheDir();
+        return FileUtil.getCacheDir();
     }
 
     public static String getString(int strId) {
