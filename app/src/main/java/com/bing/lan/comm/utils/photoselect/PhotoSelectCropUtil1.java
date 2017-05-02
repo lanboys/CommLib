@@ -52,6 +52,15 @@ public class PhotoSelectCropUtil1 {
     private boolean isCrop = true;
     private boolean isCapture;
 
+    //350千字节(kb)=358400字节(b)
+    //400千字节(kb)=409600字节(b)
+    //500千字节(kb)=512000字节(b)
+    // 600千字节(kb)=614400字节(b)
+    // 0.7兆字节(mb)=734003.2字节(b)
+    // 1兆字节(mb)=1048576字节(b)
+
+    private long maxSize = 358400;
+
     public PhotoSelectCropUtil1(Activity context) {
         mContext = context;
     }
@@ -127,18 +136,18 @@ public class PhotoSelectCropUtil1 {
                 isCapture = true;
 
                 if (isCrop) {
-                    beginCrop(mCurrentPhotoUri);
+                    beginCrop(mCurrentPhotoUri, 1);
                 } else {
-                    handleCapture(mCurrentPhotoUri);
+                    handleCapture(mCurrentPhotoUri, 1);
                 }
             } else if (requestCode == Crop.REQUEST_PICK) {
                 //系统选择照片  界面返回
                 isCapture = false;
 
                 if (isCrop) {
-                    beginCrop(data.getData());
+                    beginCrop(data.getData(), 2);
                 } else {
-                    handlePick(data.getData());
+                    handlePick(data.getData(), 2);
                 }
             }
         }
@@ -150,29 +159,38 @@ public class PhotoSelectCropUtil1 {
     }
 
     //进入裁剪页面
-    private void beginCrop(Uri source) {
+    private void beginCrop(Uri source, int action) {
 
         String newPath = null;
         File file = null;
 
         try {
-            String path = source.getPath();
-            if (!isCapture) {
-                File file1 = CropUtil.getFromMediaUri(mContext, mContext.getContentResolver(), source);
-                if (file1 != null) {
-                    path = file1.getAbsolutePath();
+            //拍照 裁剪 返回 原路径加后缀保存
+            if (action == 1) {
+                String path = source.getPath();
+                if (!isCapture) {
+                    File file1 = CropUtil.getFromMediaUri(mContext, mContext.getContentResolver(), source);
+                    if (file1 != null) {
+                        path = file1.getAbsolutePath();
+                    }
                 }
-            }
 
-            String substring = path.substring(0, path.lastIndexOf("."));
-            newPath = substring + "_crop.jpg";
+                String substring = path.substring(0, path.lastIndexOf("."));
+                newPath = substring + "_crop.jpg";
+                file = new File(newPath);
+            }
         } catch (Exception e) {
             log.e("beginCrop():  " + e.getLocalizedMessage());
         }
-        if (newPath != null) {
-            file = new File(newPath);
-        } else {
-            file = new File(mContext.getCacheDir(), "crop");
+
+        //相册选择 裁剪 返回
+        if (file == null) {
+            try {
+                file = createImageFile("crop");
+            } catch (IOException e) {
+                log.e("beginCrop():  " + e.getLocalizedMessage());
+                file = new File(mContext.getCacheDir(), "crop");
+            }
         }
 
         Uri destination = Uri.fromFile(file);
@@ -184,7 +202,7 @@ public class PhotoSelectCropUtil1 {
     }
 
     //拍照
-    private void handleCapture(Uri source) {
+    private void handleCapture(Uri source, int action) {
         final File sourceFile = new File(source.getPath());
         new Thread() {
             @Override
@@ -204,7 +222,7 @@ public class PhotoSelectCropUtil1 {
                     mContext.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            checkPhotoSize(sourceFile, 1);
+                            checkPhotoSize(sourceFile, action);
                         }
                     });
                 } else {
@@ -215,14 +233,14 @@ public class PhotoSelectCropUtil1 {
     }
 
     //相册选照片
-    private void handlePick(Uri source) {
+    private void handlePick(Uri source, int action) {
 
         // try {
         // Bitmap bitmap = null;
         // bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), source);
         File file = CropUtil.getFromMediaUri(mContext, mContext.getContentResolver(), source);
 
-        checkPhotoSize(file, 2);
+        checkPhotoSize(file, action);
         // } catch ( Exception e) {
         //     e.printStackTrace();
         // }
@@ -258,9 +276,6 @@ public class PhotoSelectCropUtil1 {
         Bitmap bitmap = BitmapUtil.decodeSampledBitmapFromFile(sourceFile.getAbsolutePath(), 700, 600);
         mImageView.setImageBitmap(bitmap);
 
-        // 600千字节(kb)=614400字节(b)
-        // 0.7兆字节(mb)=734003.2字节(b)
-        // 1兆字节(mb)=1048576字节(b)
         //  height=140dp
         //  width=245dp
         long fileSize = 0;
@@ -269,7 +284,7 @@ public class PhotoSelectCropUtil1 {
         } catch (Exception e) {
             log.e("checkPhotoSize():  " + e.getLocalizedMessage());
         }
-        if (fileSize > 614400) {
+        if (fileSize > maxSize) {
             //压缩
 
             // Bitmap bitmap = BitmapFactory.decodeFile(sourceFile.getAbsolutePath(), opts1);
@@ -278,6 +293,8 @@ public class PhotoSelectCropUtil1 {
                 @Override
                 public void run() {
                     File newFile = null;
+
+                    //相册选中的照片 压缩后保存路径更改
                     if (action == 2) {
                         try {
                             newFile = createImageFile("small");
@@ -294,7 +311,7 @@ public class PhotoSelectCropUtil1 {
                         log.e("run(): newFile : " + newFile.toString());
                     }
 
-                    File sourceFile1 = BitmapUtil.compressImage(bitmap, newFile, 614400 / 1024);
+                    File sourceFile1 = BitmapUtil.compressImage(bitmap, newFile, (int) (maxSize / 1024));
                     //Bitmap bitmap1 = BitmapFactory.decodeFile(sourceFile1.getAbsolutePath());
 
                     returnResult(sourceFile1, bitmap);

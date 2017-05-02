@@ -1,5 +1,7 @@
 package com.bing.lan.bing.ui.shopcreate;
 
+import android.text.TextUtils;
+
 import com.bing.lan.bing.ui.shop.bean.ShopInfoBean;
 import com.bing.lan.comm.api.ApiManager;
 import com.bing.lan.comm.api.service.HttpResult;
@@ -45,7 +47,12 @@ public class ShopCreateModule extends BaseActivityModule
         map.put("city", createRequestBody((String) parameter[7]));
         map.put("area", createRequestBody((String) parameter[8]));
         map.put("address", createRequestBody((String) parameter[9]));
-        map.put("county_id", createRequestBody((String) parameter[10]));
+
+        String id = (String) parameter[10];
+
+        if (!TextUtils.isEmpty(id)) {
+            map.put("county_id", createRequestBody(id));
+        }
 
         map.put("lat", createRequestBody((String) parameter[11]));
         map.put("lng", createRequestBody((String) parameter[12]));

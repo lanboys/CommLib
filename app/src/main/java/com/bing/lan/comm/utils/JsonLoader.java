@@ -16,9 +16,11 @@ public class JsonLoader {
     //     mContext = context;
     // }
 
-    private static String loadAssetsJson(String fileName) {
+    public static String loadAssetsJson(Context context,String fileName) {
 
-        AssetManager assets = AppUtil.getAssets();
+
+        AssetManager assets = context.getAssets();
+
         try {
 
             InputStreamReader isr = new InputStreamReader(assets.open(fileName), "utf-8");
@@ -33,13 +35,13 @@ public class JsonLoader {
             return stringBuilder.toString();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            assets.close();
-        }
+        } /*finally {
+            //assets.close();
+        }*/
         return "error";
     }
 
-    private String getJson(Context context,String fileName) {
+    public String getJson(Context context,String fileName) {
 
         StringBuilder stringBuilder = new StringBuilder();
         try {

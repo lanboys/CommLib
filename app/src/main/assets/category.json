@@ -1,0 +1,391 @@
+{
+  "data": [
+    {
+      "categoryId": 1,
+      "childClassify": [
+        {
+          "categoryId": 1001,
+          "childClassify": [
+            {
+              "categoryId": 1001001,
+              "level": 3,
+              "name": "中餐"
+            },
+            {
+              "categoryId": 1001002,
+              "level": 3,
+              "name": "西餐"
+            },
+            {
+              "categoryId": 1001003,
+              "level": 3,
+              "name": "日韩菜"
+            },
+            {
+              "categoryId": 1001004,
+              "level": 3,
+              "name": "火锅烧烤"
+            },
+            {
+              "categoryId": 1001005,
+              "level": 3,
+              "name": "海鲜"
+            },
+            {
+              "categoryId": 1001006,
+              "level": 3,
+              "name": "风味特色菜"
+            },
+            {
+              "categoryId": 1001007,
+              "level": 3,
+              "name": "创意菜"
+            }
+          ],
+          "level": 2,
+          "name": "高档餐厅"
+        },
+        {
+          "categoryId": 1002,
+          "childClassify": [
+            {
+              "categoryId": 1002001,
+              "level": 3,
+              "name": "中餐"
+            },
+            {
+              "categoryId": 1002002,
+              "level": 3,
+              "name": "西餐"
+            },
+            {
+              "categoryId": 1002003,
+              "level": 3,
+              "name": "日韩菜"
+            },
+            {
+              "categoryId": 1002004,
+              "level": 3,
+              "name": "火锅烧烤"
+            },
+            {
+              "categoryId": 1002005,
+              "level": 3,
+              "name": "海鲜"
+            },
+            {
+              "categoryId": 1002006,
+              "level": 3,
+              "name": "风味特色菜"
+            },
+            {
+              "categoryId": 1002007,
+              "level": 3,
+              "name": "创意菜"
+            }
+          ],
+          "level": 2,
+          "name": "大众餐馆"
+        },
+        {
+          "categoryId": 1003,
+          "childClassify": [
+            {
+              "categoryId": 1003001,
+              "level": 3,
+              "name": "中餐"
+            },
+            {
+              "categoryId": 1003002,
+              "level": 3,
+              "name": "西餐"
+            },
+            {
+              "categoryId": 1003003,
+              "level": 3,
+              "name": "日韩菜"
+            },
+            {
+              "categoryId": 1003004,
+              "level": 3,
+              "name": "火锅烧烤"
+            },
+            {
+              "categoryId": 1003005,
+              "level": 3,
+              "name": "海鲜"
+            },
+            {
+              "categoryId": 1003006,
+              "level": 3,
+              "name": "风味特色菜"
+            }
+          ],
+          "level": 2,
+          "name": "速食快餐"
+        },
+        {
+          "categoryId": 1004,
+          "childClassify": [
+            {
+              "categoryId": 1004001,
+              "level": 3,
+              "name": "中餐"
+            },
+            {
+              "categoryId": 1004002,
+              "level": 3,
+              "name": "西餐"
+            },
+            {
+              "categoryId": 1004003,
+              "level": 3,
+              "name": "日韩菜"
+            },
+            {
+              "categoryId": 1004004,
+              "level": 3,
+              "name": "火锅烧烤"
+            },
+            {
+              "categoryId": 1004005,
+              "level": 3,
+              "name": "海鲜"
+            },
+            {
+              "categoryId": 1004006,
+              "level": 3,
+              "name": "风味特色菜"
+            }
+          ],
+          "level": 2,
+          "name": "自助餐厅"
+        },
+        {
+          "categoryId": 1005,
+          "childClassify": [
+            {
+              "categoryId": 1005001,
+              "level": 3,
+              "name": "中餐"
+            },
+            {
+              "categoryId": 1005002,
+              "level": 3,
+              "name": "西餐"
+            },
+            {
+              "categoryId": 1005003,
+              "level": 3,
+              "name": "日韩菜"
+            },
+            {
+              "categoryId": 1005004,
+              "level": 3,
+              "name": "火锅烧烤"
+            },
+            {
+              "categoryId": 1005005,
+              "level": 3,
+              "name": "海鲜"
+            },
+            {
+              "categoryId": 1005006,
+              "level": 3,
+              "name": "风味特色菜"
+            },
+            {
+              "categoryId": 1005007,
+              "level": 3,
+              "name": "创意菜"
+            }
+          ],
+          "level": 2,
+          "name": "私房会所"
+        },
+        {
+          "categoryId": 1006,
+          "childClassify": [
+            {
+              "categoryId": 1006001,
+              "level": 3,
+              "name": "咖啡甜品"
+            },
+            {
+              "categoryId": 1006002,
+              "level": 3,
+              "name": "面包糕点"
+            },
+            {
+              "categoryId": 1006003,
+              "level": 3,
+              "name": "休闲饮品"
+            },
+            {
+              "categoryId": 1006004,
+              "level": 3,
+              "name": "水果生鲜"
+            },
+            {
+              "categoryId": 1006005,
+              "level": 3,
+              "name": "特色小食"
+            },
+            {
+              "categoryId": 1006006,
+              "level": 3,
+              "name": "其它"
+            }
+          ],
+          "level": 2,
+          "name": "小食饮品"
+        }
+      ],
+      "level": 1,
+      "name": "餐饮食品"
+    },
+    {
+      "categoryId": 2,
+      "childClassify": [
+        {
+          "categoryId": 2001,
+          "level": 2,
+          "name": "电影/KTV"
+        },
+        {
+          "categoryId": 2002,
+          "level": 2,
+          "name": "演出/赛事"
+        },
+        {
+          "categoryId": 2003,
+          "level": 2,
+          "name": "桌游密室"
+        },
+        {
+          "categoryId": 2004,
+          "level": 2,
+          "name": "酒店旅行"
+        },
+        {
+          "categoryId": 2005,
+          "level": 2,
+          "name": "亲子游玩"
+        },
+        {
+          "categoryId": 2006,
+          "level": 2,
+          "name": "足疗洗浴"
+        },
+        {
+          "categoryId": 2007,
+          "level": 2,
+          "name": "商场购物"
+        }
+      ],
+      "level": 1,
+      "name": "休闲娱乐"
+    },
+    {
+      "categoryId": 3,
+      "childClassify": [
+        {
+          "categoryId": 3001,
+          "level": 2,
+          "name": "洗护修补"
+        },
+        {
+          "categoryId": 3002,
+          "level": 2,
+          "name": "社区家政"
+        },
+        {
+          "categoryId": 3003,
+          "level": 2,
+          "name": "汽车服务"
+        },
+        {
+          "categoryId": 3004,
+          "level": 2,
+          "name": "医药医疗"
+        },
+        {
+          "categoryId": 3005,
+          "level": 2,
+          "name": "宠物服务"
+        },
+        {
+          "categoryId": 3006,
+          "level": 2,
+          "name": "鲜花礼品"
+        },
+        {
+          "categoryId": 3007,
+          "level": 2,
+          "name": "交通租车"
+        },
+        {
+          "categoryId": 3008,
+          "level": 2,
+          "name": "教育培训"
+        },
+        {
+          "categoryId": 3009,
+          "level": 2,
+          "name": "商超便利"
+        }
+      ],
+      "level": 1,
+      "name": "生活服务"
+    },
+    {
+      "categoryId": 4,
+      "childClassify": [
+        {
+          "categoryId": 4001,
+          "level": 2,
+          "name": "美容美发"
+        },
+        {
+          "categoryId": 4002,
+          "level": 2,
+          "name": "纹身美甲"
+        },
+        {
+          "categoryId": 4003,
+          "level": 2,
+          "name": "摄影写真"
+        },
+        {
+          "categoryId": 4004,
+          "level": 2,
+          "name": "运动健身"
+        },
+        {
+          "categoryId": 4005,
+          "level": 2,
+          "name": "美体塑形"
+        }
+      ],
+      "level": 1,
+      "name": "丽人健身"
+    },
+    {
+      "categoryId": 5,
+      "childClassify": [
+        {
+          "categoryId": 5001,
+          "level": 2,
+          "name": "报刊媒体"
+        },
+        {
+          "categoryId": 5002,
+          "level": 2,
+          "name": "其它服务"
+        }
+      ],
+      "level": 1,
+      "name": "其它"
+    }
+  ]
+}

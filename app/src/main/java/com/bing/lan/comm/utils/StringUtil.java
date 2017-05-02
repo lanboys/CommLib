@@ -8,20 +8,20 @@ import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
+import com.bing.lan.comm.R;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringUtil {
 
     public final static String UTF_8 = "utf-8";
     private static final LogUtil log = LogUtil.getLogUtil(StringUtil.class, LogUtil.LOG_INFO);
-
-
 
     public static String bytesToHexString(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
@@ -110,6 +110,26 @@ public class StringUtil {
             last = str;
         }
         return true;
+    }
+
+    /**
+     * 设置搜索关键字高亮
+     *
+     * @param content 原文本内容
+     * @param keyword 关键字
+     */
+    private SpannableString setKeyWordColor(String content, String keyword) {
+        SpannableString s = new SpannableString(content);
+        Pattern p = Pattern.compile(keyword);
+        Matcher m = p.matcher(s);
+        int color = AppUtil.getAppRes().getColor(R.color.main_color_blue);
+
+        while (m.find()) {
+            int start = m.start();
+            int end = m.end();
+            s.setSpan(new ForegroundColorSpan(color), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        return s;
     }
 
     /**

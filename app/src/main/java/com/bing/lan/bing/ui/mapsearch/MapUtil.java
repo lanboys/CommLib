@@ -129,6 +129,9 @@ public class MapUtil {
         addressBean.longitude = latLng.longitude;
         addressBean.latLng = latLng;
         addressBean.latLonPoint = point;
+        addressBean.adCode = address.getAdCode();
+        addressBean.cityCode = address.getCityCode();
+        addressBean.townCode = address.getTowncode();
 
         if (area != null)
             addressBean.province = area;

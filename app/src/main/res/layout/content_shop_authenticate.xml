@@ -72,8 +72,8 @@
             android:id="@+id/eti_authenticate_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:edit_inputType="phone"
             app:edit_hint="身份证号码"
+            app:edit_inputType="phone"
             app:title="     身份证号码"/>
 
         <LinearLayout
@@ -115,8 +115,8 @@
 
         <LinearLayout
             style="@style/join_item_img_style"
-            android:paddingTop="0dp"
-            android:paddingBottom="23dp">
+            android:paddingBottom="23dp"
+            android:paddingTop="0dp">
             <TextView
                 style="@style/join_item_img_textView_style"
                 android:text="营业执照"/>
@@ -129,6 +129,8 @@
         <include layout="@layout/include_line_2"/>
 
         <LinearLayout
+            android:id="@+id/ll_shop_certificate_photo"
+                android:visibility="gone"
             style="@style/join_item_img_style">
             <TextView
                 style="@style/join_item_img_textView_style"
@@ -137,11 +139,13 @@
             <ImageView
                 android:id="@+id/iv_shop_certificate_photo"
                 style="@style/join_item_img_pic_style"
-                android:src="@drawable/id_card_pic"/>
+                android:src="@drawable/id_card_pic"
+            />
         </LinearLayout>
 
 
         <TextView
+            android:id="@+id/tv_tip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/main_color_white"
@@ -151,7 +155,8 @@
             android:paddingTop="7dp"
             android:text="可上传食品流通许可证、食品生产许可证、餐饮许可证"
             android:textColor="@color/main_color_text_gray"
-            android:textSize="10sp"/>
+            android:textSize="10sp"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/btn_apply_authenticate"

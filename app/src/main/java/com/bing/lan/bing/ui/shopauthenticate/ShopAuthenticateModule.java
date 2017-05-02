@@ -47,8 +47,12 @@ public class ShopAuthenticateModule extends BaseActivityModule
         map.put("Upload[file][]\"; filename=\"avatar.jpg", createRequestBody((File) parameter[6]));
         map.put("Upload[file][]\"; filename=\"avatar1.jpg", createRequestBody((File) parameter[7]));
         map.put("Upload[file][]\"; filename=\"avatar2.jpg", createRequestBody((File) parameter[8]));
-        map.put("Upload[file][]\"; filename=\"avatar3.jpg", createRequestBody((File) parameter[9]));
 
+        // 食品许可证 可能没有
+        File file = (File) parameter[9];
+        if (file != null) {
+            map.put("Upload[file][]\"; filename=\"avatar3.jpg", createRequestBody(file));
+        }
         return map;
     }
 }

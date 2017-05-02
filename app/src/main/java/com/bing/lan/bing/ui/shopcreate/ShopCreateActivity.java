@@ -2,6 +2,7 @@ package com.bing.lan.bing.ui.shopcreate;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,9 +16,13 @@ import com.bing.lan.comm.R;
 import com.bing.lan.comm.base.mvp.activity.BaseActivity;
 import com.bing.lan.comm.di.ActivityComponent;
 import com.bing.lan.comm.utils.picker.PickerUtil;
+import com.bing.lan.comm.utils.picker.bean.CategoryFirst;
+import com.bing.lan.comm.utils.picker.bean.CategorySecond;
+import com.bing.lan.comm.utils.picker.bean.CategoryThird;
 import com.bing.lan.comm.view.EditTextInputLayout;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -81,25 +86,10 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
     protected void readyStartPresenter() {
 
         //test
-        mEtiShopPhoneNumber.setEditContent("13556004884");
+        mEtiShopPhoneNumber.setEditContent("13556224884");
         mEtiShopkeeperName.setEditContent("蓝兵");
-        mEtiShopName.setEditContent("蓝兵店铺");
-        mEtiShopSelectType.setEditContent("餐饮食品,高档餐厅,中餐");
+        mEtiShopName.setEditContent("蓝兵的店铺");
         //test
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE_GET_ADDRESS_FORM_MAP && data != null) {
-            // mAddressBean = (AddressBean) data.getSerializableExtra(ADDRESS_INFO);
-            mAddressBean = data.getParcelableExtra(ADDRESS_INFO);
-            if (mAddressBean != null) {
-                //  mTvShopSelectAddress.setText(stringExtra);
-                mEtiShopSelectAddress.setEditContent(mAddressBean.getAddressDetail());
-            }
-        }
     }
 
     @OnClick({R.id.eti_shop_select_type, R.id.eti_shop_select_address, R.id.iv_shop_outer_photo,
@@ -112,17 +102,6 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
                     mPickerUtil = new PickerUtil(this);
                 }
                 mPickerUtil.selectType(this);
-
-
-
-
-
-
-
-
-
-
-
 
                 break;
             case R.id.eti_shop_select_address:
@@ -148,7 +127,7 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
                                                         mEtiShopkeeperName.getEditContent(),
                                                         mEtiShopName.getEditContent(),
                                                         category,
-                                                        mEtiShopSelectType.getEditContent(),
+                                                        category_name,
 
                                                         mAddressBean.province,
                                                         mAddressBean.city,
@@ -192,17 +171,76 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
         }
     }
 
-    private String getCountyId() {
-        return "1000,1000,1000";
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_GET_ADDRESS_FORM_MAP && data != null) {
+            // mAddressBean = (AddressBean) data.getSerializableExtra(ADDRESS_INFO);
+            mAddressBean = data.getParcelableExtra(ADDRESS_INFO);
+            if (mAddressBean != null) {
+                //  mTvShopSelectAddress.setText(stringExtra);
+                mEtiShopSelectAddress.setEditContent(mAddressBean.getAddressDetail());
+            }
+        }
     }
 
-    String category = "1,1001,1001001";
+    private String getCountyId() {
+
+        if (mAddressBean != null) {
+            String cityCode = mAddressBean.cityCode;
+            String adCode = mAddressBean.adCode;
+            return cityCode + "," + adCode;
+        }
+
+        return "";
+    }
+
+    String category;
+    String category_name;
 
     @Override
-    public void onItemSelect(String options1, String options2, String options3, View v) {
+    public void onItemSelect(ArrayList<CategoryFirst> options1Items1,
+            ArrayList<ArrayList<CategorySecond>> options2Items1,
+            ArrayList<ArrayList<ArrayList<CategoryThird>>> options3Items1,
+            int options1, int options2, int options3, View v) {
 
-        mEtiShopSelectType.setEditContent(options1 + "," + options2 + "," + options3);
-        category = "1,1001,1001001";
+        CategoryFirst categoryFirst = options1Items1.get(options1);
+        int categoryId1 = categoryFirst.getCategoryId();
+        String name1 = categoryFirst.getName();
+
+        CategorySecond categorySecond = options2Items1.get(options1).get(options2);
+
+        int categoryId2 = categorySecond.getCategoryId();
+        String name2 = categorySecond.getName();
+
+        CategoryThird categoryThird = options3Items1.get(options1).get(options2).get(options3);
+        int categoryId3 = categoryThird.getCategoryId();
+        String name3 = categoryThird.getName();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder1 = new StringBuilder();
+
+        stringBuilder.append(name1);
+        stringBuilder.append(",");
+        stringBuilder.append(name2);
+
+        stringBuilder1.append(categoryId1);
+        stringBuilder1.append(",");
+        stringBuilder1.append(categoryId2);
+
+        if (!TextUtils.isEmpty(name3)) {
+            stringBuilder.append(",");
+            stringBuilder.append(name3);
+
+            stringBuilder1.append(",");
+            stringBuilder1.append(categoryId3);
+        }
+
+        category_name = stringBuilder.toString();
+        category = stringBuilder1.toString();
+
+        mEtiShopSelectType.setEditContent(category_name);
     }
 
     File mShopOuterPhotoFile;
@@ -244,6 +282,8 @@ public class ShopCreateActivity extends BaseActivity<IShopCreateContract.IShopCr
 
     @Override
     public void goToShopAuthenticateActivity(ShopInfoBean shopInfoBean) {
+
+        shopInfoBean.categoryName = category_name;
 
         Intent intent = new Intent(this, ShopAuthenticateActivity.class);
         intent.putExtra(ShopActivity.SHOP_INFO, shopInfoBean);

@@ -43,6 +43,7 @@ public class ShopCreatePresenter
     public void onError(int action, Throwable e) {
         super.onError(action, e);
         mView.showToast("提交失败,请重试");
+        mView.dismissProgressDialog();
     }
 
     @Override

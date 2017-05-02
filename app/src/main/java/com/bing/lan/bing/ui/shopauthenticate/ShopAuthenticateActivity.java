@@ -5,6 +5,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bing.lan.bing.ui.shop.ShopActivity;
 import com.bing.lan.bing.ui.shop.bean.ShopInfoBean;
@@ -14,6 +16,7 @@ import com.bing.lan.comm.di.ActivityComponent;
 import com.bing.lan.comm.view.EditTextInputLayout;
 
 import java.io.File;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -27,7 +30,6 @@ public class ShopAuthenticateActivity extends BaseActivity<IShopAuthenticateCont
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-
 
     //名称/企业名称
     //身份证号码/法人
@@ -69,7 +71,15 @@ public class ShopAuthenticateActivity extends BaseActivity<IShopAuthenticateCont
     ImageView mIvShopCertificatePhoto;
     @BindView(R.id.btn_apply_authenticate)
     Button mBtnApplyAuthenticate;
+    @BindView(R.id.ll_shop_certificate_photo)
+    LinearLayout mLlShopCertificatePhoto;
+    @BindView(R.id.tv_tip)
+    TextView mTvTip;
     private ShopInfoBean mShopInfoBean;
+
+    private static final String SHOW = "鲜花礼品,商超便利,电影/KTV,商场购物,报刊媒体,餐饮食品";
+
+    boolean isShow = false;
 
     @Override
     protected int getLayoutResId() {
@@ -87,7 +97,22 @@ public class ShopAuthenticateActivity extends BaseActivity<IShopAuthenticateCont
 
         if (intent != null) {
             mShopInfoBean = (ShopInfoBean) intent.getSerializableExtra(ShopActivity.SHOP_INFO);
+            if (mShopInfoBean.categoryName != null) {
+                String[] split = mShopInfoBean.categoryName.split(",");
+                log.e("initViewAndData():  " + Arrays.toString(split));
+                log.e("initViewAndData():  " + SHOW);
+
+                for (String s : split) {
+                    if (SHOW.contains(s)) {
+                        isShow = true;
+                        break;
+                    }
+                }
+            }
         }
+
+        mLlShopCertificatePhoto.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        mTvTip.setVisibility(isShow ? View.VISIBLE : View.GONE);
 
         //test
         mEtiAuthenticateName.setEditContent("阿里巴巴");
@@ -123,22 +148,7 @@ public class ShopAuthenticateActivity extends BaseActivity<IShopAuthenticateCont
                                 if (mAuthenticateIdCardPhotoFile2 != null) {
                                     if (mEtiBusinessLicenseId.validate()) {
                                         if (mAuthenticateIdCardPhotoFile3 != null) {
-                                            if (mAuthenticateIdCardPhotoFile4 != null) {
-
-                                                //map.put("shop_id", createRequestBody((String) parameter[0]));
-                                                //map.put("store_id", createRequestBody((String) parameter[1]));
-                                                //
-                                                //map.put("companyName", createRequestBody((String) parameter[2]));
-                                                //map.put("idCardName", createRequestBody((String) parameter[3]));
-                                                //map.put("idCardNO", createRequestBody((String) parameter[4]));
-                                                //map.put("businessLicense", createRequestBody((String) parameter[5]));
-                                                //
-                                                //map.put("type", createRequestBody("2"));//企业
-                                                //
-                                                //map.put("Upload[file][]\"; filename=\"avatar.jpg", createRequestBody((File) parameter[6]));
-                                                //map.put("Upload[file][]\"; filename=\"avatar1.jpg", createRequestBody((File) parameter[7]));
-                                                //map.put("Upload[file][]\"; filename=\"avatar2.jpg", createRequestBody((File) parameter[8]));
-                                                //map.put("Upload[file][]\"; filename=\"avatar3.jpg", createRequestBody((File) parameter[9]));
+                                            if (!isShow || mAuthenticateIdCardPhotoFile4 != null) {
 
                                                 mPresenter.onStart(
                                                         mShopInfoBean.getShopId(),
@@ -204,7 +214,7 @@ public class ShopAuthenticateActivity extends BaseActivity<IShopAuthenticateCont
             case R.id.iv_authenticate_idCard_photo3://门店收银台照
                 mAuthenticateIdCardPhotoFile3 = source;
                 break;
-            case R.id.iv_shop_certificate_photo://门店收银台照
+            case R.id.iv_shop_certificate_photo://食品。。
                 mAuthenticateIdCardPhotoFile4 = source;
                 break;
         }

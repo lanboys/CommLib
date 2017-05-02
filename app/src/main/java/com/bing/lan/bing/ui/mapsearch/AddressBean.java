@@ -11,7 +11,7 @@ import com.amap.api.services.core.LatLonPoint;
  * @email lan_bing2013@163.com
  * @time 2017/4/16  15:38
  */
-public class AddressBean implements Parcelable {
+public class AddressBean implements Parcelable{
 
     public double longitude;//经度
     public double latitude;//纬度
@@ -34,10 +34,66 @@ public class AddressBean implements Parcelable {
     public String nearby;//附近
     public String cityCode;//城市编码
     public String adCode;//地区编码
+    public String townCode;//镇区编码
 
     public LatLng latLng;
     public LatLonPoint latLonPoint;
 
+    protected AddressBean(Parcel in) {
+        longitude = in.readDouble();
+        latitude = in.readDouble();
+        title = in.readString();
+        text = in.readString();
+        country = in.readString();
+        province = in.readString();
+        city = in.readString();
+        district = in.readString();
+        township = in.readString();
+        street = in.readString();
+        streetNum = in.readString();
+        nearby = in.readString();
+        cityCode = in.readString();
+        adCode = in.readString();
+        latLng = in.readParcelable(LatLng.class.getClassLoader());
+        latLonPoint = in.readParcelable(LatLonPoint.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(longitude);
+        dest.writeDouble(latitude);
+        dest.writeString(title);
+        dest.writeString(text);
+        dest.writeString(country);
+        dest.writeString(province);
+        dest.writeString(city);
+        dest.writeString(district);
+        dest.writeString(township);
+        dest.writeString(street);
+        dest.writeString(streetNum);
+        dest.writeString(nearby);
+        dest.writeString(cityCode);
+        dest.writeString(adCode);
+        dest.writeParcelable(latLng, flags);
+        dest.writeParcelable(latLonPoint, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<AddressBean> CREATOR = new Creator<AddressBean>() {
+        @Override
+        public AddressBean createFromParcel(Parcel in) {
+            return new AddressBean(in);
+        }
+
+        @Override
+        public AddressBean[] newArray(int size) {
+            return new AddressBean[size];
+        }
+    };
 
     @Override
     public String toString() {
@@ -50,7 +106,7 @@ public class AddressBean implements Parcelable {
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
                 ", district='" + district + '\'' +
-                ", township='" + township + '\'' +
+                ", \n township='" + township + '\'' +
                 ", street='" + street + '\'' +
                 ", streetNum='" + streetNum + '\'' +
                 ", nearby='" + nearby + '\'' +
@@ -69,33 +125,6 @@ public class AddressBean implements Parcelable {
         this.title = title;
         this.text = text;
     }
-
-    protected AddressBean(Parcel in) {
-        longitude = in.readDouble();
-        latitude = in.readDouble();
-        title = in.readString();
-        text = in.readString();
-        country = in.readString();
-        province = in.readString();
-        city = in.readString();
-        district = in.readString();
-        township = in.readString();
-        street = in.readString();
-        streetNum = in.readString();
-        nearby = in.readString();
-    }
-
-    public static final Creator<AddressBean> CREATOR = new Creator<AddressBean>() {
-        @Override
-        public AddressBean createFromParcel(Parcel in) {
-            return new AddressBean(in);
-        }
-
-        @Override
-        public AddressBean[] newArray(int size) {
-            return new AddressBean[size];
-        }
-    };
 
     /**
      * 省市区
@@ -175,26 +204,5 @@ public class AddressBean implements Parcelable {
 
     public String getText() {
         return text;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeDouble(longitude);
-        parcel.writeDouble(latitude);
-        parcel.writeString(title);
-        parcel.writeString(text);
-        parcel.writeString(country);
-        parcel.writeString(province);
-        parcel.writeString(city);
-        parcel.writeString(district);
-        parcel.writeString(township);
-        parcel.writeString(street);
-        parcel.writeString(streetNum);
-        parcel.writeString(nearby);
     }
 }

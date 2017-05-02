@@ -212,6 +212,14 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        System.gc();
+        System.runFinalization();
+    }
+
     //定位
     private void initLoc() {
         //初始化定位
@@ -570,6 +578,8 @@ public class AMapActivity extends AppCompatActivity implements LocationSource,
             setResult(ShopCreateActivity.REQUEST_CODE_GET_ADDRESS_FORM_MAP, date);
         }
         finish();
+        System.gc();
+        System.runFinalization();
     }
 
     public static class Task implements Runnable {
