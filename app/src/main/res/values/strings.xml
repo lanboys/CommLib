@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JZK</string>
+    <string name="app_name">营销助手</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_forget_password">ForgetPasswordActivity</string>
     <string name="title_activity_login">LoginActivity</string>

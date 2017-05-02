@@ -49,7 +49,7 @@ public class PhotoSelectCropUtil1 {
     private ImageView mImageView;
     private Uri mCurrentPhotoUri;
     private UploadListener mUploadListener;
-    private boolean isCrop = true;
+    private boolean isCrop = false;
     private boolean isCapture;
 
     //350千字节(kb)=358400字节(b)
