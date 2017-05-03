@@ -88,6 +88,7 @@ public class BaseApplication extends Application {
     public void onLowMemory() {
         super.onLowMemory();
         System.gc();
+        System.runFinalization();
     }
 
     //public boolean isNetworkAvailable = false;
