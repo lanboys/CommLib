@@ -50,6 +50,9 @@
     <color name="btn_color_blue">#42b0ff</color>
     <color name="btn_color_shallow">#b8dfff</color>
 
+    <!-- 按钮点击颜色（暂时未更改） -->
+    <color name="btn_color_click">#7dc8fd</color>
+
 
     <!-- 获取验证码 颜色 -->
     <color name="btn_color_yellow_normal">#ffce4b</color>

@@ -62,6 +62,7 @@ public class NetworkStateService extends Service {
                     //根据NetworkInfo.getTypeName()判断当前网络
                     String name = mInfo.getTypeName();
 
+
                     //更改NetworkStateService的静态变量，之后只要在Activity中进行判断就好了
                     if (name.equals("WIFI")) {
                         networkStatus = 2;

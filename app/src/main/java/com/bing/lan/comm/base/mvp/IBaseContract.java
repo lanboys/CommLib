@@ -70,5 +70,7 @@ public interface IBaseContract {
         void onError(int action, Throwable e);
 
         void onCompleted(int action);
+
+        void onNetError(int action,String tip);
     }
 }

@@ -84,8 +84,7 @@ public class LoginPresenter extends BaseActivityPresenter<ILoginContract.ILoginV
     @Override
     public void onError(int action, Throwable e) {
         super.onError(action, e);
-        mView.dismissProgressDialog();
-        mView.showToast(e.getLocalizedMessage());
+         mView.showToast("账号或密码错误");
     }
 
     @Override
@@ -125,7 +124,7 @@ public class LoginPresenter extends BaseActivityPresenter<ILoginContract.ILoginV
 
     @Override
     public void login(String type, String phone, String password) {
+        requestData(ACTION_LOGIN, this, type, phone, password);
         mView.showProgressDialog("正在登录..");
-        mModule.requestData(ACTION_LOGIN, this, type, phone, password);
     }
 }

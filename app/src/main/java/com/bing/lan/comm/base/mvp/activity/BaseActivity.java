@@ -473,7 +473,21 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
             mSelectPhotoUtil.setUploadListener(this);
         }
 
+        if (isMonitorNetwork()) {
+
+            boolean isNetworkAvailable = BaseApplication.netWorkStatus.isNetworkAvailable;
+            String netWorkTip = BaseApplication.netWorkStatus.netWorkTip;
+
+            if (!isNetworkAvailable) {
+                showToast(netWorkTip);
+            }
+        }
+
         readyStartPresenter();
+    }
+
+    protected boolean isMonitorNetwork() {
+        return true;
     }
 
     public UserType getUserType() {
@@ -590,14 +604,8 @@ public abstract class BaseActivity<T extends IBaseActivityPresenter>
     public void uploadAvatar(ImageView imageView, File source) {
         Toast.makeText(this, "上传图片", Toast.LENGTH_SHORT).show();
 
-       // File file = new File(source.getPath());
+        // File file = new File(source.getPath());
         // mPresenter.uploadAvatar(file);
-
-
-
-
-
-
 
     }
 }

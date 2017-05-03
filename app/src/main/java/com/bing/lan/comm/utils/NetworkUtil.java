@@ -33,42 +33,7 @@ public class NetworkUtil {
     private static final int NETWORK_4G = 14;
     private static final int NETWORK_MOBILE = 15;
 
-    /**
-     * check NetworkAvailable
-     */
-    public static boolean isNetworkAvailable(Context context) {
-        ConnectivityManager manager = (ConnectivityManager) context.getApplicationContext().getSystemService(
-                Context.CONNECTIVITY_SERVICE);
-        if (null == manager)
-            return false;
-        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-        // if (null == networkInfo || !networkInfo.isAvailable())
-        //     return false;
-        // return true;
-
-        return networkInfo != null && networkInfo.getState() == NetworkInfo.State.CONNECTED;
-    }
-
-    /**
-     * getLocalIpAddress
-     */
-    public static String getLocalIpAddress() {
-        String ret = "";
-        try {
-            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
-                NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
-                    InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress()) {
-                        ret = inetAddress.getHostAddress().toString();
-                    }
-                }
-            }
-        } catch (SocketException ex) {
-            ex.printStackTrace();
-        }
-        return ret;
-    }
+    protected static final LogUtil log = LogUtil.getLogUtil(NetworkUtil.class, LogUtil.LOG_VERBOSE);
 
     /**
      * 返回当前网络状态
@@ -91,7 +56,7 @@ public class NetworkUtil {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.e("getNetworkStateInt():  ", e);
         }
         return NET_ERROR;
     }
@@ -295,5 +260,94 @@ public class NetworkUtil {
         return ((mgrConn.getActiveNetworkInfo() != null && mgrConn
                 .getActiveNetworkInfo().getState() == NetworkInfo.State.CONNECTED) || mgrTel
                 .getNetworkType() == TelephonyManager.NETWORK_TYPE_UMTS);
+    }
+
+    /**
+     * check NetworkAvailable
+     */
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager manager = (ConnectivityManager) context.getApplicationContext().getSystemService(
+                Context.CONNECTIVITY_SERVICE);
+        if (null == manager)
+            return false;
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        // if (null == networkInfo || !networkInfo.isAvailable())
+        //     return false;
+        // return true;
+
+        return networkInfo != null && networkInfo.getState() == NetworkInfo.State.CONNECTED;
+    }
+
+    public static class NetWorkStatus {
+
+        public boolean isNetworkAvailable = false;
+
+        public String netWorkTip = "";
+    }
+
+    /**
+     * getNetWorkTip
+     */
+    public static NetWorkStatus getNetWorkStatus(Context context) {
+
+        NetWorkStatus netWorkStatus = new NetWorkStatus();
+
+        netWorkStatus.netWorkTip = "当前没有网络连接,请确保你已经打开网络";//请检查网络状态
+
+        ConnectivityManager manager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = manager.getActiveNetworkInfo();
+
+        if (activeNetwork != null) {
+            // connected to the internet
+            if (activeNetwork.isConnected()) {
+
+                netWorkStatus.isNetworkAvailable = true;
+
+                if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                    // connected to wifi
+                    netWorkStatus.netWorkTip = "当前WiFi连接可用";
+                    log.i("getNetWorkTip(): 当前WiFi连接可用");
+                } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                    // connected to the mobile provider's data plan
+                    netWorkStatus.netWorkTip = "当前移动网络连接可用";
+                    log.i("getNetWorkTip(): 当前移动网络连接可用");
+                }
+            } else {
+                log.e("getNetWorkTip(): 当前没有网络连接,请确保你已经打开网络");
+            }
+            log.i("getNetWorkTip(): TypeName：" + activeNetwork.getTypeName());
+            log.i("getNetWorkTip(): SubtypeName：" + activeNetwork.getSubtypeName());
+            log.i("getNetWorkTip(): State：" + activeNetwork.getState());
+            log.i("getNetWorkTip(): DetailedState：" + activeNetwork.getDetailedState().name());
+            log.i("getNetWorkTip(): ExtraInfo：" + activeNetwork.getExtraInfo());
+            log.i("getNetWorkTip(): Type：" + activeNetwork.getType());
+        } else {
+            // not connected to the internet
+            log.e("getNetWorkTip(): 当前没有网络连接,请确保你已经打开网络");
+        }
+
+        return netWorkStatus;
+    }
+
+    /**
+     * getLocalIpAddress
+     */
+    public static String getLocalIpAddress() {
+        String ret = "";
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress()) {
+                        ret = inetAddress.getHostAddress().toString();
+                    }
+                }
+            }
+        } catch (SocketException e) {
+            log.e("getLocalIpAddress():  ", e);
+        }
+        return ret;
     }
 }

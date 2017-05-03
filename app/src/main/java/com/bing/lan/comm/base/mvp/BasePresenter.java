@@ -36,7 +36,7 @@ public abstract class BasePresenter<
 
     @Override
     public void requestData(int action, Object... parameter) {
-
+        mModule.requestData(action, this, parameter);
     }
 
     @Override
@@ -46,10 +46,18 @@ public abstract class BasePresenter<
     @Override
     public void onError(int action, Throwable e) {
         mModule.refreshTask(action);
+        mView.dismissProgressDialog();
     }
 
     @Override
     public void onCompleted(int action) {
         mModule.refreshTask(action);
+        mView.dismissProgressDialog();
+    }
+
+    @Override
+    public void onNetError(int action, String tip) {
+        mView.showToast(tip);
+        mView.dismissProgressDialog();
     }
 }

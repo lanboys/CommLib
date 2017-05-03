@@ -1,6 +1,7 @@
 package com.bing.lan.comm.base.mvp;
 
 import com.bing.lan.comm.api.BaseSubscriber;
+import com.bing.lan.comm.app.BaseApplication;
 import com.bing.lan.comm.di.DaggerDiComponent;
 import com.bing.lan.comm.di.DiModule;
 import com.bing.lan.comm.utils.LogUtil;
@@ -94,6 +95,12 @@ public abstract class BaseModule implements IBaseContract.IBaseModule {
 
     @Override
     public void requestData(int action, IBaseContract.OnDataChangerListener listener, Object... parameter) {
+
+        if (!BaseApplication.netWorkStatus.isNetworkAvailable) {
+            listener.onNetError(action,BaseApplication.netWorkStatus.netWorkTip);
+            return;
+        }
+
         Subscription subscribe = mSubscriptions.get(String.valueOf(action));
         if (subscribe != null && !subscribe.isUnsubscribed()) {
             //任务正在进行中
@@ -108,7 +115,6 @@ public abstract class BaseModule implements IBaseContract.IBaseModule {
     }
 
     protected abstract void loadData(int action, IBaseContract.OnDataChangerListener listener, Object[] parameter);
-
 
     protected RequestBody createRequestBody(File file) {
 

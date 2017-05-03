@@ -1,13 +1,18 @@
 package com.bing.lan.comm.app;
 
 import android.app.Application;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Environment;
 import android.support.multidex.MultiDex;
 
 import com.bing.lan.bing.cons.UserInfoBean;
 import com.bing.lan.bing.cons.UserType;
 import com.bing.lan.comm.utils.AppUtil;
+import com.bing.lan.comm.utils.NetworkUtil;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import java.io.File;
@@ -26,9 +31,7 @@ public class BaseApplication extends Application {
 
     private static void initUserInfoBean() {
         mUser = new UserInfoBean();
-        mUser.mUserType= UserType.USER_TYPE_NOT_OA;
-
-
+        mUser.mUserType = UserType.USER_TYPE_NOT_OA;
     }
 
     //1.创建一个静态的事件总线
@@ -65,7 +68,47 @@ public class BaseApplication extends Application {
         //错误报告
         //ErrorReport.getInstance().init(this);
 
+        //网络状态广播注册
+        registerNetWorkReceiver();
     }
+
+    /**
+     * 网络状态广播注册
+     *
+     * @author hjy
+     * created at 2016/12/12 15:30
+     */
+    private void registerNetWorkReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(mBroadcastReceiver, intentFilter);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        System.gc();
+    }
+
+    //public boolean isNetworkAvailable = false;
+
+    public static NetworkUtil.NetWorkStatus netWorkStatus = new NetworkUtil.NetWorkStatus();
+
+    //网络状态变化的广播
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            netWorkStatus = NetworkUtil.getNetWorkStatus(context);
+
+            //if (AppUtil.checkNetwork(context)){
+            //    isNetworkAvailable = true;
+            //} else {
+            //    isNetworkAvailable = false;
+            //    Toast.makeText(context, "请检查网络状态", Toast.LENGTH_SHORT).show();
+            //}
+        }
+    };
 
     private File getCacheFile() {
         File sd = Environment.getExternalStorageDirectory();
