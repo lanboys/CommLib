@@ -5,7 +5,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 //dagger  ButterKnife 8.0.1
 
 //realm
- apply plugin: 'realm-android'
+apply plugin: 'realm-android'
 //realm
 
 //开启lambda
@@ -57,14 +57,25 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             signingConfig signingConfigs.amap
 
         }
 
+
         debug {
+//            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
             signingConfig signingConfigs.amap
         }
     }
@@ -254,5 +265,5 @@ dependencies {
     compile 'com.contrarywind:Android-PickerView:3.2.4'
     // RecyclerView 侧滑删除
     compile 'com.yanzhenjie:recyclerview-swipe:1.0.4'
-     compile project(':cropLib')
+    compile project(':cropLib')
 }
